@@ -249,3 +249,10 @@ mat_at_per, mat_at_den = wt2at_per(mat_wt_per, fuel_attr)
 #print(mat_wt_per)
 print(mat_at_per)
 #print(mat_at_den)
+
+# Create a class for fuel/cladding/coolant/etc.
+# it shoulid look something like
+# class fuel:
+#      isotopes
+#      atom density
+#      etc.

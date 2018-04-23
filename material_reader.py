@@ -232,7 +232,9 @@ def wt2at_per(wt_per, attr):
               'Check element to determine error' % (at_per[:, 1], at_per_sum))
     return at_per, at_den_sum
 
-
+def material_reader():
+    """This function will be called from the driver and will create a data
+    series for a material that is called"""
 
 
 # Get the current working directory

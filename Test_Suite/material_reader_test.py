@@ -206,7 +206,31 @@ def test_get_enr_per():
 
     return
 
+def test_get_mat_attr():
+    """This is a test of the get material attributes function which
+    scans the material card and pulls out information such as the density
+    """
+    cur_dir = os.path.dirname(__file__)
+
+    # Material with 1 element (Uranium)
+    mat_dir = os.path.join(cur_dir, '../Materials/27U.txt')
+    u27_mat_attr = mat_read.get_mat_attr(mat_dir)
+    assert u27_mat_attr[0] == 18.95
+
+    # Material with 2 elements (Uranium/Zirconium)
+    mat_dir = os.path.join(cur_dir, '../Materials/27U_10Zr.txt')
+    u27z_mat_attr = mat_read.get_mat_attr(mat_dir)
+    assert u27z_mat_attr[0] == 15.47
+
+    # Material with 3 elements (Uranium/Zirconium)
+    mat_dir = os.path.join(cur_dir, '../Materials/20Pu_10U_10Zr.txt')
+    pu20u10z_mat_attr = mat_read.get_mat_attr(mat_dir)
+    assert pu20u10z_mat_attr[0] == 15.77
+
+    return
+
 test_element_input()
 test_elem_at2wt_per()
 test_material_creator()
 test_get_enr_per()
+test_get_mat_attr()

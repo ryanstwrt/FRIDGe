@@ -14,27 +14,27 @@ def element_input(elem_path):
     """returns an array with the elements present"""
     # Allocate space for elements being added
     num_elements = int(sum(1 for line in open(elem_path) if line.rstrip()) - 3)
-    element = np.zeros((num_elements, 6))
+    isotopes = np.zeros((num_elements, 6))
     sum_wt = 0
     with open(elem_path, "r") as mat_file:
+        iso_num = 0
         for i, line in enumerate(mat_file):
             mat_line = [x for x in line.split(' ')]
             if i == 1:
                 isotope = mat_line[0]
             if i > 2:
-                element[i-3][0] = isotope
-                element[i-3][1] = mat_line[0]
-                element[i-3][2] = mat_line[1]
-                element[i-3][3] = mat_line[2]
-                element[i-3][4] = mat_line[3]
-                element[i-3][5] = mat_line[4]
-            sum_wt += element[i-3][3]
-        if sum_wt == 0:
-            pass
-        elif sum_wt != 1:
+                isotopes[iso_num][0] = isotope
+                isotopes[iso_num][1] = mat_line[0]
+                isotopes[iso_num][2] = mat_line[1]
+                isotopes[iso_num][3] = mat_line[2]
+                isotopes[iso_num][4] = mat_line[3]
+                isotopes[iso_num][5] = mat_line[4]
+                sum_wt += isotopes[iso_num][3]
+                iso_num += 1
+        if sum_wt != 1:
             print('WARNING: The weight of %s was %f and not normalized to 1. '
                   'Check element to determine error' % (elem_path[-6:], sum_wt))
-    return element
+    return isotopes
 
 
 # The material creator function iterates over all materials in the string
@@ -48,7 +48,7 @@ def material_creator(mat_str):
         if not os.path.isfile(elem_path):
             print('FATAL ERROR: Element currently not supported. '
                   'Please create element or utilize a different material.'
-                  'Element creator module can be found in *********')
+                  'Element creator module can be found in /FRIDGE/Utilities')
             quit()
         # Obtain the first isotope from the file
         if i == 0:
@@ -232,22 +232,22 @@ txt_ext = ".txt"
 fuel_str = ["U", "Pu", "Zr"]
 
 # Get the current working directory
-cur_dir = os.path.dirname(__file__)
+#cur_dir = os.path.dirname(__file__)
 # Find the Material director, and the path to the specific element
-elem_dir = os.path.join(cur_dir, 'CotN')
-mat_dir = os.path.join(cur_dir, 'Materials')
-mat_path = os.path.join(mat_dir, '20Pu_10U_10Zr.txt')
+#elem_dir = os.path.join(cur_dir, 'CotN')
+#mat_dir = os.path.join(cur_dir, 'Materials')
+#mat_path = os.path.join(mat_dir, '20Pu_10U_10Zr.txt')
 
 # Order in which material reader should be read
-fuel = material_creator(fuel_str)
-fuel_wt_per = get_wt_per(mat_path)
-fuel_enr = get_enr_per(mat_path)
-fuel_attr = get_mat_attr(mat_path)
-mat_wt_per = wt_per_calc(fuel, fuel_wt_per, fuel_enr)
-mat_at_per, mat_at_den = wt2at_per(mat_wt_per, fuel_attr)
+#fuel = material_creator(fuel_str)
+#fuel_wt_per = get_wt_per(mat_path)
+#fuel_enr = get_enr_per(mat_path)
+#fuel_attr = get_mat_attr(mat_path)
+#mat_wt_per = wt_per_calc(fuel, fuel_wt_per, fuel_enr)
+#mat_at_per, mat_at_den = wt2at_per(mat_wt_per, fuel_attr)
 
 #print(mat_wt_per)
-print(mat_at_per)
+#print(mat_at_per)
 #print(mat_at_den)
 
 # Create a class for fuel/cladding/coolant/etc.

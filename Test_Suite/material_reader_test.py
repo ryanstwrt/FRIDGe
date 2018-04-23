@@ -74,7 +74,9 @@ def test_elem_at2wt_per():
     individual element. The same elements from the previous test will be used
     for this test. In addition to those, Pu is also tested to determine
     the functions ability to process elements with no naturally occurring
-    isotopes"""
+    isotopes. For sodium and uranium, the values were varified against the
+    'Compendium of Material Composition Data for Radiation Transport Modeling'
+    PNNL-15870 REV. 1"""
     # One isotope reader for Sodium, note that no values should change
     # since we only have one isotope present.
     cur_dir = os.path.dirname(__file__)

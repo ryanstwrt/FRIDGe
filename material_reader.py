@@ -2,7 +2,9 @@ import numpy as np
 import os
 
 avgdro_num = 0.60221409
-
+# Requirements for the material reader
+txt_ext = ".txt"
+#fuel_str = ["U", "Pu", "Zr"]
 
 # This function obtains the physical properties of each isotope present in a material
 # Where the properties are as such
@@ -36,12 +38,30 @@ def element_input(elem_path):
                   'Check element to determine error' % (elem_path[-6:], sum_wt))
     return isotopes
 
+# Converts the original elemental data (which is from the Chart of the Nuclides)
+# from atom percent to weight percent. This is to ensure everything is on =
+# equal setting when working with wt% and enrichment.
+def elem_at2wt_per(at_per):
+    num_elem = int(sum(1 for i in enumerate(at_per)))
+    wt_per = np.copy(at_per)
+    mol_wt = 0
+    wt_by_mass = np.zeros(num_elem)
+    for i, x in enumerate(at_per):
+        wt_by_mass[i] = x[2]*x[3]
+        mol_wt += wt_by_mass[i]
+    for i, x in enumerate(at_per):
+        # Pass for elements with no naturally occurring isotopes
+        if mol_wt == 0:
+            pass
+        else:
+            wt_per[i][3] = wt_by_mass[i] / mol_wt
+    return wt_per
 
 # The material creator function iterates over all materials in the string
 # and appends then into one material vector which will then be passed on to
 # the atom density calculator
 def material_creator(mat_str):
-    """" Iterate over all isotopes from the material string """
+    """" Iterate over all isotopes from the material string"""
     for i in range(len(mat_str)):
         elem_path = os.path.join(elem_dir, mat_str[i] + txt_ext)
         # Determine if the element exists, if not kill the program and report message
@@ -187,23 +207,7 @@ def wt_per_calc(elem_vec, wt_per_vec, enr_vec):
     return mat_elem_vec
 
 
-# Converts the original elemental data (which is from the Chart of the Nuclides)
-# from atom percent to weight percent. This is to ensure everything is on =
-# equal setting when working with wt% and enrichment.
-def elem_at2wt_per(at_per):
-    num_elem = int(sum(1 for i in enumerate(at_per)))
-    wt_per = at_per
-    mol_wt = 0
-    wt_by_mass = np.zeros(num_elem)
-    for i, x in enumerate(at_per):
-        wt_by_mass[i] = x[2]*x[3]
-        mol_wt += wt_by_mass[i]
-    for i, x in enumerate(at_per):
-        if mol_wt == 0:
-            pass
-        else:
-            wt_per[i][3] = wt_by_mass[i] / mol_wt
-    return at_per
+
 
 
 # Converts the array of wt % to atom % and returns the atom density for use
@@ -227,9 +231,7 @@ def wt2at_per(wt_per, attr):
     return at_per, at_den_sum
 
 
-# Requirements for the material reader
-txt_ext = ".txt"
-fuel_str = ["U", "Pu", "Zr"]
+
 
 # Get the current working directory
 #cur_dir = os.path.dirname(__file__)

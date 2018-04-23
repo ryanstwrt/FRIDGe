@@ -1,4 +1,5 @@
 import FRIDGe.material_reader as mat_read
+import numpy as np
 import os
 
 
@@ -67,4 +68,64 @@ def test_element_input():
 
     return
 
+
+def test_elem_at2wt_per():
+    """ This is a test for the atom percent to weight percent function for
+    individual element. The same elements from the previous test will be used
+    for this test. In addition to those, Pu is also tested to determine
+    the functions ability to process elements with no naturally occurring
+    isotopes"""
+    # One isotope reader for Sodium, note that no values should change
+    # since we only have one isotope present.
+    cur_dir = os.path.dirname(__file__)
+    elem_dir = os.path.join(cur_dir, '../CotN/Na.txt')
+    na_wt_per = mat_read.element_input(elem_dir)
+    na_at_per = mat_read.elem_at2wt_per(na_wt_per)
+    assert na_at_per[0][0] == 11000
+    assert na_at_per[0][1] == 11023
+    assert na_at_per[0][2] == 22.9897692820
+    assert na_at_per[0][3] == 1.00
+    assert na_at_per[0][4] == 0.968
+
+    # Two isotope test for Vanadium.
+    cur_dir = os.path.dirname(__file__)
+    elem_dir = os.path.join(cur_dir, '../CotN/V.txt')
+    v_at_per = mat_read.element_input(elem_dir)
+    v_wt_per = mat_read.elem_at2wt_per(v_at_per)
+    assert np.allclose(v_wt_per[0][3], 0.0024512)
+    assert np.allclose(v_wt_per[1][3], 0.9975487)
+
+    # Four isotope test for Uranium, where one isotope is not naturally occurring.
+    cur_dir = os.path.dirname(__file__)
+    elem_dir = os.path.join(cur_dir, '../CotN/U.txt')
+    u_at_per = mat_read.element_input(elem_dir)
+    u_wt_per = mat_read.elem_at2wt_per(u_at_per)
+    assert np.allclose(u_wt_per[0][3], 0.0000531)
+    assert np.allclose(u_wt_per[1][3], 0.0071137)
+    assert np.allclose(u_wt_per[2][3], 0.0000000)
+    assert np.allclose(u_wt_per[3][3], 0.9928332)
+
+    # No naturally occuring isotope check for Pu.
+    cur_dir = os.path.dirname(__file__)
+    elem_dir = os.path.join(cur_dir, '../CotN/Pu.txt')
+    pu_at_per = mat_read.element_input(elem_dir)
+    pu_wt_per = mat_read.elem_at2wt_per(pu_at_per)
+    assert np.allclose(pu_wt_per[0][3], 0.000)
+    assert np.allclose(pu_wt_per[1][3], 0.000)
+    assert np.allclose(pu_wt_per[2][3], 0.000)
+    assert np.allclose(pu_wt_per[3][3], 0.000)
+    assert np.allclose(pu_wt_per[4][3], 0.000)
+    return
+
+def test_material_creator():
+    """ This is a test of the material creator function which reads in
+    elements from the CotN and creates an array of them. The test will test
+    a material with 1, 2 and 3 elements present."""
+
+    # Material with 1 element (Uranium metal)
+
+
+    return
+
 test_element_input()
+test_elem_at2wt_per()

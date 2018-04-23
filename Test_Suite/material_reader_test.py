@@ -81,13 +81,13 @@ def test_elem_at2wt_per():
     # since we only have one isotope present.
     cur_dir = os.path.dirname(__file__)
     elem_dir = os.path.join(cur_dir, '../CotN/Na.txt')
-    na_wt_per = mat_read.element_input(elem_dir)
-    na_at_per = mat_read.elem_at2wt_per(na_wt_per)
-    assert na_at_per[0][0] == 11000
-    assert na_at_per[0][1] == 11023
-    assert na_at_per[0][2] == 22.9897692820
-    assert na_at_per[0][3] == 1.00
-    assert na_at_per[0][4] == 0.968
+    na_at_per = mat_read.element_input(elem_dir)
+    na_wt_per = mat_read.elem_at2wt_per(na_at_per)
+    assert na_wt_per[0][0] == 11000
+    assert na_wt_per[0][1] == 11023
+    assert na_wt_per[0][2] == 22.9897692820
+    assert na_wt_per[0][3] == 1.00
+    assert na_wt_per[0][4] == 0.968
 
     # Two isotope test for Vanadium.
     cur_dir = os.path.dirname(__file__)

@@ -1,0 +1,28 @@
+Fuel Pin Data
+Pin _Diameter 0.53
+Clad_Thickness 0.037
+Fuel_Smear 0.75
+Pitch 0.013***
+Wire_Wrap_Diameter 0.126
+Height 60
+Fuel 27U
+Clad HT9
+Bond Na
+
+Assembly Data
+Pin_per_assembly 271
+Assembly_Pitch 12
+Duct_Thickness 0.3
+Assembly_Gap 0.3
+Duct_Inside_Flat_to_Flat 11.1
+Coolant Na
+Assembly HT9
+
+Plenum Data
+Smear 0.25 0.25 0.50
+Na Void HT9
+
+Fuel Reflector Data
+Height 50
+Smear 0.3 0.7
+Na HT9

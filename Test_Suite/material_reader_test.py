@@ -76,7 +76,7 @@ def test_elem_at2wt_per():
     the functions ability to process elements with no naturally occurring
     isotopes. For sodium and uranium, the values were varified against the
     'Compendium of Material Composition Data for Radiation Transport Modeling'
-    PNNL-15870 REV. 1"""
+    PNNL-15870 REV. 1' """
     # One isotope reader for Sodium, note that no values should change
     # since we only have one isotope present.
     cur_dir = os.path.dirname(__file__)
@@ -277,7 +277,6 @@ def test_wt_per_cal():
     pu10_10u_mat_attr = mat_read.get_wt_per(pu10_10u_path)
     pu10_10u_enr = mat_read.get_enr_per(pu10_10u_path)
     pu10_10u_mat_vector = mat_read.wt_per_calc(pu10_10u_material, pu10_10u_mat_attr, enr_vec=pu10_10u_enr)
-    print(pu10_10u_mat_vector)
 
     # Check for U-235
     assert pu10_10u_mat_vector[0][0] == 92000
@@ -310,8 +309,62 @@ def test_wt_per_cal():
             assert pu10_10u_mat_vector[3][1] == 94240
     # Check one Zr isotope's weight percent
     assert np.allclose(pu10_10u_mat_vector[4][3], 0.050706)
+    return
 
 
+def test_wt2at_per():
+    """Test the weight percent to atom percent function for three different
+    materials; sodium, LEU, and 20% Pu 80% U and 10% Zr. LEU was verified
+    against the 'Compendium of Material Composition Data for Radiation
+    Transport Modeling PNNL-15870 REV. 1' """
+    cur_dir = os.path.dirname(__file__)
+
+    # Material with 1 element (Sodium)
+    elem_dir = os.path.join(cur_dir, '../CotN/')
+    liquid_na_path = os.path.join(cur_dir, '../Materials/Liquid_Na.txt')
+
+    na_material = mat_read.material_creator(elem_dir, ["Na"])
+    liquid_na_mat_wt_per = mat_read.get_wt_per(liquid_na_path)
+    liquid_na_mat_attr = mat_read.get_mat_attr(liquid_na_path)
+    liquid_na_mat_vector = mat_read.wt_per_calc(na_material, liquid_na_mat_wt_per)
+    na_atom_vec, na_atom_density = mat_read.wt2at_per(liquid_na_mat_vector, liquid_na_mat_attr)
+
+    assert np.allclose(na_atom_density, 0.024282647)
+    assert na_atom_vec[0][3] == 1.0
+
+    # Material with 1 element (enriched)
+    elem_dir = os.path.join(cur_dir, '../CotN/')
+    leu_material = mat_read.material_creator(elem_dir, ["U"])
+    leu_path = os.path.join(cur_dir, '../Materials/LEU.txt')
+    leu_wt_per = mat_read.get_wt_per(leu_path)
+    leu_mat_attr = mat_read.get_mat_attr(leu_path)
+    leu_enr = mat_read.get_enr_per(leu_path)
+    leu_mat_vector = mat_read.wt_per_calc(leu_material, leu_wt_per, enr_vec=leu_enr)
+    leu_atom_vector, leu_atom_density = mat_read.wt2at_per(leu_mat_vector, leu_mat_attr)
+
+    assert np.allclose(leu_atom_density, 0.047944)
+    assert np.isclose(leu_atom_vector[0][3], 0.000271, atol=0.000001)
+    assert np.allclose(leu_atom_vector[1][3], 0.030372)
+    assert np.allclose(leu_atom_vector[2][3], 0.000139, atol=0.000001)
+    assert np.allclose(leu_atom_vector[3][3], 0.969217)
+
+    # Material with 3 elements (two enriched)
+    elem_dir = os.path.join(cur_dir, '../CotN/')
+    upuzr_material = mat_read.material_creator(elem_dir, ["U", "Pu", "Zr"])
+    upuzr_path = os.path.join(cur_dir, '../Materials/20Pu_10U_10Zr.txt')
+    upuzr_wt_per = mat_read.get_wt_per(upuzr_path)
+    upuzr_mat_attr = mat_read.get_mat_attr(upuzr_path)
+    upuzr_enr = mat_read.get_enr_per(upuzr_path)
+    upuzr_mat_vector = mat_read.wt_per_calc(upuzr_material, upuzr_wt_per, enr_vec=upuzr_enr)
+    upuzr_atom_vector, upuzr_atom_density = mat_read.wt2at_per(upuzr_mat_vector, upuzr_mat_attr)
+    print(upuzr_atom_vector, upuzr_atom_density)
+
+    assert np.allclose(upuzr_atom_density, 0.0463159)
+    assert np.isclose(upuzr_atom_vector[0][3], 0.061066, atol=0.000001)
+    assert np.allclose(upuzr_atom_vector[1][3], 0.542654, atol=0.000001)
+    assert np.allclose(upuzr_atom_vector[2][3], 0.161257, atol=0.000001)
+    assert np.allclose(upuzr_atom_vector[3][3], 0.010250, atol=0.000001)
+    assert np.allclose(upuzr_atom_vector[4][3], 0.115646, atol=0.000001)
 
     return
 
@@ -322,3 +375,4 @@ test_material_creator()
 test_get_enr_per()
 test_get_mat_attr()
 test_wt_per_cal()
+test_wt2at_per()

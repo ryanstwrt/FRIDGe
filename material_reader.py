@@ -1,7 +1,7 @@
 import numpy as np
 import os
 
-avgdro_num = 0.60221409
+avgdro_num = 0.6022140857
 # Requirements for the material reader
 txt_ext = ".txt"
 #fuel_str = ["U", "Pu", "Zr"]
@@ -213,7 +213,7 @@ def wt_per_calc(elem_vec, wt_per_vec, enr_vec=[]):
 # in the cell cards
 def wt2at_per(wt_per, attr):
     at_den = np.zeros(len(wt_per))
-    at_per = wt_per
+    at_per = np.copy(wt_per)
     at_den_sum = 0
     at_per_sum = 0
     # Get the total atom density (to be used in the cell card and for the

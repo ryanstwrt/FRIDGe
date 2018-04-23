@@ -11,8 +11,8 @@ def test_element_input():
     cur_dir = os.path.dirname(__file__)
     elem_dir = os.path.join(cur_dir, '../CotN/Na.txt')
     elem = mat_read.element_input(elem_dir)
-    na_elem_num = 23000
-    na_zaid = 23023
+    na_elem_num = 11000
+    na_zaid = 11023
     na_mass_num = 22.9897692820
     na_abun = 1.00
     na_density = 0.968
@@ -22,7 +22,24 @@ def test_element_input():
     assert na_abun == elem[0][3]
     assert na_density == elem[0][4]
 
-    # Two isotope reader for
+    # Two isotope reader for Vanadium
+    elem_dir = os.path.join(cur_dir, '../CotN/V.txt')
+    elem = mat_read.element_input(elem_dir)
+
+    # Check element number
+    assert elem[0][0] == 23000
+    # Check ZAID number
+    assert elem[0][1] == 23050
+    assert elem[1][1] == 23051
+    # Check mass number
+    assert elem[0][2] == 49.9471558
+    assert elem[1][2] == 50.9439569
+    # Check natural abundance
+    assert elem[0][3] == 0.0025
+    assert elem[1][3] == 0.9975
+    # Check element density
+    assert elem[0][4] == 6.11
+
 
     # Multi isotope reader for Uranium
     elem_dir = os.path.join(cur_dir, '../CotN/U.txt')

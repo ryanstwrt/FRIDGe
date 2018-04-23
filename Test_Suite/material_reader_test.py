@@ -119,13 +119,61 @@ def test_elem_at2wt_per():
 
 def test_material_creator():
     """ This is a test of the material creator function which reads in
-    elements from the CotN and creates an array of them. The test will test
-    a material with 1, 2 and 3 elements present."""
+    elements from the CotN, performs a atom percent to weight percent
+    calculation and creates an array of them. The test will test
+    a material with 1, 2 and 3 elements present. This test accumulates the
+    previous two test functions and ensures they work together and create
+    one material file."""
+    cur_dir = os.path.dirname(__file__)
 
-    # Material with 1 element (Uranium metal)
+    # Material with 1 element (Sodium)
+    elem_dir = os.path.join(cur_dir, '../CotN/')
+    na_material = mat_read.material_creator(elem_dir, ["Na"])
+    assert na_material[0][0] == 11000
+    assert na_material[0][1] == 11023
+    assert na_material[0][2] == 22.9897692820
+    assert na_material[0][3] == 1.00
+    assert na_material[0][4] == 0.968
 
+    # Material with 2 elements (Uranium and Plutonium)
+    elem_dir = os.path.join(cur_dir, '../CotN/')
+    u_pu_material = mat_read.material_creator(elem_dir, ["U", "Pu"])
+    assert u_pu_material[1][0] == 92000
+    assert u_pu_material[1][1] == 92235
+    assert u_pu_material[1][2] == 235.0439282
+    assert np.allclose(u_pu_material[1][3], 0.0071137)
+    assert u_pu_material[1][4] == 18.95
+    assert u_pu_material[2][3] == 0.00
+    assert np.allclose(u_pu_material[3][3], 0.9928332)
+    assert u_pu_material[4][3] == 0.00
+    assert u_pu_material[5][3] == 0.00
+    assert u_pu_material[6][3] == 0.00
+    assert u_pu_material[7][3] == 0.00
+    assert u_pu_material[8][3] == 0.00
 
+    # Material with 3 elements (Uranium, Plutonium and Vanadium)
+    elem_dir = os.path.join(cur_dir, '../CotN/')
+    u_pu_material = mat_read.material_creator(elem_dir, ["U", "Pu", "V"])
+    assert u_pu_material[1][0] == 92000
+    assert u_pu_material[1][1] == 92235
+    assert u_pu_material[1][2] == 235.0439282
+    assert np.allclose(u_pu_material[1][3], 0.0071137)
+    assert u_pu_material[1][4] == 18.95
+    assert u_pu_material[2][3] == 0.00
+    assert np.allclose(u_pu_material[3][3], 0.9928332)
+    assert u_pu_material[4][0] == 94000
+    assert u_pu_material[4][3] == 0.00
+    assert u_pu_material[5][3] == 0.00
+    assert u_pu_material[6][3] == 0.00
+    assert u_pu_material[7][3] == 0.00
+    assert u_pu_material[8][3] == 0.00
+    assert u_pu_material[8][4] == 19.84
+    assert u_pu_material[9][0] == 23000
+    assert np.allclose(u_pu_material[9][3], 0.0024512)
+    assert np.allclose(u_pu_material[10][3], 0.9975487)
+    assert u_pu_material[9][4] == 6.11
     return
 
 test_element_input()
 test_elem_at2wt_per()
+test_material_creator()

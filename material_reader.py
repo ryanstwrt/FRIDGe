@@ -33,7 +33,9 @@ def element_input(elem_path):
                 isotopes[iso_num][5] = mat_line[4]
                 sum_wt += isotopes[iso_num][3]
                 iso_num += 1
-        if sum_wt != 1:
+        if sum_wt == 0:
+            pass
+        elif sum_wt != 1:
             print('WARNING: The weight of %s was %f and not normalized to 1. '
                   'Check element to determine error' % (elem_path[-6:], sum_wt))
     return isotopes
@@ -60,7 +62,7 @@ def elem_at2wt_per(at_per):
 # The material creator function iterates over all materials in the string
 # and appends then into one material vector which will then be passed on to
 # the atom density calculator
-def material_creator(mat_str):
+def material_creator(elem_dir, mat_str):
     """" Iterate over all isotopes from the material string"""
     for i in range(len(mat_str)):
         elem_path = os.path.join(elem_dir, mat_str[i] + txt_ext)
@@ -241,7 +243,7 @@ def wt2at_per(wt_per, attr):
 #mat_path = os.path.join(mat_dir, '20Pu_10U_10Zr.txt')
 
 # Order in which material reader should be read
-#fuel = material_creator(fuel_str)
+#fuel = material_creator(elem_dir, fuel_str)
 #fuel_wt_per = get_wt_per(mat_path)
 #fuel_enr = get_enr_per(mat_path)
 #fuel_attr = get_mat_attr(mat_path)

@@ -176,6 +176,37 @@ def test_material_creator():
     assert u_pu_material[9][4] == 6.11
     return
 
+
+def test_get_enr_per():
+    """Test of the get enrichment percent function, which looks a given
+    material card and determines the enrichment which will be applied
+    to the materials at a later point."""
+
+    # Find the enrichment percent for 27% Enriched Urranium
+    cur_dir = os.path.dirname(__file__)
+    mat_u27 = os.path.join(cur_dir, '../Materials/27U.txt')
+    u27 = mat_read.get_enr_per(mat_u27)
+    assert u27[0][0] == 92235
+    assert u27[0][1] == 92238
+    assert u27[1][0] == 0.270
+    assert u27[1][1] == 0.730
+
+    # Find the enrichment percent for 20% Pu (94% 94239, 6% 94240)
+    # 10% U (10% 92235, 90% 92238) 10%Zr
+    pu20_10u_zr = os.path.join(cur_dir, '../Materials/20Pu_10U_10Zr.txt')
+    puuzr_enr = mat_read.get_enr_per(pu20_10u_zr)
+    assert puuzr_enr[0][0] == 92235
+    assert puuzr_enr[0][1] == 92238
+    assert puuzr_enr[0][2] == 94239
+    assert puuzr_enr[0][3] == 94240
+    assert puuzr_enr[1][0] == 0.100
+    assert puuzr_enr[1][1] == 0.900
+    assert puuzr_enr[1][2] == 0.940
+    assert puuzr_enr[1][3] == 0.060
+
+    return
+
 test_element_input()
 test_elem_at2wt_per()
 test_material_creator()
+test_get_enr_per()

@@ -138,13 +138,12 @@ def get_mat_attr(path):
     # Determine the number of attr
     with open(path, "r") as mat_file:
         for i, line in enumerate(mat_file):
-            if i == 4:
+            if i == 7:
                 num_attr = sum(1 for x in line.split())
         attr_vec = np.zeros(num_attr)
-    # Create the variables for the wt_per_vec
+    # Creates the vector of material properties
     with open(path, "r") as mat_file:
         for i, line in enumerate(mat_file):
-            # Calculate the enrichment for unique isotopes
             if i == 7:
                 temp = [x for x in line.split(' ')]
                 for x in range(len(temp)):
@@ -155,12 +154,12 @@ def get_mat_attr(path):
 # Calculates a final wt% from the enrichment vector and the weight percent
 # vector. The resulting vector is the weight percent of each isotope.
 # This can be put directly into MCNP.
-def wt_per_calc(elem_vec, wt_per_vec, enr_vec):
+def wt_per_calc(elem_vec, wt_per_vec, enr_vec=[]):
     # Checks to see if we have any materials that are enriched
     # If so, we create a temporary vector to hold them and all
     # of the elements data before we make a full vector with all
     # elements combined
-    if enr_vec.size != 0:
+    if enr_vec != []:
         enr_iso = len(enr_vec[0])
         temp_mat_elem_vec = np.zeros((enr_iso, 6))
         i = 0
@@ -182,18 +181,18 @@ def wt_per_calc(elem_vec, wt_per_vec, enr_vec):
 
     # Loop over the element vector and determine what isotopes to keep
     # and what isotopes (the enriched) to leave out.
-    mat_elem_vec = np.zeros((1, 6))
-    for i in range(len(z_enr_iso)):
-        for j in range(len(elem_vec)):
-            if z_enr_iso[i] == elem_vec[j][0] or elem_vec[j][3] == 0:
-                pass
-            elif i == 0:
-                vec_temp = [elem_vec[j][:]]
-                mat_elem_vec = np.concatenate((mat_elem_vec, vec_temp))
-    mat_elem_vec = np.delete(mat_elem_vec, 0, 0)
-    mat_elem_vec = np.concatenate((temp_mat_elem_vec, mat_elem_vec))
-
-    #print(mat_elem_vec)
+        mat_elem_vec = np.zeros((1, 6))
+        for i in range(len(z_enr_iso)):
+            for j in range(len(elem_vec)):
+                if z_enr_iso[i] == elem_vec[j][0] or elem_vec[j][3] == 0:
+                    pass
+                elif i == 0:
+                    vec_temp = [elem_vec[j][:]]
+                    mat_elem_vec = np.concatenate((mat_elem_vec, vec_temp))
+        mat_elem_vec = np.delete(mat_elem_vec, 0, 0)
+        mat_elem_vec = np.concatenate((temp_mat_elem_vec, mat_elem_vec))
+    else:
+        mat_elem_vec = np.copy(elem_vec)
     # Multiplies the wt% of each element in the material by the
     # wt% of each isotope in the element to yield a total weight percent
     # which should sum to 1
@@ -206,10 +205,8 @@ def wt_per_calc(elem_vec, wt_per_vec, enr_vec):
     if round(sum_wt, 15) != 1.0:
         print('Warning: Material with %s had a weight fraction of %f and was not normlized to 1. '
               'Check to make sure the material or element card is correct' % (wt_per_vec[0][:], sum_wt))
+
     return mat_elem_vec
-
-
-
 
 
 # Converts the array of wt % to atom % and returns the atom density for use

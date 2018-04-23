@@ -119,6 +119,7 @@ def test_elem_at2wt_per():
     assert np.allclose(pu_wt_per[4][3], 0.000)
     return
 
+
 def test_material_creator():
     """ This is a test of the material creator function which reads in
     elements from the CotN, performs a atom percent to weight percent
@@ -206,6 +207,7 @@ def test_get_enr_per():
 
     return
 
+
 def test_get_mat_attr():
     """This is a test of the get material attributes function which
     scans the material card and pulls out information such as the density
@@ -229,8 +231,94 @@ def test_get_mat_attr():
 
     return
 
+
+def test_wt_per_cal():
+    cur_dir = os.path.dirname(__file__)
+
+    # Material with 1 element (Sodium)
+    elem_dir = os.path.join(cur_dir, '../CotN/')
+    na_material = mat_read.material_creator(elem_dir, ["Na"])
+    liquid_na_path = os.path.join(cur_dir, '../Materials/Liquid_Na.txt')
+    liquid_na_mat_attr = mat_read.get_wt_per(liquid_na_path)
+    liquid_na_mat_vector = mat_read.wt_per_calc(na_material, liquid_na_mat_attr)
+
+    # Check sodiums new material vector (should be the same)
+    assert liquid_na_mat_vector[0][0] == 11000
+    assert liquid_na_mat_vector[0][1] == 11023
+    assert liquid_na_mat_vector[0][2] == 22.989769282
+    assert liquid_na_mat_vector[0][3] == 1.00
+    assert liquid_na_mat_vector[0][4] == 0.968
+
+    # Material with 1 element (enriched)
+    elem_dir = os.path.join(cur_dir, '../CotN/')
+    u27_material = mat_read.material_creator(elem_dir, ["U"])
+    u27_path = os.path.join(cur_dir, '../Materials/27U.txt')
+    u27_mat_attr = mat_read.get_wt_per(u27_path)
+    u27_enr = mat_read.get_enr_per(u27_path)
+    u27_mat_vector = mat_read.wt_per_calc(u27_material, u27_mat_attr, enr_vec=u27_enr)
+
+    # Check for U-235
+    assert u27_mat_vector[0][0] == 92000
+    assert u27_mat_vector[0][1] == 92235
+    assert u27_mat_vector[0][2] == 235.0439282
+    assert u27_mat_vector[0][3] == 0.2700
+    assert u27_mat_vector[0][4] == 18.95
+    # Check for U-238
+    assert u27_mat_vector[1][0] == 92000
+    assert u27_mat_vector[1][1] == 92238
+    assert u27_mat_vector[1][2] == 238.0507870
+    assert u27_mat_vector[1][3] == 0.73
+    assert u27_mat_vector[1][4] == 18.95
+
+    # Material with 1 element (enriched)
+    elem_dir = os.path.join(cur_dir, '../CotN/')
+    pu10_10u_material = mat_read.material_creator(elem_dir, ["U", "Pu", "Zr"])
+    pu10_10u_path = os.path.join(cur_dir, '../Materials/20Pu_10U_10Zr.txt')
+    pu10_10u_mat_attr = mat_read.get_wt_per(pu10_10u_path)
+    pu10_10u_enr = mat_read.get_enr_per(pu10_10u_path)
+    pu10_10u_mat_vector = mat_read.wt_per_calc(pu10_10u_material, pu10_10u_mat_attr, enr_vec=pu10_10u_enr)
+    print(pu10_10u_mat_vector)
+
+    # Check for U-235
+    assert pu10_10u_mat_vector[0][0] == 92000
+    assert pu10_10u_mat_vector[0][1] == 92235
+    assert pu10_10u_mat_vector[0][2] == 235.0439282
+    assert np.allclose(pu10_10u_mat_vector[0][3], 0.07)
+    assert pu10_10u_mat_vector[0][4] == 18.95
+    # Check for U-238
+    assert pu10_10u_mat_vector[1][0] == 92000
+    assert pu10_10u_mat_vector[1][1] == 92238
+    assert pu10_10u_mat_vector[1][2] == 238.0507870
+    assert pu10_10u_mat_vector[1][3] == 0.63
+    assert pu10_10u_mat_vector[1][4] == 18.95
+    # Check for Pu-239
+    assert pu10_10u_mat_vector[2][0] == 94000
+    assert pu10_10u_mat_vector[2][1] == 94239
+    assert pu10_10u_mat_vector[2][2] == 239.0521617
+    assert pu10_10u_mat_vector[2][3] == 0.188
+    assert pu10_10u_mat_vector[2][4] == 19.84
+    # Check for Pu-240
+    assert pu10_10u_mat_vector[3][0] == 94000
+    assert pu10_10u_mat_vector[3][1] == 94240
+    assert pu10_10u_mat_vector[3][2] == 240.0538118
+    assert pu10_10u_mat_vector[3][3] == 0.012
+    assert pu10_10u_mat_vector[3][4] == 19.84
+    # Check all Zr isotopes are present
+    zr_zaid = 40090
+    for i, x in enumerate(pu10_10u_mat_vector[:, 1]):
+        if i > 3 and i != 7:
+            assert pu10_10u_mat_vector[3][1] == 94240
+    # Check one Zr isotope's weight percent
+    assert np.allclose(pu10_10u_mat_vector[4][3], 0.050706)
+
+
+
+    return
+
+
 test_element_input()
 test_elem_at2wt_per()
 test_material_creator()
 test_get_enr_per()
 test_get_mat_attr()
+test_wt_per_cal()

@@ -9,9 +9,8 @@ def get_elem_string(material_path):
     with open(material_path, "r") as mat_file:
         for i, line in enumerate(mat_file):
             if i == 1:
-                temp = [x for x in line.split(' ')]
-                temp2 = temp.rstrip
-                element_vector = [temp2]
+                line = line.strip()
+                element_vector = [x for x in line.split(' ')]
     return element_vector
 
 

@@ -9,6 +9,7 @@ def test_get_element_string():
     # Test a single element material
     mat_string = os.path.join(cur_dir, '../Materials/Liquid_Na.txt')
     element_string = mat_read.get_elem_string(mat_string)
+    print(element_string)
     assert element_string[0] == "Na"
 
     # Test a multi element material

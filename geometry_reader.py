@@ -4,16 +4,22 @@ import os
 
 
 def fuel_assembly_geometry_reader(pin_path):
+    """This function reads in the geometry/material contributions for a single
+    fuel assembly. This includes fuel pin height/pitch/fuel type, etc. It
+    returns a Data Structure with all the relevant geometry/material
+    information to then start creating MCNP geometries and materials."""
+
+    pin_data = np.zeros(6)
+    pin_materials = []
+    assembly_data = np.zeros(6)
+    assembly_materials = []
+    plenum_data = np.zeros(1)
+    plenum_materials = []
+    fuel_reflector_data = np.zeros(1)
+    fuel_reflector_materials = []
     with open(pin_path, "r") as mat_file:
-        pin_data = np.zeros(6)
-        pin_materials = []
-        assembly_data = np.zeros(6)
-        assembly_materials = []
-        plenum_data = np.zeros(1)
-        plenum_materials = []
-        fuel_reflector_data = np.zeros(1)
-        fuel_reflector_materials = []
         for i, line in enumerate(mat_file):
+            line = line.strip()
             holder = [x for x in line.split(' ')]
             if 0 < i < 10:
                 if i > 6:

@@ -4,7 +4,16 @@ import os
 avgdro_num = 0.6022140857
 # Requirements for the material reader
 txt_ext = ".txt"
-#fuel_str = ["U", "Pu", "Zr"]
+
+def get_elem_string(material_path):
+    with open(material_path, "r") as mat_file:
+        for i, line in enumerate(mat_file):
+            if i == 1:
+                temp = [x for x in line.split(' ')]
+                temp2 = temp.rstrip
+                element_vector = [temp2]
+    return element_vector
+
 
 # This function obtains the physical properties of each isotope present in a material
 # Where the properties are as such
@@ -229,10 +238,15 @@ def wt2at_per(wt_per, attr):
               'Check element to determine error' % (at_per[:, 1], at_per_sum))
     return at_per, at_den_sum
 
-def material_reader():
+def material_reader(elem_dir, material_dir):
     """This function will be called from the driver and will create a data
     series for a material that is called"""
 
+    material = material_creator(elem_dir, ["Na"])
+    material_wt_per = get_wt_per(material_dir)
+    material_attributes = get_mat_attr(material_dir)
+    material_vector = wt_per_calc(material, material_wt_per)
+    atom_percent_vec, atom_density = wt2at_per(material_vector, material_attributes)
 
 # Get the current working directory
 #cur_dir = os.path.dirname(__file__)

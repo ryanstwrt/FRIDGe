@@ -3,6 +3,24 @@ import numpy as np
 import os
 
 
+def test_get_element_string():
+    cur_dir = os.path.dirname(__file__)
+
+    # Test a single element material
+    mat_string = os.path.join(cur_dir, '../Materials/Liquid_Na.txt')
+    element_string = mat_read.get_elem_string(mat_string)
+    assert element_string[0] == "Na"
+
+    # Test a multi element material
+    mat_string = os.path.join(cur_dir, '../Materials/20Pu_10U_10Zr.txt')
+    element_string = mat_read.get_elem_string(mat_string)
+    print(element_string)
+
+    assert element_string[0] == "U"
+    assert element_string[1] == "Pu"
+    assert element_string[2] == "Zr"
+
+
 def test_element_input():
     """This is a test for the element input reader. The input reader test three
      different cases. One with one isotope, one with two isotopes and one with
@@ -357,7 +375,6 @@ def test_wt2at_per():
     upuzr_enr = mat_read.get_enr_per(upuzr_path)
     upuzr_mat_vector = mat_read.wt_per_calc(upuzr_material, upuzr_wt_per, enr_vec=upuzr_enr)
     upuzr_atom_vector, upuzr_atom_density = mat_read.wt2at_per(upuzr_mat_vector, upuzr_mat_attr)
-    print(upuzr_atom_vector, upuzr_atom_density)
 
     assert np.allclose(upuzr_atom_density, 0.0463159)
     assert np.isclose(upuzr_atom_vector[0][3], 0.061066, atol=0.000001)
@@ -369,6 +386,8 @@ def test_wt2at_per():
     return
 
 
+
+
 test_element_input()
 test_elem_at2wt_per()
 test_material_creator()
@@ -376,3 +395,4 @@ test_get_enr_per()
 test_get_mat_attr()
 test_wt_per_cal()
 test_wt2at_per()
+test_get_element_string()

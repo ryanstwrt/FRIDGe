@@ -1,12 +1,19 @@
 import numpy as np
+import glob
 import os
 
 avgdro_num = 0.6022140857
 # Requirements for the material reader
 txt_ext = ".txt"
+cur_dir = os.path.dirname(__file__)
+element_dir = os.path.join(cur_dir, 'CotN/')
+material_dir = os.path.join(cur_dir, 'Materials/')
 
-def get_elem_string(material_path):
-    with open(material_path, "r") as mat_file:
+
+def get_elem_string(material):
+    """Returns a vector of strings with the elements for the given material"""
+    cur_material = glob.glob(os.path.join(material_dir, material[0] + '.*'))
+    with open(cur_material[0], "r") as mat_file:
         for i, line in enumerate(mat_file):
             if i == 1:
                 line = line.strip()
@@ -20,13 +27,14 @@ def get_elem_string(material_path):
 # [4] = Coefficient of Expansion
 # Mass Number & Isotopic abundance are reference from IAEA Live Chart of the Nuclides
 # Density is reference from 'Nuclides & Isotopes Chart of the Nuclides' 17th Edition
-def element_input(elem_path):
+def element_input(element):
     """returns an array with the elements present"""
+    cur_element = glob.glob(os.path.join(element_dir, element[0] + '.*'))
     # Allocate space for elements being added
-    num_elements = int(sum(1 for line in open(elem_path) if line.rstrip()) - 3)
+    num_elements = int(sum(1 for line in open(cur_element[0]) if line.rstrip()) - 3)
     isotopes = np.zeros((num_elements, 6))
     sum_wt = 0
-    with open(elem_path, "r") as mat_file:
+    with open(cur_element[0], "r") as mat_file:
         iso_num = 0
         for i, line in enumerate(mat_file):
             mat_line = [x for x in line.split(' ')]
@@ -45,7 +53,7 @@ def element_input(elem_path):
             pass
         elif sum_wt != 1:
             print('WARNING: The weight of %s was %f and not normalized to 1. '
-                  'Check element to determine error' % (elem_path[-6:], sum_wt))
+                  'Check element to determine error' % (element, sum_wt))
     return isotopes
 
 # Converts the original elemental data (which is from the Chart of the Nuclides)
@@ -70,22 +78,23 @@ def elem_at2wt_per(at_per):
 # The material creator function iterates over all materials in the string
 # and appends then into one material vector which will then be passed on to
 # the atom density calculator
-def material_creator(elem_dir, mat_str):
+def material_creator(elements):
     """" Iterate over all isotopes from the material string"""
-    for i in range(len(mat_str)):
-        elem_path = os.path.join(elem_dir, mat_str[i] + txt_ext)
+
+    for i in range(len(elements)):
+        cur_element = glob.glob(os.path.join(element_dir, elements[i] + '*'))
         # Determine if the element exists, if not kill the program and report message
-        if not os.path.isfile(elem_path):
+        if not os.path.isfile(cur_element[0]):
             print('FATAL ERROR: Element currently not supported. '
                   'Please create element or utilize a different material.'
                   'Element creator module can be found in /FRIDGE/Utilities')
             quit()
         # Obtain the first isotope from the file
         if i == 0:
-            material = elem_at2wt_per(element_input(elem_path))
+            material = elem_at2wt_per(element_input([elements[i]]))
         # Obtain all other isotopes in the file
         else:
-            material_2 = elem_at2wt_per(element_input(elem_path))
+            material_2 = elem_at2wt_per(element_input([elements[i]]))
             material = np.concatenate((material, material_2))
     return material
 
@@ -102,15 +111,16 @@ def get_ZAID_row(mat, ZAID):
 
 
 # Determine the weight percent of each element in a material and return a vector
-def get_wt_per(path):
+def get_wt_per(material):
+    cur_material = glob.glob(os.path.join(material_dir, material[0] + '.*'))
     # Determine how many elements are in the material,
-    with open(path, "r") as mat_file:
+    with open(cur_material[0], "r") as mat_file:
         for i, line in enumerate(mat_file):
             if i == 2:
                 num_mat_elem = sum(1 for x in line.split())
         wt_per_vec_temp = np.zeros((2, num_mat_elem))
     # Create the variables for the wt_per_vec
-    with open(path, "r") as mat_file:
+    with open(cur_material[0], "r") as mat_file:
         for i, line in enumerate(mat_file):
             # Calculate the wt% for each element
             if 1 < i < 4:
@@ -123,15 +133,16 @@ def get_wt_per(path):
 
 
 # Determine the enrich percent of each element in a material and return a vector
-def get_enr_per(path):
+def get_enr_per(material):
+    cur_material = glob.glob(os.path.join(material_dir, material[0] + '.*'))
     # Determine how many isotopes are enriched
-    with open(path, "r") as mat_file:
+    with open(cur_material[0], "r") as mat_file:
         for i, line in enumerate(mat_file):
             if i == 4:
                 num_enr_iso = sum(1 for x in line.split())
         enr_per_vec = np.zeros((2, num_enr_iso))
     # Create the variables for the wt_per_vec
-    with open(path, "r") as mat_file:
+    with open(cur_material[0], "r") as mat_file:
         for i, line in enumerate(mat_file):
             # Calculate the enrichment for unique isotopes
             if 3 < i < 6:
@@ -142,15 +153,16 @@ def get_enr_per(path):
 
 
 # Get the physical attributes related to a material (if known)
-def get_mat_attr(path):
+def get_mat_attr(material):
+    cur_material = glob.glob(os.path.join(material_dir, material[0] + '.*'))
     # Determine the number of attr
-    with open(path, "r") as mat_file:
+    with open(cur_material[0], "r") as mat_file:
         for i, line in enumerate(mat_file):
             if i == 7:
                 num_attr = sum(1 for x in line.split())
         attr_vec = np.zeros(num_attr)
     # Creates the vector of material properties
-    with open(path, "r") as mat_file:
+    with open(cur_material[0], "r") as mat_file:
         for i, line in enumerate(mat_file):
             if i == 7:
                 temp = [x for x in line.split(' ')]
@@ -241,7 +253,7 @@ def material_reader(elem_dir, material_dir):
     """This function will be called from the driver and will create a data
     series for a material that is called"""
 
-    material = material_creator(elem_dir, ["Na"])
+    material = material_creator(["Na"])
     material_wt_per = get_wt_per(material_dir)
     material_attributes = get_mat_attr(material_dir)
     material_vector = wt_per_calc(material, material_wt_per)

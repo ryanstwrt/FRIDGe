@@ -227,7 +227,7 @@ def test_wt_per_cal():
     # Material with 1 element (Sodium)
     na_material = mat_read.material_creator(["Na"])
     liquid_na_mat_attr = mat_read.get_wt_per(["Liquid_Na"])
-    liquid_na_mat_vector = mat_read.wt_per_calc(na_material, liquid_na_mat_attr)
+    liquid_na_mat_vector = mat_read.wt_per_calc(na_material, liquid_na_mat_attr, [])
 
     # Check sodiums new material vector (should be the same)
     assert liquid_na_mat_vector[0][0] == 11000
@@ -240,7 +240,7 @@ def test_wt_per_cal():
     u27_material = mat_read.material_creator(["U"])
     u27_mat_attr = mat_read.get_wt_per(["27U"])
     u27_enr = mat_read.get_enr_per(["27U"])
-    u27_mat_vector = mat_read.wt_per_calc(u27_material, u27_mat_attr, enr_vec=u27_enr)
+    u27_mat_vector = mat_read.wt_per_calc(u27_material, u27_mat_attr, u27_enr)
 
     # Check for U-235
     assert u27_mat_vector[0][0] == 92000
@@ -309,7 +309,7 @@ def test_wt2at_per():
     na_material = mat_read.material_creator(["Na"])
     liquid_na_mat_wt_per = mat_read.get_wt_per(["Liquid_Na"])
     liquid_na_mat_attr = mat_read.get_mat_attr(["Liquid_Na"])
-    liquid_na_mat_vector = mat_read.wt_per_calc(na_material, liquid_na_mat_wt_per)
+    liquid_na_mat_vector = mat_read.wt_per_calc(na_material, liquid_na_mat_wt_per, [])
     na_atom_vec, na_atom_density = mat_read.wt2at_per(liquid_na_mat_vector, liquid_na_mat_attr)
 
     assert np.allclose(na_atom_density, 0.024282647)
@@ -350,6 +350,11 @@ def test_wt2at_per():
 
     return
 
+def test_material_reader():
+    na_material, na_atom_den = mat_read.material_reader(["Liquid_Na"])
+
+    assert na_material[0][0] == 11000
+    return
 
 test_get_element_string()
 test_element_input()
@@ -359,3 +364,4 @@ test_get_enr_per()
 test_get_mat_attr()
 test_wt_per_cal()
 test_wt2at_per()
+test_material_reader()

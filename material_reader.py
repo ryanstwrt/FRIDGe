@@ -82,7 +82,6 @@ def material_creator(elements):
     """" Iterate over all isotopes from the material string"""
     for i in range(len(elements)):
         cur_element = glob.glob(os.path.join(element_dir, elements[i] + '*'))
-        print(cur_element)
         # Determine if the element exists, if not kill the program and report message
         if not os.path.isfile(cur_element[0]):
             print('FATAL ERROR: Element currently not supported. '
@@ -262,7 +261,7 @@ def material_reader(material_input):
     atom_percent_vec, atom_density = wt2at_per(material_vector, material_attr)
     return atom_percent_vec, atom_density
 
-print(material_reader(["27U"]))
+#print(material_reader(["27U"]))
 
 # Get the current working directory
 #cur_dir = os.path.dirname(__file__)

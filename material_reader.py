@@ -80,9 +80,9 @@ def elem_at2wt_per(at_per):
 # the atom density calculator
 def material_creator(elements):
     """" Iterate over all isotopes from the material string"""
-
     for i in range(len(elements)):
         cur_element = glob.glob(os.path.join(element_dir, elements[i] + '*'))
+        print(cur_element)
         # Determine if the element exists, if not kill the program and report message
         if not os.path.isfile(cur_element[0]):
             print('FATAL ERROR: Element currently not supported. '
@@ -141,14 +141,15 @@ def get_enr_per(material):
             if i == 4:
                 num_enr_iso = sum(1 for x in line.split())
         enr_per_vec = np.zeros((2, num_enr_iso))
-    # Create the variables for the wt_per_vec
-    with open(cur_material[0], "r") as mat_file:
-        for i, line in enumerate(mat_file):
-            # Calculate the enrichment for unique isotopes
-            if 3 < i < 6:
-                temp = [x for x in line.split(' ')]
-                for x in range(len(temp)):
-                    enr_per_vec[i-4][x] = temp[x]
+    if enr_per_vec != []:
+        # Create the variables for the wt_per_vec
+        with open(cur_material[0], "r") as mat_file:
+            for i, line in enumerate(mat_file):
+                # Calculate the enrichment for unique isotopes
+                if 3 < i < 6:
+                    temp = [x for x in line.split(' ')]
+                    for x in range(len(temp)):
+                        enr_per_vec[i-4][x] = temp[x]
     return enr_per_vec
 
 
@@ -174,7 +175,7 @@ def get_mat_attr(material):
 # Calculates a final wt% from the enrichment vector and the weight percent
 # vector. The resulting vector is the weight percent of each isotope.
 # This can be put directly into MCNP.
-def wt_per_calc(elem_vec, wt_per_vec, enr_vec=[]):
+def wt_per_calc(elem_vec, wt_per_vec, enr_vec):
     # Checks to see if we have any materials that are enriched
     # If so, we create a temporary vector to hold them and all
     # of the elements data before we make a full vector with all
@@ -249,15 +250,19 @@ def wt2at_per(wt_per, attr):
               'Check element to determine error' % (at_per[:, 1], at_per_sum))
     return at_per, at_den_sum
 
-def material_reader(elem_dir, material_dir):
+def material_reader(material_input):
     """This function will be called from the driver and will create a data
     series for a material that is called"""
+    material_elements = get_elem_string(material_input)
+    material_base = material_creator(material_elements)
+    material_attr = get_mat_attr(material_input)
+    material_wt_per = get_wt_per(material_input)
+    material_enr_per = get_enr_per(material_input)
+    material_vector = wt_per_calc(material_base, material_wt_per,  material_enr_per)
+    atom_percent_vec, atom_density = wt2at_per(material_vector, material_attr)
+    return atom_percent_vec, atom_density
 
-    material = material_creator(["Na"])
-    material_wt_per = get_wt_per(material_dir)
-    material_attributes = get_mat_attr(material_dir)
-    material_vector = wt_per_calc(material, material_wt_per)
-    atom_percent_vec, atom_density = wt2at_per(material_vector, material_attributes)
+print(material_reader(["27U"]))
 
 # Get the current working directory
 #cur_dir = os.path.dirname(__file__)

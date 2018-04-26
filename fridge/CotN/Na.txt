@@ -1,0 +1,4 @@
+Sodium
+11000
+ZAID     Mass #     Abun.   Den. LCoE
+11023 22.9897692820 1.00 0.968 0.0

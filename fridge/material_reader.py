@@ -11,7 +11,19 @@ material_dir = os.path.join(cur_dir, 'Materials/')
 
 
 def get_elem_string(material):
-    """Returns a vector of strings with the elements for the given material"""
+    """Returns a vector of strings with the elements for the given material.
+
+    This is the first step in creating a material, we need the elements present
+    the given material.
+
+    args:
+        material (str array): A string of the material name
+
+    returns:
+        element_vector (str array): An array with the number of elements
+        required for the material
+
+    """
     cur_material = glob.glob(os.path.join(material_dir, material[0] + '.*'))
     with open(cur_material[0], "r") as mat_file:
         for i, line in enumerate(mat_file):
@@ -20,15 +32,28 @@ def get_elem_string(material):
                 element_vector = [x for x in line.split(' ')]
     return element_vector
 
-
-# This function obtains the physical properties of each isotope present in a material
-# Where the properties are as such
-# [0] = ZAID; [1] = Mass Number; [2] = Isotopic Abundance; [3] = Density
-# [4] = Coefficient of Expansion
-# Mass Number & Isotopic abundance are reference from IAEA Live Chart of the Nuclides
-# Density is reference from 'Nuclides & Isotopes Chart of the Nuclides' 17th Edition
 def element_input(element):
-    """returns an array with the elements present"""
+    """Returns an array with all isotopes present
+
+    Second step in creating a material. This function obtains the physical
+    properties of each isotope present in a material. Where the properties are:
+    [0] = ZAID
+    [1] = Mass Number
+    [2] = Isotopic Abundnce
+    [3] = Density
+    [4] = Coefficient of Expansion
+    Mass Number & Isotopic abundance are reference from IAEA Live Chart of the Nuclides
+    Density is reference from 'Nuclides & Isotopes Chart of the Nuclides' 17th Edition
+
+    args:
+        element (str array): An array with the number of elements required
+        for the particular material
+
+    returns:
+        isotopes (double array): Returns a # of isotopes by 6 array which contains
+        the physical properties for each isotopes.
+
+    """
     cur_element = glob.glob(os.path.join(element_dir, element[0] + '.*'))
     # Allocate space for elements being added
     num_elements = int(sum(1 for line in open(cur_element[0]) if line.rstrip()) - 3)
@@ -56,10 +81,22 @@ def element_input(element):
                   'Check element to determine error' % (element, sum_wt))
     return isotopes
 
-# Converts the original elemental data (which is from the Chart of the Nuclides)
-# from atom percent to weight percent. This is to ensure everything is on =
-# equal setting when working with wt% and enrichment.
+
 def elem_at2wt_per(at_per):
+    """
+    Converts the original elemental data (Chart of the Nuclides)
+    from atom percent to weight percent.
+
+    This is to ensure everything is on equal setting when working
+    with wt% and enrichment.
+
+    args:
+        at_per (double array): The atom percent of a particular element
+
+    returns:
+        wt_per (double array): The weight percent for the element in question
+
+    """
     num_elem = int(sum(1 for i in enumerate(at_per)))
     wt_per = np.copy(at_per)
     mol_wt = 0
@@ -75,11 +112,18 @@ def elem_at2wt_per(at_per):
             wt_per[i][3] = wt_by_mass[i] / mol_wt
     return wt_per
 
-# The material creator function iterates over all materials in the string
-# and appends then into one material vector which will then be passed on to
-# the atom density calculator
+
 def material_creator(elements):
-    """" Iterate over all isotopes from the material string"""
+    """" Iterates over all materials in the string and appends them
+    into one material vector which contains all isotopes present.
+
+    args:
+        material (str array): A string of the material name
+
+    returns:
+        material (double array): An array of all isotopes present in a material
+        with all physical properties.
+    """
     for i in range(len(elements)):
         cur_element = glob.glob(os.path.join(element_dir, elements[i] + '*'))
         # Determine if the element exists, if not kill the program and report message
@@ -98,8 +142,16 @@ def material_creator(elements):
     return material
 
 
-# Finds and returns the column of the ZAID from the given material
 def get_ZAID_row(mat, ZAID):
+    """ Finds and returns the column of the ZAID from the given material
+
+    args:
+        mat (double array): The material array with all known isotopes present
+        ZAID (double): The ZAID number that we are looking to find what column it is in
+
+    returns:
+        elem_col_temp[0] (int): The column number of our ZAID in question.
+    """
     elem_col_temp = np.where(np.isin(mat, ZAID))
     if not elem_col_temp[1]:
         print('FATAL ERROR: Element could not be found in material. '
@@ -109,8 +161,17 @@ def get_ZAID_row(mat, ZAID):
         return elem_col_temp[0]
 
 
-# Determine the weight percent of each element in a material and return a vector
 def get_wt_per(material):
+    """Determine the weight percent of each element in a material and return a vector
+
+    args:
+        material (str array): A string of the material name
+
+    returns:
+        wt_per_vec_temp (double array): get the weight percent for each
+        element in the material (if applicable)
+
+    """
     cur_material = glob.glob(os.path.join(material_dir, material[0] + '.*'))
     # Determine how many elements are in the material,
     with open(cur_material[0], "r") as mat_file:
@@ -131,8 +192,17 @@ def get_wt_per(material):
     return wt_per_vec_temp
 
 
-# Determine the enrich percent of each element in a material and return a vector
 def get_enr_per(material):
+    """Determine the enrich percent of each element in a material and
+       return a vector.
+
+    args:
+        material (str array): A string of the material name
+
+    returns:
+        enr_per_vec (double array): An array of the enriched isotopes that are present
+
+    """
     cur_material = glob.glob(os.path.join(material_dir, material[0] + '.*'))
     # Determine how many isotopes are enriched
     with open(cur_material[0], "r") as mat_file:
@@ -152,8 +222,20 @@ def get_enr_per(material):
     return enr_per_vec
 
 
-# Get the physical attributes related to a material (if known)
 def get_mat_attr(material):
+    """Get the physical attributes associated with the material (which may be
+    different than the constituent elements.
+
+    This is the third step in the creating a material. It currently returns a 2x1 vector
+    [0] = Density
+    [1] = Linear Coefficient of Expansion
+
+    args:
+        material (str array): A string of the material name
+
+    returns:
+        att_vec (double array): Array with the known attributes for a material
+    """
     cur_material = glob.glob(os.path.join(material_dir, material[0] + '.*'))
     # Determine the number of attr
     with open(cur_material[0], "r") as mat_file:
@@ -171,10 +253,27 @@ def get_mat_attr(material):
     return attr_vec
 
 
-# Calculates a final wt% from the enrichment vector and the weight percent
-# vector. The resulting vector is the weight percent of each isotope.
-# This can be put directly into MCNP.
 def wt_per_calc(elem_vec, wt_per_vec, enr_vec):
+    """Calculates a final wt% from the enrichment vector and the weight percent
+    vector.
+
+    This is the fourth step in creating a material. If desired, the resulting
+    vector is the weight percent of each isotope, which can be put directly
+    into MCNP.
+
+    args:
+        elem_vec (double array): array with all elements in the material
+        and their physical properties
+        wt_per_vec (double array): array with all elements that need to be
+        adjusted due to different weight percents than isotopic abundance
+        enr_vec (double array): array with all isotopes that have some
+        type of enrichment (typically fuel or CR material)
+
+    returns:
+        mat_elem_vec (double array): array with all isotopes present in
+        the material (removes any isotopes that have 0 wt%) and their
+        associated weight percent
+    """
     # Checks to see if we have any materials that are enriched
     # If so, we create a temporary vector to hold them and all
     # of the elements data before we make a full vector with all
@@ -229,9 +328,22 @@ def wt_per_calc(elem_vec, wt_per_vec, enr_vec):
     return mat_elem_vec
 
 
-# Converts the array of wt % to atom % and returns the atom density for use
-# in the cell cards
 def wt2at_per(wt_per, attr):
+    """Converts the array of wt % to atom % and returns the atom density for use
+       in the cell cards.
+
+    The fifth step in getting a material.
+
+    args:
+        wt_per (double array): array with all isotopes present in
+        the material in weight percent
+        attr (double array): Array with the known attributes for a material
+
+    returns:
+        at_per (double array): array with all isotopes present in
+        the material in atom percent
+        atom_density (double): the total atom density for the material
+    """
     at_den = np.zeros(len(wt_per))
     at_per = np.copy(wt_per)
     at_den_sum = 0
@@ -251,36 +363,28 @@ def wt2at_per(wt_per, attr):
 
 def material_reader(material_input):
     """This function will be called from the driver and will create a data
-    series for a material that is called"""
+    series for a material that is called.
+
+    This combines all the other steps and will be the only function called
+    from the main program.
+
+    args:
+        material_input (str array): An array of a known material
+
+    returns:
+        at_per (double array): array with all isotopes present in
+        the material in atom percent
+        atom_density (double): the total atom density for the material
+    """
     material_elements = get_elem_string(material_input)
     material_base = material_creator(material_elements)
     material_attr = get_mat_attr(material_input)
     material_wt_per = get_wt_per(material_input)
     material_enr_per = get_enr_per(material_input)
     material_vector = wt_per_calc(material_base, material_wt_per,  material_enr_per)
-    atom_percent_vec, atom_density = wt2at_per(material_vector, material_attr)
-    return atom_percent_vec, atom_density
+    atom_percent, atom_density = wt2at_per(material_vector, material_attr)
 
-#print(material_reader(["27U"]))
-
-# Get the current working directory
-#cur_dir = os.path.dirname(__file__)
-# Find the Material director, and the path to the specific element
-#elem_dir = os.path.join(cur_dir, 'CotN')
-#mat_dir = os.path.join(cur_dir, 'Materials')
-#mat_path = os.path.join(mat_dir, '20Pu_10U_10Zr.txt')
-
-# Order in which material reader should be read
-#fuel = material_creator(elem_dir, fuel_str)
-#fuel_wt_per = get_wt_per(mat_path)
-#fuel_enr = get_enr_per(mat_path)
-#fuel_attr = get_mat_attr(mat_path)
-#mat_wt_per = wt_per_calc(fuel, fuel_wt_per, fuel_enr)
-#mat_at_per, mat_at_den = wt2at_per(mat_wt_per, fuel_attr)
-
-#print(mat_wt_per)
-#print(mat_at_per)
-#print(mat_at_den)
+    return atom_percent, atom_density
 
 # Create a class for fuel/cladding/coolant/etc.
 # it shoulid look something like

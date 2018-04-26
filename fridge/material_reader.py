@@ -2,7 +2,7 @@ import numpy as np
 import glob
 import os
 
-avgdro_num = 0.6022140857
+AVOGADROS_NUMBER = 0.6022140857
 # Requirements for the material reader
 txt_ext = ".txt"
 cur_dir = os.path.dirname(__file__)
@@ -351,7 +351,7 @@ def wt2at_per(wt_per, attr):
     # Get the total atom density (to be used in the cell card and for the
     # atom percent)
     for i, x in enumerate(wt_per):
-        at_den[i] = x[3] * attr[0] * avgdro_num / x[2]
+        at_den[i] = x[3] * attr[0] * AVOGADROS_NUMBER / x[2]
         at_den_sum += at_den[i]
     for i, x in enumerate(wt_per):
         at_per[i][3] = at_den[i] / at_den_sum

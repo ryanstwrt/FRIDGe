@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/SoftwareDevEngResearch/FRIDGe.svg?branch=master)](https://travis-ci.org/SoftwareDevEngResearch/FRIDGe)
+[![Build Status](https://travis-ci.org/ryanstwrt/FRIDGe.svg?branch=master)](https://travis-ci.org/ryanstwrt/FRIDGe)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 # FRIDGe

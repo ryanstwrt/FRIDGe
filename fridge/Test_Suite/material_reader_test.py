@@ -354,14 +354,9 @@ def test_material_reader():
     na_material, na_atom_den = mat_read.material_reader(["Liquid_Na"])
 
     assert na_material[0][0] == 11000
+
+    u_material, u_atom_den = mat_read.material_reader(["27U"])
+    assert  u_material[0][0] == 92000
+
     return
 
-test_get_element_string()
-test_element_input()
-test_elem_at2wt_per()
-test_material_creator()
-test_get_enr_per()
-test_get_mat_attr()
-test_wt_per_cal()
-test_wt2at_per()
-test_material_reader()

@@ -2,7 +2,7 @@ Fuel Pin Data
 Pin_Diameter 0.53
 Clad_Thickness 0.037
 Fuel_Smear 0.75
-Pitch 0.013
+Pitch 0.492845
 Wire_Wrap_Diameter 0.126
 Height 60
 Fuel 27U

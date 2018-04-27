@@ -6,8 +6,8 @@ AVOGADROS_NUMBER = 0.6022140857
 # Requirements for the material reader
 txt_ext = ".txt"
 cur_dir = os.path.dirname(__file__)
-element_dir = os.path.join(cur_dir, 'CotN/')
-material_dir = os.path.join(cur_dir, 'Materials/')
+element_dir = os.path.join(cur_dir, '../CotN/')
+material_dir = os.path.join(cur_dir, '../Materials/')
 
 
 def get_elem_string(material):

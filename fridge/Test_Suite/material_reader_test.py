@@ -1,4 +1,4 @@
-from .. import material_reader as mat_read
+from ..input_readers import material_reader as mat_read
 import numpy as np
 import os
 

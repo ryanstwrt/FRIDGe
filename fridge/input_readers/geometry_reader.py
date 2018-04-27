@@ -4,7 +4,7 @@ import glob
 import os
 
 cur_dir = os.path.dirname(__file__)
-geo_dir = os.path.join(cur_dir, "Geometry")
+geo_dir = os.path.join(cur_dir, "../Geometry")
 
 
 def fuel_assembly_geometry_reader(assembly_type):
@@ -24,12 +24,13 @@ def fuel_assembly_geometry_reader(assembly_type):
     """
     assembly_file = glob.glob(os.path.join(geo_dir, assembly_type[0] + '.*'))
 
-    pin_data = np.zeros(6)
-    pin_materials = []
+    fuel_data = np.zeros(6)
+    fuel_materials = []
     assembly_data = np.zeros(6)
     assembly_materials = []
     plenum_data = np.zeros(1)
     plenum_materials = []
+    plenum_material_smears = np.zeros(3)
     fuel_reflector_data = np.zeros(1)
     fuel_reflector_materials = []
     with open(assembly_file[0], "r") as mat_file:
@@ -38,14 +39,14 @@ def fuel_assembly_geometry_reader(assembly_type):
             holder = [x for x in line.split(' ')]
             if 0 < i < 10:
                 if i > 6:
-                    pin_materials.append(holder[1])
+                    fuel_materials.append(holder[1])
                 else:
-                    pin_data[i-1] = holder[1]
+                    fuel_data[i - 1] = holder[1]
             elif 11 < i < 20:
                 if i > 17:
                     assembly_materials.append(holder[1])
                 else:
-                    assembly_data[i-12] = holder[1]
+                    assembly_data[i - 12] = holder[1]
             elif 21 < i < 25:
                 if i == 23:
                     plenum_material_smears = holder[1:]
@@ -54,32 +55,43 @@ def fuel_assembly_geometry_reader(assembly_type):
                 elif i == 22:
                     plenum_data[0] = holder[1]
             elif 26 < i < 30:
-                if i == 28:
+                if i == 29:
                     fuel_reflector_materials = holder[1:]
-                elif i == 29:
+                elif i == 28:
                     fuel_reflector_material_smears = holder[1:]
                 else:
                     fuel_reflector_data[0] = holder[1]
 
-    fuel_data = np.concatenate([pin_data,pin_materials])
-    fuel_data = pd.DataFrame(fuel_data,
-                             columns=['fuel'],
-                             index=['pin_diameter', 'clad_thickness', 'fuel_smear', 'pitch', 'wire_wrap_diameter',
-                                    'height', 'fuel', 'clad', 'bond'])
-    assembly_data = np.concatenate([assembly_data,assembly_materials])
+    fuel_data = pd.DataFrame(fuel_data, columns=['fuel'],
+                             index=['pin_diameter', 'clad_thickness', 'fuel_smear', 'pitch',
+                                    'wire_wrap_diameter', 'height'])
+    fuel_materials = pd.DataFrame(fuel_materials, columns=['fuel'],
+                                  index=['fuel', 'clad', 'bond'])
+    fuel_data = pd.concat([fuel_data, fuel_materials])
+
     assembly_data = pd.DataFrame(assembly_data,
                                  columns=['assembly'],
-                                 index=['pins_per_assembly', 'assembly pitch', 'duct_thickness',
-                                        'assembly_gap', 'inside_flat_to_flat', 'height', 'coolant', 'assembly'])
-    plenum_data = np.concatenate([plenum_data, plenum_material_smears])
+                                 index=['pins_per_assembly', 'assembly_pitch', 'duct_thickness',
+                                        'assembly_gap', 'inside_flat_to_flat', 'height'])
+    assembly_materials = pd.DataFrame(assembly_materials,
+                                      columns=['assembly'],
+                                      index=['coolant', 'assembly'])
+    assembly_data = pd.concat([assembly_data, assembly_materials])
+
     plenum_data = pd.DataFrame(plenum_data,
                                columns=['plenum'],
-                               index=['height', plenum_materials[0], plenum_materials[1], plenum_materials[2]])
-    fuel_reflector_data = np.concatenate([fuel_reflector_data, fuel_reflector_materials])
+                               index=['height'])
+    plenum_materials = pd.DataFrame(plenum_material_smears,
+                                    columns=['plenum'],
+                                    index=[plenum_materials[0], plenum_materials[1], plenum_materials[2]])
+    plenum_data = pd.concat([plenum_data, plenum_materials])
+
     fuel_reflector_data = pd.DataFrame(fuel_reflector_data,
                                        columns=['fuel_reflector'],
-                                       index=['height', fuel_reflector_material_smears[0], fuel_reflector_material_smears[1]])
-    return
+                                       index=['height'])
+    fuel_reflector_materials = pd.DataFrame(fuel_reflector_material_smears,
+                                            columns=['fuel_reflector'],
+                                            index=[fuel_reflector_materials[0], fuel_reflector_materials[1]])
+    fuel_reflector_data = pd.concat([fuel_reflector_data, fuel_reflector_materials])
 
-
-fuel_assembly_geometry_reader(['A271'])
+    return fuel_data, assembly_data, plenum_data, fuel_reflector_data

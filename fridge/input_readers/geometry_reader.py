@@ -19,10 +19,18 @@ def fuel_assembly_geometry_reader(assembly_type):
         assembly_type (str array): Name of the assembly type that will be used
 
     return:
-        fuel_assembly (Data Frame): Contains all the geometric components
-        and the materials for each component.
+        fuel_data (Data Frame): Contains all the geometric and material components for the fuel
+        assembly_data (Data Frame): Contains all the geometric and material components for the assembly
+        plenum_data (Data Frame): Contains all the geometric and material components for the plenum
+        fuel_reflector_data (Data Frame): Contains all the geometric and material components for the fuel reflector
+
     """
-    assembly_file = glob.glob(os.path.join(geo_dir, assembly_type[0] + '.*'))
+    assembly_file = glob.glob(os.path.join(geo_dir, assembly_type + '.*'))
+
+    if assembly_file == []:
+        print('\n\033[1;37;31mFatal Error: No assembly type named %s. \nChange your assembly type to a previously created assembly, '
+              'or create a new assembly using the utilities.' % assembly_type)
+        quit()
 
     fuel_data = np.zeros(6)
     fuel_materials = []
@@ -87,10 +95,10 @@ def fuel_assembly_geometry_reader(assembly_type):
 
     plenum_data = pd.DataFrame(plenum_data,
                                columns=['plenum'],
-                               index=['height', 'coolant_per', 'void_per', 'cladding_per'])
+                               index=['height', 'coolant_per', 'void_per', 'clad_per'])
     plenum_materials = pd.DataFrame(plenum_materials,
                                     columns=['plenum'],
-                                    index=['coolant', 'void', 'cladding'])
+                                    index=['coolant', 'void', 'clad'])
     plenum_data = pd.concat([plenum_data, plenum_materials])
 
     # Accumulate and organize the fuel reflector data/materials
@@ -98,10 +106,10 @@ def fuel_assembly_geometry_reader(assembly_type):
 
     fuel_reflector_data = pd.DataFrame(fuel_reflector_data,
                                        columns=['fuel_reflector'],
-                                       index=['height', 'coolant_per', 'cladding_per'])
+                                       index=['height', 'coolant_per', 'clad_per'])
     fuel_reflector_materials = pd.DataFrame(fuel_reflector_materials,
                                             columns=['fuel_reflector'],
-                                            index=['coolant', 'cladding'])
+                                            index=['coolant', 'clad'])
     fuel_reflector_data = pd.concat([fuel_reflector_data, fuel_reflector_materials])
 
 

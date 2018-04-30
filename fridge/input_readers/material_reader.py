@@ -25,6 +25,11 @@ def get_elem_string(material):
 
     """
     cur_material = glob.glob(os.path.join(material_dir, material[0] + '.*'))
+
+    if cur_material == []:
+        print('\n\033[1;37;31mFatal Error: The material %s is currently not supported.\n'
+              'Either select a different material or create the material using the utilities.' % material)
+        quit()
     with open(cur_material[0], "r") as mat_file:
         for i, line in enumerate(mat_file):
             if i == 1:
@@ -77,7 +82,7 @@ def element_input(element):
         if sum_wt == 0:
             pass
         elif sum_wt != 1:
-            print('WARNING: The weight of %s was %f and not normalized to 1. '
+            print('\033[1;37;33mWARNING: The weight of %s was %f and not normalized to 1. '
                   'Check element to determine error' % (element, sum_wt))
     return isotopes
 
@@ -128,7 +133,7 @@ def material_creator(elements):
         cur_element = glob.glob(os.path.join(element_dir, elements[i] + '*'))
         # Determine if the element exists, if not kill the program and report message
         if not os.path.isfile(cur_element[0]):
-            print('FATAL ERROR: Element currently not supported. '
+            print('\n\033[1;37;31mFATAL ERROR: Element currently not supported. '
                   'Please create element or utilize a different material.'
                   'Element creator module can be found in /FRIDGE/Utilities')
             quit()
@@ -154,7 +159,7 @@ def get_ZAID_row(mat, ZAID):
     """
     elem_col_temp = np.where(np.isin(mat, ZAID))
     if not elem_col_temp[1]:
-        print('FATAL ERROR: Element could not be found in material. '
+        print('\n\033[1;37;31mFATAL ERROR: Element could not be found in material. '
               'Check material input and element files to determine if %s is missing' % ZAID)
         quit()
     else:
@@ -322,7 +327,7 @@ def wt_per_calc(elem_vec, wt_per_vec, enr_vec):
                 mat_elem_vec[j][3] = mat_elem_vec[j][3] * wt_per_vec[1][i]
                 sum_wt += mat_elem_vec[j][3]
     if round(sum_wt, 15) != 1.0:
-        print('Warning: Material with %s had a weight fraction of %f and was not normlized to 1. '
+        print('\033[1;37:33mWarning: Material with %s had a weight fraction of %f and was not normlized to 1. '
               'Check to make sure the material or element card is correct' % (wt_per_vec[0][:], sum_wt))
 
     return mat_elem_vec
@@ -357,7 +362,7 @@ def wt2at_per(wt_per, attr):
         at_per[i][3] = at_den[i] / at_den_sum
         at_per_sum += at_per[i][3]
     if round(at_per_sum, 15) != 1:
-        print('WARNING: The atom percent of %s was %f and not normalized to 1. '
+        print('\033[1;37;33mWARNING: The atom percent of %s was %f and not normalized to 1. '
               'Check element to determine error' % (at_per[:, 1], at_per_sum))
     return at_per, at_den_sum
 

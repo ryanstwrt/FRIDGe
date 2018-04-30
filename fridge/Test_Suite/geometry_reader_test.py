@@ -29,6 +29,19 @@ def test_fuel_assembly_reader():
 
     # Check the Plenum data
     assert 60 == plenum_data.ix['height', 'plenum']
+    assert 0.25 == plenum_data.ix['coolant_per', 'plenum']
+    assert 0.25 == plenum_data.ix['void_per', 'plenum']
+    assert 0.50 == plenum_data.ix['cladding_per', 'plenum']
+    assert 'Liquid_Na' == plenum_data.ix['coolant', 'plenum']
+    assert 'Void' == plenum_data.ix['void', 'plenum']
+    assert 'HT9' == plenum_data.ix['cladding', 'plenum']
+
+    # Check the Fuel Reflector data
+    assert 50 == fuel_reflector_data.ix['height', 'fuel_reflector']
+    assert 0.3 == fuel_reflector_data.ix['coolant_per', 'fuel_reflector']
+    assert 0.7 == fuel_reflector_data.ix['cladding_per', 'fuel_reflector']
+    assert 'Liquid_Na' == fuel_reflector_data.ix['coolant', 'fuel_reflector']
+    assert 'HT9' == fuel_reflector_data.ix['cladding', 'fuel_reflector']
 
     return
 

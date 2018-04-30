@@ -1,4 +1,4 @@
-from FRIDGe.fridge.input_readers import geometry_reader as geo_read
+from ..input_readers import geometry_reader as geo_read
 
 def test_fuel_assembly_reader():
     """Tests the fuel assembly reader by reading in a known fuel

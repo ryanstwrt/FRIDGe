@@ -4,12 +4,7 @@ class Assembly:
         The assembly class holds all of the information regarding the assembly that is currently being built.
     """
 
-    class FueledAssembly:
-
-        def __init__(self, pin, material_fuel_reflector, material_plenum):
-            self.holder = 1
-
-    def __init__(self, assembly_data, assembly_type):
+    def __init__(self, assembly_data, assembly_type, pin_data):
         """
         Initializes the Assembly class with its corresponding data and assembly type
 
@@ -22,7 +17,7 @@ class Assembly:
         self.assembly_data = assembly_data
         self.assembly_type = assembly_type
         if assembly_type == 'fuel':
-            pass
+            self.pin = FuelPin(pin_data[0], pin_data[1], pin_data[2], pin_data[3])
 
 
 class Pin:

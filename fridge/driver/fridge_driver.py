@@ -12,9 +12,12 @@ fuel_material_fuel = mat_read.material_reader([fuel.ix['fuel', 'fuel']])
 fuel_material_bond = mat_read.material_reader([fuel.ix['bond', 'fuel']])
 fuel_material_cladding = mat_read.material_reader([fuel.ix['clad', 'fuel']])
 
-fuel_assembly = ah.Assembly(assembly, 'fueled')
+fuel_assembly = ah.Assembly(assembly, 'fuel')
 
-print(fuel_assembly.assembly_data)
+fuel_pin = ah.Pin(fuel, 'fuel')
+
+
+print(fuel_pin.pin_data)
 #fuel_pin = pin_maker.fuel_pin_maker(fuel)
 
 #print(fuel, fuel_material_fuel, fuel_material_bond, fuel_material_cladding)

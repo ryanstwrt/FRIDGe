@@ -81,7 +81,7 @@ def element_input(element):
                 iso_num += 1
         if sum_wt == 0:
             pass
-        elif sum_wt != 1:
+        elif round(sum_wt, 8) != 1.0000:
             print('\033[1;37;33mWARNING: The weight of %s was %f and not normalized to 1. '
                   'Check element to determine error' % (element, sum_wt))
     return isotopes
@@ -328,7 +328,7 @@ def wt_per_calc(elem_vec, wt_per_vec, enr_vec):
                 sum_wt += mat_elem_vec[j][3]
     if round(sum_wt, 15) != 1.0:
         print('\033[1;37:33mWarning: Material with %s had a weight fraction of %f and was not normlized to 1. '
-              'Check to make sure the material or element card is correct' % (wt_per_vec[0][:], sum_wt))
+              'Check to make sure the material or element card is correct' % ([wt_per_vec[0][:]], sum_wt))
 
     return mat_elem_vec
 

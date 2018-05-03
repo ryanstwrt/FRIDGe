@@ -1,0 +1,4 @@
+Phosphorus
+15000
+ZAID     Mass #     Abun.   Den. LCoE
+15031 30.973761 1.0000 1.82 0.0

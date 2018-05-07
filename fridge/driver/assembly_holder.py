@@ -4,7 +4,7 @@ class Assembly:
         The assembly class holds all of the information regarding the assembly that is currently being built.
     """
 
-    def __init__(self, assembly_data, assembly_type, pin_data):
+    def __init__(self, assembly_data, assembly_type, pin_data, assembly_universe):
         """
         Initializes the Assembly class with its corresponding data and assembly type
 
@@ -16,6 +16,9 @@ class Assembly:
         """
         self.assembly_data = assembly_data
         self.assembly_type = assembly_type
+        self.assembly_universe = assembly_universe
+        self.surface_number = self.assembly_universe
+        self.cell_number = self.assembly_universe + 50
         if assembly_type == 'fuel':
             self.pin = FuelPin(pin_data[0], pin_data[1], pin_data[2], pin_data[3])
 
@@ -40,6 +43,7 @@ class Pin:
 class FuelPin(Pin):
     """
         A pin subclass that holds information for a fuel type pin
+        This class holds surface/cell numbers, mcnp input file formats
     """
     def __init__(self, pin, fuel, bond, clad):
         self.fuel_material = fuel
@@ -49,5 +53,16 @@ class FuelPin(Pin):
         self.fuel_bond_surface = ''
         self.fuel_clad_surface = ''
         self.fuel_pin_universe_surface = ''
+        self.fuel_pellet_mcnp_surface = ''
+        self.fuel_bond_mcnp_surface = ''
+        self.fuel_clad_mcnp_surface = ''
+        self.fuel_pin_universe_mcnp_surface = ''
+        self.fuel_pellet_cell = ''
         self.fuel_bond_cell = ''
+        self.fuel_clad_cell = ''
+        self.fuel_universe_cell = ''
+        self.fuel_pellet_mcnp_cell = ''
+        self.fuel_bond_mcnp_cell = ''
+        self.fuel_clad_mcnp_cell = ''
+        self.fuel_universe_mcnp_cell = ''
         super(FuelPin, self).__init__(pin)

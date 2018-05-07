@@ -19,55 +19,84 @@ def fuel_pin_maker(fuel_assembly):
     fuel_pin_height = fuel_assembly.pin.pin_data.ix['height', 'fuel']
     pin_pos = [0, 0, 50]
 
-    surface_number = 10
+    fuel_assembly.pin.fuel_pellet_surface = fuel_assembly.surface_number
+    fuel_assembly.pin.fuel_pellet_mcnp_surface, warning = mcnp_make_macro_RCC(fuel_assembly, pin_pos, [0, 0, fuel_pin_height], fuel_pellet_or, "Pin: Fuel pellet outer radius")
 
-    fuel_assembly.pin.fuel_pellet_surface, warning = mcnp_make_macro_RCC(10, pin_pos, [0, 0, fuel_pin_height], fuel_pellet_or, "Pin: Fuel pellet outer radius")
-    fuel_assembly.pin.fuel_bond_surface, warning = mcnp_make_macro_RCC(11, pin_pos, [0, 0, fuel_pin_height], fuel_pin_ir, "Pin: Na bond outer radius")
-    fuel_assembly.pin.fuel_clad_surface, warning = mcnp_make_macro_RCC(12, pin_pos, [0, 0, fuel_pin_height], fuel_pin_or, "Pin: Cladding outer radius")
-    fuel_assembly.pin.fuel_pin_universe_surface, warning = mcnp_make_macro_RHP(13, pin_pos, [0, 0, fuel_pin_height], [1.0, 0, 0], "$ Pin: Na universe for fuel pin")
+    fuel_assembly.pin.fuel_bond_surface = fuel_assembly.surface_number
+    fuel_assembly.pin.fuel_bond_mcnp_surface, warning = mcnp_make_macro_RCC(fuel_assembly, pin_pos, [0, 0, fuel_pin_height], fuel_pin_ir, "Pin: Na bond outer radius")
 
-    fuel_assembly.pin.fuel_bond_cell, warning = mcnp_make_concentric_cell(10, 100, 0.94, surface_number, surface_number+1, 1, 1, "Pin: Na Bond")
+    fuel_assembly.pin.fuel_clad_surface = fuel_assembly.surface_number
+    fuel_assembly.pin.fuel_clad_mcnp_surface, warning = mcnp_make_macro_RCC(fuel_assembly, pin_pos, [0, 0, fuel_pin_height], fuel_pin_or, "Pin: Cladding outer radius")
 
+    fuel_assembly.pin.fuel_pin_universe_surface = fuel_assembly.surface_number
+    fuel_assembly.pin.fuel_pin_universe_mcnp_surface, warning = mcnp_make_macro_RHP(fuel_assembly, pin_pos, [0, 0, fuel_pin_height], [1.0, 0, 0], "$ Pin: Na universe for fuel pin")
+
+    fuel_assembly.pin.fuel_pellet_cell = fuel_assembly.cell_number
+    fuel_assembly.pin.fuel_pellet_mcnp_cell, warning = mcnp_make_cell(fuel_assembly, 100, 0.94,
+                                                                 fuel_assembly.pin.fuel_pellet_surface, 1, 1,
+                                                                 "Pin: Fuel Pellet")
+
+    fuel_assembly.pin.fuel_bond_cell = fuel_assembly.cell_number
+    fuel_assembly.pin.fuel_bond_mcnp_cell, warning = mcnp_make_concentric_cell(fuel_assembly, 100, 0.94,
+                                                                          fuel_assembly.pin.fuel_pellet_surface,
+                                                                          fuel_assembly.pin.fuel_bond_surface, 1, 1,
+                                                                          "Pin: Na Bond")
+
+    fuel_assembly.pin.fuel_clad_cell = fuel_assembly.cell_number
+    fuel_assembly.pin.fuel_clad_mcnp_cell, warning = mcnp_make_concentric_cell(fuel_assembly, 100, 0.94,
+                                                                          fuel_assembly.pin.fuel_bond_surface,
+                                                                          fuel_assembly.pin.fuel_clad_surface, 1, 1,
+                                                                          "Pin: Pin Cladding")
+
+    fuel_assembly.pin.fuel_universe_cell = fuel_assembly.cell_number
+    fuel_assembly.pin.fuel_universe_mcnp_cell, warning = mcnp_make_concentric_cell(fuel_assembly, 100, 0.94,
+                                                                              fuel_assembly.pin.fuel_clad_surface,
+                                                                              fuel_assembly.pin.fuel_pin_universe_surface, 1, 1,
+                                                                              "Pin: Wirewrap + Na coolant")
     return
 
 
-def mcnp_make_macro_RCC(surface_number, position, height, radius, comment):
+def mcnp_make_macro_RCC(fuel_assembly, position, height, radius, comment):
     mcnp_length_warning = False
-    mcnp_output = str(surface_number) + " RCC  " + str(position[0]) + " " + str(position[1]) + " " + str(position[2]) \
+    mcnp_output = str(fuel_assembly.surface_number) + " RCC  " + str(position[0]) + " " + str(position[1]) + " " + str(position[2]) \
         + "   " + str(height[0]) + " " + str(height[1]) + "   " + str(height[2]) + "   " + str(np.round(radius, 6)) \
         + "   $" + comment
     if len(mcnp_output) > 80:
         mcnp_length_warning = True
         print("\033[1;37:33mWarning: Surface %d has a line that is longer than 80 characters")
+    fuel_assembly.surface_number += 1
     return mcnp_output, mcnp_length_warning
 
 
-def mcnp_make_macro_RHP(surface_number, position, height, pitch, comment):
+def mcnp_make_macro_RHP(fuel_assembly, position, height, pitch, comment):
     mcnp_length_warning = False
-    mcnp_output = str(surface_number) + " RHP  " + str(position[0]) + " " + str(position[1]) + " " + str(position[2]) \
+    mcnp_output = str(fuel_assembly.surface_number) + " RHP  " + str(position[0]) + " " + str(position[1]) + " " + str(position[2]) \
         + "   " + str(height[0]) + " " + str(height[1]) + "   " + str(height[2]) + "   " + str(np.round(pitch[0], 6)) \
         + str(np.round(pitch[1], 6)) + " " + str(np.round(pitch[2], 6)) + "   $" + comment
     if len(mcnp_output) > 80:
         mcnp_length_warning = True
         print("\033[1;37:33mWarning: Surface %d has a line that is longer than 80 characters")
+    fuel_assembly.surface_number += 1
     return mcnp_output, mcnp_length_warning
 
-def mcnp_make_concentric_cell(cell_number, material_id, material_density, inner, outer, universe, importance, comment):
+def mcnp_make_concentric_cell(fuel_assembly, material_id, material_density, inner, outer, universe, importance, comment):
     mcnp_length_warning = False
-    mcnp_output = str(cell_number) + " " + str(material_id) + " " + str(material_density) + " " + str(inner) + " -" \
+    mcnp_output = str(fuel_assembly.cell_number) + " " + str(material_id) + " " + str(material_density) + " " + str(inner) + " -" \
     + str(outer) + "      u=" + str(universe) + " imp:n=" + str(importance) + " $" + comment
 
     if len(mcnp_output) > 80:
         mcnp_length_warning = True
         print("\033[1;37:33mWarning: Cell %d has a line that is longer than 80 characters")
+    fuel_assembly.cell_number += 1
     return mcnp_output, mcnp_length_warning
 
-def mcnp_make_cell(cell_number, material_id, material_density, inner, universe, importance, comment):
+def mcnp_make_cell(fuel_assembly, material_id, material_density, inner, universe, importance, comment):
     mcnp_length_warning = False
-    mcnp_output = str(cell_number) + " " + str(material_id) + " " + str(material_density) + " " + str(inner) +\
+    mcnp_output = str(fuel_assembly.cell_number) + " " + str(material_id) + " " + str(material_density) + " -" + str(inner) +\
     "      u=" + str(universe) + " imp:n=" + str(importance) + " $" + comment
 
     if len(mcnp_output) > 80:
         mcnp_length_warning = True
         print("\033[1;37:33mWarning: Cell %d has a line that is longer than 80 characters")
+    fuel_assembly.cell_number += 1
     return mcnp_output, mcnp_length_warning

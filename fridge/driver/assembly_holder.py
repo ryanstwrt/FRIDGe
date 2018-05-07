@@ -45,4 +45,9 @@ class FuelPin(Pin):
         self.fuel_material = fuel
         self.fuel_bond = bond
         self.fuel_clad = clad
+        self.fuel_pellet_surface = ''
+        self.fuel_bond_surface = ''
+        self.fuel_clad_surface = ''
+        self.fuel_pin_universe_surface = ''
+        self.fuel_bond_cell = ''
         super(FuelPin, self).__init__(pin)

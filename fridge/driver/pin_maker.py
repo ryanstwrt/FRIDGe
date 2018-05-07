@@ -19,7 +19,14 @@ def fuel_pin_maker(fuel_assembly):
     fuel_pin_height = fuel_assembly.pin.pin_data.ix['height', 'fuel']
     pin_pos = [0, 0, 50]
 
-    mcnp_surface, warning = mcnp_make_macro_RCC(1, pin_pos, [0,0,fuel_pin_height], fuel_pellet_or, "Pin: fuel pin with height 60cm")
+    surface_number = 10
+
+    fuel_assembly.pin.fuel_pellet_surface, warning = mcnp_make_macro_RCC(10, pin_pos, [0, 0, fuel_pin_height], fuel_pellet_or, "Pin: Fuel pellet outer radius")
+    fuel_assembly.pin.fuel_bond_surface, warning = mcnp_make_macro_RCC(11, pin_pos, [0, 0, fuel_pin_height], fuel_pin_ir, "Pin: Na bond outer radius")
+    fuel_assembly.pin.fuel_clad_surface, warning = mcnp_make_macro_RCC(12, pin_pos, [0, 0, fuel_pin_height], fuel_pin_or, "Pin: Cladding outer radius")
+    fuel_assembly.pin.fuel_pin_universe_surface, warning = mcnp_make_macro_RHP(13, pin_pos, [0, 0, fuel_pin_height], [1.0, 0, 0], "$ Pin: Na universe for fuel pin")
+
+    fuel_assembly.pin.fuel_bond_cell, warning = mcnp_make_concentric_cell(10, 100, 0.94, surface_number, surface_number+1, 1, 1, "Pin: Na Bond")
 
     return
 
@@ -43,4 +50,24 @@ def mcnp_make_macro_RHP(surface_number, position, height, pitch, comment):
     if len(mcnp_output) > 80:
         mcnp_length_warning = True
         print("\033[1;37:33mWarning: Surface %d has a line that is longer than 80 characters")
+    return mcnp_output, mcnp_length_warning
+
+def mcnp_make_concentric_cell(cell_number, material_id, material_density, inner, outer, universe, importance, comment):
+    mcnp_length_warning = False
+    mcnp_output = str(cell_number) + " " + str(material_id) + " " + str(material_density) + " " + str(inner) + " -" \
+    + str(outer) + "      u=" + str(universe) + " imp:n=" + str(importance) + " $" + comment
+
+    if len(mcnp_output) > 80:
+        mcnp_length_warning = True
+        print("\033[1;37:33mWarning: Cell %d has a line that is longer than 80 characters")
+    return mcnp_output, mcnp_length_warning
+
+def mcnp_make_cell(cell_number, material_id, material_density, inner, universe, importance, comment):
+    mcnp_length_warning = False
+    mcnp_output = str(cell_number) + " " + str(material_id) + " " + str(material_density) + " " + str(inner) +\
+    "      u=" + str(universe) + " imp:n=" + str(importance) + " $" + comment
+
+    if len(mcnp_output) > 80:
+        mcnp_length_warning = True
+        print("\033[1;37:33mWarning: Cell %d has a line that is longer than 80 characters")
     return mcnp_output, mcnp_length_warning

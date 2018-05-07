@@ -1,0 +1,4 @@
+Manganese
+25000
+ZAID     Mass #     Abun.   Den. LCoE
+25055 54.938043 1.0 7.3 0.0

@@ -1,0 +1,8 @@
+90wt% Uranium 10wt% Zirconium
+Na
+11000
+1.00
+
+
+Den   LCoE
+0.927 0.0

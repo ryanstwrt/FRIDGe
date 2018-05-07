@@ -23,6 +23,13 @@ def test_assembly():
     assert fuel_assembly.pin.fuel_bond == fuel_material_bond
     assert fuel_assembly.pin.fuel_clad == fuel_material_cladding
 
+    fuel_pin = ah.FuelPin(fuel, fuel_material_fuel, fuel_material_bond, fuel_material_cladding)
+
+    assert fuel_assembly.fuel_id == universe
+    assert fuel_assembly.bond_id == universe + 1
+    assert fuel_assembly.clad_id == universe + 2
+    assert fuel_assembly.coolant_id == universe + 3
+
 def test_pin():
     """ Test the creation of the pin class"""
     assembly_type = 'A271'

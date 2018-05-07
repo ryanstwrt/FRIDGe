@@ -15,6 +15,7 @@ fuel_material_cladding = mat_read.material_reader([fuel.ix['clad', 'fuel']])
 
 
 def test_mcnp_macro_RCC():
+    """Make a right circular cylinder surface"""
     fuel_assembly = ah.Assembly(assembly, 'fuel',
                                 [fuel, fuel_material_fuel, fuel_material_bond, fuel_material_cladding], 1000)
 
@@ -28,6 +29,7 @@ def test_mcnp_macro_RCC():
 
 
 def test_mcnp_macro_RHP():
+    """Make a right hexagonal prism surface"""
     fuel_assembly = ah.Assembly(assembly, 'fuel',
                                 [fuel, fuel_material_fuel, fuel_material_bond, fuel_material_cladding], 1000)
 
@@ -41,6 +43,7 @@ def test_mcnp_macro_RHP():
 
 
 def test_mcnp_make_concentric_cell():
+    """Make an MCNP surface with two concentric surfaces"""
     fuel_assembly = ah.Assembly(assembly, 'fuel',
                                 [fuel, fuel_material_fuel, fuel_material_bond, fuel_material_cladding], 1000)
 
@@ -55,6 +58,7 @@ def test_mcnp_make_concentric_cell():
 
 
 def test_mcnp_make_cell():
+    """Test the ability to make an MCNP cell with only one surface"""
     fuel_assembly = ah.Assembly(assembly, 'fuel',
                                 [fuel, fuel_material_fuel, fuel_material_bond, fuel_material_cladding], 1000)
 
@@ -69,6 +73,7 @@ def test_mcnp_make_cell():
 
 
 def test_pin_maker():
+    """Test of the pin maker function"""
     fuel_assembly = ah.Assembly(assembly, 'fuel',
                                 [fuel, fuel_material_fuel, fuel_material_bond, fuel_material_cladding], 1000)
 
@@ -85,9 +90,6 @@ def test_pin_maker():
     assert fuel_assembly.pin.fuel_bond_cell == 1051
     assert fuel_assembly.pin.fuel_clad_cell == 1052
     assert fuel_assembly.pin.fuel_universe_cell == 1053
-
-
-
 
 test_mcnp_macro_RCC()
 test_mcnp_macro_RHP()

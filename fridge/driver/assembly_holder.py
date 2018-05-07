@@ -21,6 +21,10 @@ class Assembly:
         self.cell_number = self.assembly_universe + 50
         if assembly_type == 'fuel':
             self.pin = FuelPin(pin_data[0], pin_data[1], pin_data[2], pin_data[3])
+            self.fuel_id = self.assembly_universe
+            self.bond_id = self.assembly_universe + 1
+            self.clad_id = self.assembly_universe + 2
+            self.coolant_id = self.assembly_universe + 3
 
 
 class Pin:
@@ -43,9 +47,10 @@ class Pin:
 class FuelPin(Pin):
     """
         A pin subclass that holds information for a fuel type pin
-        This class holds surface/cell numbers, mcnp input file formats
+        This class holds surface/cell numbers, MCNP input file formats
     """
     def __init__(self, pin, fuel, bond, clad):
+        super(FuelPin, self).__init__(pin)
         self.fuel_material = fuel
         self.fuel_bond = bond
         self.fuel_clad = clad
@@ -65,4 +70,3 @@ class FuelPin(Pin):
         self.fuel_bond_mcnp_cell = ''
         self.fuel_clad_mcnp_cell = ''
         self.fuel_universe_mcnp_cell = ''
-        super(FuelPin, self).__init__(pin)

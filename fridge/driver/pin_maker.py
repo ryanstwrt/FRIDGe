@@ -19,18 +19,28 @@ def fuel_pin_maker(fuel_assembly):
     fuel_pin_height = fuel_assembly.pin.pin_data.ix['height', 'fuel']
     pin_pos = [0, 0, 50]
 
+    # Create the surface for each section of a pin.
     fuel_assembly.pin.fuel_pellet_surface = fuel_assembly.surface_number
-    fuel_assembly.pin.fuel_pellet_mcnp_surface, warning = mcnp_make_macro_RCC(fuel_assembly, pin_pos, [0, 0, fuel_pin_height], fuel_pellet_or, "Pin: Fuel pellet outer radius")
+    fuel_assembly.pin.fuel_pellet_mcnp_surface, warning = mcnp_make_macro_RCC(fuel_assembly, pin_pos,
+                                                                              [0, 0, fuel_pin_height], fuel_pellet_or,
+                                                                              "Pin: Fuel pellet outer radius")
 
     fuel_assembly.pin.fuel_bond_surface = fuel_assembly.surface_number
-    fuel_assembly.pin.fuel_bond_mcnp_surface, warning = mcnp_make_macro_RCC(fuel_assembly, pin_pos, [0, 0, fuel_pin_height], fuel_pin_ir, "Pin: Na bond outer radius")
+    fuel_assembly.pin.fuel_bond_mcnp_surface, warning = mcnp_make_macro_RCC(fuel_assembly, pin_pos,
+                                                                            [0, 0, fuel_pin_height], fuel_pin_ir,
+                                                                            "Pin: Na bond outer radius")
 
     fuel_assembly.pin.fuel_clad_surface = fuel_assembly.surface_number
-    fuel_assembly.pin.fuel_clad_mcnp_surface, warning = mcnp_make_macro_RCC(fuel_assembly, pin_pos, [0, 0, fuel_pin_height], fuel_pin_or, "Pin: Cladding outer radius")
+    fuel_assembly.pin.fuel_clad_mcnp_surface, warning = mcnp_make_macro_RCC(fuel_assembly, pin_pos,
+                                                                            [0, 0, fuel_pin_height], fuel_pin_or,
+                                                                            "Pin: Cladding outer radius")
 
     fuel_assembly.pin.fuel_pin_universe_surface = fuel_assembly.surface_number
-    fuel_assembly.pin.fuel_pin_universe_mcnp_surface, warning = mcnp_make_macro_RHP(fuel_assembly, pin_pos, [0, 0, fuel_pin_height], [1.0, 0, 0], "$ Pin: Na universe for fuel pin")
+    fuel_assembly.pin.fuel_pin_universe_mcnp_surface, warning = mcnp_make_macro_RHP(fuel_assembly, pin_pos,
+                                                                                    [0, 0, fuel_pin_height], [1.0, 0, 0],
+                                                                                    "$ Pin: Na universe for fuel pin")
 
+    # Create the cell for each section of a pin
     fuel_assembly.pin.fuel_pellet_cell = fuel_assembly.cell_number
     fuel_assembly.pin.fuel_pellet_mcnp_cell, warning = mcnp_make_cell(fuel_assembly, 100, 0.94,
                                                                  fuel_assembly.pin.fuel_pellet_surface, 1, 1,

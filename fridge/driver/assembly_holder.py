@@ -1,7 +1,24 @@
 class Assembly:
     """
         The assembly class holds all of the information regarding the assembly that is currently being built.
+
+    args:
+
+    Attributes:
+        assembly_data (DataFrame): data frame which holds all of the information regarding the assembly
+        assembly_type (str): string which tells what subclass of assembly to create
+        pin_data (DataFram: data frame containing the data for the pin and pin type
+        assembly_universe (int): the universe number which will be used for all parts of this assembly
+        surface_number (int): based on the universe number, keeps track of the surface number when surfcae is built
+        cell_number (int): based on the universe number, keeps track of the cell number when cell is built
+
+        fuel assembly:
+            fuel_id (int): id number for the fuel material
+            bond_id (int): id number for the bond material
+            clad_id (int): id number for the clad material
+            coolant_id (int): id number for the coolant material
     """
+
 
     def __init__(self, assembly_data, assembly_type, pin_data, assembly_universe):
         """
@@ -10,6 +27,8 @@ class Assembly:
         args:
            assembly_data (DataFrame): data frame which holds all of the information regarding the assembly
            assembly_type (str): string which tells what subclass of assembly to create
+           pin_data (DataFram: data frame containing the data for the pin and pin type
+           assembly_universe (int): the universe number which will be used for all parts of this assembly
         return:
             void
         """
@@ -18,6 +37,7 @@ class Assembly:
         self.assembly_universe = assembly_universe
         self.surface_number = self.assembly_universe
         self.cell_number = self.assembly_universe + 50
+
         if assembly_type == 'fuel':
             self.pin = FuelPin(pin_data[0], pin_data[1], pin_data[2], pin_data[3])
             self.fuel_id = self.assembly_universe

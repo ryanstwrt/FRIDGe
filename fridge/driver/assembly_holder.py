@@ -1,4 +1,3 @@
-
 class Assembly:
     """
         The assembly class holds all of the information regarding the assembly that is currently being built.

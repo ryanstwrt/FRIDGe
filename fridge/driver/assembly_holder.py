@@ -47,6 +47,30 @@ class FuelPin(Pin):
     """
         A pin subclass that holds information for a fuel type pin
         This class holds surface/cell numbers, MCNP input file formats
+
+        args:
+            Pin (Class):
+
+        Attributes:
+            fuel_material (2D array): Contains both the array of ZAIDS contained in the fuel and the atom density
+            fuel_bond (2D array): Contains both the array of ZAIDS contained in the bond and the atom density
+            fuel_clad (2D array): Contains both the array of ZAIDS contained in the clad and the atom density
+            fuel_pellet_surface (str): The surface number for the fuel pellet
+            fuel_bond_surface (str): The surface number for the bond
+            fuel_clad_surface (str): The surface number for the clad
+            fuel_pin_universe_surface (str): The surface number for the coolant pin universe
+            fuel_pellet_mcnp_surface (str): The mcnp line for the fuel pellet
+            fuel_bond_mcnp_surface (str): The mcnp line for the bond
+            fuel_clad_mcnp_surface (str): The mcnp line for the clad
+            fuel_pin_universe_mcnp_surface (str): The mcnp line for the coolant pin universe
+            fuel_pellet_cell (str): The cell number for the fuel pellet
+            fuel_bond_cell (str): The cell number for the bond
+            fuel_clad_cell (str): The cell number for the clad
+            fuel_universe_cell (str): The cell number for the coolant pin universe
+            fuel_pellet_mcnp_cell (str): The mcnp line number for the fuel pellet
+            fuel_bond_mcnp_cell (str): The mcnp line number for the bond
+            fuel_clad_mcnp_cell (str): The mcnp line number for the clad
+            fuel_universe_mcnp_cell (str): The mcnp line number for the coolant pin universe
     """
     def __init__(self, pin, fuel, bond, clad):
         super(FuelPin, self).__init__(pin)

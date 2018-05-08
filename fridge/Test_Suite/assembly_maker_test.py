@@ -90,17 +90,26 @@ def test_pin_maker():
     assert fuel_assembly.pin.fuel_clad_cell == 1052
     assert fuel_assembly.pin.fuel_universe_cell == 1053
 
+
 def test_assembly_maker():
+    """Test of the assembly maker function"""
     fuel_assembly = ah.Assembly(assembly, 'fuel', plenum, fuel_reflector,
                                 [fuel, fuel_material_fuel, fuel_material_bond, fuel_material_cladding], 1000)
 
     pm.assembly_maker(fuel_assembly)
     assert fuel_assembly.lower_reflector_surface == 1000
+    assert fuel_assembly.lower_reflector_mcnp_surface == "1000 RHP  0 0 0   0 0 50.0   0 5.55 0   $Assembly: Lower Reflector"
     assert fuel_assembly.plenum_surface == 1001
+    assert fuel_assembly.plenum_mcnp_surface == "1001 RHP  0 0 110.0   0 0 60.0   0 5.55 0   $Assembly: Plenum"
     assert fuel_assembly.upper_reflector_surface == 1002
+    assert fuel_assembly.upper_reflector_mcnp_surface == "1002 RHP  0 0 170.0   0 0 50.0   0 5.55 0   $Assembly: Upper Reflector"
     assert fuel_assembly.inner_duct_surface == 1003
+    assert fuel_assembly.inner_duct_mcnp_surface == "1003 RHP  0 0 50.0   0 0 60.0   0 5.55 0   $Assembly: Inner Duct (fuel portion)"
     assert fuel_assembly.outer_duct_surface == 1004
+    assert fuel_assembly.outer_duct_mcnp_surface == "1004 RHP  0 0 -1   0 0 322.0   0 5.55 0   $Assembly: Outerduct/Universe"
     assert fuel_assembly.universe_surface == 1005
+    assert fuel_assembly.universe_mcnp_surface == "1005 RHP  0 0 -0.45   0 0 320.6   0 5.55 0   $Assembly: Sodium universe"
+
 
 
 

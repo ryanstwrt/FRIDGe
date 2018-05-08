@@ -12,7 +12,7 @@ def assembly_maker(assembly):
     """
     # Unpack the information from the assembly_data DataFrame
     number_pins = assembly.assembly_data.ix['pins_per_assembly', 'assembly']
-    half_assembly_pitch = assembly.assembly_data.ix['assembly_pitch', 'assembly']
+    full_assembly_pitch = assembly.assembly_data.ix['assembly_pitch', 'assembly']
     duct_thickness = assembly.assembly_data.ix['duct_thickness', 'assembly']
     assembly_gap = assembly.assembly_data.ix['assembly_gap', 'assembly']
     inner_flat = assembly.assembly_data.ix['inside_flat_to_flat', 'assembly']
@@ -45,8 +45,8 @@ def assembly_maker(assembly):
     assembly.upper_reflector_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, upper_fuel_reflector_position, fuel_reflector_height_vector,
                                                                          assembly_pitch, 'Assembly: Upper Reflector')
     assembly.inner_duct_surface = assembly.surface_number
-    assembly.inner_duct_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, inner_duct_position, assembly_height_vector,
-                                                                         fuel_height_vector, 'Assembly: Inner Duct (fuel portion')
+    assembly.inner_duct_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, inner_duct_position, fuel_height_vector,
+                                                                    assembly_pitch, 'Assembly: Inner Duct (fuel portion)')
     assembly.outer_duct_surface = assembly.surface_number
     assembly.outer_duct_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, outer_duct_position, assembly_height_vector,
                                                                          assembly_pitch, 'Assembly: Outerduct/Universe')
@@ -165,7 +165,7 @@ def mcnp_make_concentric_cell(fuel_assembly, material_id, material_density, inne
 
     if len(mcnp_output) > 80:
         mcnp_length_warning = True
-        print("\033[1;37:33mWarning: Cell %d has a line that is longer than 80 characters")
+        print("\033[1;37:33mWarning: Cell %d has a line that is longer than 80 characters", fuel_assembly.cell_number)
     fuel_assembly.cell_number += 1
     return mcnp_output, mcnp_length_warning
 
@@ -177,6 +177,6 @@ def mcnp_make_cell(fuel_assembly, material_id, material_density, inner, universe
 
     if len(mcnp_output) > 80:
         mcnp_length_warning = True
-        print("\033[1;37:33mWarning: Cell %d has a line that is longer than 80 characters")
+        print("\033[1;37:33mWarning: Cell %d has a line that is longer than 80 characters", fuel_assembly.cell_number)
     fuel_assembly.cell_number += 1
     return mcnp_output, mcnp_length_warning

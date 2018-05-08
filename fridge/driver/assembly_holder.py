@@ -20,7 +20,7 @@ class Assembly:
     """
 
 
-    def __init__(self, assembly_data, assembly_type, pin_data, assembly_universe):
+    def __init__(self, assembly_data, assembly_type, plenum_data, fuel_reflector_data, pin_data, assembly_universe):
         """
         Initializes the Assembly class with its corresponding data and assembly type
 
@@ -28,27 +28,50 @@ class Assembly:
            assembly_data (DataFrame): data frame which holds all of the information regarding the assembly
            assembly_type (str): string which tells what subclass of assembly to create
            pin_data (DataFram: data frame containing the data for the pin and pin type
+           assembly_id (int): material id number for the assembly cladding
+           assembly_coolant_id (int) material id number for the coolant outisde the assembly
            assembly_universe (int): the universe number which will be used for all parts of this assembly
         return:
             void
         """
         self.assembly_data = assembly_data
+        self.plenum_data = plenum_data
+        self.fuel_reflector_data = fuel_reflector_data
         self.assembly_type = assembly_type
         self.assembly_universe = assembly_universe
         self.surface_number = self.assembly_universe
         self.cell_number = self.assembly_universe + 50
+        self.assembly_id = self.assembly_universe + 1
+        self.assembly_coolant_id = self.assembly_universe + 2
+        self.lower_reflector_surface = ''
+        self.plenum_surface = ''
+        self.upper_reflector_surface = ''
+        self.inner_duct_surface = ''
+        self.outer_duct_surface = ''
+        self.universe_surface = ''
+        self.lower_reflector_mcnp_surface = ''
+        self.plenum_mcnp_surface = ''
+        self.upper_reflector_mcnp_surface = ''
+        self.inner_duct_mcnp_surface = ''
+        self.outer_duct_mcnp_surface = ''
+        self.universe_mcnp_surface = ''
 
         if assembly_type == 'fuel':
             self.pin = FuelPin(pin_data[0], pin_data[1], pin_data[2], pin_data[3])
-            self.fuel_id = self.assembly_universe
-            self.bond_id = self.assembly_universe + 1
-            self.clad_id = self.assembly_universe + 2
-            self.coolant_id = self.assembly_universe + 3
+            self.fuel_id = self.assembly_universe + 50
+            self.bond_id = self.assembly_universe + 3
+            self.clad_id = self.assembly_universe + 4
+            self.coolant_id = self.assembly_universe + 5
+            self.fuel_reflector_id = self.assembly_universe + 6
+
 
 
 class Pin:
     """
         The Pin class holds all the information for a given pin type.
+
+        Attributes:
+            pin_data (DataFrame): data frame containing the data for the pin and pin type
     """
 
     def __init__(self, pin_data):
@@ -92,8 +115,9 @@ class FuelPin(Pin):
             fuel_clad_mcnp_cell (str): The mcnp line number for the clad
             fuel_universe_mcnp_cell (str): The mcnp line number for the coolant pin universe
     """
+
     def __init__(self, pin, fuel, bond, clad):
-        super(FuelPin, self).__init__(pin)
+        super().__init__(pin)
         self.fuel_material = fuel
         self.fuel_bond = bond
         self.fuel_clad = clad

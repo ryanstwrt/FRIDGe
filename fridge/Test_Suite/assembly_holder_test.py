@@ -11,7 +11,7 @@ def test_assembly():
     fuel_material_cladding = mat_read.material_reader([fuel.ix['clad', 'fuel']])
     universe = 1000
 
-    fuel_assembly = ah.Assembly(assembly, 'fuel', [fuel, fuel_material_fuel, fuel_material_bond, fuel_material_cladding], universe)
+    fuel_assembly = ah.Assembly(assembly, 'fuel', plenum, fuel_reflector, [fuel, fuel_material_fuel, fuel_material_bond, fuel_material_cladding], universe)
 
     assert fuel_assembly.assembly_data.all == assembly.all
     assert fuel_assembly.assembly_type == 'fuel'
@@ -25,10 +25,13 @@ def test_assembly():
 
     fuel_pin = ah.FuelPin(fuel, fuel_material_fuel, fuel_material_bond, fuel_material_cladding)
 
-    assert fuel_assembly.fuel_id == universe
-    assert fuel_assembly.bond_id == universe + 1
-    assert fuel_assembly.clad_id == universe + 2
-    assert fuel_assembly.coolant_id == universe + 3
+    assert fuel_assembly.fuel_id == universe + 50
+    assert fuel_assembly.bond_id == universe + 3
+    assert fuel_assembly.clad_id == universe + 4
+    assert fuel_assembly.coolant_id == universe + 5
+    assert fuel_assembly.assembly_id == universe + 1
+    assert fuel_assembly.assembly_coolant_id == universe + 2
+
 
 def test_pin():
     """ Test the creation of the pin class"""

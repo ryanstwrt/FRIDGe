@@ -36,6 +36,9 @@ class Assembly:
         return:
             void
         """
+        #plenum_material = mat_read.material_reader([plenum_data.ix['fuel', 'fuel']])
+        #fuel_reflecor_material = mat_read.material_reader([fuel_reflector_data.ix['bond', 'fuel']])
+
         # Potentially throw these three functions into the assembly holder and unpack them when they are needed.
         self.assembly_data = assembly_data
         self.plenum_data = plenum_data
@@ -59,6 +62,19 @@ class Assembly:
         self.outer_duct_mcnp_surface = ''
         self.universe_mcnp_surface = ''
 
+        self.lower_reflector_cell= ''
+        self.plenum_cell = ''
+        self.upper_reflector_cell = ''
+        self.inner_duct_cell = ''
+        self.outer_duct_cell = ''
+        self.universe_cell = ''
+        self.lower_reflector_mcnp_cell = ''
+        self.plenum_mcnp_cell = ''
+        self.upper_reflector_mcnp_cell = ''
+        self.inner_duct_mcnp_cell = ''
+        self.outer_duct_mcnp_cell = ''
+        self.universe_mcnp_cell = ''
+
         # Characteristics for a fuel pin
         self.pin = FuelPin(fuel_data)
         self.fuel_id = self.assembly_universe + 22
@@ -66,6 +82,7 @@ class Assembly:
         self.clad_id = self.assembly_universe + 24
         self.coolant_id = self.assembly_universe + 25
         self.fuel_reflector_id = self.assembly_universe + 26
+        self.plenum_id = self.assembly_universe + 27
 
 
 

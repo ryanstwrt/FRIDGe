@@ -54,11 +54,29 @@ def assembly_maker(assembly):
     assembly.universe_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, universe_position, assembly_universe_height_vector,
                                                                          assembly_pitch, 'Assembly: Sodium universe')
 
-
     # Create the fuel pin to be used for this assembly.
     fuel_pin_maker(assembly)
 
-
+    # Create cells for assembly
+    assembly.universe_counter += 1
+    assembly.lower_reflector_cell = assembly.cell_number
+    assembly.lower_reflector_mcnp_cell, warning = mcnp_make_cell(assembly, assembly.fuel_reflector_id,
+                                                                 100000,
+                                                                 assembly.lower_reflector_surface,
+                                                                 assembly.universe_counter, 1,
+                                                                 "Assembly: Lower Reflector")
+    assembly.plenum_cell = assembly.cell_number
+    assembly.plenum_mcnp_cell, warning = mcnp_make_cell(assembly, assembly.plenum_id,
+                                                                 100000,
+                                                                 assembly.plenum_surface,
+                                                                 assembly.universe_counter, 1,
+                                                                 "Assembly: Fission Product Plenum")
+    assembly.upper_reflector_cell = assembly.cell_number
+    assembly.upper_reflector_mcnp_cell, warning = mcnp_make_cell(assembly, assembly.fuel_reflector_id,
+                                                                 100000,
+                                                                 assembly.upper_reflector_surface,
+                                                                 assembly.universe_counter, 1,
+                                                                 "Assembly: Upper Reflector")
 
     return
 

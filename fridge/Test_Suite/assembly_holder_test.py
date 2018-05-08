@@ -22,15 +22,16 @@ def test_assembly():
     assert fuel_assembly.pin.fuel_material == fuel_material_fuel
     assert fuel_assembly.pin.fuel_bond == fuel_material_bond
     assert fuel_assembly.pin.fuel_clad == fuel_material_cladding
+    assert fuel_assembly.universe_counter == universe
 
-    fuel_pin = ah.FuelPin(fuel, fuel_material_fuel, fuel_material_bond, fuel_material_cladding)
+    ah.FuelPin(fuel, fuel_material_fuel, fuel_material_bond, fuel_material_cladding)
 
-    assert fuel_assembly.fuel_id == universe + 50
-    assert fuel_assembly.bond_id == universe + 3
-    assert fuel_assembly.clad_id == universe + 4
-    assert fuel_assembly.coolant_id == universe + 5
-    assert fuel_assembly.assembly_id == universe + 1
-    assert fuel_assembly.assembly_coolant_id == universe + 2
+    assert fuel_assembly.fuel_id == universe + 22
+    assert fuel_assembly.bond_id == universe + 23
+    assert fuel_assembly.clad_id == universe + 24
+    assert fuel_assembly.coolant_id == universe + 25
+    assert fuel_assembly.assembly_id == universe + 20
+    assert fuel_assembly.assembly_coolant_id == universe + 21
 
 
 def test_pin():

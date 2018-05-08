@@ -53,6 +53,13 @@ def assembly_maker(assembly):
     assembly.universe_surface = assembly.surface_number
     assembly.universe_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, universe_position, assembly_universe_height_vector,
                                                                          assembly_pitch, 'Assembly: Sodium universe')
+
+
+    # Create the fuel pin to be used for this assembly.
+    fuel_pin_maker(assembly)
+
+
+
     return
 
 def fuel_pin_maker(fuel_assembly):
@@ -98,26 +105,39 @@ def fuel_pin_maker(fuel_assembly):
     # Create the cell for each section of a pin
     fuel_assembly.pin.fuel_pellet_cell = fuel_assembly.cell_number
     fuel_assembly.pin.fuel_pellet_mcnp_cell, warning = mcnp_make_cell(fuel_assembly, fuel_assembly.fuel_id, fuel_assembly.pin.fuel_material[1],
-                                                                 fuel_assembly.pin.fuel_pellet_surface, 1, 1,
+                                                                 fuel_assembly.pin.fuel_pellet_surface,
+                                                                 fuel_assembly.universe_counter, 1,
                                                                  "Pin: Fuel Pellet")
 
     fuel_assembly.pin.fuel_bond_cell = fuel_assembly.cell_number
     fuel_assembly.pin.fuel_bond_mcnp_cell, warning = mcnp_make_concentric_cell(fuel_assembly, fuel_assembly.bond_id, fuel_assembly.pin.fuel_bond[1],
                                                                           fuel_assembly.pin.fuel_pellet_surface,
-                                                                          fuel_assembly.pin.fuel_bond_surface, 1, 1,
+                                                                          fuel_assembly.pin.fuel_bond_surface,
+                                                                          fuel_assembly.universe_counter, 1,
                                                                           "Pin: Na Bond")
 
     fuel_assembly.pin.fuel_clad_cell = fuel_assembly.cell_number
-    fuel_assembly.pin.fuel_clad_mcnp_cell, warning = mcnp_make_concentric_cell(fuel_assembly, fuel_assembly.pin.fuel_clad[1], 0.94,
+    fuel_assembly.pin.fuel_clad_mcnp_cell, warning = mcnp_make_concentric_cell(fuel_assembly, fuel_assembly.clad_id,
+                                                                               fuel_assembly.pin.fuel_clad[1],
                                                                           fuel_assembly.pin.fuel_bond_surface,
-                                                                          fuel_assembly.pin.fuel_clad_surface, 1, 1,
+                                                                          fuel_assembly.pin.fuel_clad_surface,
+                                                                          fuel_assembly.universe_counter, 1,
                                                                           "Pin: Pin Cladding")
 
     fuel_assembly.pin.fuel_universe_cell = fuel_assembly.cell_number
-    fuel_assembly.pin.fuel_universe_mcnp_cell, warning = mcnp_make_concentric_cell(fuel_assembly, fuel_assembly.coolant_id, 0.94,
+    fuel_assembly.pin.fuel_universe_mcnp_cell, warning = mcnp_make_concentric_cell(fuel_assembly, fuel_assembly.coolant_id,
+                                                                                   0.94,
                                                                               fuel_assembly.pin.fuel_clad_surface,
-                                                                              fuel_assembly.pin.fuel_pin_universe_surface, 1, 1,
+                                                                              fuel_assembly.pin.fuel_pin_universe_surface,
+                                                                              fuel_assembly.universe_counter, 1,
                                                                               "Pin: Wirewrap + Na coolant")
+
+    fuel_assembly.universe_counter += 1
+    fuel_assembly.pin.na_cell = fuel_assembly.cell_number
+    fuel_assembly.pin.na_mcnp_cell, warning = mcnp_make_cell(fuel_assembly, fuel_assembly.coolant_id, 0.94,
+                                                                              fuel_assembly.pin.fuel_pin_universe_surface,
+                                                                              fuel_assembly.universe_counter, 1,
+                                                                              "Pin: Na Pin")
     return
 
 

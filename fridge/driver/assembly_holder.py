@@ -39,10 +39,11 @@ class Assembly:
         self.fuel_reflector_data = fuel_reflector_data
         self.assembly_type = assembly_type
         self.assembly_universe = assembly_universe
+        self.universe_counter = assembly_universe
         self.surface_number = self.assembly_universe
         self.cell_number = self.assembly_universe + 50
-        self.assembly_id = self.assembly_universe + 1
-        self.assembly_coolant_id = self.assembly_universe + 2
+        self.assembly_id = self.assembly_universe + 20
+        self.assembly_coolant_id = self.assembly_universe + 21
         self.lower_reflector_surface = ''
         self.plenum_surface = ''
         self.upper_reflector_surface = ''
@@ -58,11 +59,11 @@ class Assembly:
 
         if assembly_type == 'fuel':
             self.pin = FuelPin(pin_data[0], pin_data[1], pin_data[2], pin_data[3])
-            self.fuel_id = self.assembly_universe + 50
-            self.bond_id = self.assembly_universe + 3
-            self.clad_id = self.assembly_universe + 4
-            self.coolant_id = self.assembly_universe + 5
-            self.fuel_reflector_id = self.assembly_universe + 6
+            self.fuel_id = self.assembly_universe + 22
+            self.bond_id = self.assembly_universe + 23
+            self.clad_id = self.assembly_universe + 24
+            self.coolant_id = self.assembly_universe + 25
+            self.fuel_reflector_id = self.assembly_universe + 26
 
 
 
@@ -121,6 +122,8 @@ class FuelPin(Pin):
         self.fuel_material = fuel
         self.fuel_bond = bond
         self.fuel_clad = clad
+        self.pin_cell_universe = ''
+        self.blank_cell_universe = ''
         self.fuel_pellet_surface = ''
         self.fuel_bond_surface = ''
         self.fuel_clad_surface = ''
@@ -137,3 +140,5 @@ class FuelPin(Pin):
         self.fuel_bond_mcnp_cell = ''
         self.fuel_clad_mcnp_cell = ''
         self.fuel_universe_mcnp_cell = ''
+        self.na_cell = ''
+        self.na_mcnp_cell = ''

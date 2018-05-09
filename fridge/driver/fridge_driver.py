@@ -9,8 +9,6 @@ fuel, assembly, plenum, fuel_reflector = geo_read.fuel_assembly_geometry_reader(
 
 fuel_assembly = ah.Assembly(assembly, plenum, fuel_reflector, fuel, 100)
 assembly_maker.assembly_maker(fuel_assembly)
-print(plenum)
-print(fuel_reflector)
 
 print(fuel_assembly.lower_reflector_mcnp_surface)
 print(fuel_assembly.plenum_mcnp_surface)
@@ -24,4 +22,6 @@ print(fuel_assembly.pin.na_mcnp_cell)
 print(fuel_assembly.lower_reflector_mcnp_cell)
 print(fuel_assembly.plenum_mcnp_cell)
 print(fuel_assembly.upper_reflector_mcnp_cell)
+print(fuel_assembly.lattice_mcnp_cell)
+
 

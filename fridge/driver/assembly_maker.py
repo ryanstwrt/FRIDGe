@@ -58,25 +58,27 @@ def assembly_maker(assembly):
     fuel_pin_maker(assembly)
 
     # Create cells for assembly
-    assembly.universe_counter += 1
     assembly.lower_reflector_cell = assembly.cell_number
     assembly.lower_reflector_mcnp_cell, warning = mcnp_make_cell(assembly, assembly.fuel_reflector_id,
                                                                  100000,
                                                                  assembly.lower_reflector_surface,
-                                                                 assembly.universe_counter, 1,
+                                                                 assembly.assembly_universe, 1,
                                                                  "Assembly: Lower Reflector")
     assembly.plenum_cell = assembly.cell_number
     assembly.plenum_mcnp_cell, warning = mcnp_make_cell(assembly, assembly.plenum_id,
                                                                  100000,
                                                                  assembly.plenum_surface,
-                                                                 assembly.universe_counter, 1,
+                                                                 assembly.assembly_universe, 1,
                                                                  "Assembly: Fission Product Plenum")
     assembly.upper_reflector_cell = assembly.cell_number
     assembly.upper_reflector_mcnp_cell, warning = mcnp_make_cell(assembly, assembly.fuel_reflector_id,
                                                                  100000,
                                                                  assembly.upper_reflector_surface,
-                                                                 assembly.universe_counter, 1,
+                                                                 assembly.assembly_universe, 1,
                                                                  "Assembly: Upper Reflector")
+    assembly.universe_counter += 1
+    assembly.lattice_mcnp_cell = make_lattice(assembly)
+
 
     return
 
@@ -98,6 +100,8 @@ def fuel_pin_maker(fuel_assembly):
     wire_wrap_radius = fuel_assembly.pin.pin_data.ix['wire_wrap_diameter', 'fuel'] / 2
     fuel_pin_height = fuel_assembly.pin.pin_data.ix['height', 'fuel']
     pin_pos = [0, 0, 50]
+    fuel_assembly.universe_counter += 1
+    fuel_assembly.pin.pin_cell_universe = fuel_assembly.universe_counter
 
     # Create the surface for each section of a pin.
     fuel_assembly.pin.fuel_pellet_surface = fuel_assembly.surface_number
@@ -151,6 +155,7 @@ def fuel_pin_maker(fuel_assembly):
                                                                               "Pin: Wirewrap + Na coolant")
 
     fuel_assembly.universe_counter += 1
+    fuel_assembly.pin.blank_cell_universe = fuel_assembly.universe_counter
     fuel_assembly.pin.na_cell = fuel_assembly.cell_number
     fuel_assembly.pin.na_mcnp_cell, warning = mcnp_make_cell(fuel_assembly, fuel_assembly.coolant_id, 0.94,
                                                                               fuel_assembly.pin.fuel_pin_universe_surface,
@@ -187,8 +192,8 @@ def mcnp_make_macro_RCC(fuel_assembly, position, height, radius, comment):
 def mcnp_make_macro_RHP(fuel_assembly, position, height, pitch, comment):
     mcnp_length_warning = False
     mcnp_output = str(fuel_assembly.surface_number) + " RHP  " + str(position[0]) + " " + str(position[1]) + " " + str(position[2]) \
-        + "   " + str(height[0]) + " " + str(height[1]) + " " + str(height[2]) + "   " + str(np.round(pitch[0], 6)) \
-        + " " + str(np.round(pitch[1], 6)) + " " + str(np.round(pitch[2], 6)) + "   $" + comment
+        + "   " + str(height[0]) + " " + str(height[1]) + " " + str(height[2]) + "   " + str(np.round(pitch[0], 7)) \
+        + " " + str(np.round(pitch[1], 7)) + " " + str(np.round(pitch[2], 7)) + "   $" + comment
     if len(mcnp_output) > 80:
         mcnp_length_warning = True
         print("\033[1;37:33mWarning: Surface %d has a line that is longer than 80 characters")
@@ -198,7 +203,7 @@ def mcnp_make_macro_RHP(fuel_assembly, position, height, pitch, comment):
 
 def mcnp_make_concentric_cell(fuel_assembly, material_id, material_density, inner, outer, universe, importance, comment):
     mcnp_length_warning = False
-    mcnp_output = str(fuel_assembly.cell_number) + " " + str(material_id) + " " + str(material_density) + " " + str(inner) + " -" \
+    mcnp_output = str(fuel_assembly.cell_number) + " " + str(material_id) + " " + str(round(material_density, 7)) + "   " + str(inner) + " -" \
     + str(outer) + "      u=" + str(universe) + " imp:n=" + str(importance) + " $" + comment
 
     if len(mcnp_output) > 80:
@@ -210,7 +215,7 @@ def mcnp_make_concentric_cell(fuel_assembly, material_id, material_density, inne
 
 def mcnp_make_cell(fuel_assembly, material_id, material_density, inner, universe, importance, comment):
     mcnp_length_warning = False
-    mcnp_output = str(fuel_assembly.cell_number) + " " + str(material_id) + " " + str(material_density) + " -" + str(inner) +\
+    mcnp_output = str(fuel_assembly.cell_number) + " " + str(material_id) + " " + str(np.round(material_density, 7)) + "   -" + str(inner) +\
         "      u=" + str(universe) + " imp:n=" + str(importance) + " $" + comment
 
     if len(mcnp_output) > 80:
@@ -218,3 +223,47 @@ def mcnp_make_cell(fuel_assembly, material_id, material_density, inner, universe
         print("\033[1;37:33mWarning: Cell %d has a line that is longer than 80 characters", fuel_assembly.cell_number)
     fuel_assembly.cell_number += 1
     return mcnp_output, mcnp_length_warning
+
+
+def make_lattice(assembly):
+    number_pins = assembly.assembly_data.ix['pins_per_assembly', 'assembly']
+    number_rings = 0
+    temp = 0
+    while temp != number_pins:
+        if number_rings == 0:
+            temp += 1
+            number_rings = 1
+        else:
+            temp += 6 * number_rings
+            number_rings += 1
+
+    lattice_array = np.zeros((number_rings * 2 + 1, number_rings * 2 + 1))
+    for x in range(number_rings * 2 + 1):
+        for y in range(number_rings * 2 + 1):
+            if x == 0 or x == 2*number_rings:
+                lattice_array[x][y] = assembly.pin.blank_cell_universe
+            elif x < 11:
+                if y < (number_rings + 1 - x) or y == (2 * number_rings):
+                    lattice_array[x][y] = assembly.pin.blank_cell_universe
+                else:
+                    lattice_array[x][y] = assembly.pin.pin_cell_universe
+            else:
+                if y > (2 * number_rings - (x - number_rings)) or y == 0:
+                    lattice_array[x][y] = assembly.pin.blank_cell_universe
+                else:
+                    lattice_array[x][y] = assembly.pin.pin_cell_universe
+
+    ### Create a function to determine where we should cut this off at
+    lattice_array = np.reshape(lattice_array, (-1, 9))
+    lattice_string = ''
+    for x in lattice_array:
+        temp_str = ' '.join(map(str, x.astype(int)))
+        lattice_string += '     ' + temp_str + '\n'
+
+
+    mcnp_output = str(assembly.cell_number) + " 0      -" + str(assembly.inner_duct_surface) + \
+                    " lat=2 u=" + str(assembly.universe_counter) + " imp:n=1 \n" + \
+                    "      fill=-" + str(number_rings) + ":" + str(number_rings) + " -" + \
+                    str(number_rings) + ":" + str(number_rings) + " 0:0 \n" \
+                   + lattice_string
+    return mcnp_output

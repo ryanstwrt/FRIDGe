@@ -74,6 +74,7 @@ class Assembly:
         self.inner_duct_mcnp_cell = ''
         self.outer_duct_mcnp_cell = ''
         self.universe_mcnp_cell = ''
+        self.lattice_mcnp_cell = ''
 
         # Characteristics for a fuel pin
         self.pin = FuelPin(fuel_data)

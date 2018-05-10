@@ -130,50 +130,52 @@ class FuelPin(Pin):
             fuel_material (2D array): Contains both the array of ZAIDS contained in the fuel and the atom density
             fuel_bond (2D array): Contains both the array of ZAIDS contained in the bond and the atom density
             fuel_clad (2D array): Contains both the array of ZAIDS contained in the clad and the atom density
-            fuel_pellet_surface (str): The surface number for the fuel pellet
-            fuel_bond_surface (str): The surface number for the bond
-            fuel_clad_surface (str): The surface number for the clad
-            fuel_pin_universe_surface (str): The surface number for the coolant pin universe
+
+            fuel_pellet_surface (int): The surface number for the fuel pellet
             fuel_pellet_mcnp_surface (str): The mcnp line for the fuel pellet
-            fuel_bond_mcnp_surface (str): The mcnp line for the bond
-            fuel_clad_mcnp_surface (str): The mcnp line for the clad
-            fuel_pin_universe_mcnp_surface (str): The mcnp line for the coolant pin universe
-            fuel_pellet_cell (str): The cell number for the fuel pellet
-            fuel_bond_cell (str): The cell number for the bond
-            fuel_clad_cell (str): The cell number for the clad
-            fuel_universe_cell (str): The cell number for the coolant pin universe
+            fuel_pellet_cell (int): The cell number for the fuel pellet
             fuel_pellet_mcnp_cell (str): The mcnp line number for the fuel pellet
+            fuel_bond_surface (int): The surface number for the bond
+            fuel_bond_mcnp_surface (str): The mcnp line for the bond
+            fuel_bond_cell (int): The cell number for the bond
             fuel_bond_mcnp_cell (str): The mcnp line number for the bond
+            fuel_clad_surface (int): The surface number for the clad
+            fuel_clad_mcnp_surface (str): The mcnp line for the clad
+            fuel_clad_cell (int): The cell number for the clad
             fuel_clad_mcnp_cell (str): The mcnp line number for the clad
+            fuel_universe_surface (int): The surface number for the coolant pin universe
+            fuel_universe_mcnp_surface (str): The mcnp line for the coolant pin universe
+            fuel_universe_cell (int): The cell number for the coolant pin universe
             fuel_universe_mcnp_cell (str): The mcnp line number for the coolant pin universe
     """
 
     def __init__(self, fuel):
-        fuel_material_fuel = mat_read.material_reader([fuel.ix['fuel', 'fuel']])
-        fuel_material_bond = mat_read.material_reader([fuel.ix['bond', 'fuel']])
-        fuel_material_cladding = mat_read.material_reader([fuel.ix['clad', 'fuel']])
-
         super().__init__(fuel)
-        self.fuel_material = fuel_material_fuel
-        self.fuel_bond = fuel_material_bond
-        self.fuel_clad = fuel_material_cladding
-        self.pin_cell_universe = 0
-        self.blank_cell_universe = 0
-        self.fuel_pellet_surface = 0
-        self.fuel_bond_surface = 0
-        self.fuel_clad_surface = 0
-        self.fuel_pin_universe_surface = 0
-        self.fuel_pellet_mcnp_surface = 0
-        self.fuel_bond_mcnp_surface = ''
-        self.fuel_clad_mcnp_surface = ''
-        self.fuel_pin_universe_mcnp_surface = ''
-        self.fuel_pellet_cell = 0
-        self.fuel_bond_cell = 0
-        self.fuel_clad_cell = 0
+        self.fuel_material = mat_read.material_reader([fuel.ix['fuel', 'fuel']])
+        self.fuel_bond = mat_read.material_reader([fuel.ix['bond', 'fuel']])
+        self.fuel_clad = mat_read.material_reader([fuel.ix['clad', 'fuel']])
+        self.fuel_pin_universe = 0
+
+        self.fuel_universe_surface = 0
+        self.fuel_universe_mcnp_surface = ''
         self.fuel_universe_cell = 0
-        self.fuel_pellet_mcnp_cell = ''
-        self.fuel_bond_mcnp_cell = ''
-        self.fuel_clad_mcnp_cell = ''
         self.fuel_universe_mcnp_cell = ''
+
+        self.na_cell_universe = 0
         self.na_cell = 0
         self.na_mcnp_cell = ''
+
+        self.fuel_pellet_surface = 0
+        self.fuel_pellet_mcnp_surface = ''
+        self.fuel_pellet_cell = 0
+        self.fuel_pellet_mcnp_cell = ''
+
+        self.fuel_bond_surface = 0
+        self.fuel_bond_mcnp_surface = ''
+        self.fuel_bond_cell = 0
+        self.fuel_bond_mcnp_cell = ''
+
+        self.fuel_clad_surface = 0
+        self.fuel_clad_mcnp_surface = ''
+        self.fuel_clad_cell = 0
+        self.fuel_clad_mcnp_cell = ''

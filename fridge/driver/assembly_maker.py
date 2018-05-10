@@ -161,7 +161,7 @@ def fuel_pin_maker(fuel_assembly):
                                                                               "Pin: Wirewrap + Na coolant")
 
     fuel_assembly.universe_counter += 1
-    fuel_assembly.pin.blank_cell_universe = fuel_assembly.universe_counter
+    fuel_assembly.pin.na_cell_universe = fuel_assembly.universe_counter
     fuel_assembly.pin.na_cell = fuel_assembly.cell_number
     fuel_assembly.pin.na_mcnp_cell, warning = mcnp_make_cell(fuel_assembly, fuel_assembly.coolant_id, 0.94,
                                                                               fuel_assembly.pin.fuel_pin_universe_surface,
@@ -326,17 +326,17 @@ def make_lattice(assembly):
     for x in range(number_rings * 2 + 1):
         for y in range(number_rings * 2 + 1):
             if x == 0 or x == 2*number_rings:
-                lattice_array[x][y] = assembly.pin.blank_cell_universe
+                lattice_array[x][y] = assembly.pin.na_cell_universe
             elif x < 11:
                 if y < (number_rings + 1 - x) or y == (2 * number_rings):
-                    lattice_array[x][y] = assembly.pin.blank_cell_universe
+                    lattice_array[x][y] = assembly.pin.na_cell_universe
                 else:
-                    lattice_array[x][y] = assembly.pin.pin_cell_universe
+                    lattice_array[x][y] = assembly.pin.fuel_pin_universe
             else:
                 if y > (2 * number_rings - (x - number_rings)) or y == 0:
-                    lattice_array[x][y] = assembly.pin.blank_cell_universe
+                    lattice_array[x][y] = assembly.pin.na_cell_universe
                 else:
-                    lattice_array[x][y] = assembly.pin.pin_cell_universe
+                    lattice_array[x][y] = assembly.pin.fuel_pin_universe
 
     ### Create a function to determine where we should cut this off at
     lattice_array = np.reshape(lattice_array, (-1, 9))

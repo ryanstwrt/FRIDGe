@@ -177,7 +177,7 @@ def mcnp_make_macro_RCC(fuel_assembly, position, height, radius, comment):
         return:
             mcnp_output (str): string containing the input line for MCNP
             mcnp_length_warning (bool): warns if the mcnp line is longer than
-            """
+    """
     mcnp_length_warning = False
     mcnp_output = str(fuel_assembly.surface_number) + " RCC  " + str(position[0]) + " " + str(position[1]) + " " + str(position[2]) \
         + "   " + str(height[0]) + " " + str(height[1]) + "   " + str(height[2]) + "   " + str(np.round(radius, 6)) \
@@ -190,6 +190,19 @@ def mcnp_make_macro_RCC(fuel_assembly, position, height, radius, comment):
 
 
 def mcnp_make_macro_RHP(fuel_assembly, position, height, pitch, comment):
+    """
+        Creates a right hexagonal prism for an MCNP input file.
+
+        args:
+            fuel_assembly(class): holds information on the surface number to be used
+            position (float array): contains the x,y,z coordinates for the bottom and center of the RHP
+            height (float array): contains the vector in x,y,z for which to extend the RHP
+            radius (float): half_pitch of the RHP
+            comment (str): an accomanpying string to describe the RHP
+        return:
+            mcnp_output (str): string containing the input line for MCNP
+            mcnp_length_warning (bool): warns if the mcnp line is longer than
+    """
     mcnp_length_warning = False
     mcnp_output = str(fuel_assembly.surface_number) + " RHP  " + str(position[0]) + " " + str(position[1]) + " " + str(position[2]) \
         + "   " + str(height[0]) + " " + str(height[1]) + " " + str(height[2]) + "   " + str(np.round(pitch[0], 7)) \
@@ -202,6 +215,22 @@ def mcnp_make_macro_RHP(fuel_assembly, position, height, pitch, comment):
 
 
 def mcnp_make_concentric_cell(fuel_assembly, material_id, material_density, inner, outer, universe, importance, comment):
+    """
+        Combinatorial geometry to create a cell which is outside the inner surface and inside the outer surface.
+
+        args:
+            fuel_assembly(class): holds information on the surface number to be used
+            material_id (int): ID number which tells what material to reference from in the data card
+            material_density (float): atom density of the material being used
+            inner (int): the surface number of the inner surface
+            outer (int): the surface number of the outer surface
+            universe (int): the universe number associate with this particular cell
+            importance (int): particle importance
+            comment (str): an accomanpying string to describe the RHP
+        return:
+            mcnp_output (str): string containing the input line for MCNP
+            mcnp_length_warning (bool): warns if the mcnp line is longer than 80 characters
+    """
     mcnp_length_warning = False
     mcnp_output = str(fuel_assembly.cell_number) + " " + str(material_id) + " " + str(round(material_density, 7)) + "   " + str(inner) + " -" \
     + str(outer) + "      u=" + str(universe) + " imp:n=" + str(importance) + " $" + comment
@@ -214,6 +243,21 @@ def mcnp_make_concentric_cell(fuel_assembly, material_id, material_density, inne
 
 
 def mcnp_make_cell(fuel_assembly, material_id, material_density, inner, universe, importance, comment):
+    """
+        Combinatorial geometry to create a cell with one surface
+
+        args:
+            fuel_assembly(class): holds information on the surface number to be used
+            material_id (int): ID number which tells what material to reference from in the data card
+            material_density (float): atom density of the material being used
+            inner (int): the surface number of the inner surface
+            universe (int): the universe number associate with this particular cell
+            importance (int): particle importance
+            comment (str): an accomanpying string to describe the RHP
+        return:
+            mcnp_output (str): string containing the input line for MCNP
+            mcnp_length_warning (bool): warns if the mcnp line is longer than 80 characters
+    """
     mcnp_length_warning = False
     mcnp_output = str(fuel_assembly.cell_number) + " " + str(material_id) + " " + str(np.round(material_density, 7)) + "   -" + str(inner) +\
         "      u=" + str(universe) + " imp:n=" + str(importance) + " $" + comment
@@ -226,6 +270,14 @@ def mcnp_make_cell(fuel_assembly, material_id, material_density, inner, universe
 
 
 def make_lattice(assembly):
+    """
+    Creates a pin lattice for the fuel based on the number of pins present in an assembly.
+
+    params:
+        assembly (class): holds information on the surface number to be used
+    return:
+        mcnp_output(str): the MCNP string to be used for the input file.
+    """
     number_pins = assembly.assembly_data.ix['pins_per_assembly', 'assembly']
     number_rings = 0
     temp = 0
@@ -264,6 +316,5 @@ def make_lattice(assembly):
     mcnp_output = str(assembly.cell_number) + " 0      -" + str(assembly.inner_duct_surface) + \
                     " lat=2 u=" + str(assembly.universe_counter) + " imp:n=1 \n" + \
                     "      fill=-" + str(number_rings) + ":" + str(number_rings) + " -" + \
-                    str(number_rings) + ":" + str(number_rings) + " 0:0 \n" \
-                   + lattice_string
+                    str(number_rings) + ":" + str(number_rings) + " 0:0 \n" + lattice_string
     return mcnp_output

@@ -36,6 +36,10 @@ class Assembly:
         return:
             void
         """
+
+        self.assembly_material = mat_read.material_reader([assembly_data.ix['assembly', 'assembly']])
+        #plenum_material = mat_read.material_reader([plenum_data.ix['fuel', 'fuel']])
+
         #plenum_material = mat_read.material_reader([plenum_data.ix['fuel', 'fuel']])
         #fuel_reflecor_material = mat_read.material_reader([fuel_reflector_data.ix['bond', 'fuel']])
 
@@ -49,6 +53,7 @@ class Assembly:
         self.cell_number = self.assembly_universe + 50
         self.assembly_id = self.assembly_universe + 20
         self.assembly_coolant_id = self.assembly_universe + 21
+        self.latice_universe = ''
         self.lower_reflector_surface = ''
         self.plenum_surface = ''
         self.upper_reflector_surface = ''
@@ -61,6 +66,12 @@ class Assembly:
         self.inner_duct_mcnp_surface = ''
         self.outer_duct_mcnp_surface = ''
         self.universe_mcnp_surface = ''
+        self.lower_plane_surface = ''
+        self.upper_plane_surface = ''
+        self.lower_plane_surface_mcnp = ''
+        self.upper_plane_surface_mcnp = ''
+        self.lattice_mcnp_holder_cell = ''
+
 
         self.lower_reflector_cell= ''
         self.plenum_cell = ''

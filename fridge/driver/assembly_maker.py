@@ -27,7 +27,7 @@ def assembly_maker(assembly):
     plenum_position = [0, 0, fuel_reflector_height + fuel_height]
     upper_fuel_reflector_position = [0, 0, fuel_reflector_height + fuel_height + plenum_height]
     assembly_height_vector = [0, 0, assembly_height+2]
-    assembly_universe_height_vector = [0, 0, assembly_height + 0.6]
+    assembly_universe_height_vector = [0, 0, assembly_height + 1.6]
     fuel_reflector_height_vector = [0, 0, fuel_reflector_height]
     plenum_height_vector = [0, 0, plenum_height]
     fuel_height_vector = [0, 0, fuel_height]
@@ -53,6 +53,7 @@ def assembly_maker(assembly):
     assembly.universe_surface = assembly.surface_number
     assembly.universe_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, universe_position, assembly_universe_height_vector,
                                                                          assembly_pitch, 'Assembly: Sodium universe')
+    assembly.universe_mcnp_surface = '*' + assembly.universe_mcnp_surface
 
     # Create the fuel pin to be used for this assembly.
     fuel_pin_maker(assembly)
@@ -76,10 +77,16 @@ def assembly_maker(assembly):
                                                                  assembly.upper_reflector_surface,
                                                                  assembly.assembly_universe, 1,
                                                                  "Assembly: Upper Reflector")
+
+    assembly.lower_plane_surface = assembly.surface_number
+    assembly.lower_plane_surface_mcnp = mcnp_make_z_plane(assembly, -0.3)
+    assembly.upper_plane_surface = assembly.surface_number
+    assembly.upper_plane_surface_mcnp = mcnp_make_z_plane(assembly, assembly_height + 0.6)
+
     assembly.universe_counter += 1
     assembly.lattice_mcnp_cell = make_lattice(assembly)
 
-
+    assembly.lattice_mcnp_holder_cell = mcnp_make_lattice_holder(assembly)
     return
 
 def fuel_pin_maker(fuel_assembly):
@@ -147,10 +154,9 @@ def fuel_pin_maker(fuel_assembly):
                                                                           "Pin: Pin Cladding")
 
     fuel_assembly.pin.fuel_universe_cell = fuel_assembly.cell_number
-    fuel_assembly.pin.fuel_universe_mcnp_cell, warning = mcnp_make_concentric_cell(fuel_assembly, fuel_assembly.coolant_id,
+    fuel_assembly.pin.fuel_universe_mcnp_cell, warning = mcnp_make_cell_outside(fuel_assembly, fuel_assembly.coolant_id,
                                                                                    0.94,
                                                                               fuel_assembly.pin.fuel_clad_surface,
-                                                                              fuel_assembly.pin.fuel_pin_universe_surface,
                                                                               fuel_assembly.universe_counter, 1,
                                                                               "Pin: Wirewrap + Na coolant")
 
@@ -244,7 +250,7 @@ def mcnp_make_concentric_cell(fuel_assembly, material_id, material_density, inne
 
 def mcnp_make_cell(fuel_assembly, material_id, material_density, inner, universe, importance, comment):
     """
-        Combinatorial geometry to create a cell with one surface
+        Combinatorial geometry to create a cell on the inside of one surface
 
         args:
             fuel_assembly(class): holds information on the surface number to be used
@@ -268,6 +274,32 @@ def mcnp_make_cell(fuel_assembly, material_id, material_density, inner, universe
     fuel_assembly.cell_number += 1
     return mcnp_output, mcnp_length_warning
 
+def mcnp_make_cell_outside(fuel_assembly, material_id, material_density, inner, universe, importance, comment):
+    """
+        Combinatorial geometry to create a cell on the outside of one surface
+
+        args:
+            fuel_assembly(class): holds information on the surface number to be used
+            material_id (int): ID number which tells what material to reference from in the data card
+            material_density (float): atom density of the material being used
+            inner (int): the surface number of the inner surface
+            universe (int): the universe number associate with this particular cell
+            importance (int): particle importance
+            comment (str): an accomanpying string to describe the RHP
+        return:
+            mcnp_output (str): string containing the input line for MCNP
+            mcnp_length_warning (bool): warns if the mcnp line is longer than 80 characters
+    """
+    mcnp_length_warning = False
+    mcnp_output = str(fuel_assembly.cell_number) + " " + str(material_id) + " " + str(np.round(material_density, 7)) + "   " + str(inner) +\
+        "      u=" + str(universe) + " imp:n=" + str(importance) + " $" + comment
+
+    if len(mcnp_output) > 80:
+        mcnp_length_warning = True
+        print("\033[1;37:33mWarning: Cell %d has a line that is longer than 80 characters", fuel_assembly.cell_number)
+    fuel_assembly.cell_number += 1
+    return mcnp_output, mcnp_length_warning
+
 
 def make_lattice(assembly):
     """
@@ -279,6 +311,7 @@ def make_lattice(assembly):
         mcnp_output(str): the MCNP string to be used for the input file.
     """
     number_pins = assembly.assembly_data.ix['pins_per_assembly', 'assembly']
+    assembly.lattice_universe = assembly.universe_counter
     number_rings = 0
     temp = 0
     while temp != number_pins:
@@ -314,7 +347,32 @@ def make_lattice(assembly):
 
 
     mcnp_output = str(assembly.cell_number) + " 0      -" + str(assembly.inner_duct_surface) + \
-                    " lat=2 u=" + str(assembly.universe_counter) + " imp:n=1 \n" + \
+                    " lat=2 u=" + str(assembly.lattice_universe) + " imp:n=1 \n" + \
                     "      fill=-" + str(number_rings) + ":" + str(number_rings) + " -" + \
                     str(number_rings) + ":" + str(number_rings) + " 0:0 \n" + lattice_string
+    assembly.cell_number += 1
+    return mcnp_output
+
+def mcnp_make_lattice_holder(assembly):
+    mcnp_block1 = str(assembly.cell_number) + " 0 -" + str(assembly.inner_duct_surface) + "    u=" \
+                  + str(assembly.assembly_universe) + " fill=" + str(assembly.lattice_universe) \
+                  + " imp:n=1 $ Assembly: Base Assembly"
+
+    assembly.cell_number += 1
+    mcnp_block2 = str(assembly.cell_number) + " " + str(assembly.assembly_id) + " " \
+                  + str(round(assembly.assembly_material[1], 7)) + "   -" + str(assembly.inner_duct_surface) \
+                  + " " + str(assembly.lower_reflector_surface) + " " + str(assembly.upper_reflector_surface) \
+                  + " " + str(assembly.plenum_surface) + "   u=" + str(assembly.assembly_universe) \
+                  + "   imp:n=1   $ Driver: Hex Duct"
+
+    assembly.cell_number += 1
+    mcnp_block3 = str(assembly.cell_number) + " 0   -" + str(assembly.universe_surface) + " " \
+                  + str(assembly.lower_plane_surface) + " -" + str(assembly.upper_plane_surface) + "   u=" \
+                  + str(assembly.assembly_universe) + "   imp:n=1   $ Assembly: Full Assembly"
+    mcnp_block = mcnp_block1 + '\n' + mcnp_block2 + '\n' + mcnp_block3 + '\n'
+    return mcnp_block
+
+def mcnp_make_z_plane(assembly, z):
+    mcnp_output = str(assembly.surface_number) + " PZ " + str(z)
+    assembly.surface_number += 1
     return mcnp_output

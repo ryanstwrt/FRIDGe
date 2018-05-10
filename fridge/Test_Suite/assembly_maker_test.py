@@ -66,6 +66,27 @@ def test_mcnp_make_cell():
     output, warning = pm.mcnp_make_cell(fuel_assembly, 10, 0.95, 10, 1, 1, 'Test to make sure it will be longer than 80 characters so it will fail the test')
     assert warning == True
 
+def test_mcnp_make_cell_outside():
+    """Test the ability to make an MCNP cell with only one surface"""
+    fuel_assembly = ah.Assembly(assembly, plenum, fuel_reflector, fuel, 1000)
+
+    cell_number_test = fuel_assembly.cell_number
+    output, warning = pm.mcnp_make_cell_outside(fuel_assembly, 10, 0.95, 10, 1, 1, 'Test to make sure')
+    assert cell_number_test + 1 == fuel_assembly.cell_number
+    assert len(output) < 80
+    assert warning == False
+
+    output, warning = pm.mcnp_make_cell(fuel_assembly, 10, 0.95, 10, 1, 1, 'Test to make sure it will be longer than 80 characters so it will fail the test')
+    assert warning == True
+
+
+def test_lattice_maker():
+    """Test of the lattice maker for MCNP"""
+    fuel_assembly = ah.Assembly(assembly, plenum, fuel_reflector, fuel, 1000)
+
+    output = pm.make_lattice(fuel_assembly)
+
+
 
 def test_pin_maker():
     """Test of the pin maker function"""

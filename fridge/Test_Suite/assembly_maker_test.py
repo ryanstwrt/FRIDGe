@@ -123,7 +123,7 @@ def test_assembly_maker():
     assert fuel_assembly.outer_duct_surface == 1004
     assert fuel_assembly.outer_duct_mcnp_surface == "1004 RHP  0 0 -1   0 0 322.0   0 5.55 0   $Assembly: Outerduct/Universe"
     assert fuel_assembly.universe_surface == 1005
-    assert fuel_assembly.universe_mcnp_surface == "1005 RHP  0 0 -0.45   0 0 320.6   0 5.55 0   $Assembly: Sodium universe"
+    assert fuel_assembly.universe_mcnp_surface == "*1005 RHP  0 0 -0.45   0 0 321.6   0 5.55 0   $Assembly: Sodium universe"
 
 
 

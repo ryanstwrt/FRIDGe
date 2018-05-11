@@ -100,7 +100,7 @@ class Assembly:
         self.assembly_id = self.assembly_universe + 20
         self.assembly_coolant_id = self.assembly_universe + 21
         self.universe_counter = assembly_universe
-        self.surface_number = self.assembly_universe
+        self.surface_number = int(self.assembly_universe / 10)
         self.cell_number = self.assembly_universe + 50
         self.latice_universe = 0
 

@@ -15,7 +15,7 @@ def test_assembly():
 
     assert fuel_assembly.assembly_data.all == assembly.all
     assert fuel_assembly.assembly_universe == universe
-    assert fuel_assembly.surface_number == universe
+    assert fuel_assembly.surface_number == int(universe / 10)
     assert fuel_assembly.cell_number == universe + 50
     assert fuel_assembly.pin.pin_data.all == fuel.all
     assert fuel_assembly.universe_counter == universe

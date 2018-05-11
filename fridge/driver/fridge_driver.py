@@ -29,6 +29,6 @@ print(fuel_assembly.lower_reflector_mcnp_cell)
 print(fuel_assembly.plenum_mcnp_cell)
 print(fuel_assembly.upper_reflector_mcnp_cell)
 print(fuel_assembly.lattice_mcnp_cell)
-print(fuel_assembly.lattice_mcnp_holder_cell)
+print(fuel_assembly.lattice_holder_mcnp_cell)
 
 

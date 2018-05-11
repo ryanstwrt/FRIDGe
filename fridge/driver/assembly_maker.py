@@ -33,7 +33,7 @@ def assembly_maker(assembly):
     fuel_height_vector = [0, 0, fuel_height]
     assembly_pitch = [0, inner_flat/2, 0]
 
-    #Create the surfaces for the assembly
+    # Create the surfaces for the assembly
     assembly.lower_reflector_surface = assembly.surface_number
     assembly.lower_reflector_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, lower_fuel_reflector_position, fuel_reflector_height_vector,
                                                                          assembly_pitch, 'Assembly: Lower Reflector')
@@ -107,7 +107,7 @@ def fuel_pin_maker(fuel_assembly):
     fuel_pin_height = fuel_assembly.pin.pin_data.ix['height', 'fuel']
     pin_pos = [0, 0, 50]
     fuel_assembly.universe_counter += 1
-    fuel_assembly.pin.pin_cell_universe = fuel_assembly.universe_counter
+    fuel_assembly.pin.fuel_pin_universe = fuel_assembly.universe_counter
 
     # Create the surface for each section of a pin.
     fuel_assembly.pin.fuel_pellet_surface = fuel_assembly.surface_number
@@ -313,7 +313,7 @@ def make_lattice(assembly):
     assembly.lattice_universe = assembly.universe_counter
     number_rings = 0
     temp = 0
-    while temp != number_pins:
+    while temp < number_pins:
         if number_rings == 0:
             temp += 1
             number_rings = 1
@@ -344,13 +344,13 @@ def make_lattice(assembly):
         temp_str = ' '.join(map(str, x.astype(int)))
         lattice_string += '     ' + temp_str + '\n'
 
-
     mcnp_output = str(assembly.cell_number) + " 0      -" + str(assembly.inner_duct_surface) + \
                     " lat=2 u=" + str(assembly.lattice_universe) + " imp:n=1 \n" + \
                     "      fill=-" + str(number_rings) + ":" + str(number_rings) + " -" + \
                     str(number_rings) + ":" + str(number_rings) + " 0:0 \n" + lattice_string
     assembly.cell_number += 1
     return mcnp_output
+
 
 def mcnp_make_lattice_holder(assembly):
     mcnp_block1 = str(assembly.cell_number) + " 0 -" + str(assembly.inner_duct_surface) + "    u=" \
@@ -370,6 +370,7 @@ def mcnp_make_lattice_holder(assembly):
                   + str(assembly.assembly_universe) + "   imp:n=1   $ Assembly: Full Assembly"
     mcnp_block = mcnp_block1 + '\n' + mcnp_block2 + '\n' + mcnp_block3 + '\n'
     return mcnp_block
+
 
 def mcnp_make_z_plane(assembly, z):
     mcnp_output = str(assembly.surface_number) + " PZ " + str(z)

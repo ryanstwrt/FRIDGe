@@ -110,9 +110,16 @@ def test_mcnp_make_lattice_holder():
     test_output = "1059 0 -103    u=1000 fill=1003 imp:n=1 $ Assembly: Base Assembly\n\
 1060 1020 0.0859836   -103 100 102 101   u=1000   imp:n=1   $ Driver: Hex Duct\n\
 1061 0   -105 110 -111   u=1000   imp:n=1   $ Assembly: Full Assembly\n"
-    print(fuel_assembly.lattice_mcnp_cell)
-    print(output)
     assert test_output == output
+
+
+def test_make_mcnp_void_cell():
+    fuel_assembly = ah.Assembly(assembly, plenum, fuel_reflector, fuel, 1000)
+    pm.assembly_maker(fuel_assembly)
+    output = fuel_assembly.void_mcnp_cell
+    test_output = "1062 0    #1061   imp:n=0   $ Void"
+    assert test_output == output
+
 
 def test_pin_maker():
     """Test of the pin maker function"""

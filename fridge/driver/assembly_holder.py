@@ -133,8 +133,10 @@ class Assembly:
         self.upper_plane_surface = 0
         self.upper_plane_surface_mcnp = ''
 
-        self.lattice_holder_mcnp_cell = 0
+        self.lattice_holder_mcnp_cell = ''
+        self.lattice_holder_cell = 0
         self.lattice_mcnp_cell = ''
+        self.void_mcnp_cell = ''
 
         # Characteristics for a fuel pin
         self.pin = FuelPin(fuel_data)

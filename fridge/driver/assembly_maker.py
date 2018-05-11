@@ -86,6 +86,7 @@ def assembly_maker(assembly):
     assembly.universe_counter += 1
     assembly.lattice_mcnp_cell = make_lattice(assembly)
     assembly.lattice_holder_mcnp_cell = mcnp_make_lattice_holder(assembly)
+    assembly.void_mcnp_cell = make_mcnp_assembly_void(assembly)
     return
 
 def fuel_pin_maker(fuel_assembly):
@@ -369,10 +370,19 @@ def mcnp_make_lattice_holder(assembly):
                   + str(assembly.lower_plane_surface) + " -" + str(assembly.upper_plane_surface) + "   u=" \
                   + str(assembly.assembly_universe) + "   imp:n=1   $ Assembly: Full Assembly"
     mcnp_block = mcnp_block1 + '\n' + mcnp_block2 + '\n' + mcnp_block3 + '\n'
+    assembly.lattice_holder_cell = assembly.cell_number
+    assembly.cell_number += 1
+
     return mcnp_block
 
 
 def mcnp_make_z_plane(assembly, z):
     mcnp_output = str(assembly.surface_number) + " PZ " + str(z)
     assembly.surface_number += 1
+    return mcnp_output
+
+
+def make_mcnp_assembly_void(assembly):
+    mcnp_output = str(assembly.cell_number) + " 0    #" + str(assembly.lattice_holder_cell) + \
+                  "   imp:n=0   $ Void"
     return mcnp_output

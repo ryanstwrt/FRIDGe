@@ -30,5 +30,6 @@ print(fuel_assembly.plenum_mcnp_cell)
 print(fuel_assembly.upper_reflector_mcnp_cell)
 print(fuel_assembly.lattice_mcnp_cell)
 print(fuel_assembly.lattice_holder_mcnp_cell)
+print(fuel_assembly.void_mcnp_cell)
 
 

@@ -85,8 +85,7 @@ def assembly_maker(assembly):
 
     assembly.universe_counter += 1
     assembly.lattice_mcnp_cell = make_lattice(assembly)
-
-    assembly.lattice_mcnp_holder_cell = mcnp_make_lattice_holder(assembly)
+    assembly.lattice_holder_mcnp_cell = mcnp_make_lattice_holder(assembly)
     return
 
 def fuel_pin_maker(fuel_assembly):

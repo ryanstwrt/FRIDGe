@@ -96,9 +96,9 @@ class Assembly:
         self.assembly_data = assembly_data
         self.plenum_data = plenum_data
         self.fuel_reflector_data = fuel_reflector_data
+        self.assembly_universe = assembly_universe
         self.assembly_id = self.assembly_universe + 20
         self.assembly_coolant_id = self.assembly_universe + 21
-        self.assembly_universe = assembly_universe
         self.universe_counter = assembly_universe
         self.surface_number = self.assembly_universe
         self.cell_number = self.assembly_universe + 50

@@ -117,7 +117,7 @@ def test_make_mcnp_void_cell():
     fuel_assembly = ah.Assembly(assembly, plenum, fuel_reflector, fuel, 1000)
     pm.assembly_maker(fuel_assembly)
     output = fuel_assembly.void_mcnp_cell
-    test_output = "1062 0    #1061   imp:n=0   $ Void"
+    test_output = "1062 0    #1061   imp:n=0   $ Void\n"
     assert test_output == output
 
 
@@ -131,24 +131,24 @@ def test_pin_maker():
     assert fuel_assembly.pin.fuel_bond[1] == fuel_material_bond[1]
     assert fuel_assembly.pin.fuel_clad[1] == fuel_material_cladding[1]
     assert fuel_assembly.pin.fuel_pellet_surface == 100
-    assert fuel_assembly.pin.fuel_pellet_mcnp_surface == "100 RCC  0 0 50   0 0   60.0   0.197454   $Pin: Fuel pellet outer radius"
+    assert fuel_assembly.pin.fuel_pellet_mcnp_surface == "100 RCC  0 0 50   0 0   60.0   0.197454   $Pin: Fuel pellet outer radius\n"
     assert fuel_assembly.pin.fuel_bond_surface == 101
-    assert fuel_assembly.pin.fuel_bond_mcnp_surface == "101 RCC  0 0 50   0 0   60.0   0.228   $Pin: Na bond outer radius"
+    assert fuel_assembly.pin.fuel_bond_mcnp_surface == "101 RCC  0 0 50   0 0   60.0   0.228   $Pin: Na bond outer radius\n"
     assert fuel_assembly.pin.fuel_clad_surface == 102
-    assert fuel_assembly.pin.fuel_clad_mcnp_surface == "102 RCC  0 0 50   0 0   60.0   0.265   $Pin: Cladding outer radius"
+    assert fuel_assembly.pin.fuel_clad_mcnp_surface == "102 RCC  0 0 50   0 0   60.0   0.265   $Pin: Cladding outer radius\n"
     assert fuel_assembly.pin.fuel_pin_universe_surface == 103
-    assert fuel_assembly.pin.fuel_pin_universe_mcnp_surface == "103 RHP  0 0 50   0 0 60.0   1.0 0 0   $$ Pin: Na universe for fuel pin"
+    assert fuel_assembly.pin.fuel_pin_universe_mcnp_surface == "103 RHP  0 0 50   0 0 60.0   1.0 0 0   $$ Pin: Na universe for fuel pin\n"
     assert fuel_assembly.pin.fuel_pellet_cell == 1050
-    assert fuel_assembly.pin.fuel_pellet_mcnp_cell == "1050 1022 0.0481048   -100      u=1001 imp:n=1 $Pin: Fuel Pellet"
+    assert fuel_assembly.pin.fuel_pellet_mcnp_cell == "1050 1022 0.0481048   -100      u=1001 imp:n=1 $Pin: Fuel Pellet\n"
     assert fuel_assembly.pin.fuel_bond_cell == 1051
-    assert fuel_assembly.pin.fuel_bond_mcnp_cell == "1051 1023 0.0242826   100 -101      u=1001 imp:n=1 $Pin: Na Bond"
+    assert fuel_assembly.pin.fuel_bond_mcnp_cell == "1051 1023 0.0242826   100 -101      u=1001 imp:n=1 $Pin: Na Bond\n"
     assert fuel_assembly.pin.fuel_clad_cell == 1052
-    assert fuel_assembly.pin.fuel_clad_mcnp_cell == "1052 1024 0.0859836   101 -102      u=1001 imp:n=1 $Pin: Pin Cladding"
+    assert fuel_assembly.pin.fuel_clad_mcnp_cell == "1052 1024 0.0859836   101 -102      u=1001 imp:n=1 $Pin: Pin Cladding\n"
     assert fuel_assembly.pin.fuel_universe_cell == 1053
-    assert fuel_assembly.pin.fuel_universe_mcnp_cell == "1053 1025 0.94   102      u=1001 imp:n=1 $Pin: Wirewrap + Na coolant"
+    assert fuel_assembly.pin.fuel_universe_mcnp_cell == "1053 1025 0.94   102      u=1001 imp:n=1 $Pin: Wirewrap + Na coolant\n"
     assert fuel_assembly.pin.na_cell_universe == 1002
     assert fuel_assembly.pin.na_cell == 1054
-    assert fuel_assembly.pin.na_mcnp_cell == "1054 1025 0.94   -103      u=1002 imp:n=1 $Pin: Na Pin"
+    assert fuel_assembly.pin.na_mcnp_cell == "1054 1025 0.94   -103      u=1002 imp:n=1 $Pin: Na Pin\n"
 
 
 def test_assembly_maker():
@@ -157,17 +157,17 @@ def test_assembly_maker():
 
     pm.assembly_maker(fuel_assembly)
     assert fuel_assembly.lower_reflector_surface == 100
-    assert fuel_assembly.lower_reflector_mcnp_surface == "100 RHP  0 0 0   0 0 50.0   0 5.55 0   $Assembly: Lower Reflector"
+    assert fuel_assembly.lower_reflector_mcnp_surface == "100 RHP  0 0 0   0 0 50.0   0 5.55 0   $Assembly: Lower Reflector\n"
     assert fuel_assembly.plenum_surface == 101
-    assert fuel_assembly.plenum_mcnp_surface == "101 RHP  0 0 110.0   0 0 60.0   0 5.55 0   $Assembly: Plenum"
+    assert fuel_assembly.plenum_mcnp_surface == "101 RHP  0 0 110.0   0 0 60.0   0 5.55 0   $Assembly: Plenum\n"
     assert fuel_assembly.upper_reflector_surface == 102
-    assert fuel_assembly.upper_reflector_mcnp_surface == "102 RHP  0 0 170.0   0 0 50.0   0 5.55 0   $Assembly: Upper Reflector"
+    assert fuel_assembly.upper_reflector_mcnp_surface == "102 RHP  0 0 170.0   0 0 50.0   0 5.55 0   $Assembly: Upper Reflector\n"
     assert fuel_assembly.inner_duct_surface == 103
-    assert fuel_assembly.inner_duct_mcnp_surface == "103 RHP  0 0 50.0   0 0 60.0   0 5.55 0   $Assembly: Inner Duct (fuel portion)"
+    assert fuel_assembly.inner_duct_mcnp_surface == "103 RHP  0 0 50.0   0 0 60.0   0 5.55 0   $Assembly: Inner Duct (fuel portion)\n"
     assert fuel_assembly.outer_duct_surface == 104
-    assert fuel_assembly.outer_duct_mcnp_surface == "104 RHP  0 0 -1   0 0 322.0   0 5.55 0   $Assembly: Outerduct/Universe"
+    assert fuel_assembly.outer_duct_mcnp_surface == "104 RHP  0 0 -1   0 0 322.0   0 5.55 0   $Assembly: Outerduct/Universe\n"
     assert fuel_assembly.universe_surface == 105
-    assert fuel_assembly.universe_mcnp_surface == "*105 RHP  0 0 -0.45   0 0 321.6   0 5.55 0   $Assembly: Sodium universe"
+    assert fuel_assembly.universe_mcnp_surface == "*105 RHP  0 0 -0.45   0 0 321.6   0 5.55 0   $Assembly: Sodium universe\n"
 
 
 test_mcnp_macro_RCC()

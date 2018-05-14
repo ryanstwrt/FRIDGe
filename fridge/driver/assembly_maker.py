@@ -1,4 +1,6 @@
 import numpy as np
+import FRIDGe.fridge.input_readers.material_reader as mat_read
+
 
 def assembly_maker(assembly):
     """
@@ -11,7 +13,6 @@ def assembly_maker(assembly):
         void
     """
     # Unpack the information from the assembly_data DataFrame
-    number_pins = assembly.assembly_data.ix['pins_per_assembly', 'assembly']
     full_assembly_pitch = assembly.assembly_data.ix['assembly_pitch', 'assembly']
     duct_thickness = assembly.assembly_data.ix['duct_thickness', 'assembly']
     assembly_gap = assembly.assembly_data.ix['assembly_gap', 'assembly']
@@ -31,28 +32,30 @@ def assembly_maker(assembly):
     fuel_reflector_height_vector = [0, 0, fuel_reflector_height]
     plenum_height_vector = [0, 0, plenum_height]
     fuel_height_vector = [0, 0, fuel_height]
-    assembly_pitch = [0, inner_flat/2, 0]
+    inner_assembly_pitch = [0, inner_flat/2, 0]
+    outer_assembly_pitch = [0, (inner_flat + (2 * duct_thickness + assembly_gap))/2, 0]
+    gap_assembly_pitch = [0, (inner_flat + 2 * duct_thickness )/2, 0]
 
     # Create the surfaces for the assembly
     assembly.lower_reflector_surface = assembly.surface_number
     assembly.lower_reflector_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, lower_fuel_reflector_position, fuel_reflector_height_vector,
-                                                                         assembly_pitch, 'Assembly: Lower Reflector\n')
+                                                                         inner_assembly_pitch, 'Assembly: Lower Reflector\n')
     assembly.plenum_surface = assembly.surface_number
     assembly.plenum_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, plenum_position,
                                                                          plenum_height_vector,
-                                                                         assembly_pitch, 'Assembly: Plenum\n')
+                                                                         inner_assembly_pitch, 'Assembly: Plenum\n')
     assembly.upper_reflector_surface = assembly.surface_number
     assembly.upper_reflector_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, upper_fuel_reflector_position, fuel_reflector_height_vector,
-                                                                         assembly_pitch, 'Assembly: Upper Reflector\n')
+                                                                         inner_assembly_pitch, 'Assembly: Upper Reflector\n')
     assembly.inner_duct_surface = assembly.surface_number
     assembly.inner_duct_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, inner_duct_position, fuel_height_vector,
-                                                                    assembly_pitch, 'Assembly: Inner Duct (fuel portion)\n')
+                                                                    inner_assembly_pitch, 'Assembly: Inner Duct (fuel portion)\n')
     assembly.outer_duct_surface = assembly.surface_number
     assembly.outer_duct_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, outer_duct_position, assembly_height_vector,
-                                                                         assembly_pitch, 'Assembly: Outerduct/Universe\n')
+                                                                         outer_assembly_pitch, 'Assembly: Outerduct/Universe\n')
     assembly.universe_surface = assembly.surface_number
     assembly.universe_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, universe_position, assembly_universe_height_vector,
-                                                                         assembly_pitch, 'Assembly: Sodium universe\n')
+                                                                         gap_assembly_pitch, 'Assembly: Sodium universe\n')
     assembly.universe_mcnp_surface = '*' + assembly.universe_mcnp_surface
 
     # Create the fuel pin to be used for this assembly.
@@ -87,6 +90,8 @@ def assembly_maker(assembly):
     assembly.lattice_mcnp_cell = make_lattice(assembly)
     assembly.lattice_holder_mcnp_cell = mcnp_make_lattice_holder(assembly)
     assembly.void_mcnp_cell = make_mcnp_assembly_void(assembly)
+
+    assembly_data_maker(assembly)
     return
 
 def fuel_pin_maker(fuel_assembly):
@@ -169,6 +174,24 @@ def fuel_pin_maker(fuel_assembly):
                                                                               "Pin: Na Pin\n")
     return
 
+
+def assembly_data_maker(assembly):
+    print(assembly.assembly_data)
+    print(assembly.fuel_reflector_data)
+    print(assembly.pin.pin_data)
+    assembly.material.fuel = mat_read.material_reader([assembly.pin.pin_data.ix['fuel', 'fuel']])
+    assembly.material.bond = mat_read.material_reader([assembly.pin.pin_data.ix['bond', 'fuel']])
+    assembly.material.clad = mat_read.material_reader([assembly.pin.pin_data.ix['clad', 'fuel']])
+    assembly.material.fuel_reflector = mat_read.material_reader([assembly.fuel_reflector_data.ix['clad', 'fuel_reflector']])
+    assembly.material.plenum = mat_read.material_reader([assembly.plenum_data.ix['coolant', 'plenum']])
+    assembly.material.assembly = mat_read.material_reader([assembly.assembly_data.ix['assembly', 'assembly']])
+    assembly.material.assembly_coolant = mat_read.material_reader([assembly.assembly_data.ix['coolant', 'assembly']])
+
+    assembly.material.fuel_num = assembly.material_number
+    make_mcnp_material_data(assembly, assembly.pin.pin_data.ix['fuel', 'fuel'], assembly.material.fuel[0], assembly.material.fuel[1], '.82c', 1000)
+
+
+    return
 
 def mcnp_make_macro_RCC(fuel_assembly, position, height, radius, comment):
     """
@@ -386,3 +409,7 @@ def make_mcnp_assembly_void(assembly):
     mcnp_output = str(assembly.cell_number) + " 0    #" + str(assembly.lattice_holder_cell) + \
                   "   imp:n=0   $ Void\n"
     return mcnp_output
+
+def make_mcnp_material_data(assembly, material_name, material_zaids, material_density, material_xc_set, universe):
+    material_header = 'c  Material: ' + str(material_name) + '  ; Density: ' + str(material_density) + '  a/(bn*cm)\n'
+    print(material_header)

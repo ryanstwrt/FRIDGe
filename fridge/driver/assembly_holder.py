@@ -100,8 +100,9 @@ class Assembly:
         self.assembly_id = self.assembly_universe + 20
         self.assembly_coolant_id = self.assembly_universe + 21
         self.universe_counter = assembly_universe
-        self.surface_number = int(self.assembly_universe / 10)
+        self.surface_number = self.assembly_universe
         self.cell_number = self.assembly_universe + 50
+        self.material_number = self.assembly_universe + 50
         self.latice_universe = 0
 
         self.lower_reflector_surface = 0
@@ -140,6 +141,7 @@ class Assembly:
 
         # Characteristics for a fuel pin
         self.pin = FuelPin(fuel_data)
+        self.material = Material()
         self.fuel_id = self.assembly_universe + 22
         self.bond_id = self.assembly_universe + 23
         self.clad_id = self.assembly_universe + 24
@@ -229,3 +231,50 @@ class FuelPin(Pin):
         self.fuel_clad_mcnp_surface = ''
         self.fuel_clad_cell = 0
         self.fuel_clad_mcnp_cell = ''
+
+
+class Material:
+    """
+        Class which will hold all of the material information regarding an assembly.
+    """
+
+    def __init__(self):
+        self.fuel_num = 0
+        self.fuel = []
+        self.fuel_xc_set = ''
+        self.fuel_mcnp_data = ''
+
+        self.bond_num = 0
+        self.bond = []
+        self.bond_xc_set = ''
+        self.bond_mcnp_data = ''
+
+        self.clad_num = 0
+        self.clad = []
+        self.clad_xc_set = ''
+        self.clad_mcnp_data = ''
+
+        self.coolant_num = 0
+        self.coolant = []
+        self.coolant_xc_set = ''
+        self.coolant_mcnp_data = ''
+
+        self.assembly_num = 0
+        self.assembly = []
+        self.assembly_xc_set = ''
+        self.assembly_mcnp_data = ''
+
+        self.assembly_coolant_num = 0
+        self.assembly_coolant = []
+        self.assembly_coolant_xc_set = ''
+        self.assembly_coolant_mcnp_data  = ''
+
+        self.plenum_num = 0
+        self.plenum = []
+        self.plenum_xc_set = ''
+        self.plenum_mcnp_data = ''
+
+        self.fuel_reflector_num = 0
+        self.fuel_reflector = []
+        self.fuel_reflector_xc_set = ''
+        self.fuel_reflector_mcnp_data = ''

@@ -84,20 +84,18 @@ def test_mcnp_make_cell_outside():
 def test_lattice_maker():
     """Test of the lattice maker for MCNP"""
     fuel_assembly = ah.Assembly(assembly, plenum, fuel_reflector, fuel, 1000)
-    fuel_assembly.assembly_data.ix['pins_per_assembly', 'assembly'] = 37
+    fuel_assembly.assembly_data.ix['pins_per_assembly', 'assembly'] = 11
     pm.assembly_maker(fuel_assembly)
     output = fuel_assembly.lattice_mcnp_cell
+    print(output)
     test_output = "1058 0      -1003 lat=2 u=1003 imp:n=1 \n\
-      fill=-4:4 -4:4 0:0 \n\
-     1002 1002 1002 1002 1002 1002 1002 1002 1002\n\
-     1002 1002 1002 1002 1001 1001 1001 1001 1002\n\
-     1002 1002 1002 1001 1001 1001 1001 1001 1002\n\
-     1002 1002 1001 1001 1001 1001 1001 1001 1002\n\
-     1002 1001 1001 1001 1001 1001 1001 1001 1002\n\
-     1001 1001 1001 1001 1001 1001 1001 1001 1002\n\
-     1001 1001 1001 1001 1001 1001 1001 1001 1002\n\
-     1001 1001 1001 1001 1001 1001 1001 1001 1002\n\
-     1002 1002 1002 1002 1002 1002 1002 1002 1002\n"
+      fill=-3:3 -3:3 0:0 \n\
+      1002 1002 1002 1002 1002 1002 1002 1002 1002 1002\n\
+      1001 1001 1001 1002 1002 1002 1001 1001 1001 1001\n\
+      1002 1002 1001 1001 1001 1001 1001 1002 1001 1001\n\
+      1001 1001 1001 1001 1002 1001 1001 1001 1001 1001\n\
+      1001 1002 1002 1002 1002 1002 1002 1002 1002\n"
+
     assert output == test_output
 
 

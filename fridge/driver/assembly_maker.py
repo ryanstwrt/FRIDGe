@@ -176,9 +176,6 @@ def fuel_pin_maker(fuel_assembly):
 
 
 def assembly_data_maker(assembly):
-    print(assembly.assembly_data)
-    print(assembly.fuel_reflector_data)
-    print(assembly.pin.pin_data)
     assembly.material.fuel = mat_read.material_reader([assembly.pin.pin_data.ix['fuel', 'fuel']])
     assembly.material.bond = mat_read.material_reader([assembly.pin.pin_data.ix['bond', 'fuel']])
     assembly.material.clad = mat_read.material_reader([assembly.pin.pin_data.ix['clad', 'fuel']])
@@ -361,17 +358,24 @@ def make_lattice(assembly):
                 else:
                     lattice_array[x][y] = assembly.pin.fuel_pin_universe
 
-    ### Create a function to determine where we should cut this off at
-    lattice_array = np.reshape(lattice_array, (-1, 9))
-    lattice_string = ''
-    for x in lattice_array:
-        temp_str = ' '.join(map(str, x.astype(int)))
-        lattice_string += '     ' + temp_str + '\n'
+    mcnp_lattice = ''
+    lat_iter = 1
+    total_lattice_elements = sum(len(x) for x in lattice_array)
+    for row in lattice_array:
+        for element in row:
+            if (lat_iter) == total_lattice_elements:
+                mcnp_lattice += ' ' + str(int(element)) + '\n'
+            elif lat_iter %10 == 0:
+                mcnp_lattice += ' ' + str(int(element)) + '\n' + '     '
+            else:
+                mcnp_lattice += ' ' + str(int(element))
+            lat_iter += 1
 
     mcnp_output = str(assembly.cell_number) + " 0      -" + str(assembly.inner_duct_surface) + \
                     " lat=2 u=" + str(assembly.lattice_universe) + " imp:n=1 \n" + \
                     "      fill=-" + str(number_rings) + ":" + str(number_rings) + " -" + \
-                    str(number_rings) + ":" + str(number_rings) + " 0:0 \n" + lattice_string
+                    str(number_rings) + ":" + str(number_rings) + " 0:0 \n" + '     '+ mcnp_lattice
+
     assembly.cell_number += 1
     return mcnp_output
 
@@ -411,5 +415,18 @@ def make_mcnp_assembly_void(assembly):
     return mcnp_output
 
 def make_mcnp_material_data(assembly, material_name, material_zaids, material_density, material_xc_set, universe):
+    print(material_zaids)
     material_header = 'c  Material: ' + str(material_name) + '  ; Density: ' + str(material_density) + '  a/(bn*cm)\n'
+    material_data = 'm' + str(assembly.material_number) + '\n' + '     '
+    for iter, material in enumerate(material_zaids):
+        print(material[3])
+        print(len(material_zaids))
+        if (iter + 1) % 3 == 0:
+            material_data += str(int(material[1])) + material_xc_set + ' -' + '{:0.6e}'.format(material[3]) + '\n' + '     '
+        elif (iter + 1) == len(material_zaids):
+            material_data += str(int(material[1])) + material_xc_set + ' -' + '{:0.6e}'.format(material[3]) + '\n'
+        else:
+            material_data += str(int(material[1])) + material_xc_set + ' -' + '{:0.6e}'.format(material[3]) + ' '
+    assembly.material_number += 1
     print(material_header)
+    print(material_data)

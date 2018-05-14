@@ -123,6 +123,10 @@ def test_pin_maker():
     """Test of the pin maker function"""
     fuel_assembly = ah.Assembly(assembly, plenum, fuel_reflector, fuel, 1000)
 
+    fuel_assembly.material.fuel_num = 1022
+    fuel_assembly.material.bond_num = 1023
+    fuel_assembly.material.clad_num = 1024
+
     pm.fuel_pin_maker(fuel_assembly)
 
     assert fuel_assembly.pin.fuel_material[1] == fuel_material_fuel[1]

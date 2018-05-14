@@ -241,40 +241,40 @@ class Material:
     def __init__(self):
         self.fuel_num = 0
         self.fuel = []
-        self.fuel_xc_set = ''
+        self.fuel_xc_set = '.80c'
         self.fuel_mcnp_data = ''
 
         self.bond_num = 0
         self.bond = []
-        self.bond_xc_set = ''
+        self.bond_xc_set = '.80c'
         self.bond_mcnp_data = ''
 
         self.clad_num = 0
         self.clad = []
-        self.clad_xc_set = ''
+        self.clad_xc_set = '.80c'
         self.clad_mcnp_data = ''
 
         self.coolant_num = 0
         self.coolant = []
-        self.coolant_xc_set = ''
+        self.coolant_xc_set = '.80c'
         self.coolant_mcnp_data = ''
 
         self.assembly_num = 0
         self.assembly = []
-        self.assembly_xc_set = ''
+        self.assembly_xc_set = '.80c'
         self.assembly_mcnp_data = ''
 
         self.assembly_coolant_num = 0
         self.assembly_coolant = []
-        self.assembly_coolant_xc_set = ''
-        self.assembly_coolant_mcnp_data  = ''
+        self.assembly_coolant_xc_set = '.80c'
+        self.assembly_coolant_mcnp_data = ''
 
         self.plenum_num = 0
         self.plenum = []
-        self.plenum_xc_set = ''
+        self.plenum_xc_set = '.80c'
         self.plenum_mcnp_data = ''
 
         self.fuel_reflector_num = 0
         self.fuel_reflector = []
-        self.fuel_reflector_xc_set = ''
+        self.fuel_reflector_xc_set = '.80c'
         self.fuel_reflector_mcnp_data = ''

@@ -36,6 +36,9 @@ def assembly_maker(assembly):
     outer_assembly_pitch = [0, (inner_flat + (2 * duct_thickness + assembly_gap))/2, 0]
     gap_assembly_pitch = [0, (inner_flat + 2 * duct_thickness )/2, 0]
 
+    # Create the material data
+    assembly_data_maker(assembly)
+
     # Create the surfaces for the assembly
     assembly.lower_reflector_surface = assembly.surface_number
     assembly.lower_reflector_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, lower_fuel_reflector_position, fuel_reflector_height_vector,
@@ -91,7 +94,6 @@ def assembly_maker(assembly):
     assembly.lattice_holder_mcnp_cell = mcnp_make_lattice_holder(assembly)
     assembly.void_mcnp_cell = make_mcnp_assembly_void(assembly)
 
-    assembly_data_maker(assembly)
     return
 
 def fuel_pin_maker(fuel_assembly):
@@ -138,20 +140,20 @@ def fuel_pin_maker(fuel_assembly):
 
     # Create the cell for each section of a pin
     fuel_assembly.pin.fuel_pellet_cell = fuel_assembly.cell_number
-    fuel_assembly.pin.fuel_pellet_mcnp_cell, warning = mcnp_make_cell(fuel_assembly, fuel_assembly.fuel_id, fuel_assembly.pin.fuel_material[1],
+    fuel_assembly.pin.fuel_pellet_mcnp_cell, warning = mcnp_make_cell(fuel_assembly, fuel_assembly.material.fuel_num, fuel_assembly.pin.fuel_material[1],
                                                                  fuel_assembly.pin.fuel_pellet_surface,
                                                                  fuel_assembly.universe_counter, 1,
                                                                  "Pin: Fuel Pellet\n")
 
     fuel_assembly.pin.fuel_bond_cell = fuel_assembly.cell_number
-    fuel_assembly.pin.fuel_bond_mcnp_cell, warning = mcnp_make_concentric_cell(fuel_assembly, fuel_assembly.bond_id, fuel_assembly.pin.fuel_bond[1],
+    fuel_assembly.pin.fuel_bond_mcnp_cell, warning = mcnp_make_concentric_cell(fuel_assembly, fuel_assembly.material.bond_num, fuel_assembly.pin.fuel_bond[1],
                                                                           fuel_assembly.pin.fuel_pellet_surface,
                                                                           fuel_assembly.pin.fuel_bond_surface,
                                                                           fuel_assembly.universe_counter, 1,
                                                                           "Pin: Na Bond\n")
 
     fuel_assembly.pin.fuel_clad_cell = fuel_assembly.cell_number
-    fuel_assembly.pin.fuel_clad_mcnp_cell, warning = mcnp_make_concentric_cell(fuel_assembly, fuel_assembly.clad_id,
+    fuel_assembly.pin.fuel_clad_mcnp_cell, warning = mcnp_make_concentric_cell(fuel_assembly, fuel_assembly.material.clad_num,
                                                                                fuel_assembly.pin.fuel_clad[1],
                                                                           fuel_assembly.pin.fuel_bond_surface,
                                                                           fuel_assembly.pin.fuel_clad_surface,
@@ -185,7 +187,19 @@ def assembly_data_maker(assembly):
     assembly.material.assembly_coolant = mat_read.material_reader([assembly.assembly_data.ix['coolant', 'assembly']])
 
     assembly.material.fuel_num = assembly.material_number
-    make_mcnp_material_data(assembly, assembly.pin.pin_data.ix['fuel', 'fuel'], assembly.material.fuel[0], assembly.material.fuel[1], '.82c', 1000)
+    assembly.material.fuel_mcnp_data = make_mcnp_material_data(
+        assembly, assembly.pin.pin_data.ix['fuel', 'fuel'], assembly.material.fuel[0],
+        assembly.material.fuel[1], assembly.material.fuel_xc_set)
+
+    assembly.material.bond_num = assembly.material_number
+    assembly.material.bond_mcnp_data = make_mcnp_material_data(
+        assembly, assembly.pin.pin_data.ix['bond', 'fuel'], assembly.material.bond[0],
+        assembly.material.bond[1], assembly.material.bond_xc_set)
+
+    assembly.material.clad_num = assembly.material_number
+    assembly.material.clad_mcnp_data = make_mcnp_material_data(
+        assembly, assembly.pin.pin_data.ix['clad', 'fuel'], assembly.material.clad[0],
+        assembly.material.clad[1], assembly.material.clad_xc_set)
 
 
     return
@@ -414,13 +428,10 @@ def make_mcnp_assembly_void(assembly):
                   "   imp:n=0   $ Void\n"
     return mcnp_output
 
-def make_mcnp_material_data(assembly, material_name, material_zaids, material_density, material_xc_set, universe):
-    print(material_zaids)
+def make_mcnp_material_data(assembly, material_name, material_zaids, material_density, material_xc_set):
     material_header = 'c  Material: ' + str(material_name) + '  ; Density: ' + str(material_density) + '  a/(bn*cm)\n'
     material_data = 'm' + str(assembly.material_number) + '\n' + '     '
     for iter, material in enumerate(material_zaids):
-        print(material[3])
-        print(len(material_zaids))
         if (iter + 1) % 3 == 0:
             material_data += str(int(material[1])) + material_xc_set + ' -' + '{:0.6e}'.format(material[3]) + '\n' + '     '
         elif (iter + 1) == len(material_zaids):
@@ -428,5 +439,5 @@ def make_mcnp_material_data(assembly, material_name, material_zaids, material_de
         else:
             material_data += str(int(material[1])) + material_xc_set + ' -' + '{:0.6e}'.format(material[3]) + ' '
     assembly.material_number += 1
-    print(material_header)
-    print(material_data)
+    mcnp_output = material_header + material_data
+    return mcnp_output

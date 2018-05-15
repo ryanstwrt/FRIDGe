@@ -5,7 +5,9 @@ import os
 cur_dir = os.path.dirname(__file__)
 mat_dir = os.path.join(cur_dir, "../Materials")
 
+
 def material_smear(materials, material_wt_per, material_str):
+    assert material_str
     material_name = ''
     for iter, name in enumerate(material_str):
         if iter+1 == len(material_str):
@@ -20,3 +22,5 @@ def material_smear(materials, material_wt_per, material_str):
         atom_percent, atom_density = mr.material_reader([material_name])
         return atom_percent, atom_density
 
+    #dummy functions for now
+    return 1, 2

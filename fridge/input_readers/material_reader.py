@@ -391,6 +391,31 @@ def material_reader(material_input):
 
     return atom_percent, atom_density
 
+
+def get_final_wt_per(material_input):
+    """This function will be called from the driver and will create a data
+    series with weight percents for a material that is called.
+
+    This combines all the other steps and will be the only function called
+    from the main program.
+
+    args:
+        material_input (str array): An array of a known material
+
+    returns:
+        at_per (double array): array with all isotopes present in
+        the material in atom percent
+        atom_density (double): the total atom density for the material
+    """
+    material_elements = get_elem_string(material_input)
+    material_base = material_creator(material_elements)
+    material_attr = get_mat_attr(material_input)
+    material_wt_per = get_wt_per(material_input)
+    material_enr_per = get_enr_per(material_input)
+    weight_percent = wt_per_calc(material_base, material_wt_per,  material_enr_per)
+
+    return weight_percent, material_attr[0]
+
 # Create a class for fuel/cladding/coolant/etc.
 # it shoulid look something like
 # class fuel:

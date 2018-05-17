@@ -67,14 +67,12 @@ def assembly_maker(assembly):
 
     # Create cells for assembly
     assembly.lower_reflector_cell = assembly.cell_number
-    assembly.material.fuel_reflector = mat_smear.material_smear(assembly.fuel_reflector_smear_per, assembly.fuel_reflector_smear_zaids)
     assembly.lower_reflector_mcnp_cell, warning = mcnp_make_cell(assembly, assembly.fuel_reflector_id,
                                                                  assembly.material.fuel_reflector[1],
                                                                  assembly.lower_reflector_surface,
                                                                  assembly.assembly_universe, 1,
                                                                  "Assembly: Lower Reflector\n")
     assembly.plenum_cell = assembly.cell_number
-    assembly.material.plenum = mat_smear.material_smear(assembly.plenum_smear_per, assembly.plenum_smear_zaids)
     assembly.plenum_mcnp_cell, warning = mcnp_make_cell(assembly, assembly.plenum_id,
                                                                  assembly.material.plenum[1],
                                                                  assembly.plenum_surface,
@@ -184,8 +182,8 @@ def assembly_data_maker(assembly):
     assembly.material.fuel = mat_read.material_reader([assembly.pin.pin_data.ix['fuel', 'fuel']])
     assembly.material.bond = mat_read.material_reader([assembly.pin.pin_data.ix['bond', 'fuel']])
     assembly.material.clad = mat_read.material_reader([assembly.pin.pin_data.ix['clad', 'fuel']])
-    assembly.material.fuel_reflector = mat_read.material_reader([assembly.fuel_reflector_data.ix['clad', 'fuel_reflector']])
-    assembly.material.plenum = mat_read.material_reader([assembly.plenum_data.ix['coolant', 'plenum']])
+    assembly.material.fuel_reflector = mat_smear.material_smear(assembly.fuel_reflector_smear_per, assembly.fuel_reflector_smear_zaids)
+    assembly.material.plenum = mat_smear.material_smear(assembly.plenum_smear_per, assembly.plenum_smear_zaids)
     assembly.material.assembly = mat_read.material_reader([assembly.assembly_data.ix['assembly', 'assembly']])
     assembly.material.assembly_coolant = mat_read.material_reader([assembly.assembly_data.ix['coolant', 'assembly']])
 
@@ -444,10 +442,11 @@ def make_mcnp_material_data(assembly, material_name, material_zaids, material_de
     material_header = 'c  Material: ' + str(material_name) + '  ; Density: ' + str(material_density) + '  a/(bn*cm)\n'
     material_data = 'm' + str(assembly.material_number) + '\n' + '     '
     for iter, material in enumerate(material_zaids):
-        if (iter + 1) % 3 == 0:
-            material_data += str(int(material[1])) + material_xc_set + ' -' + '{:0.6e}'.format(material[3]) + '\n' + '     '
-        elif (iter + 1) == len(material_zaids):
+        if (iter + 1) == len(material_zaids):
             material_data += str(int(material[1])) + material_xc_set + ' -' + '{:0.6e}'.format(material[3]) + '\n'
+        elif (iter + 1) % 3 == 0:
+            material_data += str(int(material[1])) + material_xc_set + ' -' + '{:0.6e}'.format(material[3]) + '\n' + '     '
+
         else:
             material_data += str(int(material[1])) + material_xc_set + ' -' + '{:0.6e}'.format(material[3]) + ' '
     assembly.material_number += 1

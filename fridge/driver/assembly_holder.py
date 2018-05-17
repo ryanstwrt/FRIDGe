@@ -87,8 +87,17 @@ class Assembly:
         return:
             void
         """
-        #plenum_material = mat_read.material_reader([plenum_data.ix['fuel', 'fuel']])
-        #plenum_material = mat_read.material_reader([plenum_data.ix['fuel', 'fuel']])
+        print(plenum_data)
+        self.plenum_smear_per = [plenum_data.ix['coolant_per', 'plenum'], plenum_data.ix['void_per', 'plenum'], plenum_data.ix['clad_per', 'plenum']]
+        self.plenum_smear_zaids = [plenum_data.ix['coolant', 'plenum'], plenum_data.ix['void', 'plenum'], plenum_data.ix['clad', 'plenum']]
+        self.plenum_material = []
+        self.fuel_reflector_material = []
+
+        self.fuel_reflector_smear_per = [fuel_reflector_data.ix['coolant_per', 'fuel_reflector'], fuel_reflector_data.ix['clad_per', 'fuel_reflector']]
+        self.fuel_reflector_smear_zaids = [fuel_reflector_data.ix['coolant', 'fuel_reflector'], fuel_reflector_data.ix['clad', 'fuel_reflector']]
+
+        print(self.plenum_smear_zaids)
+        #plenum_material = [mat_read.material_reader([plenum_data.ix['plenum', 'fuel']])]
         #fuel_reflecor_material = mat_read.material_reader([fuel_reflector_data.ix['bond', 'fuel']])
 
         # Potentially throw these three functions into the assembly holder and unpack them when they are needed.

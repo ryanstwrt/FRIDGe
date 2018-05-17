@@ -10,6 +10,8 @@ mat_dir = os.path.join(cur_dir, "../Materials")
 
 def material_smear(material_wt_per, material_str):
     assert material_str
+    if 'Void' in material_str:
+        material_str.remove('Void')
     material_name = ''
     for iter, name in enumerate(material_str):
         if iter+1 == len(material_str):

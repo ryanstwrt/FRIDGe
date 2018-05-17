@@ -1,5 +1,6 @@
 import numpy as np
 import FRIDGe.fridge.input_readers.material_reader as mat_read
+import FRIDGe.fridge.utilities.material_smear as mat_smear
 
 
 def assembly_maker(assembly):
@@ -66,20 +67,22 @@ def assembly_maker(assembly):
 
     # Create cells for assembly
     assembly.lower_reflector_cell = assembly.cell_number
+    assembly.fuel_reflector_material = mat_smear.material_smear(assembly.fuel_reflector_smear_per, assembly.fuel_reflector_smear_zaids)
     assembly.lower_reflector_mcnp_cell, warning = mcnp_make_cell(assembly, assembly.fuel_reflector_id,
-                                                                 100000,
+                                                                 assembly.fuel_reflector_material[1],
                                                                  assembly.lower_reflector_surface,
                                                                  assembly.assembly_universe, 1,
                                                                  "Assembly: Lower Reflector\n")
     assembly.plenum_cell = assembly.cell_number
+    assembly.plenum_material = mat_smear.material_smear(assembly.plenum_smear_per, assembly.plenum_smear_zaids)
     assembly.plenum_mcnp_cell, warning = mcnp_make_cell(assembly, assembly.plenum_id,
-                                                                 100000,
+                                                                 assembly.plenum_material[1],
                                                                  assembly.plenum_surface,
                                                                  assembly.assembly_universe, 1,
                                                                  "Assembly: Fission Product Plenum\n")
     assembly.upper_reflector_cell = assembly.cell_number
     assembly.upper_reflector_mcnp_cell, warning = mcnp_make_cell(assembly, assembly.fuel_reflector_id,
-                                                                 100000,
+                                                                 assembly.fuel_reflector_material[1],
                                                                  assembly.upper_reflector_surface,
                                                                  assembly.assembly_universe, 1,
                                                                  "Assembly: Upper Reflector\n")

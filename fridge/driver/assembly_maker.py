@@ -67,22 +67,22 @@ def assembly_maker(assembly):
 
     # Create cells for assembly
     assembly.lower_reflector_cell = assembly.cell_number
-    assembly.fuel_reflector_material = mat_smear.material_smear(assembly.fuel_reflector_smear_per, assembly.fuel_reflector_smear_zaids)
+    assembly.material.fuel_reflector = mat_smear.material_smear(assembly.fuel_reflector_smear_per, assembly.fuel_reflector_smear_zaids)
     assembly.lower_reflector_mcnp_cell, warning = mcnp_make_cell(assembly, assembly.fuel_reflector_id,
-                                                                 assembly.fuel_reflector_material[1],
+                                                                 assembly.material.fuel_reflector[1],
                                                                  assembly.lower_reflector_surface,
                                                                  assembly.assembly_universe, 1,
                                                                  "Assembly: Lower Reflector\n")
     assembly.plenum_cell = assembly.cell_number
-    assembly.plenum_material = mat_smear.material_smear(assembly.plenum_smear_per, assembly.plenum_smear_zaids)
+    assembly.material.plenum = mat_smear.material_smear(assembly.plenum_smear_per, assembly.plenum_smear_zaids)
     assembly.plenum_mcnp_cell, warning = mcnp_make_cell(assembly, assembly.plenum_id,
-                                                                 assembly.plenum_material[1],
+                                                                 assembly.material.plenum[1],
                                                                  assembly.plenum_surface,
                                                                  assembly.assembly_universe, 1,
                                                                  "Assembly: Fission Product Plenum\n")
     assembly.upper_reflector_cell = assembly.cell_number
     assembly.upper_reflector_mcnp_cell, warning = mcnp_make_cell(assembly, assembly.fuel_reflector_id,
-                                                                 assembly.fuel_reflector_material[1],
+                                                                 assembly.material.fuel_reflector[1],
                                                                  assembly.upper_reflector_surface,
                                                                  assembly.assembly_universe, 1,
                                                                  "Assembly: Upper Reflector\n")
@@ -204,6 +204,15 @@ def assembly_data_maker(assembly):
         assembly, assembly.pin.pin_data.ix['clad', 'fuel'], assembly.material.clad[0],
         assembly.material.clad[1], assembly.material.clad_xc_set)
 
+    assembly.material.fuel_reflector_num = assembly.material_number
+    assembly.material.fuel_reflector_mcnp_data = make_mcnp_material_data(
+        assembly, 'Fuel Reflector Smear', assembly.material.fuel_reflector[0],
+        assembly.material.fuel_reflector[1], assembly.material.fuel_reflector_xc_set)
+
+    assembly.material.plenum_num = assembly.material_number
+    assembly.material.plenum_mcnp_data = make_mcnp_material_data(
+        assembly, 'Plenum Smear', assembly.material.plenum[0],
+        assembly.material.plenum[1], assembly.material.plenum_xc_set)
 
     return
 

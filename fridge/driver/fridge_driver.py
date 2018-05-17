@@ -20,7 +20,8 @@ file.write(fuel_assembly.pin.fuel_universe_mcnp_surface+ fuel_assembly.lower_ref
            fuel_assembly.upper_reflector_mcnp_surface+ fuel_assembly.inner_duct_mcnp_surface+ fuel_assembly.outer_duct_mcnp_surface+
            fuel_assembly.pin.fuel_pellet_mcnp_surface + fuel_assembly.pin.fuel_bond_mcnp_surface + fuel_assembly.pin.fuel_clad_mcnp_surface +
            fuel_assembly.lower_plane_surface_mcnp+ fuel_assembly.upper_plane_surface_mcnp + fuel_assembly.universe_mcnp_surface)
-file.write(fuel_assembly.material.fuel_mcnp_data + fuel_assembly.material.bond_mcnp_data + fuel_assembly.material.clad_mcnp_data)
+file.write(fuel_assembly.material.fuel_mcnp_data + fuel_assembly.material.bond_mcnp_data + fuel_assembly.material.clad_mcnp_data +
+           fuel_assembly.material.fuel_reflector_mcnp_data + fuel_assembly.material.plenum_mcnp_data)
 file.close()
 #print(fuel_assembly.lower_reflector_mcnp_surface)
 #print(fuel_assembly.plenum_mcnp_surface)

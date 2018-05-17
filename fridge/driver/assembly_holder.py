@@ -158,6 +158,8 @@ class Assembly:
         self.fuel_reflector_id = self.assembly_universe + 26
         self.plenum_id = self.assembly_universe + 27
 
+        self.k_card = ''
+
 
 class Pin:
     """
@@ -222,10 +224,6 @@ class FuelPin(Pin):
         self.fuel_universe_cell = 0
         self.fuel_universe_mcnp_cell = ''
 
-        self.na_cell_universe = 0
-        self.na_cell = 0
-        self.na_mcnp_cell = ''
-
         self.fuel_pellet_surface = 0
         self.fuel_pellet_mcnp_surface = ''
         self.fuel_pellet_cell = 0
@@ -241,6 +239,13 @@ class FuelPin(Pin):
         self.fuel_clad_cell = 0
         self.fuel_clad_mcnp_cell = ''
 
+        self.na_cell_universe = 0
+        self.na_cell = 0
+        self.na_mcnp_cell = ''
+        self.na_cell_surface = 0
+        self.na_cell_mcnp_surface = ''
+
+
 
 class Material:
     """
@@ -250,40 +255,48 @@ class Material:
     def __init__(self):
         self.fuel_num = 0
         self.fuel = []
-        self.fuel_xc_set = '.80c'
+        self.fuel_xc_set = '.82c'
         self.fuel_mcnp_data = ''
 
         self.bond_num = 0
         self.bond = []
-        self.bond_xc_set = '.80c'
+        self.bond_xc_set = '.82c'
         self.bond_mcnp_data = ''
 
         self.clad_num = 0
         self.clad = []
-        self.clad_xc_set = '.80c'
+        self.clad_xc_set = '.82c'
         self.clad_mcnp_data = ''
 
         self.coolant_num = 0
         self.coolant = []
-        self.coolant_xc_set = '.80c'
+        self.coolant_xc_set = '.82c'
         self.coolant_mcnp_data = ''
 
         self.assembly_num = 0
         self.assembly = []
-        self.assembly_xc_set = '.80c'
+        self.assembly_xc_set = '.82c'
         self.assembly_mcnp_data = ''
 
         self.assembly_coolant_num = 0
         self.assembly_coolant = []
-        self.assembly_coolant_xc_set = '.80c'
+        self.assembly_coolant_xc_set = '.82c'
         self.assembly_coolant_mcnp_data = ''
 
         self.plenum_num = 0
         self.plenum = []
-        self.plenum_xc_set = '.80c'
+        self.plenum_xc_set = '.82c'
         self.plenum_mcnp_data = ''
 
         self.fuel_reflector_num = 0
         self.fuel_reflector = []
-        self.fuel_reflector_xc_set = '.80c'
+        self.fuel_reflector_xc_set = '.82c'
         self.fuel_reflector_mcnp_data = ''
+
+        self.kcode = True
+        self.num_particles_per_gen = 0
+        self.num_gens = 0
+        self.num_skipped_gens = 0
+        self.kopts = True
+
+        self.ksrc = []

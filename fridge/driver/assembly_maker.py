@@ -1,6 +1,7 @@
 import numpy as np
 import FRIDGe.fridge.input_readers.material_reader as mat_read
 import FRIDGe.fridge.utilities.material_smear as mat_smear
+import FRIDGe.fridge.driver.data_maker as dm
 
 
 def assembly_maker(assembly):
@@ -42,24 +43,33 @@ def assembly_maker(assembly):
 
     # Create the surfaces for the assembly
     assembly.lower_reflector_surface = assembly.surface_number
-    assembly.lower_reflector_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, lower_fuel_reflector_position, fuel_reflector_height_vector,
-                                                                         inner_assembly_pitch, 'Assembly: Lower Reflector\n')
+    assembly.lower_reflector_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, lower_fuel_reflector_position,
+                                                                         fuel_reflector_height_vector,
+                                                                         inner_assembly_pitch,
+                                                                         'Assembly: Lower Reflector\n')
     assembly.plenum_surface = assembly.surface_number
     assembly.plenum_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, plenum_position,
                                                                          plenum_height_vector,
                                                                          inner_assembly_pitch, 'Assembly: Plenum\n')
     assembly.upper_reflector_surface = assembly.surface_number
-    assembly.upper_reflector_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, upper_fuel_reflector_position, fuel_reflector_height_vector,
-                                                                         inner_assembly_pitch, 'Assembly: Upper Reflector\n')
+    assembly.upper_reflector_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, upper_fuel_reflector_position,
+                                                                         fuel_reflector_height_vector,
+                                                                         inner_assembly_pitch,
+                                                                         'Assembly: Upper Reflector\n')
     assembly.inner_duct_surface = assembly.surface_number
     assembly.inner_duct_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, inner_duct_position, fuel_height_vector,
-                                                                    inner_assembly_pitch, 'Assembly: Inner Duct (fuel portion)\n')
+                                                                    inner_assembly_pitch,
+                                                                    'Assembly: Inner Duct (fuel portion)\n')
     assembly.outer_duct_surface = assembly.surface_number
-    assembly.outer_duct_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, outer_duct_position, assembly_height_vector,
-                                                                         outer_assembly_pitch, 'Assembly: Outerduct/Universe\n')
+    assembly.outer_duct_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, outer_duct_position,
+                                                                    assembly_height_vector,
+                                                                    outer_assembly_pitch,
+                                                                    'Assembly: Outerduct/Universe\n')
     assembly.universe_surface = assembly.surface_number
-    assembly.universe_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, universe_position, assembly_universe_height_vector,
-                                                                         gap_assembly_pitch, 'Assembly: Sodium universe\n')
+    assembly.universe_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, universe_position,
+                                                                  assembly_universe_height_vector,
+                                                                  gap_assembly_pitch,
+                                                                  'Assembly: Sodium universe\n')
     assembly.universe_mcnp_surface = '*' + assembly.universe_mcnp_surface
 
     # Create the fuel pin to be used for this assembly.
@@ -67,19 +77,19 @@ def assembly_maker(assembly):
 
     # Create cells for assembly
     assembly.lower_reflector_cell = assembly.cell_number
-    assembly.lower_reflector_mcnp_cell, warning = mcnp_make_cell(assembly, assembly.fuel_reflector_id,
+    assembly.lower_reflector_mcnp_cell, warning = mcnp_make_cell(assembly, assembly.material.fuel_reflector_num,
                                                                  assembly.material.fuel_reflector[1],
                                                                  assembly.lower_reflector_surface,
                                                                  assembly.assembly_universe, 1,
                                                                  "Assembly: Lower Reflector\n")
     assembly.plenum_cell = assembly.cell_number
-    assembly.plenum_mcnp_cell, warning = mcnp_make_cell(assembly, assembly.plenum_id,
-                                                                 assembly.material.plenum[1],
-                                                                 assembly.plenum_surface,
-                                                                 assembly.assembly_universe, 1,
-                                                                 "Assembly: Fission Product Plenum\n")
+    assembly.plenum_mcnp_cell, warning = mcnp_make_cell(assembly, assembly.material.plenum_num,
+                                                        assembly.material.plenum[1],
+                                                        assembly.plenum_surface,
+                                                        assembly.assembly_universe, 1,
+                                                        "Assembly: Fission Product Plenum\n")
     assembly.upper_reflector_cell = assembly.cell_number
-    assembly.upper_reflector_mcnp_cell, warning = mcnp_make_cell(assembly, assembly.fuel_reflector_id,
+    assembly.upper_reflector_mcnp_cell, warning = mcnp_make_cell(assembly, assembly.material.fuel_reflector_num,
                                                                  assembly.material.fuel_reflector[1],
                                                                  assembly.upper_reflector_surface,
                                                                  assembly.assembly_universe, 1,
@@ -95,7 +105,10 @@ def assembly_maker(assembly):
     assembly.lattice_holder_mcnp_cell = mcnp_make_lattice_holder(assembly)
     assembly.void_mcnp_cell = make_mcnp_assembly_void(assembly)
 
+    assembly.k_card = dm.make_mcnp_problem(assembly)
+
     return
+
 
 def fuel_pin_maker(fuel_assembly):
     """
@@ -136,22 +149,32 @@ def fuel_pin_maker(fuel_assembly):
 
     fuel_assembly.pin.fuel_pin_universe_surface = fuel_assembly.surface_number
     fuel_assembly.pin.fuel_pin_universe_mcnp_surface, warning = mcnp_make_macro_RHP(fuel_assembly, pin_pos,
-                                                                                    [0, 0, fuel_pin_height], [1.0, 0, 0],
+                                                                                    [0, 0, fuel_pin_height],
+                                                                                    [1.0, 0, 0],
                                                                                     "$ Pin: Na universe for fuel pin\n")
+
+    fuel_assembly.pin.na_cell_surface = fuel_assembly.surface_number
+    fuel_assembly.pin.na_cell_mcnp_surface, warning = mcnp_make_macro_RHP(fuel_assembly, pin_pos,
+                                                                          [0, 0, fuel_pin_height],
+                                                                          [1.0, 0, 0],
+                                                                          "$ Pin: Blank sodium pin for lattice\n")
 
     # Create the cell for each section of a pin
     fuel_assembly.pin.fuel_pellet_cell = fuel_assembly.cell_number
-    fuel_assembly.pin.fuel_pellet_mcnp_cell, warning = mcnp_make_cell(fuel_assembly, fuel_assembly.material.fuel_num, fuel_assembly.pin.fuel_material[1],
-                                                                 fuel_assembly.pin.fuel_pellet_surface,
-                                                                 fuel_assembly.universe_counter, 1,
-                                                                 "Pin: Fuel Pellet\n")
+    fuel_assembly.pin.fuel_pellet_mcnp_cell, warning = mcnp_make_cell(fuel_assembly, fuel_assembly.material.fuel_num,
+                                                                      fuel_assembly.pin.fuel_material[1],
+                                                                      fuel_assembly.pin.fuel_pellet_surface,
+                                                                      fuel_assembly.universe_counter, 1,
+                                                                      "Pin: Fuel Pellet\n")
 
     fuel_assembly.pin.fuel_bond_cell = fuel_assembly.cell_number
-    fuel_assembly.pin.fuel_bond_mcnp_cell, warning = mcnp_make_concentric_cell(fuel_assembly, fuel_assembly.material.bond_num, fuel_assembly.pin.fuel_bond[1],
-                                                                          fuel_assembly.pin.fuel_pellet_surface,
-                                                                          fuel_assembly.pin.fuel_bond_surface,
-                                                                          fuel_assembly.universe_counter, 1,
-                                                                          "Pin: Na Bond\n")
+    fuel_assembly.pin.fuel_bond_mcnp_cell, warning = mcnp_make_concentric_cell(fuel_assembly,
+                                                                               fuel_assembly.material.bond_num,
+                                                                               fuel_assembly.pin.fuel_bond[1],
+                                                                               fuel_assembly.pin.fuel_pellet_surface,
+                                                                               fuel_assembly.pin.fuel_bond_surface,
+                                                                               fuel_assembly.universe_counter, 1,
+                                                                               "Pin: Na Bond\n")
 
     fuel_assembly.pin.fuel_clad_cell = fuel_assembly.cell_number
     fuel_assembly.pin.fuel_clad_mcnp_cell, warning = mcnp_make_concentric_cell(fuel_assembly, fuel_assembly.material.clad_num,
@@ -162,7 +185,7 @@ def fuel_pin_maker(fuel_assembly):
                                                                           "Pin: Pin Cladding\n")
 
     fuel_assembly.pin.fuel_universe_cell = fuel_assembly.cell_number
-    fuel_assembly.pin.fuel_universe_mcnp_cell, warning = mcnp_make_cell_outside(fuel_assembly, fuel_assembly.coolant_id,
+    fuel_assembly.pin.fuel_universe_mcnp_cell, warning = mcnp_make_cell_outside(fuel_assembly, fuel_assembly.material.coolant_num,
                                                                                    0.94,
                                                                               fuel_assembly.pin.fuel_clad_surface,
                                                                               fuel_assembly.universe_counter, 1,
@@ -171,7 +194,7 @@ def fuel_pin_maker(fuel_assembly):
     fuel_assembly.universe_counter += 1
     fuel_assembly.pin.na_cell_universe = fuel_assembly.universe_counter
     fuel_assembly.pin.na_cell = fuel_assembly.cell_number
-    fuel_assembly.pin.na_mcnp_cell, warning = mcnp_make_cell(fuel_assembly, fuel_assembly.coolant_id, 0.94,
+    fuel_assembly.pin.na_mcnp_cell, warning = mcnp_make_cell(fuel_assembly, fuel_assembly.material.coolant_num, 0.94,
                                                                               fuel_assembly.pin.fuel_pin_universe_surface,
                                                                               fuel_assembly.universe_counter, 1,
                                                                               "Pin: Na Pin\n")
@@ -193,11 +216,13 @@ def assembly_data_maker(assembly):
         assembly.material.fuel[1], assembly.material.fuel_xc_set)
 
     assembly.material.bond_num = assembly.material_number
+    assembly.material.coolant_num = assembly.material_number
     assembly.material.bond_mcnp_data = make_mcnp_material_data(
         assembly, assembly.pin.pin_data.ix['bond', 'fuel'], assembly.material.bond[0],
         assembly.material.bond[1], assembly.material.bond_xc_set)
 
     assembly.material.clad_num = assembly.material_number
+    assembly.material.assembly_num = assembly.material_number
     assembly.material.clad_mcnp_data = make_mcnp_material_data(
         assembly, assembly.pin.pin_data.ix['clad', 'fuel'], assembly.material.clad[0],
         assembly.material.clad[1], assembly.material.clad_xc_set)
@@ -410,7 +435,7 @@ def mcnp_make_lattice_holder(assembly):
                   + " imp:n=1 $ Assembly: Base Assembly"
 
     assembly.cell_number += 1
-    mcnp_block2 = str(assembly.cell_number) + " " + str(assembly.assembly_id) + " " \
+    mcnp_block2 = str(assembly.cell_number) + " " + str(assembly.material.assembly_num) + " " \
                   + str(round(assembly.assembly_material[1], 7)) + "   -" + str(assembly.inner_duct_surface) \
                   + " " + str(assembly.lower_reflector_surface) + " " + str(assembly.upper_reflector_surface) \
                   + " " + str(assembly.plenum_surface) + "   u=" + str(assembly.assembly_universe) \

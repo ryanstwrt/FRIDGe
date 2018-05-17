@@ -11,6 +11,8 @@ fuel_assembly = ah.Assembly(assembly, plenum, fuel_reflector, fuel, 100)
 assembly_maker.assembly_maker(fuel_assembly)
 print(fuel_assembly.universe_mcnp_surface)
 file = open("test_case", "w")
+file.write("This is a Title\n")
+file.write("c Cell Cards\n")
 file.write(fuel_assembly.pin.fuel_pellet_mcnp_cell + fuel_assembly.pin.fuel_bond_mcnp_cell + fuel_assembly.pin.fuel_clad_mcnp_cell+
            fuel_assembly.pin.fuel_universe_mcnp_cell+ fuel_assembly.pin.na_mcnp_cell+ fuel_assembly.lower_reflector_mcnp_cell+
            fuel_assembly.plenum_mcnp_cell+ fuel_assembly.upper_reflector_mcnp_cell+ fuel_assembly.lattice_mcnp_cell+
@@ -19,7 +21,11 @@ file.write("\nc Surface Cards\n")
 file.write(fuel_assembly.pin.fuel_universe_mcnp_surface+ fuel_assembly.lower_reflector_mcnp_surface+ fuel_assembly.plenum_mcnp_surface+
            fuel_assembly.upper_reflector_mcnp_surface+ fuel_assembly.inner_duct_mcnp_surface+ fuel_assembly.outer_duct_mcnp_surface+
            fuel_assembly.pin.fuel_pellet_mcnp_surface + fuel_assembly.pin.fuel_bond_mcnp_surface + fuel_assembly.pin.fuel_clad_mcnp_surface +
-           fuel_assembly.lower_plane_surface_mcnp+ fuel_assembly.upper_plane_surface_mcnp + fuel_assembly.universe_mcnp_surface)
+           fuel_assembly.pin.fuel_pin_universe_mcnp_surface + fuel_assembly.pin.na_cell_mcnp_surface +
+           fuel_assembly.lower_plane_surface_mcnp + fuel_assembly.upper_plane_surface_mcnp +
+           fuel_assembly.universe_mcnp_surface)
+file.write("\nc Data Cards\n")
+file.write(fuel_assembly.k_card)
 file.write(fuel_assembly.material.fuel_mcnp_data + fuel_assembly.material.bond_mcnp_data + fuel_assembly.material.clad_mcnp_data +
            fuel_assembly.material.fuel_reflector_mcnp_data + fuel_assembly.material.plenum_mcnp_data)
 file.close()

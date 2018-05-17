@@ -127,6 +127,7 @@ def fuel_pin_maker(fuel_assembly):
     fuel_pellet_or = fuel_pin_ir * np.sqrt(fuel_assembly.pin.pin_data.ix['fuel_smear', 'fuel'])
     wire_wrap_radius = fuel_assembly.pin.pin_data.ix['wire_wrap_diameter', 'fuel'] / 2
     fuel_pin_height = fuel_assembly.pin.pin_data.ix['height', 'fuel']
+    fuel_pin_pitch = fuel_assembly.pin.pin_data.ix['pitch', 'fuel']
     pin_pos = [0, 0, 50]
     fuel_assembly.universe_counter += 1
     fuel_assembly.pin.fuel_pin_universe = fuel_assembly.universe_counter
@@ -150,13 +151,13 @@ def fuel_pin_maker(fuel_assembly):
     fuel_assembly.pin.fuel_pin_universe_surface = fuel_assembly.surface_number
     fuel_assembly.pin.fuel_pin_universe_mcnp_surface, warning = mcnp_make_macro_RHP(fuel_assembly, pin_pos,
                                                                                     [0, 0, fuel_pin_height],
-                                                                                    [1.0, 0, 0],
+                                                                                    [fuel_pin_pitch, 0, 0],
                                                                                     "$ Pin: Na universe for fuel pin\n")
 
     fuel_assembly.pin.na_cell_surface = fuel_assembly.surface_number
     fuel_assembly.pin.na_cell_mcnp_surface, warning = mcnp_make_macro_RHP(fuel_assembly, pin_pos,
                                                                           [0, 0, fuel_pin_height],
-                                                                          [1.0, 0, 0],
+                                                                          [fuel_pin_pitch * 2, 0, 0],
                                                                           "$ Pin: Blank sodium pin for lattice\n")
 
     # Create the cell for each section of a pin
@@ -195,9 +196,9 @@ def fuel_pin_maker(fuel_assembly):
     fuel_assembly.pin.na_cell_universe = fuel_assembly.universe_counter
     fuel_assembly.pin.na_cell = fuel_assembly.cell_number
     fuel_assembly.pin.na_mcnp_cell, warning = mcnp_make_cell(fuel_assembly, fuel_assembly.material.coolant_num, 0.94,
-                                                                              fuel_assembly.pin.fuel_pin_universe_surface,
-                                                                              fuel_assembly.universe_counter, 1,
-                                                                              "Pin: Na Pin\n")
+                                                             fuel_assembly.pin.na_cell_surface,
+                                                             fuel_assembly.universe_counter, 1,
+                                                             "Pin: Na Pin\n")
     return
 
 
@@ -402,7 +403,7 @@ def make_lattice(assembly):
                 else:
                     lattice_array[x][y] = assembly.pin.fuel_pin_universe
             else:
-                if y > (2 * number_rings - (x - number_rings)) or y == 0:
+                if y > (2 * number_rings - (x - number_rings +1)) or y == 0:
                     lattice_array[x][y] = assembly.pin.na_cell_universe
                 else:
                     lattice_array[x][y] = assembly.pin.fuel_pin_universe
@@ -420,7 +421,7 @@ def make_lattice(assembly):
                 mcnp_lattice += ' ' + str(int(element))
             lat_iter += 1
 
-    mcnp_output = str(assembly.cell_number) + " 0      -" + str(assembly.inner_duct_surface) + \
+    mcnp_output = str(assembly.cell_number) + " 0      -" + str(assembly.pin.fuel_pin_universe_surface) + \
                     " lat=2 u=" + str(assembly.lattice_universe) + " imp:n=1 \n" + \
                     "      fill=-" + str(number_rings) + ":" + str(number_rings) + " -" + \
                     str(number_rings) + ":" + str(number_rings) + " 0:0 \n" + '     '+ mcnp_lattice
@@ -436,14 +437,14 @@ def mcnp_make_lattice_holder(assembly):
 
     assembly.cell_number += 1
     mcnp_block2 = str(assembly.cell_number) + " " + str(assembly.material.assembly_num) + " " \
-                  + str(round(assembly.assembly_material[1], 7)) + "   -" + str(assembly.inner_duct_surface) \
-                  + " " + str(assembly.lower_reflector_surface) + " " + str(assembly.upper_reflector_surface) \
-                  + " " + str(assembly.plenum_surface) + "   u=" + str(assembly.assembly_universe) \
+                  + str(round(assembly.assembly_material[1], 7)) + "   -" + str(assembly.outer_duct_surface) \
+                  + " " + str(assembly.lower_reflector_surface) + " " + str(assembly.plenum_surface) \
+                  +  " " + str(assembly.upper_reflector_surface)+ " " + str(assembly.inner_duct_surface) + " u=" + str(assembly.assembly_universe) \
                   + "   imp:n=1   $ Driver: Hex Duct"
 
     assembly.cell_number += 1
     mcnp_block3 = str(assembly.cell_number) + " 0   -" + str(assembly.universe_surface) + " " \
-                  + str(assembly.lower_plane_surface) + " -" + str(assembly.upper_plane_surface) + "   u=" \
+                  + str(assembly.lower_plane_surface) + " -" + str(assembly.upper_plane_surface) + "   fill=" \
                   + str(assembly.assembly_universe) + "   imp:n=1   $ Assembly: Full Assembly"
     mcnp_block = mcnp_block1 + '\n' + mcnp_block2 + '\n' + mcnp_block3 + '\n'
     assembly.lattice_holder_cell = assembly.cell_number

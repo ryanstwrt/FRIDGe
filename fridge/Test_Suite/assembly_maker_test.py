@@ -87,8 +87,7 @@ def test_lattice_maker():
     fuel_assembly.assembly_data.ix['pins_per_assembly', 'assembly'] = 11
     pm.assembly_maker(fuel_assembly)
     output = fuel_assembly.lattice_mcnp_cell
-    print(output)
-    test_output = "1058 0      -1003 lat=2 u=1003 imp:n=1 \n\
+    test_output = "1058 0      -1009 lat=2 u=1003 imp:n=1 \n\
       fill=-3:3 -3:3 0:0 \n\
       1002 1002 1002 1002 1002 1002 1002 1002 1002 1002\n\
       1001 1001 1001 1002 1002 1002 1001 1001 1001 1001\n\
@@ -105,9 +104,10 @@ def test_mcnp_make_lattice_holder():
     fuel_assembly.assembly_data.ix['pins_per_assembly', 'assembly'] = 37
     pm.assembly_maker(fuel_assembly)
     output = fuel_assembly.lattice_holder_mcnp_cell
+    print(output)
     test_output = "1059 0 -1003    u=1000 fill=1003 imp:n=1 $ Assembly: Base Assembly\n\
-1060 1052 0.0859836   -1003 1000 1002 1001   u=1000   imp:n=1   $ Driver: Hex Duct\n\
-1061 0   -1005 1011 -1012   u=1000   imp:n=1   $ Assembly: Full Assembly\n"
+1060 1052 0.0859836   -1004 1000 1001 1002 1003 u=1000   imp:n=1   $ Driver: Hex Duct\n\
+1061 0   -1005 1011 -1012   fill=1000   imp:n=1   $ Assembly: Full Assembly\n"
     assert test_output == output
 
 
@@ -139,7 +139,7 @@ def test_pin_maker():
     assert fuel_assembly.pin.fuel_clad_surface == 1002
     assert fuel_assembly.pin.fuel_clad_mcnp_surface == "1002 RCC  0 0 50   0 0   60.0   0.265   $Pin: Cladding outer radius\n"
     assert fuel_assembly.pin.fuel_pin_universe_surface == 1003
-    assert fuel_assembly.pin.fuel_pin_universe_mcnp_surface == "1003 RHP  0 0 50   0 0 60.0   1.0 0 0   $$ Pin: Na universe for fuel pin\n"
+    assert fuel_assembly.pin.fuel_pin_universe_mcnp_surface == "1003 RHP  0 0 50   0 0 60.0   0.33 0 0   $$ Pin: Na universe for fuel pin\n"
     assert fuel_assembly.pin.fuel_pellet_cell == 1050
     assert fuel_assembly.pin.fuel_pellet_mcnp_cell == "1050 1022 0.0481048   -1000      u=1001 imp:n=1 $Pin: Fuel Pellet\n"
     assert fuel_assembly.pin.fuel_bond_cell == 1051
@@ -150,7 +150,7 @@ def test_pin_maker():
     assert fuel_assembly.pin.fuel_universe_mcnp_cell == "1053 0 0.94   1002      u=1001 imp:n=1 $Pin: Wirewrap + Na coolant\n"
     assert fuel_assembly.pin.na_cell_universe == 1002
     assert fuel_assembly.pin.na_cell == 1054
-    assert fuel_assembly.pin.na_mcnp_cell == "1054 0 0.94   -1003      u=1002 imp:n=1 $Pin: Na Pin\n"
+    assert fuel_assembly.pin.na_mcnp_cell == "1054 0 0.94   -1004      u=1002 imp:n=1 $Pin: Na Pin\n"
 
 
 def test_assembly_maker():

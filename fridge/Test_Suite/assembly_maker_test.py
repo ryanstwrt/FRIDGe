@@ -1,3 +1,5 @@
+import FRIDGe.fridge.utilities.mcnp_cell_writer
+import FRIDGe.fridge.utilities.mcnp_surface_writer
 from FRIDGe.fridge.input_readers import material_reader as mat_read
 from FRIDGe.fridge.input_readers import geometry_reader as geo_read
 from FRIDGe.fridge.driver import assembly_holder as ah
@@ -18,11 +20,11 @@ def test_mcnp_macro_RCC():
     fuel_assembly = ah.Assembly(assembly, plenum, fuel_reflector, fuel, 1000)
 
     surface_number_test = fuel_assembly.surface_number
-    output, warning = pm.mcnp_make_macro_RCC(fuel_assembly, [0, 0, 0], [0, 0, 10], 0.5, 'Testing to make sure')
+    output, warning = FRIDGe.fridge.utilities.mcnp_surface_writer.mcnp_make_macro_RCC(fuel_assembly, [0, 0, 0], [0, 0, 10], 0.5, 'Testing to make sure')
     assert surface_number_test + 1 == fuel_assembly.surface_number
     assert len(output) < 80
     assert warning == False
-    output, warning = pm.mcnp_make_macro_RCC(fuel_assembly, [0,0,0], [0,0,10], 0.5, 'Testing to make sure it will be longer than 80 characters so it will fail the test')
+    output, warning = FRIDGe.fridge.utilities.mcnp_surface_writer.mcnp_make_macro_RCC(fuel_assembly, [0, 0, 0], [0, 0, 10], 0.5, 'Testing to make sure it will be longer than 80 characters so it will fail the test')
     assert warning == True
 
 
@@ -31,11 +33,11 @@ def test_mcnp_macro_RHP():
     fuel_assembly = ah.Assembly(assembly, plenum, fuel_reflector, fuel, 1000)
 
     surface_number_test = fuel_assembly.surface_number
-    output, warning = pm.mcnp_make_macro_RHP(fuel_assembly, [0,0,0], [0,0,10], [0, 0.5, 0], 'Testing to make sure')
+    output, warning = FRIDGe.fridge.utilities.mcnp_surface_writer.mcnp_make_macro_RHP(fuel_assembly, [0, 0, 0], [0, 0, 10], [0, 0.5, 0], 'Testing to make sure')
     assert surface_number_test + 1 == fuel_assembly.surface_number
     assert len(output) < 80
     assert warning == False
-    output, warning = pm.mcnp_make_macro_RHP(fuel_assembly, [0,0,0], [0,0,10], [0, 0.5, 0], 'Testing to make sure it will be longer than 80 characters so it will fail the test')
+    output, warning = FRIDGe.fridge.utilities.mcnp_surface_writer.mcnp_make_macro_RHP(fuel_assembly, [0, 0, 0], [0, 0, 10], [0, 0.5, 0], 'Testing to make sure it will be longer than 80 characters so it will fail the test')
     assert warning == True
 
 
@@ -44,12 +46,12 @@ def test_mcnp_make_concentric_cell():
     fuel_assembly = ah.Assembly(assembly, plenum, fuel_reflector, fuel, 1000)
 
     cell_number_test = fuel_assembly.cell_number
-    output, warning = pm.mcnp_make_concentric_cell(fuel_assembly, 10, 0.95, 10, 11, 1, 1, 'Test to make sure')
+    output, warning = FRIDGe.fridge.utilities.mcnp_cell_writer.mcnp_make_concentric_cell(fuel_assembly, 10, 0.95, 10, 11, 1, 1, 'Test to make sure')
     assert cell_number_test + 1 == fuel_assembly.cell_number
     assert len(output) < 80
     assert warning == False
 
-    output, warning = pm.mcnp_make_concentric_cell(fuel_assembly, 10, 0.95, 10, 11, 1, 1, 'Test to make sure it will be longer than 80 characters so it will fail the test')
+    output, warning = FRIDGe.fridge.utilities.mcnp_cell_writer.mcnp_make_concentric_cell(fuel_assembly, 10, 0.95, 10, 11, 1, 1, 'Test to make sure it will be longer than 80 characters so it will fail the test')
     assert warning == True
 
 
@@ -58,12 +60,12 @@ def test_mcnp_make_cell():
     fuel_assembly = ah.Assembly(assembly, plenum, fuel_reflector, fuel, 1000)
 
     cell_number_test = fuel_assembly.cell_number
-    output, warning = pm.mcnp_make_cell(fuel_assembly, 10, 0.95, 10, 1, 1, 'Test to make sure')
+    output, warning = FRIDGe.fridge.utilities.mcnp_cell_writer.mcnp_make_cell(fuel_assembly, 10, 0.95, 10, 1, 1, 'Test to make sure')
     assert cell_number_test + 1 == fuel_assembly.cell_number
     assert len(output) < 80
     assert warning == False
 
-    output, warning = pm.mcnp_make_cell(fuel_assembly, 10, 0.95, 10, 1, 1, 'Test to make sure it will be longer than 80 characters so it will fail the test')
+    output, warning = FRIDGe.fridge.utilities.mcnp_cell_writer.mcnp_make_cell(fuel_assembly, 10, 0.95, 10, 1, 1, 'Test to make sure it will be longer than 80 characters so it will fail the test')
     assert warning == True
 
 
@@ -72,12 +74,12 @@ def test_mcnp_make_cell_outside():
     fuel_assembly = ah.Assembly(assembly, plenum, fuel_reflector, fuel, 1000)
 
     cell_number_test = fuel_assembly.cell_number
-    output, warning = pm.mcnp_make_cell_outside(fuel_assembly, 10, 0.95, 10, 1, 1, 'Test to make sure')
+    output, warning = FRIDGe.fridge.utilities.mcnp_cell_writer.mcnp_make_cell_outside(fuel_assembly, 10, 0.95, 10, 1, 1, 'Test to make sure')
     assert cell_number_test + 1 == fuel_assembly.cell_number
     assert len(output) < 80
     assert warning == False
 
-    output, warning = pm.mcnp_make_cell(fuel_assembly, 10, 0.95, 10, 1, 1, 'Test to make sure it will be longer than 80 characters so it will fail the test')
+    output, warning = FRIDGe.fridge.utilities.mcnp_cell_writer.mcnp_make_cell(fuel_assembly, 10, 0.95, 10, 1, 1, 'Test to make sure it will be longer than 80 characters so it will fail the test')
     assert warning == True
 
 
@@ -104,7 +106,6 @@ def test_mcnp_make_lattice_holder():
     fuel_assembly.assembly_data.ix['pins_per_assembly', 'assembly'] = 37
     pm.assembly_maker(fuel_assembly)
     output = fuel_assembly.lattice_holder_mcnp_cell
-    print(output)
     test_output = "1059 0 -1003    u=1000 fill=1003 imp:n=1 $ Assembly: Base Assembly\n\
 1060 1052 0.0859836   -1004 1000 1001 1002 1003 u=1000   imp:n=1   $ Driver: Hex Duct\n\
 1061 0   -1005 1011 -1012   fill=1000   imp:n=1   $ Assembly: Full Assembly\n"

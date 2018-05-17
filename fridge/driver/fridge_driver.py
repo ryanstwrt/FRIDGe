@@ -8,7 +8,7 @@ assembly_type = 'A271'# input('Please input the assembly type you would like to 
 
 fuel, assembly, plenum, fuel_reflector = geo_read.fuel_assembly_geometry_reader(assembly_type)
 
-fuel_assembly = ah.Assembly(assembly, plenum, fuel_reflector, fuel, 100)
-assembly_maker.assembly_maker(fuel_assembly)
+assembly = ah.Assembly(assembly, plenum, fuel_reflector, fuel, 100)
+assembly_maker.assembly_maker(assembly)
 
-midm.mcnp_input_deck_maker(fuel_assembly)
+midm.mcnp_input_deck_maker(assembly)

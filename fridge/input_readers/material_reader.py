@@ -355,10 +355,10 @@ def wt2at_per(wt_per, attr):
     at_per_sum = 0
     # Get the total atom density (to be used in the cell card and for the
     # atom percent)
-    for i, x in enumerate(wt_per):
-        at_den[i] = x[3] * attr[0] * AVOGADROS_NUMBER / x[2]
+    for i, isotope in enumerate(wt_per):
+        at_den[i] = isotope[3] * attr[0] * AVOGADROS_NUMBER / isotope[2]
         at_den_sum += at_den[i]
-    for i, x in enumerate(wt_per):
+    for i, isotope in enumerate(wt_per):
         at_per[i][3] = at_den[i] / at_den_sum
         at_per_sum += at_per[i][3]
     if round(at_per_sum, 15) != 1:

@@ -1,32 +1,48 @@
 from FRIDGe.fridge.input_readers import material_reader as mr
 import numpy as np
 import pandas as pd
-import glob
-import os
 
 AVOGADROS_NUMBER = 0.6022140857
 
-cur_dir = os.path.dirname(__file__)
-mat_dir = os.path.join(cur_dir, "../Materials")
-
 
 def material_smear(material_wt_per, material_str):
+    """
+        Calculates the atom percent of a material given multiuple materials.
+
+        args:
+            material_wt_per (double array): array with all isotopes present in
+            the material in weight percent
+            material_str (str array): array with the name of each material
+
+        returns:
+            atom_percent (double array): array with all isotopes present in
+                the material in smeared at%
+            atom_density (double): the total atom density of the smeared material
+    """
     assert material_str
     for iter, name in enumerate(material_str):
         if name == 'Void' or name == 'void':
             material_str.remove('Void')
             material_wt_per.pop(iter)
 
-    wt_per, wt_per_den = material_creator(material_wt_per, material_str)
+    wt_per = material_creator(material_wt_per, material_str)
     atom_percent, atom_density = smear_wt2at_per(wt_per)
     return atom_percent, atom_density
 
+
 def material_creator(material_wt_per, material_str):
     """
-        Augments the wt
+        Calculates the weight percent of a material given multiuple materials.
 
+        args:
+            material_wt_per (double array): array with all isotopes present in
+            the material in weight percent
+            material_str (str array): array with the name of each material
+
+        returns:
+            material_array (double array): array with all isotopes present in
+                the material in smeared wt %
     """
-    smear_density = 0
     material_array = pd.DataFrame
     density_array = np.zeros(len(material_str))
     for iter, material_name in enumerate(material_str):
@@ -36,16 +52,11 @@ def material_creator(material_wt_per, material_str):
         temp.wt_per = wt_per[:, 3] * material_wt_per[iter]
         temp.density = material_density
         density_array[iter] = material_density
-        # create a uniform density using the law of mixtures a_12 = a_1 * wt%_1 + a2 * wt%_2 + ...
-        #smear_density += material_density * material_wt_per[iter]
 
         if iter == 0:
             material_array = temp
         else:
             material_array = pd.concat([material_array, temp])
-    print(material_array)
-    #material_array.density = smear_density
-    print(material_array)
 
     if round(material_array['wt_per'].sum(), 15) != 1.0:
         print('\033[1;37:33mWarning: Smear material with %s had a weight fraction of %f and was not normlized to 1. '
@@ -53,7 +64,7 @@ def material_creator(material_wt_per, material_str):
 
     material_array = material_array.as_matrix()
 
-    return material_array, material_density
+    return material_array
 
 
 # Need to create a new wt to atom percent to maintain smearing atom densities.
@@ -66,7 +77,6 @@ def smear_wt2at_per(wt_per):
     args:
         wt_per (double array): array with all isotopes present in
         the material in weight percent
-        attr (double array): Array with the known attributes for a material
 
     returns:
         at_per (double array): array with all isotopes present in

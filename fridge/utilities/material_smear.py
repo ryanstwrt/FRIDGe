@@ -4,6 +4,8 @@ import pandas as pd
 import glob
 import os
 
+AVOGADROS_NUMBER = 0.6022140857
+
 cur_dir = os.path.dirname(__file__)
 mat_dir = os.path.join(cur_dir, "../Materials")
 
@@ -15,8 +17,8 @@ def material_smear(material_wt_per, material_str):
             material_str.remove('Void')
             material_wt_per.pop(iter)
 
-    wt_per = material_creator(material_wt_per, material_str)
-    atom_percent, atom_density = mr.wt2at_per(wt_per, [wt_per[0, 4]])
+    wt_per, wt_per_den = material_creator(material_wt_per, material_str)
+    atom_percent, atom_density = smear_wt2at_per(wt_per)
     return atom_percent, atom_density
 
 def material_creator(material_wt_per, material_str):
@@ -26,22 +28,23 @@ def material_creator(material_wt_per, material_str):
     """
     smear_density = 0
     material_array = pd.DataFrame
+    density_array = np.zeros(len(material_str))
     for iter, material_name in enumerate(material_str):
         wt_per, material_density = mr.get_final_wt_per([material_name])
         temp, temp1 = mr.material_reader([material_name])
         temp = pd.DataFrame(temp, columns=['element', 'zaid', 'mass_number', 'wt_per', 'density', 'linear expansion'])
         temp.wt_per = wt_per[:, 3] * material_wt_per[iter]
         temp.density = material_density
-
+        density_array[iter] = material_density
         # create a uniform density using the law of mixtures a_12 = a_1 * wt%_1 + a2 * wt%_2 + ...
-        smear_density += material_density * material_wt_per[iter]
+        #smear_density += material_density * material_wt_per[iter]
 
         if iter == 0:
             material_array = temp
         else:
             material_array = pd.concat([material_array, temp])
     print(material_array)
-    material_array.density = smear_density
+    #material_array.density = smear_density
     print(material_array)
 
     if round(material_array['wt_per'].sum(), 15) != 1.0:
@@ -50,11 +53,11 @@ def material_creator(material_wt_per, material_str):
 
     material_array = material_array.as_matrix()
 
-    return material_array
+    return material_array, material_density
 
 
 # Need to create a new wt to atom percent to maintain smearing atom densities.
-def smear_wt2at_per(wt_per, ):
+def smear_wt2at_per(wt_per):
     """Converts the array of wt % to atom % and returns the atom density for use
        in the cell cards.
 
@@ -77,7 +80,7 @@ def smear_wt2at_per(wt_per, ):
     # Get the total atom density (to be used in the cell card and for the
     # atom percent)
     for i, isotope in enumerate(wt_per):
-        at_den[i] = isotope[3] * attr[0] * AVOGADROS_NUMBER / isotope[2]
+        at_den[i] = isotope[3] * wt_per[i, 4] * AVOGADROS_NUMBER / isotope[2]
         at_den_sum += at_den[i]
     for i, isotope in enumerate(wt_per):
         at_per[i][3] = at_den[i] / at_den_sum

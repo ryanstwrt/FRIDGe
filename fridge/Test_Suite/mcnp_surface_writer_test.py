@@ -3,7 +3,7 @@ from FRIDGe.fridge.input_readers import material_reader as mat_read
 from FRIDGe.fridge.input_readers import geometry_reader as geo_read
 from FRIDGe.fridge.driver import assembly_holder as ah
 
-assembly_type = 'A271'
+assembly_type = 'A271_test'
 
 fuel, assembly, plenum, fuel_reflector = geo_read.fuel_assembly_geometry_reader(assembly_type)
 
@@ -14,7 +14,7 @@ fuel_material_cladding = mat_read.material_reader([fuel.ix['clad', 'fuel']])
 
 def test_mcnp_macro_RCC():
     """Make a right circular cylinder surface"""
-    fuel_assembly = ah.Assembly(assembly, plenum, fuel_reflector, fuel, 1000)
+    fuel_assembly = ah.Assembly(assembly_type, 1000)
 
     surface_number_test = fuel_assembly.surface_number
     output, warning = FRIDGe.fridge.utilities.mcnp_surface_writer.mcnp_make_macro_RCC(fuel_assembly, [0, 0, 0], [0, 0, 10], 0.5, 'Testing to make sure')
@@ -27,7 +27,7 @@ def test_mcnp_macro_RCC():
 
 def test_mcnp_macro_RHP():
     """Make a right hexagonal prism surface"""
-    fuel_assembly = ah.Assembly(assembly, plenum, fuel_reflector, fuel, 1000)
+    fuel_assembly = ah.Assembly(assembly_type, 1000)
 
     surface_number_test = fuel_assembly.surface_number
     output, warning = FRIDGe.fridge.utilities.mcnp_surface_writer.mcnp_make_macro_RHP(fuel_assembly, [0, 0, 0], [0, 0, 10], [0, 0.5, 0], 'Testing to make sure')

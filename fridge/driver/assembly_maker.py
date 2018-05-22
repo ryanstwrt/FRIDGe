@@ -183,7 +183,8 @@ def fuel_pin_maker(fuel_assembly):
                                                                                "Pin: Na Bond\n")
 
     fuel_assembly.pin.fuel_clad_cell = fuel_assembly.cell_number
-    fuel_assembly.pin.fuel_clad_mcnp_cell, warning = mcnp_make_concentric_cell(fuel_assembly, fuel_assembly.material.clad_num,
+    fuel_assembly.pin.fuel_clad_mcnp_cell, warning = mcnp_make_concentric_cell(fuel_assembly,
+                                                                               fuel_assembly.material.clad_num,
                                                                                fuel_assembly.pin.fuel_clad[1],
                                                                                fuel_assembly.pin.fuel_bond_surface,
                                                                                fuel_assembly.pin.fuel_clad_surface,
@@ -191,7 +192,8 @@ def fuel_pin_maker(fuel_assembly):
                                                                           "Pin: Pin Cladding\n")
 
     fuel_assembly.pin.fuel_universe_cell = fuel_assembly.cell_number
-    fuel_assembly.pin.fuel_universe_mcnp_cell, warning = mcnp_make_cell_outside(fuel_assembly, fuel_assembly.material.coolant_num,
+    fuel_assembly.pin.fuel_universe_mcnp_cell, warning = mcnp_make_cell_outside(fuel_assembly,
+                                                                                fuel_assembly.material.coolant_num,
                                                                                 0.94,
                                                                                 fuel_assembly.pin.fuel_clad_surface,
                                                                                 fuel_assembly.universe_counter, 1,
@@ -211,7 +213,8 @@ def assembly_data_maker(assembly):
     assembly.material.fuel = mat_read.material_reader([assembly.pin.pin_data.ix['fuel', 'fuel']])
     assembly.material.bond = mat_read.material_reader([assembly.pin.pin_data.ix['bond', 'fuel']])
     assembly.material.clad = mat_read.material_reader([assembly.pin.pin_data.ix['clad', 'fuel']])
-    assembly.material.fuel_reflector = mat_smear.material_smear(assembly.fuel_reflector_smear_per, assembly.fuel_reflector_smear_zaids)
+    assembly.material.fuel_reflector = mat_smear.material_smear(assembly.fuel_reflector_smear_per,
+                                                                assembly.fuel_reflector_smear_zaids)
     assembly.material.plenum = mat_smear.material_smear(assembly.plenum_smear_per, assembly.plenum_smear_zaids)
     assembly.material.assembly = mat_read.material_reader([assembly.assembly_data.ix['assembly', 'assembly']])
     assembly.material.assembly_coolant = mat_read.material_reader([assembly.assembly_data.ix['coolant', 'assembly']])
@@ -253,8 +256,8 @@ def make_mcnp_material_data(assembly, material_name, material_zaids, material_de
         if (iter + 1) == len(material_zaids):
             material_data += str(int(material[1])) + material_xc_set + ' -' + '{:0.6e}'.format(material[3]) + '\n'
         elif (iter + 1) % 3 == 0:
-            material_data += str(int(material[1])) + material_xc_set + ' -' + '{:0.6e}'.format(material[3]) + '\n' + '     '
-
+            material_data += str(int(material[1])) + material_xc_set + ' -' + '{:0.6e}'.format(material[3]) + \
+                             '\n' + '     '
         else:
             material_data += str(int(material[1])) + material_xc_set + ' -' + '{:0.6e}'.format(material[3]) + ' '
     assembly.material_number += 1

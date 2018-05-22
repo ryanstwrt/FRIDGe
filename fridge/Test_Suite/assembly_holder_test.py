@@ -4,20 +4,23 @@ from FRIDGe.fridge.input_readers import material_reader as mat_read
 
 def test_assembly():
     """ Test the creation of the assembly class with a fueled assembly"""
-    assembly_type = 'A271'
+    assembly_type = 'A271_test'
     fuel, assembly, plenum, fuel_reflector = geo_read.fuel_assembly_geometry_reader(assembly_type)
     fuel_material_fuel = mat_read.material_reader([fuel.ix['fuel', 'fuel']])
     fuel_material_bond = mat_read.material_reader([fuel.ix['bond', 'fuel']])
     fuel_material_cladding = mat_read.material_reader([fuel.ix['clad', 'fuel']])
     universe = 1000
 
-    fuel_assembly = ah.Assembly(assembly, plenum, fuel_reflector, fuel, 1000)
+    fuel_assembly = ah.Assembly(assembly_type, 1000)
 
-    assert fuel_assembly.assembly_data.all == assembly.all
+    print(fuel_assembly.pin.pin_data)
+    print(fuel)
+
+    assert fuel_assembly.assembly_data.equals(assembly)
     assert fuel_assembly.assembly_universe == universe
     assert fuel_assembly.surface_number == universe
     assert fuel_assembly.cell_number == universe + 50
-    assert fuel_assembly.pin.pin_data.all == fuel.all
+    assert fuel_assembly.pin.pin_data.equals(fuel)
     assert fuel_assembly.universe_counter == universe
 
     ah.FuelPin(fuel)

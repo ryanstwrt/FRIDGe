@@ -1,4 +1,3 @@
-
 def mcnp_input_deck_maker(assembly):
     file = open("../input_files/test_case.i", "w")
     file.write("Input deck created by FRIDGe\n")
@@ -39,7 +38,7 @@ def mcnp_input_deck_maker(assembly):
     assembly_kcode_title = "k-code Information"
     file.write("c " + assembly_kcode_title.center(77, "*") + "\n")
     file.write(assembly.k_card)
-    file.write("c" + "Material Information".center(77, "*") + "\n")
+    file.write("c " + "Material Information".center(77, "*") + "\n")
     file.write(assembly.material.fuel_mcnp_data +
                assembly.material.bond_mcnp_data +
                assembly.material.clad_mcnp_data +

@@ -1,4 +1,5 @@
 from FRIDGe.fridge.input_readers import material_reader as mat_read
+from FRIDGe.fridge.input_readers import geometry_reader as geo_read
 
 
 class Assembly:
@@ -22,7 +23,7 @@ class Assembly:
             coolant_id (int): id number for the coolant material
     """
 
-    def __init__(self, assembly_data, plenum_data, fuel_reflector_data, fuel_data, assembly_universe):
+    def __init__(self, assembly_type, assembly_universe):
         """
         Initializes the Assembly class with its corresponding data and assembly type
 
@@ -87,13 +88,22 @@ class Assembly:
         return:
             void
         """
-        self.plenum_smear_per = [plenum_data.ix['coolant_per', 'plenum'], plenum_data.ix['void_per', 'plenum'], plenum_data.ix['clad_per', 'plenum']]
-        self.plenum_smear_zaids = [plenum_data.ix['coolant', 'plenum'], plenum_data.ix['void', 'plenum'], plenum_data.ix['clad', 'plenum']]
+        fuel_data, assembly_data, plenum_data, fuel_reflector_data = \
+            geo_read.fuel_assembly_geometry_reader(assembly_type)
+
+        self.plenum_smear_per = [plenum_data.ix['coolant_per', 'plenum'],
+                                 plenum_data.ix['void_per', 'plenum'],
+                                 plenum_data.ix['clad_per', 'plenum']]
+        self.plenum_smear_zaids = [plenum_data.ix['coolant', 'plenum'],
+                                   plenum_data.ix['void', 'plenum'],
+                                   plenum_data.ix['clad', 'plenum']]
         self.plenum_material = []
         self.fuel_reflector_material = []
 
-        self.fuel_reflector_smear_per = [fuel_reflector_data.ix['coolant_per', 'fuel_reflector'], fuel_reflector_data.ix['clad_per', 'fuel_reflector']]
-        self.fuel_reflector_smear_zaids = [fuel_reflector_data.ix['coolant', 'fuel_reflector'], fuel_reflector_data.ix['clad', 'fuel_reflector']]
+        self.fuel_reflector_smear_per = [fuel_reflector_data.ix['coolant_per', 'fuel_reflector'],
+                                         fuel_reflector_data.ix['clad_per', 'fuel_reflector']]
+        self.fuel_reflector_smear_zaids = [fuel_reflector_data.ix['coolant', 'fuel_reflector'],
+                                           fuel_reflector_data.ix['clad', 'fuel_reflector']]
 
         # Potentially throw these three functions into the assembly holder and unpack them when they are needed.
         self.assembly_material = mat_read.material_reader([assembly_data.ix['assembly', 'assembly']])

@@ -16,8 +16,9 @@ def mcnp_make_macro_RCC(fuel_assembly, position, height, radius, comment):
             mcnp_length_warning (bool): warns if the mcnp line is longer than
     """
     mcnp_length_warning = False
-    mcnp_output = str(fuel_assembly.surface_number) + " RCC  " + str(position[0]) + " " + str(position[1]) + " " + str(position[2]) \
-        + "   " + str(height[0]) + " " + str(height[1]) + "   " + str(height[2]) + "   " + str(np.round(radius, 6)) \
+    mcnp_output = str(fuel_assembly.surface_number) + " RCC  " + str(position[0]) + " " + str(position[1]) \
+                  + " " + str(position[2]) + "   " + str(height[0]) + " " + str(height[1]) + "   " + str(height[2]) \
+                  + "   " + str(np.round(radius, 6)) \
         + "   $" + comment
     if len(mcnp_output) > 80:
         mcnp_length_warning = True
@@ -41,9 +42,10 @@ def mcnp_make_macro_RHP(fuel_assembly, position, height, pitch, comment):
             mcnp_length_warning (bool): warns if the mcnp line is longer than
     """
     mcnp_length_warning = False
-    mcnp_output = str(fuel_assembly.surface_number) + " RHP  " + str(position[0]) + " " + str(position[1]) + " " + str(position[2]) \
-        + "   " + str(height[0]) + " " + str(height[1]) + " " + str(height[2]) + "   " + str(np.round(pitch[0], 7)) \
-        + " " + str(np.round(pitch[1], 7)) + " " + str(np.round(pitch[2], 7)) + "   $" + comment
+    mcnp_output = str(fuel_assembly.surface_number) + " RHP  " + str(position[0]) + " " + str(position[1]) \
+                  + " " + str(position[2]) + "   " + str(height[0]) + " " + str(height[1]) + " " + str(height[2]) \
+                  + "   " + str(np.round(pitch[0], 7)) + " " + str(np.round(pitch[1], 7)) + " " \
+                  + str(np.round(pitch[2], 7)) + "   $" + comment
     if len(mcnp_output) > 80:
         mcnp_length_warning = True
         print("\033[1;37:33mWarning: Surface %d has a line that is longer than 80 characters")

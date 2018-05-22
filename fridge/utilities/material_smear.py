@@ -60,7 +60,8 @@ def material_creator(material_wt_per, material_str):
 
     if round(material_array['wt_per'].sum(), 15) != 1.0:
         print('\033[1;37:33mWarning: Smear material with %s had a weight fraction of %f and was not normlized to 1. '
-              'Check to make sure the material or element card is correct' % (material_str, material_array['wt_per'].sum()))
+              'Check to make sure the material or element card is correct'
+              % (material_str, material_array['wt_per'].sum()))
 
     material_array = material_array.as_matrix()
 

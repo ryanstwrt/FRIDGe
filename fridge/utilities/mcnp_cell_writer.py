@@ -1,7 +1,8 @@
 import numpy as np
 
 
-def mcnp_make_concentric_cell(fuel_assembly, material_id, material_density, inner, outer, universe, importance, comment):
+def mcnp_make_concentric_cell(fuel_assembly, material_id, material_density,
+                              inner, outer, universe, importance, comment):
     """
         Combinatorial geometry to create a cell which is outside the inner surface and inside the outer surface.
 
@@ -19,8 +20,9 @@ def mcnp_make_concentric_cell(fuel_assembly, material_id, material_density, inne
             mcnp_length_warning (bool): warns if the mcnp line is longer than 80 characters
     """
     mcnp_length_warning = False
-    mcnp_output = str(fuel_assembly.cell_number) + " " + str(material_id) + " " + str(round(material_density, 7)) + "   " + str(inner) + " -" \
-    + str(outer) + "      u=" + str(universe) + " imp:n=" + str(importance) + " $" + comment
+    mcnp_output = str(fuel_assembly.cell_number) + " " + str(material_id) + " " + str(round(material_density, 7)) + \
+                  "   " + str(inner) + " -" + str(outer) + "      u=" + str(universe) + " imp:n=" + str(importance) + \
+                  " $" + comment
 
     if len(mcnp_output) > 80:
         mcnp_length_warning = True
@@ -46,8 +48,8 @@ def mcnp_make_cell(fuel_assembly, material_id, material_density, inner, universe
             mcnp_length_warning (bool): warns if the mcnp line is longer than 80 characters
     """
     mcnp_length_warning = False
-    mcnp_output = str(fuel_assembly.cell_number) + " " + str(material_id) + " " + str(np.round(material_density, 7)) + "   -" + str(inner) +\
-        "      u=" + str(universe) + " imp:n=" + str(importance) + " $" + comment
+    mcnp_output = str(fuel_assembly.cell_number) + " " + str(material_id) + " " + str(np.round(material_density, 7)) + \
+                  "   -" + str(inner) + "      u=" + str(universe) + " imp:n=" + str(importance) + " $" + comment
 
     if len(mcnp_output) > 80:
         mcnp_length_warning = True
@@ -73,8 +75,8 @@ def mcnp_make_cell_outside(fuel_assembly, material_id, material_density, inner, 
             mcnp_length_warning (bool): warns if the mcnp line is longer than 80 characters
     """
     mcnp_length_warning = False
-    mcnp_output = str(fuel_assembly.cell_number) + " " + str(material_id) + " " + str(np.round(material_density, 7)) + "   " + str(inner) +\
-        "      u=" + str(universe) + " imp:n=" + str(importance) + " $" + comment
+    mcnp_output = str(fuel_assembly.cell_number) + " " + str(material_id) + " " + str(np.round(material_density, 7)) +\
+                  "   " + str(inner) + "      u=" + str(universe) + " imp:n=" + str(importance) + " $" + comment
 
     if len(mcnp_output) > 80:
         mcnp_length_warning = True
@@ -151,7 +153,8 @@ def mcnp_make_lattice_holder(assembly):
     mcnp_block2 = str(assembly.cell_number) + " " + str(assembly.material.assembly_num) + " " \
                   + str(round(assembly.assembly_material[1], 7)) + "   -" + str(assembly.outer_duct_surface) \
                   + " " + str(assembly.lower_reflector_surface) + " " + str(assembly.plenum_surface) \
-                  +  " " + str(assembly.upper_reflector_surface)+ " " + str(assembly.inner_duct_surface) + " u=" + str(assembly.assembly_universe) \
+                  + " " + str(assembly.upper_reflector_surface)+ " " + str(assembly.inner_duct_surface) \
+                  + " u=" + str(assembly.assembly_universe) \
                   + "   imp:n=1   $ Driver: Hex Duct"
 
     assembly.cell_number += 1

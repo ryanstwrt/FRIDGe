@@ -193,8 +193,8 @@ def fuel_pin_maker(fuel_assembly):
 
     fuel_assembly.pin.fuel_universe_cell = fuel_assembly.cell_number
     fuel_assembly.pin.fuel_universe_mcnp_cell, warning = mcnp_make_cell_outside(fuel_assembly,
-                                                                                fuel_assembly.material.coolant_num,
-                                                                                0.94,
+                                                                                fuel_assembly.material.wire_wrap_smear_num,
+                                                                                fuel_assembly.material.wire_wrap_smear[1],
                                                                                 fuel_assembly.pin.fuel_clad_surface,
                                                                                 fuel_assembly.universe_counter, 1,
                                                                               "Pin: Wirewrap + Na coolant\n")
@@ -202,7 +202,8 @@ def fuel_pin_maker(fuel_assembly):
     fuel_assembly.universe_counter += 1
     fuel_assembly.pin.na_cell_universe = fuel_assembly.universe_counter
     fuel_assembly.pin.na_cell = fuel_assembly.cell_number
-    fuel_assembly.pin.na_mcnp_cell, warning = mcnp_make_cell(fuel_assembly, fuel_assembly.material.coolant_num, 0.94,
+    fuel_assembly.pin.na_mcnp_cell, warning = mcnp_make_cell(fuel_assembly, fuel_assembly.material.bond_num,
+                                                             fuel_assembly.material.bond[1],
                                                              fuel_assembly.pin.na_cell_surface,
                                                              fuel_assembly.universe_counter, 1,
                                                              "Pin: Na Pin\n")
@@ -218,6 +219,9 @@ def assembly_data_maker(assembly):
     assembly.material.plenum = mat_smear.material_smear(assembly.plenum_smear_per, assembly.plenum_smear_zaids)
     assembly.material.assembly = mat_read.material_reader([assembly.assembly_data.ix['assembly', 'assembly']])
     assembly.material.assembly_coolant = mat_read.material_reader([assembly.assembly_data.ix['coolant', 'assembly']])
+    assembly.pin.wire_wrap_smear_per = mat_smear.wire_wrap_smear(assembly)
+    assembly.material.wire_wrap_smear = mat_smear.material_smear(assembly.pin.wire_wrap_smear_per,
+                                                         assembly.pin.wire_wrap_smear_zaids)
 
     assembly.material.fuel_num = assembly.material_number
     assembly.material.fuel_mcnp_data = make_mcnp_material_data(
@@ -225,7 +229,6 @@ def assembly_data_maker(assembly):
         assembly.material.fuel[1], assembly.material.fuel_xc_set)
 
     assembly.material.bond_num = assembly.material_number
-    assembly.material.coolant_num = assembly.material_number
     assembly.material.bond_mcnp_data = make_mcnp_material_data(
         assembly, assembly.pin.pin_data.ix['bond', 'fuel'], assembly.material.bond[0],
         assembly.material.bond[1], assembly.material.bond_xc_set)
@@ -235,6 +238,12 @@ def assembly_data_maker(assembly):
     assembly.material.clad_mcnp_data = make_mcnp_material_data(
         assembly, assembly.pin.pin_data.ix['clad', 'fuel'], assembly.material.clad[0],
         assembly.material.clad[1], assembly.material.clad_xc_set)
+
+    assembly.material.wire_wrap_smear_num = assembly.material_number
+    assembly.material.wire_wrap_smear_mcnp_data = make_mcnp_material_data(
+        assembly, 'Wire Wrap Smear', assembly.material.wire_wrap_smear[0],
+        assembly.material.wire_wrap_smear[1], assembly.material.wire_wrap_smear_xc_set)
+
 
     assembly.material.fuel_reflector_num = assembly.material_number
     assembly.material.fuel_reflector_mcnp_data = make_mcnp_material_data(

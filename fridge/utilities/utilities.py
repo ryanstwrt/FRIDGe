@@ -4,7 +4,7 @@ import xlsxwriter
 import glob
 
 file_path = sorted(glob.glob('C:/MY_MCNP/MCNPINPUT/VTR/single_assembly/Material_Analysis/*mcta?'))
-workbook = xlsxwriter.Workbook('test.xlsx')
+workbook = xlsxwriter.Workbook('Na_Loop.xlsx')
 name = str(file_path)
 name = name[-35:]
 

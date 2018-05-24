@@ -222,6 +222,9 @@ class FuelPin(Pin):
         self.fuel_material = mat_read.material_reader([fuel.ix['fuel', 'fuel']])
         self.fuel_bond = mat_read.material_reader([fuel.ix['bond', 'fuel']])
         self.fuel_clad = mat_read.material_reader([fuel.ix['clad', 'fuel']])
+        self.wire_wrap_smear_zaids = [fuel.ix['clad', 'fuel'],
+                                      fuel.ix['bond', 'fuel']]
+        self.wire_wrap_smear_per = []
         self.fuel_pin_universe = 0
 
         self.fuel_universe_surface = 0
@@ -277,6 +280,11 @@ class Material:
         self.coolant = []
         self.coolant_xc_set = '.82c'
         self.coolant_mcnp_data = ''
+
+        self.wire_wrap_smear_num = 0
+        self.wire_wrap_smear = []
+        self.wire_wrap_smear_xc_set = '.82c'
+        self.wire_wrap_smear_mcnp_data = ''
 
         self.assembly_num = 0
         self.assembly = []

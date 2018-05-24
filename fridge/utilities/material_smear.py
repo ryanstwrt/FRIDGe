@@ -100,3 +100,17 @@ def smear_wt2at_per(wt_per):
         print('\033[1;37;33mWARNING: The atom percent of %s was %f and not normalized to 1. '
               'Check element to determine error' % (at_per[:, 1], at_per_sum))
     return at_per, at_den_sum
+
+def wire_wrap_smear(assembly):
+    wire_wrap_radius = assembly.pin.pin_data.ix['wire_wrap_diameter', 'fuel'] / 2
+    fuel_pin_height = assembly.pin.pin_data.ix['height', 'fuel']
+    fuel_pin_pitch = assembly.pin.pin_data.ix['pitch', 'fuel']
+    fuel_pin_or = assembly.pin.pin_data.ix['pin_diameter', 'fuel'] / 2
+
+    wire_wrap_vol = np.power(wire_wrap_radius,2) * np.pi * fuel_pin_height
+    fuel_pin_vol = np.power(fuel_pin_or,2) * np.pi * fuel_pin_height
+    coolant_vol = (3/2) * np.sqrt(3) * fuel_pin_height * np.power(fuel_pin_pitch,2) - fuel_pin_vol - wire_wrap_vol
+    total_volume = wire_wrap_vol + coolant_vol
+    wire_wrap_per = wire_wrap_vol / total_volume
+    coolant_vol_per = coolant_vol / total_volume
+    return wire_wrap_per, coolant_vol_per

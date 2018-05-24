@@ -43,5 +43,6 @@ def mcnp_input_deck_maker(assembly):
                assembly.material.bond_mcnp_data +
                assembly.material.clad_mcnp_data +
                assembly.material.fuel_reflector_mcnp_data +
-               assembly.material.plenum_mcnp_data)
+               assembly.material.plenum_mcnp_data +
+               assembly.material.wire_wrap_smear_mcnp_data)
     file.close()

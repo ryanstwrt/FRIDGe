@@ -1,5 +1,4 @@
-from FRIDGe.fridge.utilities import material_smear as ms
-from FRIDGe.fridge.input_readers import material_reader as mr
+from FRIDGe.fridge.utilities import material_smear as ms, material_reader as mr
 import numpy as np
 
 

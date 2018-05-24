@@ -415,10 +415,3 @@ def get_final_wt_per(material_input):
     weight_percent = wt_per_calc(material_base, material_wt_per,  material_enr_per)
 
     return weight_percent, material_attr[0]
-
-# Create a class for fuel/cladding/coolant/etc.
-# it shoulid look something like
-# class fuel:
-#      isotopes
-#      atom density
-#      etc.

@@ -1,4 +1,4 @@
-from FRIDGe.fridge.input_readers import material_reader as mr
+from FRIDGe.fridge.utilities import material_reader as mr
 import numpy as np
 import pandas as pd
 

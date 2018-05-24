@@ -1,5 +1,4 @@
-from FRIDGe.fridge.input_readers import material_reader as mat_read
-from FRIDGe.fridge.input_readers import geometry_reader as geo_read
+from FRIDGe.fridge.utilities import geometry_reader as geo_read, material_reader as mat_read
 from FRIDGe.fridge.driver import assembly_holder as ah
 from FRIDGe.fridge.driver import assembly_maker as pm
 

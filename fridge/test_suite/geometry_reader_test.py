@@ -30,9 +30,9 @@ def test_fuel_assembly_reader():
 
     # Check the Plenum data
     assert 60 == plenum_data.ix['height', 'plenum']
-    assert 0.25 == plenum_data.ix['coolant_per', 'plenum']
+    assert 0.50 == plenum_data.ix['coolant_per', 'plenum']
     assert 0.25 == plenum_data.ix['void_per', 'plenum']
-    assert 0.50 == plenum_data.ix['clad_per', 'plenum']
+    assert 0.25 == plenum_data.ix['clad_per', 'plenum']
     assert 'Liquid_Na' == plenum_data.ix['coolant', 'plenum']
     assert 'Void' == plenum_data.ix['void', 'plenum']
     assert 'HT9' == plenum_data.ix['clad', 'plenum']

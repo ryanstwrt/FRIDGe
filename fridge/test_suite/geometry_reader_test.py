@@ -5,7 +5,7 @@ def test_fuel_assembly_reader():
     """Tests the fuel assembly reader by reading in a known fuel
     assembly and ensure the values are accurate."""
 
-    fuel_data, assembly_data, plenum_data, fuel_reflector_data = geo_read.fuel_assembly_geometry_reader('A271_Test')
+    fuel_data, assembly_data, plenum_data, fuel_reflector_data = geo_read.fuel_assembly_geometry_reader('A271_test')
 
     # Test the fuel data
     assert 0.53 == fuel_data.ix['pin_diameter', 'fuel']

@@ -11,7 +11,7 @@ def test_fuel_assembly_reader():
     assert 0.53 == fuel_data.ix['pin_diameter', 'fuel']
     assert 0.037 == fuel_data.ix['clad_thickness', 'fuel']
     assert 0.75 == fuel_data.ix['fuel_smear', 'fuel']
-    assert 0.33 == fuel_data.ix['pitch', 'fuel']
+    assert 0.661 == fuel_data.ix['pitch', 'fuel']
     assert 0.126 == fuel_data.ix['wire_wrap_diameter', 'fuel']
     assert 60.0 == fuel_data.ix['height', 'fuel']
     assert '27U' == fuel_data.ix['fuel', 'fuel']

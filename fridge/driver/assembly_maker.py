@@ -132,7 +132,7 @@ def fuel_pin_maker(assembly):
     fuel_pellet_or = fuel_pin_ir * np.sqrt(assembly.pin.pin_data.ix['fuel_smear', 'fuel'])
     wire_wrap_radius = assembly.pin.pin_data.ix['wire_wrap_diameter', 'fuel'] / 2
     fuel_pin_height = assembly.pin.pin_data.ix['height', 'fuel']
-    fuel_pin_pitch = assembly.pin.pin_data.ix['pitch', 'fuel']
+    fuel_pin_pitch = assembly.pin.pin_data.ix['pitch', 'fuel'] / 2
     pin_pos = [0, 0, 50]
     assembly.universe_counter += 1
     assembly.pin.fuel_pin_universe = assembly.universe_counter

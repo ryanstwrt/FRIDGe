@@ -32,7 +32,7 @@ def test_pin_maker():
     assert fuel_assembly.pin.fuel_clad_surface == 1008
     assert fuel_assembly.pin.fuel_clad_mcnp_surface == "1008 RCC  0 0 50   0 0   60.0   0.265   $Pin: Cladding outer radius\n"
     assert fuel_assembly.pin.fuel_pin_universe_surface == 1009
-    assert fuel_assembly.pin.fuel_pin_universe_mcnp_surface == "1009 RHP  0 0 50   0 0 60.0   0.33 0 0   $$ Pin: Na universe for fuel pin\n"
+    assert fuel_assembly.pin.fuel_pin_universe_mcnp_surface == "1009 RHP  0 0 50   0 0 60.0   0.3305 0 0   $$ Pin: Na universe for fuel pin\n"
     assert fuel_assembly.pin.fuel_pellet_cell == 1050
     assert fuel_assembly.pin.fuel_pellet_mcnp_cell == "1050 1050 0.0481048   -1006      u=1001 imp:n=1 $Pin: Fuel Pellet\n"
     assert fuel_assembly.pin.fuel_bond_cell == 1051
@@ -40,7 +40,7 @@ def test_pin_maker():
     assert fuel_assembly.pin.fuel_clad_cell == 1052
     assert fuel_assembly.pin.fuel_clad_mcnp_cell == "1052 1052 0.0859836   1007 -1008      u=1001 imp:n=1 $Pin: Pin Cladding\n"
     assert fuel_assembly.pin.fuel_universe_cell == 1053
-    assert fuel_assembly.pin.fuel_universe_mcnp_cell == "1053 1053 0.0366293   1008      u=1001 imp:n=1 $Pin: Wirewrap + Na coolant\n"
+    assert fuel_assembly.pin.fuel_universe_mcnp_cell == "1053 1053 0.0364616   1008      u=1001 imp:n=1 $Pin: Wirewrap + Na coolant\n"
     assert fuel_assembly.pin.na_cell_universe == 1002
     assert fuel_assembly.pin.na_cell == 1054
     assert fuel_assembly.pin.na_mcnp_cell == "1054 1051 0.0242826   -1010      u=1002 imp:n=1 $Pin: Na Pin\n"

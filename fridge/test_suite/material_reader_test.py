@@ -1,4 +1,4 @@
-from ..input_readers import material_reader as mat_read
+from FRIDGe.fridge.utilities import material_reader as mat_read
 import numpy as np
 import os
 

@@ -355,10 +355,10 @@ def wt2at_per(wt_per, attr):
     at_per_sum = 0
     # Get the total atom density (to be used in the cell card and for the
     # atom percent)
-    for i, x in enumerate(wt_per):
-        at_den[i] = x[3] * attr[0] * AVOGADROS_NUMBER / x[2]
+    for i, isotope in enumerate(wt_per):
+        at_den[i] = isotope[3] * attr[0] * AVOGADROS_NUMBER / isotope[2]
         at_den_sum += at_den[i]
-    for i, x in enumerate(wt_per):
+    for i, isotope in enumerate(wt_per):
         at_per[i][3] = at_den[i] / at_den_sum
         at_per_sum += at_per[i][3]
     if round(at_per_sum, 15) != 1:
@@ -391,9 +391,27 @@ def material_reader(material_input):
 
     return atom_percent, atom_density
 
-# Create a class for fuel/cladding/coolant/etc.
-# it shoulid look something like
-# class fuel:
-#      isotopes
-#      atom density
-#      etc.
+
+def get_final_wt_per(material_input):
+    """This function will be called from the driver and will create a data
+    series with weight percents for a material that is called.
+
+    This combines all the other steps and will be the only function called
+    from the main program.
+
+    args:
+        material_input (str array): An array of a known material
+
+    returns:
+        at_per (double array): array with all isotopes present in
+        the material in atom percent
+        atom_density (double): the total atom density for the material
+    """
+    material_elements = get_elem_string(material_input)
+    material_base = material_creator(material_elements)
+    material_attr = get_mat_attr(material_input)
+    material_wt_per = get_wt_per(material_input)
+    material_enr_per = get_enr_per(material_input)
+    weight_percent = wt_per_calc(material_base, material_wt_per,  material_enr_per)
+
+    return weight_percent, material_attr[0]

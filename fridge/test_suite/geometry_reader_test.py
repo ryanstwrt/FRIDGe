@@ -1,16 +1,17 @@
-from ..input_readers import geometry_reader as geo_read
+from FRIDGe.fridge.utilities import geometry_reader as geo_read
+
 
 def test_fuel_assembly_reader():
     """Tests the fuel assembly reader by reading in a known fuel
     assembly and ensure the values are accurate."""
 
-    fuel_data, assembly_data, plenum_data, fuel_reflector_data = geo_read.fuel_assembly_geometry_reader('A271')
+    fuel_data, assembly_data, plenum_data, fuel_reflector_data = geo_read.fuel_assembly_geometry_reader('A271_test')
 
     # Test the fuel data
     assert 0.53 == fuel_data.ix['pin_diameter', 'fuel']
     assert 0.037 == fuel_data.ix['clad_thickness', 'fuel']
     assert 0.75 == fuel_data.ix['fuel_smear', 'fuel']
-    assert 0.492845 == fuel_data.ix['pitch', 'fuel']
+    assert 0.661 == fuel_data.ix['pitch', 'fuel']
     assert 0.126 == fuel_data.ix['wire_wrap_diameter', 'fuel']
     assert 60.0 == fuel_data.ix['height', 'fuel']
     assert '27U' == fuel_data.ix['fuel', 'fuel']
@@ -29,9 +30,9 @@ def test_fuel_assembly_reader():
 
     # Check the Plenum data
     assert 60 == plenum_data.ix['height', 'plenum']
-    assert 0.25 == plenum_data.ix['coolant_per', 'plenum']
+    assert 0.50 == plenum_data.ix['coolant_per', 'plenum']
     assert 0.25 == plenum_data.ix['void_per', 'plenum']
-    assert 0.50 == plenum_data.ix['clad_per', 'plenum']
+    assert 0.25 == plenum_data.ix['clad_per', 'plenum']
     assert 'Liquid_Na' == plenum_data.ix['coolant', 'plenum']
     assert 'Void' == plenum_data.ix['void', 'plenum']
     assert 'HT9' == plenum_data.ix['clad', 'plenum']
@@ -44,5 +45,3 @@ def test_fuel_assembly_reader():
     assert 'HT9' == fuel_reflector_data.ix['clad', 'fuel_reflector']
 
     return
-
-test_fuel_assembly_reader()

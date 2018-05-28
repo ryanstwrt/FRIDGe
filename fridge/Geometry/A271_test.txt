@@ -5,7 +5,7 @@ Fuel_Smear 0.75
 Pitch 0.661
 Wire_Wrap_Diameter 0.126
 Height 60
-Fuel 27U_10Zr
+Fuel 27U
 Clad HT9
 Bond Liquid_Na
 

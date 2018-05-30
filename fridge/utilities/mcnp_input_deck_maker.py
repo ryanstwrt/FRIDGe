@@ -1,5 +1,5 @@
 def mcnp_input_deck_maker(assembly):
-    file = open("../input_files/test_case.i", "w")
+    file = open("../mcnp_input_files/test_case.i", "w")
     file.write("Input deck created by FRIDGe\n")
     file.write("c " + "Title".center(77, "*") + "\n")
     assembly_cell_title = "Cell Cards for Assembly: " + str(assembly.assembly_universe)

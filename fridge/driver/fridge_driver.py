@@ -4,11 +4,11 @@ from FRIDGe.fridge.utilities import mcnp_input_deck_maker as midm
 from FRIDGe.fridge.driver import global_variables as gb
 
 print('Welcome to FRIDGe, the Fast Reactor Input Deck Generator!')
-assembly_type = 'A271'# input('Please input the assembly type you would like to model: ')
+file_name = 'A271_Assembly'# input('Please input the assembly type you would like to model: ')
 
-global_vars = gb.global_variables(assembly_type)
+global_vars = gb.global_variables(file_name)
 
-assembly = ah.Assembly(assembly_type, global_vars.universe)
+assembly = ah.Assembly(global_vars.assembly_type, global_vars.universe)
 assembly_maker.assembly_maker(assembly)
 
 

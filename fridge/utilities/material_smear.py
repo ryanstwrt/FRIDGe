@@ -101,6 +101,7 @@ def smear_wt2at_per(wt_per):
               'Check element to determine error' % (at_per[:, 1], at_per_sum))
     return at_per, at_den_sum
 
+
 def wire_wrap_smear(assembly):
     wire_wrap_radius = assembly.pin.pin_data.ix['wire_wrap_diameter', 'fuel'] / 2
     fuel_pin_height = assembly.pin.pin_data.ix['height', 'fuel']

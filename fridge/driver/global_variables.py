@@ -8,7 +8,7 @@ class global_variables():
     This class will hold all the variables that are not specific to a single assembly.
     """
     def __init__(self, assembly_name):
-        self.assembly_file_name = assembly_name + '_Assembly'
+        self.assembly_file_name = assembly_name
         self.xc_library = ''
         self.xc_set = ''
         self.universe = 100

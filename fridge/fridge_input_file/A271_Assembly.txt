@@ -1,0 +1,9 @@
+Assembly Type: A271
+Number of Assemblies: 1
+Na Voiding: True
+Void Percent: 0.2
+Temperature: 600
+Temperature Adjusted Density: False
+Temperature Adjusted Volume: False
+Smear Clad: False
+Smear Bond: False

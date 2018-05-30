@@ -7,3 +7,4 @@ Temperature Adjusted Density: False
 Temperature Adjusted Volume: False
 Smear Clad: False
 Smear Bond: False
+XC Set: ENDFVII.1

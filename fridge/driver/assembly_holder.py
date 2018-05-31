@@ -22,7 +22,7 @@ class Assembly:
             coolant_id (int): id number for the coolant material
     """
 
-    def __init__(self, assembly_type, assembly_universe):
+    def __init__(self, assembly_type, assembly_universe, gloabl_vars):
         """
         Initializes the Assembly class with its corresponding data and assembly type
 
@@ -86,6 +86,7 @@ class Assembly:
 
         return:
             void
+            :param gloabl_vars:
         """
         fuel_data, assembly_data, plenum_data, fuel_reflector_data = \
             geo_read.fuel_assembly_geometry_reader(assembly_type)

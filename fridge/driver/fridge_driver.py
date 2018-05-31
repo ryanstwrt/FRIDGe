@@ -9,7 +9,7 @@ file_name = 'A271_Assembly'# input('Please input the assembly type you would lik
 
 global_vars = gb.global_variables(file_name)
 
-assembly = ah.Assembly(global_vars.assembly_type, global_vars.universe)
+assembly = ah.Assembly(global_vars.assembly_type, global_vars.universe, global_vars)
 assembly_maker.assembly_maker(assembly)
 
 k_card = dm.make_mcnp_problem(global_vars)

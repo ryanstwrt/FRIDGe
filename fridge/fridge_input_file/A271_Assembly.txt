@@ -1,4 +1,4 @@
-Assembly Type: A271
+Assembly Type: A271_test
 Number of Assemblies: 1
 Na Voiding: True
 Void Percent: 0.2

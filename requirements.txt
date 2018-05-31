@@ -6,5 +6,5 @@ pytest
 pytest-cov
 numpy
 pandas
-yaml
+PyYAML
 #

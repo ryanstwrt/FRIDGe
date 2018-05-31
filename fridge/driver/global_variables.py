@@ -21,6 +21,10 @@ class global_variables():
         self.bond_smear = False
         self.void_per = 0
         self.assembly_type = ''
+        self.number_generations = 0
+        self.number_skipped_generations = 0
+        self.number_particles_generation = 0
+        self.kopts = False
 
         self.read_input_file()
 
@@ -33,20 +37,32 @@ class global_variables():
             inputs = yaml.safe_load(file)
 
         self.assembly_type = inputs["Assembly Type"]
-        self.number_assemblies = int(inputs["Number of Assemblies"])
-        self.na_voiding = bool(inputs["Na Voiding"])
-        self.temperature = float(inputs["Temperature"])
-        self.temp_adjusted_density = bool(inputs["Temperature Adjusted Density"])
-        self.temp_adjusted_volume = bool(inputs["Temperature Adjusted Volume"])
-        self.clad_smear = bool(inputs["Smear Clad"])
-        self.bond_smear = bool(inputs["Smear Bond"])
-        self.xc_set = inputs["XC Set"]
-
-        if self.na_voiding:
-            if "Void Percent" in inputs:
-                self.void_per = float(inputs["Void Percent"])
-            else:
-                print("Sodium voiding requires 'Void Percent:' in the input file")
+        self.number_assemblies = int(inputs["Number of Assemblies"]) \
+            if 'Number of Assemblies' in inputs else 1
+        self.na_voiding = bool(inputs["Na Voiding"]) \
+            if 'Na Voiding' in inputs else False
+        self.temperature = float(inputs["Temperature"]) \
+            if 'Temperature' in inputs else 900
+        self.temp_adjusted_density = bool(inputs["Temperature Adjusted Density"]) \
+            if 'Temperature Adjusted Density' in inputs else False
+        self.temp_adjusted_volume = bool(inputs["Temperature Adjusted Volume"]) \
+            if 'Temperature Adjusted Volume' in inputs else False
+        self.clad_smear = bool(inputs["Smear Clad"]) \
+            if 'Smear Bond' in inputs else False
+        self.bond_smear = bool(inputs["Smear Bond"]) \
+            if 'Smear Bond' in inputs else False
+        self.xc_set = inputs["XC Set"] \
+            if 'XC Set' in inputs else ''
+        self.number_generations = int(inputs["Number of Generations"]) \
+            if 'Number of Generations' in inputs else 230
+        self.number_skipped_generations = int(inputs["Number of Skipped Generations"]) \
+            if 'Number of Skipped Generations' in inputs else 30
+        self.number_particles_generation = int(inputs["Number of Particles Per Generation"]) \
+            if 'Number of Particle per Generation' in inputs else int(1e6)
+        self.kopts = bool(inputs["kopts"]) \
+            if 'kopts' in inputs else False
+        self.void_per = float(inputs["Void Percent"]) \
+            if "Void Percent" in inputs else 0
 
         # Set the XC set depending on the temperature
         if self.temperature == 600:

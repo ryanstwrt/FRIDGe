@@ -110,7 +110,6 @@ def assembly_maker(assembly):
     assembly.lattice_holder_mcnp_cell = mcnp_make_lattice_holder(assembly)
     assembly.void_mcnp_cell = make_mcnp_assembly_void(assembly)
 
-    assembly.k_card = dm.make_mcnp_problem(assembly)
 
     return
 

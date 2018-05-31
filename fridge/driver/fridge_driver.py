@@ -14,4 +14,4 @@ assembly_maker.assembly_maker(assembly)
 
 k_card = dm.make_mcnp_problem(global_vars)
 
-midm.mcnp_input_deck_maker(assembly, k_card)
+midm.mcnp_input_deck_maker(assembly, k_card, global_vars)

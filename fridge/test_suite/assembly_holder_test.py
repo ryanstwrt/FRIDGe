@@ -1,7 +1,6 @@
 from FRIDGe.fridge.driver import assembly_holder as ah
 from FRIDGe.fridge.utilities import geometry_reader as geo_read, material_reader as mat_read
 from FRIDGe.fridge.driver import global_variables as gb
-import yaml
 
 
 def test_assembly():
@@ -9,9 +8,6 @@ def test_assembly():
     assembly_type = 'A271_Assembly_Test'
     global_vars = gb.global_variables(assembly_type)
     fuel, assembly, plenum, fuel_reflector = geo_read.fuel_assembly_geometry_reader(global_vars.assembly_type)
-    fuel_material_fuel = mat_read.material_reader([fuel.ix['fuel', 'fuel']])
-    fuel_material_bond = mat_read.material_reader([fuel.ix['bond', 'fuel']])
-    fuel_material_cladding = mat_read.material_reader([fuel.ix['clad', 'fuel']])
     universe = 1000
 
     fuel_assembly = ah.FuelAssembly(global_vars, global_vars.assembly_type)

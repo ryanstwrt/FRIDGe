@@ -1,5 +1,9 @@
-def mcnp_input_deck_maker(assembly, k_card):
-    file = open("../mcnp_input_files/test_case.i", "w")
+import os
+
+
+def mcnp_input_deck_maker(assembly, k_card, global_vars):
+    global_vars.output_name = global_vars.output_name
+    file = open("../mcnp_input_files/" + global_vars.output_name + ".i", "w")
     file.write("Input deck created by FRIDGe\n")
     file.write("c " + "Title".center(77, "*") + "\n")
     assembly_cell_title = "Cell Cards for FuelAssembly: " + str(assembly.assembly_universe)
@@ -46,3 +50,4 @@ def mcnp_input_deck_maker(assembly, k_card):
                assembly.material.plenum_mcnp_data +
                assembly.material.wire_wrap_smear_mcnp_data)
     file.close()
+

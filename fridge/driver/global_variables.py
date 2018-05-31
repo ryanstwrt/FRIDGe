@@ -25,6 +25,7 @@ class global_variables():
         self.number_skipped_generations = 0
         self.number_particles_generation = 0
         self.kopts = False
+        self.output_name = ''
 
         self.read_input_file()
 
@@ -63,6 +64,8 @@ class global_variables():
             if 'kopts' in inputs else False
         self.void_per = float(inputs["Void Percent"]) \
             if "Void Percent" in inputs else 0
+        self.output_name = float(inputs["Output File Name"]) \
+            if "Output File Name" in inputs else 'FRIDGe1'
 
         # Set the XC set depending on the temperature
         if self.temperature == 600:

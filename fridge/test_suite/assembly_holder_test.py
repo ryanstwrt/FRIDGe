@@ -13,7 +13,7 @@ def test_assembly():
     fuel_material_cladding = mat_read.material_reader([fuel.ix['clad', 'fuel']])
     universe = 1000
 
-    fuel_assembly = ah.Assembly(global_vars, global_vars.assembly_type)
+    fuel_assembly = ah.FuelAssembly(global_vars, global_vars.assembly_type)
 
     print(fuel_assembly.pin.pin_data)
     print(fuel)

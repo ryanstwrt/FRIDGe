@@ -51,30 +51,30 @@ def assembly_maker(assembly):
     assembly.lower_reflector_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, lower_fuel_reflector_position,
                                                                          fuel_reflector_height_vector,
                                                                          inner_assembly_pitch,
-                                                                         'Assembly: Lower Reflector\n')
+                                                                         'FuelAssembly: Lower Reflector\n')
     assembly.plenum_surface = assembly.surface_number
     assembly.plenum_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, plenum_position,
                                                                 plenum_height_vector,
-                                                                inner_assembly_pitch, 'Assembly: Plenum\n')
+                                                                inner_assembly_pitch, 'FuelAssembly: Plenum\n')
     assembly.upper_reflector_surface = assembly.surface_number
     assembly.upper_reflector_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, upper_fuel_reflector_position,
                                                                          fuel_reflector_height_vector,
                                                                          inner_assembly_pitch,
-                                                                         'Assembly: Upper Reflector\n')
+                                                                         'FuelAssembly: Upper Reflector\n')
     assembly.inner_duct_surface = assembly.surface_number
     assembly.inner_duct_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, inner_duct_position, fuel_height_vector,
                                                                     inner_assembly_pitch,
-                                                                    'Assembly: Inner Duct (fuel portion)\n')
+                                                                    'FuelAssembly: Inner Duct (fuel portion)\n')
     assembly.outer_duct_surface = assembly.surface_number
     assembly.outer_duct_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, outer_duct_position,
                                                                     assembly_height_vector,
                                                                     outer_assembly_pitch,
-                                                                    'Assembly: Outerduct/Universe\n')
+                                                                    'FuelAssembly: Outerduct/Universe\n')
     assembly.universe_surface = assembly.surface_number
     assembly.universe_mcnp_surface, warning = mcnp_make_macro_RHP(assembly, universe_position,
                                                                   assembly_universe_height_vector,
                                                                   gap_assembly_pitch,
-                                                                  'Assembly: Sodium universe\n')
+                                                                  'FuelAssembly: Sodium universe\n')
     assembly.universe_mcnp_surface = '*' + assembly.universe_mcnp_surface
 
     # Create the fuel pin to be used for this assembly.
@@ -86,19 +86,19 @@ def assembly_maker(assembly):
                                                                  assembly.material.fuel_reflector[1],
                                                                  assembly.lower_reflector_surface,
                                                                  assembly.assembly_universe, 1,
-                                                                 "Assembly: Lower Reflector\n")
+                                                                 "FuelAssembly: Lower Reflector\n")
     assembly.plenum_cell = assembly.cell_number
     assembly.plenum_mcnp_cell, warning = mcnp_make_cell(assembly, assembly.material.plenum_num,
                                                         assembly.material.plenum[1],
                                                         assembly.plenum_surface,
                                                         assembly.assembly_universe, 1,
-                                                        "Assembly: Fission Product Plenum\n")
+                                                        "FuelAssembly: Fission Product Plenum\n")
     assembly.upper_reflector_cell = assembly.cell_number
     assembly.upper_reflector_mcnp_cell, warning = mcnp_make_cell(assembly, assembly.material.fuel_reflector_num,
                                                                  assembly.material.fuel_reflector[1],
                                                                  assembly.upper_reflector_surface,
                                                                  assembly.assembly_universe, 1,
-                                                                 "Assembly: Upper Reflector\n")
+                                                                 "FuelAssembly: Upper Reflector\n")
 
     assembly.lower_plane_surface = assembly.surface_number
     assembly.lower_plane_surface_mcnp = mcnp_make_z_plane(assembly, -0.3)

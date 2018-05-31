@@ -36,7 +36,7 @@ class global_variables():
         with open(assembly_file[0], "r") as file:
             inputs = yaml.safe_load(file)
 
-        self.assembly_type = inputs["Assembly Type"]
+        self.assembly_type = inputs["FuelAssembly Type"]
         self.number_assemblies = int(inputs["Number of Assemblies"]) \
             if 'Number of Assemblies' in inputs else 1
         self.na_voiding = bool(inputs["Na Voiding"]) \

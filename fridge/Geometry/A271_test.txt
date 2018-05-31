@@ -9,7 +9,7 @@ Fuel 27U
 Clad HT9
 Bond Liquid_Na
 
-Assembly Data
+FuelAssembly Data
 Pin_per_assembly 271
 Assembly_Pitch 12
 Duct_Thickness 0.3
@@ -17,7 +17,7 @@ Assembly_Gap 0.3
 Duct_Inside_Flat_to_Flat 11.1
 Height 320
 Coolant Liquid_Na
-Assembly HT9
+FuelAssembly HT9
 
 Plenum Data
 Height 60

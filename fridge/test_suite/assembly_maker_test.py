@@ -16,7 +16,7 @@ fuel_material_cladding = mat_read.material_reader([fuel.ix['clad', 'fuel']])
 
 def test_pin_maker():
     """Test of the pin maker function"""
-    fuel_assembly = ah.Assembly(global_vars, global_vars.assembly_type)
+    fuel_assembly = ah.FuelAssembly(global_vars, global_vars.assembly_type)
 
     fuel_assembly.material.fuel_num = 1022
     fuel_assembly.material.bond_num = 1023
@@ -50,18 +50,18 @@ def test_pin_maker():
 
 def test_assembly_maker():
     """Test of the assembly maker function"""
-    fuel_assembly = ah.Assembly(global_vars, global_vars.assembly_type)
+    fuel_assembly = ah.FuelAssembly(global_vars, global_vars.assembly_type)
 
     pm.assembly_maker(fuel_assembly)
     assert fuel_assembly.lower_reflector_surface == 1000
-    assert fuel_assembly.lower_reflector_mcnp_surface == "1000 RHP  0 0 0   0 0 50.0   0 5.55 0   $Assembly: Lower Reflector\n"
+    assert fuel_assembly.lower_reflector_mcnp_surface == "1000 RHP  0 0 0   0 0 50.0   0 5.55 0   $FuelAssembly: Lower Reflector\n"
     assert fuel_assembly.plenum_surface == 1001
-    assert fuel_assembly.plenum_mcnp_surface == "1001 RHP  0 0 110.0   0 0 60.0   0 5.55 0   $Assembly: Plenum\n"
+    assert fuel_assembly.plenum_mcnp_surface == "1001 RHP  0 0 110.0   0 0 60.0   0 5.55 0   $FuelAssembly: Plenum\n"
     assert fuel_assembly.upper_reflector_surface == 1002
-    assert fuel_assembly.upper_reflector_mcnp_surface == "1002 RHP  0 0 170.0   0 0 50.0   0 5.55 0   $Assembly: Upper Reflector\n"
+    assert fuel_assembly.upper_reflector_mcnp_surface == "1002 RHP  0 0 170.0   0 0 50.0   0 5.55 0   $FuelAssembly: Upper Reflector\n"
     assert fuel_assembly.inner_duct_surface == 1003
-    assert fuel_assembly.inner_duct_mcnp_surface == "1003 RHP  0 0 50.0   0 0 60.0   0 5.55 0   $Assembly: Inner Duct (fuel portion)\n"
+    assert fuel_assembly.inner_duct_mcnp_surface == "1003 RHP  0 0 50.0   0 0 60.0   0 5.55 0   $FuelAssembly: Inner Duct (fuel portion)\n"
     assert fuel_assembly.outer_duct_surface == 1004
-    assert fuel_assembly.outer_duct_mcnp_surface == "1004 RHP  0 0 -1   0 0 322.0   0 6.0 0   $Assembly: Outerduct/Universe\n"
+    assert fuel_assembly.outer_duct_mcnp_surface == "1004 RHP  0 0 -1   0 0 322.0   0 6.0 0   $FuelAssembly: Outerduct/Universe\n"
     assert fuel_assembly.universe_surface == 1005
-    assert fuel_assembly.universe_mcnp_surface == "*1005 RHP  0 0 -0.45   0 0 321.6   0 5.85 0   $Assembly: Sodium universe\n"
+    assert fuel_assembly.universe_mcnp_surface == "*1005 RHP  0 0 -0.45   0 0 321.6   0 5.85 0   $FuelAssembly: Sodium universe\n"

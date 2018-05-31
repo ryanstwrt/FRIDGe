@@ -1,7 +1,7 @@
 from FRIDGe.fridge.utilities import geometry_reader as geo_read, material_reader as mat_read
 
 
-class Assembly:
+class FuelAssembly:
     """
         The assembly class holds all of the information regarding the assembly that is currently being built.
 
@@ -24,7 +24,7 @@ class Assembly:
 
     def __init__(self, gloabl_vars, assembly_type):
         """
-        Initializes the Assembly class with its corresponding data and assembly type
+        Initializes the FuelAssembly class with its corresponding data and assembly type
 
         args:
            assembly_data (DataFrame): data frame which holds all of the information regarding the assembly
@@ -177,7 +177,7 @@ class Pin:
 
     def __init__(self, pin_data):
         """
-        Initializes the Assembly class with its corresponding data and assembly type
+        Initializes the FuelAssembly class with its corresponding data and assembly type
 
         args:
            pin_data (DataFrame): data frame which holds all of the information regarding the pin
@@ -306,11 +306,3 @@ class Material:
         self.fuel_reflector = []
         self.fuel_reflector_xc_set = '.82c'
         self.fuel_reflector_mcnp_data = ''
-
-        self.kcode = True
-        self.num_particles_per_gen = 0
-        self.num_gens = 0
-        self.num_skipped_gens = 0
-        self.kopts = True
-
-        self.ksrc = []

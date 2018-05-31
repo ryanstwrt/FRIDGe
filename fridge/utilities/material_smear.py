@@ -114,5 +114,4 @@ def wire_wrap_smear(assembly):
     total_volume = wire_wrap_vol + coolant_vol
     wire_wrap_per = wire_wrap_vol / total_volume
     coolant_vol_per = coolant_vol / total_volume
-    print(wire_wrap_per, coolant_vol_per)
     return wire_wrap_per, coolant_vol_per

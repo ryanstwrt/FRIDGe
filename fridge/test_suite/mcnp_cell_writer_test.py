@@ -17,7 +17,7 @@ fuel_material_cladding = mat_read.material_reader([fuel.ix['clad', 'fuel']])
 
 def test_mcnp_make_concentric_cell():
     """Make an MCNP surface with two concentric surfaces"""
-    fuel_assembly = ah.Assembly(global_vars, global_vars.assembly_type)
+    fuel_assembly = ah.FuelAssembly(global_vars, global_vars.assembly_type)
 
     cell_number_test = fuel_assembly.cell_number
     output, warning = FRIDGe.fridge.utilities.mcnp_cell_writer.mcnp_make_concentric_cell(fuel_assembly, 10, 0.95, 10, 11, 1, 1, 'Test to make sure')
@@ -31,7 +31,7 @@ def test_mcnp_make_concentric_cell():
 
 def test_mcnp_make_cell():
     """Test the ability to make an MCNP cell with only one surface"""
-    fuel_assembly = ah.Assembly(global_vars, global_vars.assembly_type)
+    fuel_assembly = ah.FuelAssembly(global_vars, global_vars.assembly_type)
 
     cell_number_test = fuel_assembly.cell_number
     output, warning = FRIDGe.fridge.utilities.mcnp_cell_writer.mcnp_make_cell(fuel_assembly, 10, 0.95, 10, 1, 1, 'Test to make sure')
@@ -45,7 +45,7 @@ def test_mcnp_make_cell():
 
 def test_mcnp_make_cell_outside():
     """Test the ability to make an MCNP cell with only one surface"""
-    fuel_assembly = ah.Assembly(global_vars, global_vars.assembly_type)
+    fuel_assembly = ah.FuelAssembly(global_vars, global_vars.assembly_type)
 
     cell_number_test = fuel_assembly.cell_number
     output, warning = FRIDGe.fridge.utilities.mcnp_cell_writer.mcnp_make_cell_outside(fuel_assembly, 10, 0.95, 10, 1, 1, 'Test to make sure')
@@ -59,7 +59,7 @@ def test_mcnp_make_cell_outside():
 
 def test_lattice_maker():
     """Test of the lattice maker for MCNP"""
-    fuel_assembly = ah.Assembly(global_vars, global_vars.assembly_type)
+    fuel_assembly = ah.FuelAssembly(global_vars, global_vars.assembly_type)
     fuel_assembly.assembly_data.ix['pins_per_assembly', 'assembly'] = 11
     pm.assembly_maker(fuel_assembly)
     output = fuel_assembly.lattice_mcnp_cell
@@ -76,18 +76,18 @@ def test_lattice_maker():
 
 def test_mcnp_make_lattice_holder():
     """Test the MCNP lattice holder function"""
-    fuel_assembly = ah.Assembly(global_vars, global_vars.assembly_type)
+    fuel_assembly = ah.FuelAssembly(global_vars, global_vars.assembly_type)
     fuel_assembly.assembly_data.ix['pins_per_assembly', 'assembly'] = 37
     pm.assembly_maker(fuel_assembly)
     output = fuel_assembly.lattice_holder_mcnp_cell
-    test_output = "1059 0 -1003    u=1000 fill=1003 imp:n=1 $ Assembly: Base Assembly\n\
+    test_output = "1059 0 -1003    u=1000 fill=1003 imp:n=1 $ FuelAssembly: Base FuelAssembly\n\
 1060 1052 0.0859836   -1004 1000 1001 1002 1003 u=1000   imp:n=1   $ Driver: Hex Duct\n\
-1061 0   -1005 1011 -1012   fill=1000   imp:n=1   $ Assembly: Full Assembly\n"
+1061 0   -1005 1011 -1012   fill=1000   imp:n=1   $ FuelAssembly: Full FuelAssembly\n"
     assert test_output == output
 
 
 def test_make_mcnp_void_cell():
-    fuel_assembly = ah.Assembly(global_vars, global_vars.assembly_type)
+    fuel_assembly = ah.FuelAssembly(global_vars, global_vars.assembly_type)
     pm.assembly_maker(fuel_assembly)
     output = fuel_assembly.void_mcnp_cell
     test_output = "1062 0    #1061   imp:n=0   $ Void\n"

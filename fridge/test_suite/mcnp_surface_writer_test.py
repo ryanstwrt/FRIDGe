@@ -14,7 +14,7 @@ fuel_material_cladding = mat_read.material_reader([fuel.ix['clad', 'fuel']])
 
 def test_mcnp_macro_RCC():
     """Make a right circular cylinder surface"""
-    fuel_assembly = ah.Assembly(global_vars, global_vars.assembly_type)
+    fuel_assembly = ah.FuelAssembly(global_vars, global_vars.assembly_type)
 
     surface_number_test = fuel_assembly.surface_number
     output, warning = FRIDGe.fridge.utilities.mcnp_surface_writer.mcnp_make_macro_RCC(fuel_assembly, [0, 0, 0], [0, 0, 10], 0.5, 'Testing to make sure')
@@ -27,7 +27,7 @@ def test_mcnp_macro_RCC():
 
 def test_mcnp_macro_RHP():
     """Make a right hexagonal prism surface"""
-    fuel_assembly = ah.Assembly(global_vars, global_vars.assembly_type)
+    fuel_assembly = ah.FuelAssembly(global_vars, global_vars.assembly_type)
 
     surface_number_test = fuel_assembly.surface_number
     output, warning = FRIDGe.fridge.utilities.mcnp_surface_writer.mcnp_make_macro_RHP(fuel_assembly, [0, 0, 0], [0, 0, 10], [0, 0.5, 0], 'Testing to make sure')

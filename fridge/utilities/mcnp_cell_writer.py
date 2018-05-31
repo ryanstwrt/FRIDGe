@@ -147,7 +147,7 @@ def make_lattice(assembly):
 def mcnp_make_lattice_holder(assembly):
     mcnp_block1 = str(assembly.cell_number) + " 0 -" + str(assembly.inner_duct_surface) + "    u=" \
                   + str(assembly.assembly_universe) + " fill=" + str(assembly.lattice_universe) \
-                  + " imp:n=1 $ Assembly: Base Assembly"
+                  + " imp:n=1 $ FuelAssembly: Base FuelAssembly"
 
     assembly.cell_number += 1
     mcnp_block2 = str(assembly.cell_number) + " " + str(assembly.material.assembly_num) + " " \
@@ -160,7 +160,7 @@ def mcnp_make_lattice_holder(assembly):
     assembly.cell_number += 1
     mcnp_block3 = str(assembly.cell_number) + " 0   -" + str(assembly.universe_surface) + " " \
                   + str(assembly.lower_plane_surface) + " -" + str(assembly.upper_plane_surface) + "   fill=" \
-                  + str(assembly.assembly_universe) + "   imp:n=1   $ Assembly: Full Assembly"
+                  + str(assembly.assembly_universe) + "   imp:n=1   $ FuelAssembly: Full FuelAssembly"
     mcnp_block = mcnp_block1 + '\n' + mcnp_block2 + '\n' + mcnp_block3 + '\n'
     assembly.lattice_holder_cell = assembly.cell_number
     assembly.cell_number += 1

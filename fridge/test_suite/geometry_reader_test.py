@@ -18,7 +18,7 @@ def test_fuel_assembly_reader():
     assert 'HT9' == fuel_data.ix['clad', 'fuel']
     assert 'Liquid_Na' == fuel_data.ix['bond', 'fuel']
 
-    # Test the Assembly data
+    # Test the FuelAssembly data
     assert 271 == assembly_data.ix['pins_per_assembly', 'assembly']
     assert 12 == assembly_data.ix['assembly_pitch', 'assembly']
     assert 0.3 == assembly_data.ix['duct_thickness', 'assembly']

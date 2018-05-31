@@ -3,7 +3,7 @@ from FRIDGe.fridge.driver import assembly_holder as ah
 from FRIDGe.fridge.driver import assembly_maker as pm
 from FRIDGe.fridge.driver import global_variables as gb
 
-assembly_type = 'A271_Assembly'
+assembly_type = 'A271_Assembly_Test'
 global_vars = gb.global_variables(assembly_type)
 
 fuel, assembly, plenum, fuel_reflector = geo_read.fuel_assembly_geometry_reader(global_vars.assembly_type)
@@ -16,7 +16,7 @@ fuel_material_cladding = mat_read.material_reader([fuel.ix['clad', 'fuel']])
 
 def test_pin_maker():
     """Test of the pin maker function"""
-    fuel_assembly = ah.Assembly(global_vars.assembly_type, 1000, global_vars)
+    fuel_assembly = ah.Assembly(global_vars, global_vars.assembly_type)
 
     fuel_assembly.material.fuel_num = 1022
     fuel_assembly.material.bond_num = 1023
@@ -50,7 +50,7 @@ def test_pin_maker():
 
 def test_assembly_maker():
     """Test of the assembly maker function"""
-    fuel_assembly = ah.Assembly(global_vars.assembly_type, 1000, global_vars)
+    fuel_assembly = ah.Assembly(global_vars, global_vars.assembly_type)
 
     pm.assembly_maker(fuel_assembly)
     assert fuel_assembly.lower_reflector_surface == 1000

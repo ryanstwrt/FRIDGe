@@ -22,7 +22,7 @@ class Assembly:
             coolant_id (int): id number for the coolant material
     """
 
-    def __init__(self, assembly_type, assembly_universe, gloabl_vars):
+    def __init__(self, gloabl_vars, assembly_type):
         """
         Initializes the Assembly class with its corresponding data and assembly type
 
@@ -86,6 +86,7 @@ class Assembly:
 
         return:
             void
+            :param assembly_type:
             :param gloabl_vars:
         """
         fuel_data, assembly_data, plenum_data, fuel_reflector_data = \
@@ -110,10 +111,10 @@ class Assembly:
         self.assembly_data = assembly_data
         self.plenum_data = plenum_data
         self.fuel_reflector_data = fuel_reflector_data
-        self.assembly_universe = assembly_universe
+        self.assembly_universe = gloabl_vars.universe
         self.assembly_id = self.assembly_universe + 20
         self.assembly_coolant_id = self.assembly_universe + 21
-        self.universe_counter = assembly_universe
+        self.universe_counter = self.assembly_universe
         self.surface_number = self.assembly_universe
         self.cell_number = self.assembly_universe + 50
         self.material_number = self.assembly_universe + 50

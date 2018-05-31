@@ -11,7 +11,7 @@ class global_variables():
         self.assembly_file_name = assembly_name
         self.xc_library = ''
         self.xc_set = ''
-        self.universe = 100
+        self.universe = 1000
         self.number_assemblies = 1
         self.na_voiding = False
         self.temperature = 0

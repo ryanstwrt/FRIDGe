@@ -5,7 +5,7 @@ from FRIDGe.fridge.driver import global_variables as gb
 
 def test_assembly():
     """ Test the creation of the assembly class with a fueled assembly"""
-    assembly_type = 'A271_Assembly'
+    assembly_type = 'A271_Assembly_Test'
     global_vars = gb.global_variables(assembly_type)
     fuel, assembly, plenum, fuel_reflector = geo_read.fuel_assembly_geometry_reader(global_vars.assembly_type)
     fuel_material_fuel = mat_read.material_reader([fuel.ix['fuel', 'fuel']])
@@ -13,7 +13,7 @@ def test_assembly():
     fuel_material_cladding = mat_read.material_reader([fuel.ix['clad', 'fuel']])
     universe = 1000
 
-    fuel_assembly = ah.Assembly(global_vars.assembly_type, 1000, global_vars)
+    fuel_assembly = ah.Assembly(global_vars, global_vars.assembly_type)
 
     print(fuel_assembly.pin.pin_data)
     print(fuel)

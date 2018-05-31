@@ -164,8 +164,6 @@ class FuelAssembly:
         self.fuel_reflector_id = self.assembly_universe + 26
         self.plenum_id = self.assembly_universe + 27
 
-        self.k_card = ''
-
 
 class Pin:
     """

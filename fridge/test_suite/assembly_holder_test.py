@@ -1,6 +1,7 @@
 from FRIDGe.fridge.driver import assembly_holder as ah
 from FRIDGe.fridge.utilities import geometry_reader as geo_read, material_reader as mat_read
 from FRIDGe.fridge.driver import global_variables as gb
+import yaml
 
 
 def test_assembly():

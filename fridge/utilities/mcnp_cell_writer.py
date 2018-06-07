@@ -111,7 +111,7 @@ def make_lattice(assembly):
         for y in range(number_rings * 2 + 1):
             if x == 0 or x == 2*number_rings:
                 lattice_array[x][y] = assembly.pin.na_cell_universe
-            elif x < 11:
+            elif x < (number_rings + 1):
                 if y < (number_rings + 1 - x) or y == (2 * number_rings):
                     lattice_array[x][y] = assembly.pin.na_cell_universe
                 else:

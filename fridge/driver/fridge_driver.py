@@ -4,8 +4,22 @@ from FRIDGe.fridge.driver import data_maker as dm
 from FRIDGe.fridge.utilities import mcnp_input_deck_maker as midm
 from FRIDGe.fridge.driver import global_variables as gb
 
+# TODO implement sodium voiding
+# TODO implement temperature adjusted density
+# TODO implement temperature adjusted volume
+# TODO implement cladding smear
+# TODO implement bond smear
+# TODO add material creator
+# TODO add element creator
+# TODO add catch for clad greater than sodium universe
+# TODO add catch for clad+wire wrap greater than sodium universe
+# TODO add catch for fuel/bond greater than each other or clad
+# TODO Allow user to input fuel diameter
+# TODO allow user to input
+
+
 print('Welcome to FRIDGe, the Fast Reactor Input Deck Generator!')
-file_name = 'A271_Assembly_Test'# input('Please input the assembly type you would like to model: ')
+file_name = 'A271_Assembly' #input('Please input the file name you would like to model: ')
 
 global_vars = gb.global_variables(file_name)
 

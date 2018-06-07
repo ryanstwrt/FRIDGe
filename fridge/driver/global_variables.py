@@ -37,7 +37,7 @@ class global_variables():
         with open(assembly_file[0], "r") as file:
             inputs = yaml.safe_load(file)
 
-        self.assembly_type = inputs["FuelAssembly Type"]
+        self.assembly_type = inputs["Fuel Assembly Type"]
         self.number_assemblies = int(inputs["Number of Assemblies"]) \
             if 'Number of Assemblies' in inputs else 1
         self.na_voiding = bool(inputs["Na Voiding"]) \
@@ -64,7 +64,7 @@ class global_variables():
             if 'kopts' in inputs else False
         self.void_per = float(inputs["Void Percent"]) \
             if "Void Percent" in inputs else 0
-        self.output_name = float(inputs["Output File Name"]) \
+        self.output_name = inputs["Output File Name"] \
             if "Output File Name" in inputs else 'FRIDGe1'
 
         # Set the XC set depending on the temperature

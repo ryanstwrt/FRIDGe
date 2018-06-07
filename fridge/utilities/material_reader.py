@@ -387,6 +387,7 @@ def material_reader(material_input):
     material_wt_per = get_wt_per(material_input)
     material_enr_per = get_enr_per(material_input)
     material_vector = wt_per_calc(material_base, material_wt_per,  material_enr_per)
+    #print(material_vector)
     atom_percent, atom_density = wt2at_per(material_vector, material_attr)
 
     return atom_percent, atom_density

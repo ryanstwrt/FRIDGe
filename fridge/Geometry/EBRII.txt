@@ -20,7 +20,7 @@ Coolant Liquid_Na
 FuelAssembly HT9
 
 Plenum Data
-Height 60
+Height 60p
 Smear 0.50 0.25 0.25
 Material Liquid_Na Void HT9
 

@@ -1,11 +1,11 @@
 Fuel Pin Data
 Pin_Diameter 0.53
 Clad_Thickness 0.037
-Fuel_Smear 0.55
-Pitch 0.661
+Fuel_Smear 0.75
+Pitch 0.66144
 Wire_Wrap_Diameter 0.126
-Height 60
-Fuel 27Pu_03U_10Zr
+Height 70
+Fuel 27U_10Zr
 Clad HT9
 Bond Liquid_Na
 
@@ -20,7 +20,7 @@ Coolant Liquid_Na
 FuelAssembly HT9
 
 Plenum Data
-Height 60
+Height 70
 Smear 0.50 0.25 0.25
 Material Liquid_Na Void HT9
 

@@ -16,6 +16,11 @@ from FRIDGe.fridge.driver import global_variables as gb
 # TODO add catch for fuel/bond greater than each other or clad
 # TODO Allow user to input fuel diameter
 # TODO allow user to input
+# TODO Finish adding test
+# TODO Add more documentation
+# TODO create atom number check for smear
+# TODO turn geometry files into yaml files
+# TODO turn material files into yaml files
 
 
 print('Welcome to FRIDGe, the Fast Reactor Input Deck Generator!')

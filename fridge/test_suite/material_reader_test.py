@@ -10,7 +10,7 @@ def test_get_element_string():
     assert element_string[0] == "Na"
 
     # Test a multi element material
-    element_string = mat_read.get_elem_string(["20Pu_10U_10Zr"])
+    element_string = mat_read.get_elem_string(["20Pu_7U_10Zr"])
 
     assert element_string[0] == "U"
     assert element_string[1] == "Pu"
@@ -189,7 +189,7 @@ def test_get_enr_per():
 
     # Find the enrichment percent for 20% Pu (94% 94239, 6% 94240)
     # 10% U (10% 92235, 90% 92238) 10%Zr
-    puuzr_enr = mat_read.get_enr_per(["20Pu_10U_10Zr"])
+    puuzr_enr = mat_read.get_enr_per(["20Pu_7U_10Zr"])
     assert puuzr_enr[0][0] == 92235
     assert puuzr_enr[0][1] == 92238
     assert puuzr_enr[0][2] == 94239
@@ -215,7 +215,7 @@ def test_get_mat_attr():
     assert u27z_mat_attr[0] == 15.47
 
     # Material with 3 elements (Uranium/Zirconium)
-    pu20u10z_mat_attr = mat_read.get_mat_attr(["20Pu_10U_10Zr"])
+    pu20u10z_mat_attr = mat_read.get_mat_attr(["20Pu_7U_10Zr"])
     assert pu20u10z_mat_attr[0] == 15.77
 
     return
@@ -257,8 +257,8 @@ def test_wt_per_cal():
 
     # Material with 1 element (enriched)
     pu10_10u_material = mat_read.material_creator(["U", "Pu", "Zr"])
-    pu10_10u_mat_attr = mat_read.get_wt_per(["20Pu_10U_10Zr"])
-    pu10_10u_enr = mat_read.get_enr_per(["20Pu_10U_10Zr"])
+    pu10_10u_mat_attr = mat_read.get_wt_per(["20Pu_7U_10Zr"])
+    pu10_10u_enr = mat_read.get_enr_per(["20Pu_7U_10Zr"])
     pu10_10u_mat_vector = mat_read.wt_per_calc(pu10_10u_material, pu10_10u_mat_attr, enr_vec=pu10_10u_enr)
 
     # Check for U-235
@@ -297,14 +297,14 @@ def test_wt_per_cal():
 
 def test_wt2at_per():
     """Test the weight percent to atom percent function for three different
-    materials; sodium, LEU, and 20% Pu 80% U and 10% Zr. LEU was verified
+    materials; sodium, LEU, and 20% Pu 80% U and 10% Zr. LEU & UO2 was verified
     against the 'Compendium of Material Composition Data for Radiation
     Transport Modeling PNNL-15870 REV. 1' """
     cur_dir = os.path.dirname(__file__)
 
     # Material with 1 element (Sodium)
     elem_dir = os.path.join(cur_dir, '../CotN/')
-    liquid_na_path = os.path.join(cur_dir, '../Materials/Liquid_Na.txt')
+    liquid_na_path = os.path.join(cur_dir, '../materials/Liquid_Na.txt')
 
     na_material = mat_read.material_creator(["Na"])
     liquid_na_mat_wt_per = mat_read.get_wt_per(["Liquid_Na"])
@@ -318,7 +318,7 @@ def test_wt2at_per():
     # Material with 1 element (enriched)
     elem_dir = os.path.join(cur_dir, '../CotN/')
     leu_material = mat_read.material_creator(["U"])
-    leu_path = os.path.join(cur_dir, '../Materials/LEU.txt')
+    leu_path = os.path.join(cur_dir, '../materials/LEU.txt')
     leu_wt_per = mat_read.get_wt_per(["LEU"])
     leu_mat_attr = mat_read.get_mat_attr(["LEU"])
     leu_enr = mat_read.get_enr_per(["LEU"])
@@ -334,10 +334,10 @@ def test_wt2at_per():
     # Material with 3 elements (two enriched)
     elem_dir = os.path.join(cur_dir, '../CotN/')
     upuzr_material = mat_read.material_creator(["U", "Pu", "Zr"])
-    upuzr_path = os.path.join(cur_dir, '../Materials/20Pu_10U_10Zr.txt')
-    upuzr_wt_per = mat_read.get_wt_per(["20Pu_10U_10Zr"])
-    upuzr_mat_attr = mat_read.get_mat_attr(["20Pu_10U_10Zr"])
-    upuzr_enr = mat_read.get_enr_per(["20Pu_10U_10Zr"])
+    upuzr_path = os.path.join(cur_dir, '../materials/20Pu_7U_10Zr.txt')
+    upuzr_wt_per = mat_read.get_wt_per(["20Pu_7U_10Zr"])
+    upuzr_mat_attr = mat_read.get_mat_attr(["20Pu_7U_10Zr"])
+    upuzr_enr = mat_read.get_enr_per(["20Pu_7U_10Zr"])
     upuzr_mat_vector = mat_read.wt_per_calc(upuzr_material, upuzr_wt_per, enr_vec=upuzr_enr)
     upuzr_atom_vector, upuzr_atom_density = mat_read.wt2at_per(upuzr_mat_vector, upuzr_mat_attr)
 
@@ -348,6 +348,19 @@ def test_wt2at_per():
     assert np.allclose(upuzr_atom_vector[3][3], 0.010250, atol=0.000001)
     assert np.allclose(upuzr_atom_vector[4][3], 0.115646, atol=0.000001)
 
+    # Material with 3 elements (two enriched)
+    uo2_material = mat_read.material_creator(["U", "O"])
+    uo2_wt_per = mat_read.get_wt_per(["UO2"])
+    uo2_mat_attr = mat_read.get_mat_attr(["UO2"])
+    uo2_enr = mat_read.get_enr_per(["UO2"])
+    uo2_mat_vector = mat_read.wt_per_calc(uo2_material, uo2_wt_per, enr_vec=uo2_enr)
+    uo2_atom_vector, uo2_atom_density = mat_read.wt2at_per(uo2_mat_vector, uo2_mat_attr)
+
+    assert np.allclose(uo2_atom_density, 0.073348)
+    assert np.isclose(uo2_atom_vector[0][3], 0.000090, atol=0.000001)
+    assert np.allclose(uo2_atom_vector[1][3], 0.010124, atol=0.000001)
+    assert np.allclose(uo2_atom_vector[2][3], 0.000046, atol=0.000001)
+    assert np.allclose(uo2_atom_vector[3][3], 0.323072, atol=0.000001)
     return
 
 def test_material_reader():
@@ -360,3 +373,5 @@ def test_material_reader():
 
     return
 
+
+test_wt2at_per()

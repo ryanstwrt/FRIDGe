@@ -33,7 +33,7 @@ setup(
     include_package_data = True,
     package_data={
         'fridge': ['CotN/*.txt'],
-        'fridge': ['Geometry/*.txt'],
-        'fridge': ['Materials/*.txt'],
+        'fridge': ['assembly/*.txt'],
+        'fridge': ['materials/*.txt'],
     },
 )

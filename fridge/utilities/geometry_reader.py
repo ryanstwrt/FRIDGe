@@ -4,7 +4,7 @@ import glob
 import os
 
 cur_dir = os.path.dirname(__file__)
-geo_dir = os.path.join(cur_dir, "../Geometry")
+geo_dir = os.path.join(cur_dir, "../data/assembly")
 
 
 def fuel_assembly_geometry_reader(assembly_type):

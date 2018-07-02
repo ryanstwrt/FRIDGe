@@ -1,7 +1,6 @@
 import numpy as np
 import FRIDGe.fridge.utilities.material_reader as mat_read
 import FRIDGe.fridge.utilities.material_smear as mat_smear
-import FRIDGe.fridge.driver.data_maker as dm
 from FRIDGe.fridge.utilities.mcnp_cell_writer import mcnp_make_concentric_cell, mcnp_make_cell, mcnp_make_cell_outside, \
     make_lattice, mcnp_make_lattice_holder, make_mcnp_assembly_void
 from FRIDGe.fridge.utilities.mcnp_surface_writer import mcnp_make_macro_RCC, mcnp_make_macro_RHP, mcnp_make_z_plane

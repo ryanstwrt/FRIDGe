@@ -372,6 +372,3 @@ def test_material_reader():
     assert  u_material[0][0] == 92000
 
     return
-
-
-test_wt2at_per()

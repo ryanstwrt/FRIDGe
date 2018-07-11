@@ -70,8 +70,9 @@ def material_creator(material_wt_per, material_str):
 
 # Need to create a new wt to atom percent to maintain smearing atom densities.
 def smear_wt2at_per(wt_per):
-    """Converts the array of wt % to atom % and returns the atom density for use
-       in the cell cards.
+    """
+        Converts the array of wt % to atom % and returns the atom density for use
+        in the cell cards.
 
     The fifth step in getting a material.
 
@@ -103,6 +104,15 @@ def smear_wt2at_per(wt_per):
 
 
 def wire_wrap_smear(assembly):
+    """
+        Calculates the wire wrap volume percent.
+
+    args:
+        assembly (class): information on the assembly class, used to find the geometry info
+    returns:
+        wire_wrap_per (double array): volume percent of fuel channel that contains wire wrap
+        coolant_vol_per (double array): volume percent of fuel channel that contains sodium
+    """
     wire_wrap_radius = assembly.pin.pin_data.ix['wire_wrap_diameter', 'fuel'] / 2
     fuel_pin_height = assembly.pin.pin_data.ix['height', 'fuel']
     fuel_pin_pitch = assembly.pin.pin_data.ix['pitch', 'fuel'] / 2

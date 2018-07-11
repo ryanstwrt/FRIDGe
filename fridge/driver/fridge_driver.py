@@ -10,6 +10,7 @@ from FRIDGe.fridge.driver import global_variables as gb
 # TODO implement cladding smear
 # TODO implement bond smear
 # TODO add material creator
+# TODO add fuel smear
 # TODO add element creator
 # TODO add catch for clad greater than sodium universe
 # TODO add catch for clad+wire wrap greater than sodium universe
@@ -21,7 +22,7 @@ from FRIDGe.fridge.driver import global_variables as gb
 # TODO create atom number check for smear
 # TODO turn geometry files into yaml files
 # TODO turn material files into yaml files
-
+# TODO convert failure message to a better system
 
 print('Welcome to FRIDGe, the Fast Reactor Input Deck Generator!')
 file_name = 'A271_Assembly' #input('Please input the file name you would like to model: ')

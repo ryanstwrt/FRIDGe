@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import glob
 import os
+import yaml
 
 cur_dir = os.path.dirname(__file__)
 geo_dir = os.path.join(cur_dir, "../data/assembly")
@@ -26,6 +27,8 @@ def fuel_assembly_geometry_reader(assembly_type):
 
     """
     assembly_file = glob.glob(os.path.join(geo_dir, assembly_type + '.*'))
+    assembly_yaml_file = glob.glob(os.path.join(geo_dir, 'A271.yaml'))
+
 
     if assembly_file == []:
         print('\n\033[1;37;31mFatal Error: No assembly type named %s. \nChange your assembly type to a previously created assembly, '
@@ -42,6 +45,19 @@ def fuel_assembly_geometry_reader(assembly_type):
     fuel_reflector_data = np.zeros(1)
     fuel_reflector_materials = []
     fuel_reflector_materials_smears = np.zeros(2)
+
+    with open(assembly_yaml_file[0], "r") as mat_file:
+
+        inputs = yaml.load(mat_file)
+        fuel_diameter = float(inputs["Pin_Diameter"])
+        plenum_height = float(inputs['Plenum Height'])
+        plenum_smear = [float(i) for i in inputs['Plenum Smear']]
+        plenum_material = inputs["Plenum Material"]
+        plenum_Data = [plenum_height, plenum_smear[0], plenum_smear[1], plenum_smear[2], plenum_material[0], plenum_material[1], plenum_material[2]]
+        plenum_Data = pd.DataFrame(plenum_Data,
+                               columns=['plenum'],
+                               index=['height', 'coolant_per', 'void_per', 'clad_per', 'coolant', 'void', 'clad'])
+
 
     with open(assembly_file[0], "r") as mat_file:
         for i, line in enumerate(mat_file):

@@ -45,3 +45,5 @@ def test_fuel_assembly_reader():
     assert 'HT9' == fuel_reflector_data.ix['clad', 'fuel_reflector']
 
     return
+
+test_fuel_assembly_reader()

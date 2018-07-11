@@ -1,4 +1,4 @@
-Fuel Assembly Type: A271_test
+Fuel Assembly Type: A271_Test
 Number of Assemblies: 1
 Na Voiding: True
 Void Percent: 0.2

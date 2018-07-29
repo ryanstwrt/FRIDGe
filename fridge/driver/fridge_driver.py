@@ -5,24 +5,24 @@ from FRIDGe.fridge.utilities import mcnp_input_deck_maker as midm
 from FRIDGe.fridge.driver import global_variables as gb
 
 # TODO implement sodium voiding
-# TODO implement temperature adjusted density
-# TODO implement temperature adjusted volume
-# TODO implement cladding smear
-# TODO implement bond smear
-# TODO add material creator
-# TODO add fuel smear
-# TODO add element creator
+# TODO implement fuel radial expansion (density/volume change)
+# TODO implement fuel axial expansion
+# TODO implement coolant expansion
+# TODO implement clad expansion
+# TODO implement homogenization
+# TODO add sensitivity parameter's to input
+# TODO split XC to fuel, coolant, structure
 # TODO add catch for clad greater than sodium universe
 # TODO add catch for clad+wire wrap greater than sodium universe
 # TODO add catch for fuel/bond greater than each other or clad
 # TODO Allow user to input fuel diameter
-# TODO allow user to input
-# TODO Finish adding test
+# TODO Finish adding tests
 # TODO Add more documentation
 # TODO create atom number check for smear
-# TODO turn geometry files into yaml files
 # TODO turn material files into yaml files
-# TODO convert failure message to a better system
+# TODO turn element files into yaml files
+# TODO turn assembly files into yaml files
+# TODO convert failure message to Assert Error messages
 
 print('Welcome to FRIDGe, the Fast Reactor Input Deck Generator!')
 file_name = 'A271_Assembly' #input('Please input the file name you would like to model: ')

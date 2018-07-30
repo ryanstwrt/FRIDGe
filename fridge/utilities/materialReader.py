@@ -5,7 +5,6 @@ import yaml
 
 AVOGADROS_NUMBER = 0.6022140857
 # Requirements for the material reader
-txt_ext = ".txt"
 cur_dir = os.path.dirname(__file__)
 element_dir = os.path.join(cur_dir, '../data/CotN/')
 material_dir = os.path.join(cur_dir, '../data/materials/')
@@ -74,7 +73,6 @@ class Material(object):
         for zaid, atomicDensity in atomDensities.items():
             self.atomPercent[zaid] = atomicDensity / self.atomDensity
             atomPercentTotal += self.atomPercent[zaid]
-        print(self.atomPercent)
         assert np.allclose(atomPercentTotal, 1.0)
 
 

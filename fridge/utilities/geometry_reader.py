@@ -7,25 +7,13 @@ import yaml
 cur_dir = os.path.dirname(__file__)
 geo_dir = os.path.join(cur_dir, "../data/assembly")
 
+class Assembly(object):
+
+    def __init__(self):
+        pass
+
 
 def fuel_assembly_geometry_reader(assembly_type):
-    """This function reads in the geometry/material contributions for a single
-    fuel assembly.
-
-    This includes fuel pin height/pitch/fuel type, etc. It
-    returns a Data Structure with all the relevant geometry/material
-    information to then start creating MCNP geometries and materials.
-
-    args:
-        assembly_type (str array): Name of the assembly type that will be used
-
-    return:
-        fuel_data (Data Frame): Contains all the geometric and material components for the fuel
-        assembly_data (Data Frame): Contains all the geometric and material components for the assembly
-        plenum_data (Data Frame): Contains all the geometric and material components for the plenum
-        fuel_reflector_data (Data Frame): Contains all the geometric and material components for the fuel reflector
-
-    """
     assembly_yaml_file = glob.glob(os.path.join(geo_dir, assembly_type + '.yaml'))
     #assembly_yaml_file = glob.glob(os.path.join(geo_dir, 'A271.yaml'))
 
@@ -34,17 +22,6 @@ def fuel_assembly_geometry_reader(assembly_type):
         print('\n\033[1;37;31mFatal Error: No assembly type named %s. \nChange your assembly type to a previously created assembly, '
               'or create a new assembly using the utilities.' % assembly_type)
         quit()
-
-    fuel_data = np.zeros(6)
-    fuel_materials = []
-    assembly_data = np.zeros(6)
-    assembly_materials = []
-    plenum_data = np.zeros(1)
-    plenum_materials = []
-    plenum_material_smears = np.zeros(3)
-    fuel_reflector_data = np.zeros(1)
-    fuel_reflector_materials = []
-    fuel_reflector_materials_smears = np.zeros(2)
 
     with open(assembly_yaml_file[0], "r") as mat_file:
 

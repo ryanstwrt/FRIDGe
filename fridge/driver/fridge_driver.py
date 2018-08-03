@@ -23,6 +23,7 @@ from FRIDGe.fridge.driver import global_variables as gb
 # TODO turn element files into yaml files
 # TODO turn assembly files into yaml files
 # TODO convert failure message to Assert Error messages
+# TODO find some way to get each assebmlies central position based on pitch
 
 print('Welcome to FRIDGe, the Fast Reactor Input Deck Generator!')
 file_name = 'A271_Assembly' #input('Please input the file name you would like to model: ')

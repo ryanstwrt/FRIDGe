@@ -1,5 +1,3 @@
-
-
 def mcnp_input_deck_maker(assembly, k_card, global_vars):
     file = open("../mcnp_input_files/" + global_vars.output_name + ".i", "w")
     file.write("Input deck created by FRIDGe\n")

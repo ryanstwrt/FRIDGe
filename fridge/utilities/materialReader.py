@@ -11,20 +11,27 @@ material_dir = os.path.join(cur_dir, '../data/materials/')
 
 class Material(object):
 
-    def __init__(self, material):
+    def __init__(self):
         self.enrichmentDict = {}
         self.isotopeDict = {}
         self.weightPercent = {}
         self.atomPercent = {}
         self.atomDensity = 0.0
         self.elementDict = {}
-        self.materialName = material
-        self.readMaterial(self.materialName)
+        self.name = None
+
+    def setMaterial(self, material):
+        self.name = material
+        self.readMaterial(self.name)
         self.getMaterial()
 
     def readMaterial(self, material):
-        material_file = glob.glob(os.path.join(material_dir, material + '.yaml'))
-        with open(material_file[0], "r") as file:
+        materialFile = glob.glob(os.path.join(material_dir, material + '.yaml'))
+
+        if not materialFile:
+            raise AssertionError("Material {}, not found in material database. Please create material file for {}.".format(material, material))
+
+        with open(materialFile[0], "r") as file:
             inputs = yaml.load(file)
             self.name = inputs['Name']
             self.elements = inputs['Elements']
@@ -33,8 +40,11 @@ class Material(object):
             self.density = inputs['Density']
             self.linearCoeffExpansion = inputs['Linear Coefficient of Expansion']
             self.enrichmentZaids = inputs['Enrichment ZAIDs']
-            self.enrichmentIsotopes = inputs['Enrichment Isotopes']
-            self.enrichmentVector = inputs['Enrichment Vector']
+            try:
+                self.enrichmentIsotopes = inputs['Enrichment Isotopes']
+                self.enrichmentVector = inputs['Enrichment Vector']
+            except KeyError:
+                pass
 
     def getMaterial(self):
             for num, zaid in enumerate(self.enrichmentZaids):
@@ -46,7 +56,7 @@ class Material(object):
                 self.elementDict[self.zaids[num]] = Element(element)
             self.adjustEnrichments()
             self.getWeightPercet()
-            self.getAtomPercent()
+            self.atomDensity, self.atomPercent = getAtomPercent(self.weightPercent, self.density, self.elementDict, self.name)
 
     def adjustEnrichments(self):
         for elementEnrichement, zaidVector in self.enrichmentDict.items():
@@ -60,27 +70,41 @@ class Material(object):
                 if isotopeFraction != 0.0:
                     self.weightPercent[isotope] = isotopeFraction * self.weightFraction[zaidNum]
                     weightTotal += self.weightPercent[isotope]
-        assert np.allclose(weightTotal, 1.0)
+        try:
+            assert np.allclose(weightTotal, 1.0)
+        except AssertionError:
+            raise AssertionError("Weight percent does not sum to 1.0 for {}".format(self.name))
 
-    def getAtomPercent(self):
-        atomDensities = {}
-        atomPercentTotal = 0.0
-        for zaid, weight in self.weightPercent.items():
-            currentElement = str(zaid)[:2] + '000'
-            currentElement = int(currentElement)
-            atomDensities[zaid] = weight * self.density * AVOGADROS_NUMBER / self.elementDict[currentElement].molecularMassDict[zaid]
-            self.atomDensity += atomDensities[zaid]
-        for zaid, atomicDensity in atomDensities.items():
-            self.atomPercent[zaid] = atomicDensity / self.atomDensity
-            atomPercentTotal += self.atomPercent[zaid]
+def getAtomPercent(weightPercents, density, elementDict, name):
+    atomDensities = {}
+    atomPercent = {}
+    for zaid, weight in weightPercents.items():
+        element = str(zaid)
+        if len(element) < 5:
+            currentElement = int(element[:1] + '000')
+        else:
+            currentElement = int(element[:2] + '000')
+        atomDensities[zaid] = weight * density * AVOGADROS_NUMBER / elementDict[currentElement].molecularMassDict[zaid]
+    atomDensity = sum(atomDensities.values())
+
+    for zaid, atomicDensity in atomDensities.items():
+        atomPercent[zaid] = atomicDensity / atomDensity
+    atomPercentTotal = sum(atomPercent.values())
+    try:
         assert np.allclose(atomPercentTotal, 1.0)
-
+    except AssertionError:
+        raise AssertionError("Atom percent does not sum to 1.0 for {}".format(name))
+    return atomDensity, atomPercent
 
 class Element(object):
 
     def __init__(self, element):
-        element_file = glob.glob(os.path.join(element_dir, element + '.yaml'))
-        with open(element_file[0], "r") as file:
+        elementFile = glob.glob(os.path.join(element_dir, element + '.yaml'))
+
+        if not elementFile:
+            raise AssertionError("Element {}, not found in Chart of the Nuclide Database. Please create element file for {}.".format(element, element))
+
+        with open(elementFile[0], "r") as file:
             inputs = yaml.load(file)
             self.name = inputs['Name']
             self.zaid = inputs['ZAID']

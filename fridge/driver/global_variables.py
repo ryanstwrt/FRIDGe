@@ -11,7 +11,10 @@ class global_variables():
         self.assembly_file_name = assembly_name
         self.xc_library = ''
         self.xc_set = ''
-        self.universe = 1000
+        self.universe = 100
+        self.cellNumber = 100
+        self.surfaceNumber = 100
+        self.materialNumber = 10
         self.number_assemblies = 1
         self.na_voiding = False
         self.temperature = 0
@@ -25,6 +28,7 @@ class global_variables():
         self.number_skipped_generations = 0
         self.number_particles_generation = 0
         self.kopts = False
+        self.ksens = False
         self.output_name = ''
 
         self.read_input_file()

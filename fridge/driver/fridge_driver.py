@@ -1,6 +1,7 @@
 from FRIDGe.fridge.driver import assembly_holder as ah
 from FRIDGe.fridge.driver import assembly_maker
 from FRIDGe.fridge.driver import data_maker as dm
+import FRIDGe.fridge.driver.Assembly as assembly
 from FRIDGe.fridge.utilities import mcnp_input_deck_maker as midm
 from FRIDGe.fridge.driver import global_variables as gb
 
@@ -30,9 +31,10 @@ file_name = 'A271_Assembly' #input('Please input the file name you would like to
 
 global_vars = gb.global_variables(file_name)
 
-assembly = ah.FuelAssembly(global_vars, global_vars.assembly_type)
-assembly_maker.assembly_maker(assembly)
-
+assembly = assembly.FuelAssembly([global_vars.assembly_type, '01A01', global_vars])
+# assembly = ah.FuelAssembly(global_vars, global_vars.assembly_type)
+# assembly_maker.assembly_maker(assembly)
+#
 k_card = dm.make_mcnp_problem(global_vars)
 
 midm.mcnp_input_deck_maker(assembly, k_card, global_vars)

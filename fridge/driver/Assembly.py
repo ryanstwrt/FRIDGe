@@ -13,24 +13,19 @@ class Assembly(object):
 
     def __init__(self, assemblyInformation):
         self.assemblyType = assemblyInformation[0]
-        self.position = assemblyInformation[1]
+        self.assemblyPosition = assemblyInformation[1]
         globalVars = assemblyInformation[2]
         self.universe = globalVars.universe
         self.cellNum = globalVars.cellNumber
         self.surfaceNum = globalVars.surfaceNumber
         self.materialNum = globalVars.materialNumber
         self.assemblyReader(self.assemblyType)
-        self.getPosition(self.position, self.assemblyPitch)
         self.getAssembly()
-        self.cellNum
-        self.surfaceNum
-        self.materialNum
 
-    def getPosition(self, position, pitch):
+    def getPosition(self, position, pitch, zPosition):
         ring = int(position[:2]) - 1
         hextant = position[2]
         assemblyNum = int(position[3:]) - 1
-        zPosition = 0.0
 
         if hextant == 'A':
             xPosition = -ring*math.sqrt(pow(pitch,2)+(pow(pitch/2,2)))
@@ -51,16 +46,7 @@ class Assembly(object):
             xPosition = -(ring)*math.sqrt((pow(pitch,2)-pow(pitch/2,2)))
             yPosition = (ring)*pow(pitch/2,2)+pitch*assemblyNum
 
-        self.position = [xPosition, yPosition, zPosition]
-
-
-    def getReflectorInfo(self, inputs):
-        self.reflectorHeight = float(inputs['Fuel Reflector Height'])
-        reflectorSmear = [float(i) for i in inputs['Smear']]
-        reflectorMaterial = inputs['Material']
-        self.reflectorMaterial = {}
-        for num, material in enumerate(reflectorMaterial):
-            self.reflectorMaterial[material] = reflectorSmear[num]
+        return [xPosition, yPosition, zPosition]
 
     def getAssemblyInfo(self, inputs):
         self.pinsPerAssembly = float(inputs['Pins Per Assembly'])
@@ -83,32 +69,52 @@ class FuelAssembly(Assembly):
         self.assemblyUniverse = self.universe
         self.universe +=1
         self.pinUniverse = self.universe
-        self.fuel = FuelPin([[self.universe, self.cellNum, self.surfaceNum, self.fuelMaterial, '82C', self.position, self.materialNum], [self.fuelDiameter, self.fuelHeight]])
+        self.fuel = FuelPin([[self.universe, self.cellNum, self.surfaceNum, self.fuelMaterial, '82C',
+                              self.position, self.materialNum], [self.fuelDiameter, self.fuelHeight]])
         self.updateIdentifiers()
-        self.bond = FuelBond([[self.universe, self.cellNum, self.surfaceNum, self.bondMaterial, '82C', self.position, self.materialNum], [self.cladID, self.fuelHeight, self.fuel.surfaceNum]])
+        self.bond = FuelBond([[self.universe, self.cellNum, self.surfaceNum, self.bondMaterial, '82C',
+                               self.position, self.materialNum], [self.cladID, self.fuelHeight, self.fuel.surfaceNum]])
         self.updateIdentifiers()
-        self.clad = FuelClad([[self.universe, self.cellNum, self.surfaceNum, self.bondMaterial, '82C', self.position, self.materialNum], [self.cladOD, self.fuelHeight, self.bond.surfaceNum]])
+        self.clad = FuelClad([[self.universe, self.cellNum, self.surfaceNum, self.bondMaterial, '82C',
+                               self.position, self.materialNum], [self.cladOD, self.fuelHeight, self.bond.surfaceNum]])
         self.updateIdentifiers()
-        self.coolant = FuelCoolant([[self.universe, self.cellNum, self.surfaceNum, self.coolantMaterial, '82C', self.position, self.materialNum], [self.fuelPitch, self.fuelHeight, self.clad.surfaceNum]])
+        self.coolant = FuelCoolant([[self.universe, self.cellNum, self.surfaceNum, self.coolantMaterial, '82C',
+                                     self.position, self.materialNum], [self.fuelPitch, self.fuelHeight, self.clad.surfaceNum]])
         self.updateIdentifiers()
         self.universe += 1
         self.blankUniverse = self.universe
-        self.blankCoolant = BlankCoolant([[self.universe, self.cellNum, self.surfaceNum, self.coolantMaterial, '82C', self.position, self.materialNum], [self.fuelPitch, self.fuelHeight]])
+        self.blankCoolant = BlankCoolant([[self.universe, self.cellNum, self.surfaceNum, self.coolantMaterial, '82C',
+                                           self.position, self.materialNum], [self.fuelPitch, self.fuelHeight]])
         self.universe += 1
         self.latticeUniverse = self.universe
-        self.fuelUniverse = FuelUniverse([self.pinUniverse, self.blankUniverse, self.pinsPerAssembly, self.cellNum, self.blankCoolant.cellNum, self.latticeUniverse])
+        self.fuelUniverse = FuelUniverse([self.pinUniverse, self.blankUniverse, self.pinsPerAssembly, self.cellNum,
+                                          self.blankCoolant.cellNum, self.latticeUniverse])
         self.updateIdentifiers()
-        self.innerDuct = InnerDuct([self.universe, self.cellNum, self.surfaceNum, self.assemblyUniverse, self.pinUniverse, self.position, self.ductInnerFlatToFlat, self.fuelHeight])
+        self.innerDuct = InnerDuct([self.universe, self.cellNum, self.surfaceNum, self.assemblyUniverse,
+                                    self.pinUniverse, self.position, self.ductInnerFlatToFlat, self.fuelHeight])
         self.updateIdentifiers()
-        self.duct = Duct([[self.universe, self.cellNum, self.surfaceNum, self.coolantMaterial, '82C', self.position, self.materialNum], [self.ductOuterFlatToFlat, self.fuelHeight]])
+        self.duct = Duct([[self.universe, self.cellNum, self.surfaceNum, self.coolantMaterial, '82C',
+                           self.position, self.materialNum], [self.ductOuterFlatToFlat, self.fuelHeight]])
         self.updateIdentifiers()
-        self.plenum = Smear([[self.universe, self.cellNum, self.surfaceNum, self.plenumMaterial, '82C', self.position, self.materialNum], [self.ductOuterFlatToFlat, self.plenumHeight]])
+        self.plenum = Smear([[self.universe, self.cellNum, self.surfaceNum, self.plenumMaterial, '82C',
+                              self.plenumPosition, self.materialNum], [self.ductOuterFlatToFlat, self.plenumHeight], 'plenum'])
         self.updateIdentifiers()
-        self.reflector = Smear([[self.universe, self.cellNum, self.surfaceNum, self.reflectorMaterial, '82C', self.position, self.materialNum], [self.ductOuterFlatToFlat, self.reflectorHeight]])
-
+        self.upperReflectorPosition = self.position
+        self.upperReflectorPosition[2] += self.fuelHeight + self.plenumHeight
+        self.upperReflector = Smear([[self.universe, self.cellNum, self.surfaceNum, self.reflectorMaterial, '82C',
+                                      self.position, self.materialNum], [self.ductOuterFlatToFlat, self.reflectorHeight], 'upper Reflector'])
+        self.lowerReflectorPosition = self.position
+        self.lowerReflectorPosition[2] -= self.reflectorHeight
+        self.updateIdentifiers()
+        self.lowerReflector = Smear([[self.universe, self.cellNum, self.surfaceNum, self.reflectorMaterial, '82C',
+                                      self.position, self.materialNum],[self.ductOuterFlatToFlat, self.reflectorHeight], 'lower Reflector'])
 
     def assemblyReader(self, assemblyType):
+        print(assemblyType)
+        print(geo_dir)
         assemblyYamlFile = glob.glob(os.path.join(geo_dir, assemblyType + '.yaml'))
+
+        print (assemblyYamlFile)
 
         if not assemblyYamlFile:
             raise AssertionError('No assembly type named {}. Change your assembly type to a previously created assembly, '
@@ -116,12 +122,13 @@ class FuelAssembly(Assembly):
 
         with open(assemblyYamlFile[0], "r") as mat_file:
             inputs = yaml.load(mat_file)
+            self.getAssemblyInfo(inputs)
             self.getFuelRegionInfo(inputs)
             self.getPlenumRegionInfo(inputs)
             self.getReflectorInfo(inputs)
-            self.getAssemblyInfo(inputs)
 
     def getFuelRegionInfo(self, inputs):
+        self.position = self.getPosition(self.assemblyPosition, self.assemblyPitch, 0.0)
         self.cladOD = float(inputs['Pin Diameter'])
         self.cladID = self.cladOD - 2*float(inputs['Clad Thickness'])
         try:
@@ -137,11 +144,23 @@ class FuelAssembly(Assembly):
 
     def getPlenumRegionInfo(self, inputs):
         self.plenumHeight = float(inputs['Plenum Height'])
+        print(self.assemblyPosition, self.assemblyPitch, self.fuelHeight)
+
+        self.plenumPosition = self.getPosition(self.assemblyPosition, self.assemblyPitch, self.fuelHeight)
+        print(self.plenumPosition)
         plenumSmear = [float(i) for i in inputs['Plenum Smear']]
         plenumMaterial = inputs["Plenum Material"]
         self.plenumMaterial = {}
         for num, material in enumerate(plenumMaterial):
             self.plenumMaterial[material] = plenumSmear[num]
+
+    def getReflectorInfo(self, inputs):
+        self.reflectorHeight = float(inputs['Fuel Reflector Height'])
+        reflectorSmear = [float(i) for i in inputs['Smear']]
+        reflectorMaterial = inputs['Material']
+        self.reflectorMaterial = {}
+        for num, material in enumerate(reflectorMaterial):
+            self.reflectorMaterial[material] = reflectorSmear[num]
 
     def getAssemblyMCNP(self):
         self.fuel = FuelPin([[1, 1, 1, '5Pu22U10Zr', '900K'], [self.position]])
@@ -156,11 +175,11 @@ class Unit(object):
         self.materialNum = unitInfo[0][6]
         self.getMaterialCard(unitInfo[0][3])
         self.makeComponent(unitInfo[1])
-        getMaterialCard(self.material, self.materialXCLibrary, self.materialNum)
 
     def getMaterialCard(self, materialName):
         self.material = materialReader.Material()
         self.material.setMaterial(materialName)
+        self.materialCard = getMaterialCard(self.material, self.materialXCLibrary, self.materialNum)
 
 
 class FuelPin(Unit):
@@ -293,25 +312,29 @@ class Smear(Unit):
         self.material = unitInfo[0][3]
         self.position = unitInfo[0][5]
         self.materialNum = unitInfo[0][6]
-        print(self.material)
-        self.material = getSmearedMaterialCard(self.material, self.materialXCLibrary, self.materialNum)
+        self.smearName = unitInfo[2]
+        self.material = getSmearedMaterial(self.material, self.materialXCLibrary, self.materialNum)
         self.makeComponent(unitInfo[1])
+        self.getMaterialCard(self.material)
+
 
     def makeComponent(self, ductInfo):
         self.flat2flat = ductInfo[0]
         self.height = ductInfo[1]
-        surfaceComment = "$Assembly: Smear"
-        cellComment = "$Assembly: Smear"
+        surfaceComment = "$Assembly: {}".format(self.smearName)
+        cellComment = "$Assembly: {}".format(self.smearName)
         self.surfaceCard = getRHP(self.flat2flat, self.height, self.position, self.surfaceNum, surfaceComment)
         self.cellCard = getSingleCell(self.cellNum, self.materialNum, self.material.density,
                                           self.surfaceNum, self.universe, cellComment)
+
+    def getMaterialCard(self, materialName):
+        self.materialCard = getMaterialCard(self.material, self.materialXCLibrary, self.materialNum)
 
 
 def getRCC(radius, height, position, surfaceNum, comment):
     surfaceCard = "{} RCC {} {} {} 0 0 {} {} 0 0 {}".format(surfaceNum, position[0], position[1], position[2], height, radius, comment)
     assert len(surfaceCard) < 80
     return surfaceCard
-
 def getRHP(pitch, height, position, surfaceNum, comment):
     surfaceCard = "{} RHP {} {} {} 0 0 {} {} 0 0 {}".format(surfaceNum, position[0], position[1], position[2], height, pitch, comment)
     assert len(surfaceCard) < 80
@@ -343,7 +366,7 @@ def getMaterialCard(material, xc, matNum):
         materialCard += "      {}.{} {}\n".format(isotope, xc, atomDensity)
     return materialCard
 
-def getSmearedMaterialCard(materials, xc, matNum):
+def getSmearedMaterial(materials, xc, matNum):
     smearMaterial = {}
     avogadros = materialReader.AVOGADROS_NUMBER
     for material, materialWeightPercent in materials.items():
@@ -374,38 +397,42 @@ def getSmearedMaterialCard(materials, xc, matNum):
 def getSmearAtomPercent():
     pass
 
-file_name = 'A271_Assembly'
-
-global_vars = gb.global_variables(file_name)
-
-assembly = FuelAssembly(['A271', '01A01', global_vars])
-fuelPin = assembly.fuel
-print(fuelPin.surfaceCard)
-print(fuelPin.cellCard)
-
-fuelPin = assembly.bond
-print(fuelPin.surfaceCard)
-print(fuelPin.cellCard)
-
-fuelPin = assembly.clad
-print(fuelPin.surfaceCard)
-print(fuelPin.cellCard)
-
-fuelPin = assembly.coolant
-print(fuelPin.surfaceCard)
-print(fuelPin.cellCard)
-
-fuelPin = assembly.blankCoolant
-print(fuelPin.surfaceCard)
-print(fuelPin.cellCard)
-
-fuelPin = assembly.fuelUniverse
-print(fuelPin.cellCard)
-
-fuelPin = assembly.plenum
-print(fuelPin.surfaceCard)
-print(fuelPin.cellCard)
-
-fuelPin = assembly.reflector
-print(fuelPin.surfaceCard)
-print(fuelPin.cellCard)
+# file_name = 'A271_Assembly'
+#
+# global_vars = gb.global_variables(file_name)
+#
+# assembly = FuelAssembly(['A271', '01A01', global_vars])
+# fuelPin = assembly.fuel
+# print(fuelPin.surfaceCard)
+# print(fuelPin.cellCard)
+#
+# fuelPin = assembly.bond
+# print(fuelPin.surfaceCard)
+# print(fuelPin.cellCard)
+#
+# fuelPin = assembly.clad
+# print(fuelPin.surfaceCard)
+# print(fuelPin.cellCard)
+#
+# fuelPin = assembly.coolant
+# print(fuelPin.surfaceCard)
+# print(fuelPin.cellCard)
+#
+# fuelPin = assembly.blankCoolant
+# print(fuelPin.surfaceCard)
+# print(fuelPin.cellCard)
+#
+# fuelPin = assembly.fuelUniverse
+# print(fuelPin.cellCard)
+#
+# fuelPin = assembly.plenum
+# print(fuelPin.surfaceCard)
+# print(fuelPin.cellCard)
+#
+# fuelPin = assembly.upperReflector
+# print(fuelPin.surfaceCard)
+# print(fuelPin.cellCard)
+#
+# fuelPin = assembly.lowerReflector
+# print(fuelPin.surfaceCard)
+# print(fuelPin.cellCard)

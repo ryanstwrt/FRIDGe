@@ -36,7 +36,7 @@ class global_variables():
     def read_input_file(self):
         cur_dir = os.path.dirname(__file__)
         input_dir = os.path.join(cur_dir, "../fridge_input_file")
-        assembly_file = glob.glob(os.path.join(input_dir, self.assembly_file_name + '.*'))
+        assembly_file = glob.glob(os.path.join(input_dir, self.assembly_file_name + '.yaml'))
 
         with open(assembly_file[0], "r") as file:
             inputs = yaml.safe_load(file)

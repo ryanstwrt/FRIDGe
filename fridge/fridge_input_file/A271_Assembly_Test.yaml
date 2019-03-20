@@ -10,7 +10,9 @@ Smear Bond: True
 XC Library: ENDFVII.1
 Number of Generations: 2300
 Number of Skipped Generations: 300
-Number of Particles Per Generation: 1e10
-kopts: False
+Number of Particles per Generation: 1e10
+kopts: True
+ksens: True
 Output File Name: Test
 Input Type: Core
+Random Variable: True

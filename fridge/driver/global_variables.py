@@ -33,6 +33,7 @@ class GlobalVariables(object):
         self.input_type = 'Single'
 
     def read_input_file(self, assembly_name):
+        """Reads the yaml file for a FRIDGE input file and assigns any variables found."""
         self.assembly_file_name = assembly_name
 
         cur_dir = os.path.dirname(__file__)
@@ -63,10 +64,12 @@ class GlobalVariables(object):
             if 'Number of Generations' in inputs else 230
         self.number_skipped_generations = int(inputs["Number of Skipped Generations"]) \
             if 'Number of Skipped Generations' in inputs else 30
-        self.number_particles_generation = int(inputs["Number of Particles Per Generation"]) \
-            if 'Number of Particle per Generation' in inputs else int(1e6)
+        self.number_particles_generation = int(float(inputs["Number of Particles per Generation"])) \
+            if 'Number of Particles per Generation' in inputs else int(1e6)
         self.kopts = bool(inputs["kopts"]) \
             if 'kopts' in inputs else False
+        self.ksens = bool(inputs["ksens"]) \
+            if 'ksens' in inputs else False
         self.void_per = float(inputs["Void Percent"]) \
             if "Void Percent" in inputs else 0
         self.output_name = inputs["Output File Name"] \

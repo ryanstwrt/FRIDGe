@@ -36,7 +36,6 @@ def test_global_variables_read_assembly():
     global_variables.read_input_file('A271_Assembly_Test')
 
     assert global_variables.assembly_file_name == 'A271_Assembly_Test'
-    print(global_variables.xc_set)
     assert global_variables.xc_set == '.81c'
     assert global_variables.xc_library == 'ENDFVII.1'
     assert global_variables.universe == 100
@@ -54,7 +53,6 @@ def test_global_variables_read_assembly():
     assert global_variables.assembly_type == 'A271_Test'
     assert global_variables.number_generations == 2300
     assert global_variables.number_skipped_generations == 300
-    print (global_variables.number_particles_generation)
     assert global_variables.number_particles_generation == 1e10
     assert global_variables.kopts is True
     assert global_variables.ksens is True

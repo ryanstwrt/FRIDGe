@@ -1,30 +1,33 @@
+#Assembly Type
+Assembly Type: Fuel
+
 #Fuel Pin Data
 Pin Diameter: 0.53
 Clad Thickness: 0.037
 Fuel Smear: 0.75
-Pitch: 0.661
+Pitch: 0.66144
 Wire Wrap Diameter: 0.126
 Fuel Height: 60
-Fuel: 27U
+Fuel: 5Pu22U10Zr
 Clad: HT9
-Bond: Liquid_Na
+Bond: LiquidNa
 
 #FuelAssembly Data
 Pins Per Assembly: 271
 Assembly Pitch: 12
 Duct Thickness: 0.3
 Assembly Gap: 0.3
-Duct Inside Flat to Flat: 11.1
+Duct Inside Flat to Flat: 5.505
 Assembly Height: 320
-Coolant: Liquid_Na
+Coolant: LiquidNa
 Assembly Material: HT9
 
 #Plenum Data
 Plenum Height: 60
 Plenum Smear: [0.50, 0.25, 0.25]
-Plenum Material: [Liquid_Na, Void, HT9]
+Plenum Material: [LiquidNa, Void, HT9]
 
 #Fuel Reflector Data
-Fuel Reflector Height: 50
-Smear: [0.3, 0.7]
-Material: [Liquid_Na, HT9]
+Fuel Reflector Height: 60
+Smear: [0.2, 0.8]
+Material: [LiquidNa, HT9]

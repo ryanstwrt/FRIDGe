@@ -6,15 +6,16 @@ def mcnp_input_deck_maker(assembly, k_card, global_vars):
     file.write("c " + assembly_cell_title.center(77, "*") + " \n")
     units = [assembly.fuel, assembly.bond, assembly.clad, assembly.coolant, assembly.blankCoolant,
              assembly.fuelUniverse, assembly.innerDuct, assembly.duct, assembly.plenum,
-             assembly.upperReflector, assembly.lowerReflector]
+             assembly.upperReflector, assembly.lowerReflector, assembly.lowerSodium, assembly.upperSodium,
+             assembly.assemblyShell, assembly.everythingElse]
     for cell in units:
         file.write(cell.cellCard + '\n')
     file.write("\n")
-    assembly_surface_title = "Surface Cards for FuelAssembly: {}".format(assembly.assemblyPosition)
+    assembly_surface_title = "Surface Cards for Fuel Assembly: {}".format(assembly.assemblyPosition)
     file.write("c " + assembly_surface_title.center(77, "*") + "\n")
     units = [assembly.fuel, assembly.bond, assembly.clad, assembly.coolant, assembly.blankCoolant,
              assembly.innerDuct, assembly.duct, assembly.plenum,
-             assembly.upperReflector, assembly.lowerReflector]
+             assembly.upperReflector, assembly.lowerReflector, assembly.lowerSodium, assembly.upperSodium, assembly.assemblyShell]
     for surface in units:
         file.write(surface.surfaceCard + '\n')
     file.write("\n")
@@ -23,10 +24,10 @@ def mcnp_input_deck_maker(assembly, k_card, global_vars):
     assembly_kcode_title = "k-code Information"
     file.write("c " + assembly_kcode_title.center(77, "*") + "\n")
     file.write(k_card)
-    file.write("c " + "Material Information".center(77, "*") + "\n")
+    file.write("c " + "Material Information".center(77, "*"))
     units = [assembly.fuel, assembly.bond, assembly.clad, assembly.coolant, assembly.blankCoolant,
              assembly.duct, assembly.plenum,
-             assembly.upperReflector, assembly.lowerReflector]
+             assembly.upperReflector, assembly.lowerReflector, assembly.lowerSodium, assembly.upperSodium, assembly.assemblyShell]
     for material in units:
         file.write(material.materialCard)
     file.close()

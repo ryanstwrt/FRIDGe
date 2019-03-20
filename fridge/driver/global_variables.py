@@ -3,12 +3,12 @@ import glob
 import yaml
 
 
-class global_variables():
+class GlobalVariables(object):
     """
     This class will hold all the variables that are not specific to a single assembly.
     """
-    def __init__(self, assembly_name):
-        self.assembly_file_name = assembly_name
+    def __init__(self):
+        self.assembly_file_name = ''
         self.xc_library = ''
         self.xc_set = ''
         self.universe = 100
@@ -30,10 +30,11 @@ class global_variables():
         self.kopts = False
         self.ksens = False
         self.output_name = ''
+        self.input_type = 'Single'
 
-        self.read_input_file()
+    def read_input_file(self, assembly_name):
+        self.assembly_file_name = assembly_name
 
-    def read_input_file(self):
         cur_dir = os.path.dirname(__file__)
         input_dir = os.path.join(cur_dir, "../fridge_input_file")
         assembly_file = glob.glob(os.path.join(input_dir, self.assembly_file_name + '.yaml'))
@@ -41,7 +42,7 @@ class global_variables():
         with open(assembly_file[0], "r") as file:
             inputs = yaml.safe_load(file)
 
-        self.assembly_type = inputs["Fuel Assembly Type"]
+        self.assembly_type = inputs["Assembly Type"]
         self.number_assemblies = int(inputs["Number of Assemblies"]) \
             if 'Number of Assemblies' in inputs else 1
         self.na_voiding = bool(inputs["Na Voiding"]) \
@@ -56,8 +57,8 @@ class global_variables():
             if 'Smear Bond' in inputs else False
         self.bond_smear = bool(inputs["Smear Bond"]) \
             if 'Smear Bond' in inputs else False
-        self.xc_set = inputs["XC Set"] \
-            if 'XC Set' in inputs else ''
+        self.xc_library = inputs["XC Library"] \
+            if 'XC Library' in inputs else ''
         self.number_generations = int(inputs["Number of Generations"]) \
             if 'Number of Generations' in inputs else 230
         self.number_skipped_generations = int(inputs["Number of Skipped Generations"]) \
@@ -70,6 +71,8 @@ class global_variables():
             if "Void Percent" in inputs else 0
         self.output_name = inputs["Output File Name"] \
             if "Output File Name" in inputs else 'FRIDGe1'
+        self.input_type = inputs["Input Type"] \
+            if "Input Type" in inputs else 'Single'
 
         # Set the XC set depending on the temperature
         if self.temperature == 600:

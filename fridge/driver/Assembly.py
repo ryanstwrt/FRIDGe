@@ -20,15 +20,16 @@ class Assembly(object):
         self.cellNum = self.globalVars.cellNumber
         self.surfaceNum = self.globalVars.surfaceNumber
         self.materialNum = self.globalVars.materialNumber
-        assemblyYamlFile = self.assemblyReader(self.assemblyDesignation)
-        self.setAssembly(assemblyYamlFile)
-        self.getAssembly()
-
-    def setAssembly(self, inputs):
-        pass
-
-    def getAssembly(self):
-        pass
+        self.assemblyType = ''
+        self.pinsPerAssembly = 0
+        self.assemblyPitch = 0
+        self.ductInnerFlatToFlat = 0
+        self.ductOuterFlatToFlat = 0
+        self.ductOuterFlatToFlatUniverse = 0
+        self.assemblyGap = 0
+        self.assemblyHeight = 0
+        self.coolantMaterial = ''
+        self.assemblyMaterial = ''
 
     def getAssemblyInfo(self, inputs):
         self.pinsPerAssembly = float(inputs['Pins Per Assembly'])
@@ -36,30 +37,81 @@ class Assembly(object):
         self.ductInnerFlatToFlat = float(inputs['Duct Inside Flat to Flat'])
         self.ductOuterFlatToFlat = self.ductInnerFlatToFlat + 2*float(inputs['Duct Thickness'])
         self.ductOuterFlatToFlatUniverse = self.ductOuterFlatToFlat * 1.00005
-        self.assemblGap = float(inputs['Assembly Gap'])
+        self.assemblyGap = float(inputs['Assembly Gap'])
         self.assemblyHeight = float(inputs['Assembly Height'])
         self.coolantMaterial = inputs['Coolant']
         self.assemblyMaterial = inputs['Assembly Material']
 
     def updateIdentifiers(self):
-        self.cellNum+=1
-        self.surfaceNum+=1
-        self.materialNum+=1
+        self.cellNum += 1
+        self.surfaceNum += 1
+        self.materialNum += 1
 
-    def assemblyReader(self, assemblyType):
-        assemblyYamlFile = glob.glob(os.path.join(geo_dir, assemblyType + '.yaml'))
 
-        if not assemblyYamlFile:
-            raise AssertionError(
-                'No assembly type named {}. Change your assembly type to a previously created assembly, '
-                'or create a new assembly.'.format(assemblyType))
-        with open(assemblyYamlFile[0], "r") as mat_file:
-            inputs = yaml.load(mat_file)
-            self.assemblyType = inputs['Assembly Type']
-        return assemblyYamlFile
+def assemblyTypeReader(assemblyYamlFile):
+    with open(assemblyYamlFile[0], "r") as mat_file:
+        inputs = yaml.load(mat_file)
+        assemblyType = inputs['Assembly Type']
+    return assemblyType
+
+
+def getAssemblyLocation(assemblyType):
+    assemblyYamlFile = glob.glob(os.path.join(geo_dir, assemblyType + '.yaml'))
+
+    if not assemblyYamlFile:
+        raise AssertionError(
+            'No assembly type named {}. Change your assembly type to a previously created assembly, '
+            'or create a new assembly.'.format(assemblyType))
+    return assemblyYamlFile
+
 
 class FuelAssembly(Assembly):
 
+    def __init__(self, assemblyInformation):
+        super().__init__(assemblyInformation)
+        self.assemblyUniverse = 0
+        self.pinUniverse = 0
+        self.fuel = None
+        self.bond = None
+        self.clad = None
+        self.coolant = None
+        self.blankUniverse = None
+        self.blankCoolant = None
+        self.latticeUniverse = None
+        self.fuelUniverse = None
+        self.innerDuct = None
+        self.duct = None
+        self.plenum = None
+        self.upperReflector = None
+        self.lowerReflector = None
+        self.upperSodium = None
+        self.lowerSodium = None
+        self.assemblyShell = None
+        self.upperReflectorPosition = []
+        self.lowerReflectorPosition = []
+        self.everythingElse = None
+
+        self.position = []
+        self.cladOD = 0
+        self.cladID = 0
+        self.fuelDiameter = 0
+        self.fuelPitch = 0
+        self.wireWrapDiameter = 0
+        self.fuelHeight = 0
+        self.fuelMaterial = ''
+        self.cladMaterial = ''
+        self.bondMaterial = ''
+
+        self.plenumHeight = 0
+        self.plenumMaterial = ''
+        self.plenumPosition = []
+
+        self.reflectorHeight = 0
+        self.reflectorMaterial = ''
+
+        assemblyYamlFile = getAssemblyLocation(self.assemblyDesignation)
+        self.setAssembly(assemblyYamlFile)
+        self.getAssembly()
 
     def setAssembly(self, assemblyYamlFile):
         with open(assemblyYamlFile[0], "r") as mat_file:

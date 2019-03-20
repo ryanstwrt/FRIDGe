@@ -23,7 +23,7 @@ class GlobalVariables(object):
         self.clad_smear = False
         self.bond_smear = False
         self.void_per = 0
-        self.assembly_type = ''
+        self.assembly_name = ''
         self.number_generations = 0
         self.number_skipped_generations = 0
         self.number_particles_generation = 0
@@ -43,7 +43,7 @@ class GlobalVariables(object):
         with open(assembly_file[0], "r") as file:
             inputs = yaml.safe_load(file)
 
-        self.assembly_type = inputs["Assembly Type"]
+        self.assembly_name = inputs["Assembly Name"]
         self.number_assemblies = int(inputs["Number of Assemblies"]) \
             if 'Number of Assemblies' in inputs else 1
         self.na_voiding = bool(inputs["Na Voiding"]) \

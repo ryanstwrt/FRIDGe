@@ -1,5 +1,5 @@
 from FRIDGe.fridge.driver import data_maker as dm
-import FRIDGe.fridge.driver.Assembly as assembly
+from FRIDGe.fridge.driver import Assembly
 from FRIDGe.fridge.utilities import mcnp_input_deck_maker as midm
 from FRIDGe.fridge.driver import global_variables as gb
 
@@ -19,6 +19,7 @@ from FRIDGe.fridge.driver import global_variables as gb
 # TODO Add more documentation
 # TODO create atom number check for smear
 # TODO convert failure message to Assert Error messages
+# TODO Split the Assembly Function and Pull out the MCNP Card creators
 
 print('Welcome to FRIDGe, the Fast Reactor Input Deck Generator!')
 file_name = 'A271_Assembly' #input('Please input the file name you would like to model: ')
@@ -26,8 +27,12 @@ file_name = 'A271_Assembly' #input('Please input the file name you would like to
 global_vars = gb.GlobalVariables()
 global_vars.read_input_file(file_name)
 
-assembly = assembly.FuelAssembly([global_vars.assembly_type, '01A01', global_vars])
-
+assemblyInfo = [global_vars.assembly_name, '01A01', global_vars]
+assemblyLocation = Assembly.getAssemblyLocation(global_vars.assembly_name)
+assemblyType = Assembly.assemblyTypeReader(assemblyLocation)
+if assemblyType == 'Fuel':
+    assembly = Assembly.FuelAssembly(assemblyInfo)
+print(assembly.fuel)
 k_card = dm.make_mcnp_problem(global_vars)
 
 midm.mcnp_input_deck_maker(assembly, k_card, global_vars)

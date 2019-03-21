@@ -13,7 +13,6 @@ def getRCC(radius, height, position, surfaceNum, comment):
 def getRHP(pitch, height, position, surfaceNum, comment):
     surfaceCard = "{} RHP {} {} {} 0 0 {} {} 0 0 {}".format(surfaceNum, position[0], position[1], round(position[2], 5),
                                                             round(height, 5), round(pitch, 5), comment)
-    print(surfaceCard)
     assert (len(surfaceCard) - len(comment)) < 80
     return surfaceCard
 
@@ -21,7 +20,6 @@ def getRHP(pitch, height, position, surfaceNum, comment):
 def getRHPRotated(pitch, height, position, surfaceNum, comment):
     surfaceCard = "{} RHP {} {} {} 0 0 {} 0 {} 0 {}".format(surfaceNum, position[0], position[1], round(position[2], 5),
                                                             round(height, 5), round(pitch, 5), comment)
-    print(surfaceCard)
     assert (len(surfaceCard) - len(comment)) < 80
     return surfaceCard
 

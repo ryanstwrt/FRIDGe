@@ -14,5 +14,5 @@ Number of Particles per Generation: 1e10
 kopts: True
 ksens: True
 Output File Name: Test
-Input Type: Core
+Input Type: Single
 Random Variable: True

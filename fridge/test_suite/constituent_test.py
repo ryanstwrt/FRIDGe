@@ -1,6 +1,7 @@
 from FRIDGe.fridge.Constituent import Constituent
 from FRIDGe.fridge.Constituent import BlankCoolant
 from FRIDGe.fridge.Constituent import Duct
+from FRIDGe.fridge.Constituent import EveryThingElse
 from FRIDGe.fridge.utilities import materialReader as mr
 
 constituentInfo = [[0, 1, 2, 'LiquidNa', '82c', [1, 1, 1], 3], []]
@@ -52,3 +53,11 @@ def test_duct():
     assert c.innerSurfaceNum == 4
     assert cellCard == c.cellCard
     assert surfaceCard == c.surfaceCard
+
+
+def test_EverythingElse():
+    everyThingElseInfo = [1, 2]
+    c = EveryThingElse.EveryThingElse(everyThingElseInfo)
+    cellCard = '1 0 2 imp:n=0 $Assembly: Outside Assembly'
+    assert c.assemblySurfaceNum == 2
+    assert cellCard == c.cellCard

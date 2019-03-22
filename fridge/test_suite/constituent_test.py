@@ -2,6 +2,11 @@ from FRIDGe.fridge.Constituent import Constituent
 from FRIDGe.fridge.Constituent import BlankCoolant
 from FRIDGe.fridge.Constituent import Duct
 from FRIDGe.fridge.Constituent import EveryThingElse
+from FRIDGe.fridge.Constituent import FuelBond
+from FRIDGe.fridge.Constituent import FuelClad
+from FRIDGe.fridge.Constituent import FuelCoolant
+from FRIDGe.fridge.Constituent import FuelPin
+from FRIDGe.fridge.Constituent import FuelUniverse
 from FRIDGe.fridge.utilities import materialReader as mr
 
 constituentInfo = [[0, 1, 2, 'LiquidNa', '82c', [1, 1, 1], 3], []]
@@ -10,8 +15,8 @@ constituentInfo = [[0, 1, 2, 'LiquidNa', '82c', [1, 1, 1], 3], []]
 def test_constituent():
     c = Constituent.Constituent(constituentInfo)
     assert c.universe == 0
-    assert c.surfaceNum == 1
-    assert c.cellNum == 2
+    assert c.surfaceNum == 2
+    assert c.cellNum == 1
     assert c.materialXCLibrary == '82c'
     assert c.position == [1, 1, 1]
     assert c.materialNum == 3
@@ -34,8 +39,8 @@ def test_constituent_getMaterialCard():
 def test_blankCoolant():
     blankCoolantInfo = [[0, 1, 2, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [0.1, 0.2, 4]]
     c = BlankCoolant.BlankCoolant(blankCoolantInfo)
-    cellCard = '2 3 0.927 -4 u=0 imp:n=1  $Pin: Blank Pin Coolant'
-    surfaceCard = '1 RHP 1.0 1.0 1.0 0 0 0.202 0 0.05 0 $Pin: Blank Pin - 1% higher than fuel'
+    cellCard = '1 3 0.927 -4 u=0 imp:n=1  $Pin: Blank Pin Coolant'
+    surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 0.202 0 0.05 0 $Pin: Blank Pin - 1% higher than fuel'
     assert c.pitch == 0.1 / 2
     assert c.height == 0.2 * 1.01
     assert c.blankCoolantSurfaceNum == 4
@@ -46,8 +51,8 @@ def test_blankCoolant():
 def test_duct():
     ductInfo = [[0, 1, 2, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [0.1, 0.2, 4]]
     c = Duct.Duct(ductInfo)
-    cellCard = '2 3 0.927 4 -1 u=0 imp:n=1  $Assembly: Assembly Duct'
-    surfaceCard = '1 RHP 1.0 1.0 1.0 0 0 0.202 0.1 0 0 $Assembly:Duct Outer Surface'
+    cellCard = '1 3 0.927 4 -2 u=0 imp:n=1  $Assembly: Assembly Duct'
+    surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 0.202 0.1 0 0 $Assembly:Duct Outer Surface'
     assert c.flat2flat == 0.1
     assert c.height == 0.202
     assert c.innerSurfaceNum == 4
@@ -61,3 +66,37 @@ def test_EverythingElse():
     cellCard = '1 0 2 imp:n=0 $Assembly: Outside Assembly'
     assert c.assemblySurfaceNum == 2
     assert cellCard == c.cellCard
+
+
+def test_fuelBond():
+    fuelBondInfo = [[0, 1, 2, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [0.1, 0.2, 4]]
+    c = FuelBond.FuelBond(fuelBondInfo)
+    cellCard = '1 3 0.927 4 -2 u=0 imp:n=1  $Pin: Bond'
+    surfaceCard = '2 RCC 1.0 1.0 1.0 0 0 0.202 0.05 $Pin: Bond - 1% higher than fuel'
+    assert c.radius == 0.1 / 2
+    assert c.height == 0.2 * 1.01
+    assert cellCard == c.cellCard
+    assert surfaceCard == c.surfaceCard
+
+
+def test_fuelClad():
+    fuelCladInfo = [[0, 1, 2, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [0.1, 0.2, 4]]
+    c = FuelClad.FuelClad(fuelCladInfo)
+    cellCard = '1 3 0.927 4 -2 u=0 imp:n=1  $Pin: Clad'
+    surfaceCard = '2 RCC 1.0 1.0 1.0 0 0 0.202 0.05 $Pin: Clad - 1% higher than fuel'
+    assert c.radius == 0.1 / 2
+    assert c.height == 0.2 * 1.01
+    assert cellCard == c.cellCard
+    assert surfaceCard == c.surfaceCard
+
+
+def test_fuelCoolant():
+    fuelCoolantInfo = [[0, 1, 2, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [0.1, 0.2, 4]]
+    c = FuelCoolant.FuelCoolant(fuelCoolantInfo)
+    cellCard = '1 3 0.927 4 u=0 imp:n=1  $Pin: Wirewrap + Coolant'
+    surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 0.202 0 0.1 0 $Pin: Coolant - 1% higher than fuel'
+    assert c.pitch == 0.1
+    assert c.height == 0.2 * 1.01
+    assert cellCard == c.cellCard
+    assert surfaceCard == c.surfaceCard
+

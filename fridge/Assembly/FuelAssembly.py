@@ -117,15 +117,15 @@ class FuelAssembly(Assembly.Assembly):
         self.upperReflectorPosition = copy.deepcopy(self.position)
         self.upperReflectorPosition[2] = self.fuelHeight * 1.01 + self.plenumHeight
         self.upperReflector = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                              self.reflectorMaterial, '82C', self.position, self.materialNum],
-                                             [self.ductOuterFlatToFlatUniverse, self.reflectorHeight],
-                                             'upper Reflector'])
+                                              self.reflectorMaterial, '82C', self.upperReflectorPosition,
+                                              self.materialNum], [self.ductOuterFlatToFlatUniverse,
+                                              self.reflectorHeight], 'upper Reflector'])
 
         self.updateIdentifiers(False)
         self.lowerReflectorPosition = self.position
         self.lowerReflectorPosition[2] = -self.reflectorHeight
         self.lowerReflector = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                              self.reflectorMaterial, '82C', self.position, self.materialNum],
+                                              self.reflectorMaterial, '82C', self.lowerReflectorPosition, self.materialNum],
                                              [self.ductOuterFlatToFlatUniverse, self.reflectorHeight],
                                              'lower Reflector'])
 

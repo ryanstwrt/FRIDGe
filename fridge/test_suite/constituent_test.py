@@ -1,5 +1,6 @@
 from FRIDGe.fridge.Constituent import Constituent
 from FRIDGe.fridge.Constituent import BlankCoolant
+from FRIDGe.fridge.Constituent import Duct
 from FRIDGe.fridge.utilities import materialReader as mr
 
 constituentInfo = [[0, 1, 2, 'LiquidNa', '82c', [1, 1, 1], 3], []]
@@ -30,12 +31,24 @@ def test_constituent_getMaterialCard():
 
 
 def test_blankCoolant():
-    blankCoolantInfo = [[0, 1, 2, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [0.1, 0.2, 3]]
+    blankCoolantInfo = [[0, 1, 2, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [0.1, 0.2, 4]]
     c = BlankCoolant.BlankCoolant(blankCoolantInfo)
-    cellCard = '2 3 0.927 -3 u=0 imp:n=1  $Pin: Blank Pin Coolant'
+    cellCard = '2 3 0.927 -4 u=0 imp:n=1  $Pin: Blank Pin Coolant'
     surfaceCard = '1 RHP 1.0 1.0 1.0 0 0 0.202 0 0.05 0 $Pin: Blank Pin - 1% higher than fuel'
     assert c.pitch == 0.1 / 2
     assert c.height == 0.2 * 1.01
-    assert c.blankCoolantSurfaceNum == 3
+    assert c.blankCoolantSurfaceNum == 4
+    assert cellCard == c.cellCard
+    assert surfaceCard == c.surfaceCard
+
+
+def test_duct():
+    ductInfo = [[0, 1, 2, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [0.1, 0.2, 4]]
+    c = Duct.Duct(ductInfo)
+    cellCard = '2 3 0.927 4 -1 u=0 imp:n=1  $Assembly: Assembly Duct'
+    surfaceCard = '1 RHP 1.0 1.0 1.0 0 0 0.202 0.1 0 0 $Assembly:Duct Outer Surface'
+    assert c.flat2flat == 0.1
+    assert c.height == 0.202
+    assert c.innerSurfaceNum == 4
     assert cellCard == c.cellCard
     assert surfaceCard == c.surfaceCard

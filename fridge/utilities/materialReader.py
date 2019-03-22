@@ -9,6 +9,7 @@ cur_dir = os.path.dirname(__file__)
 element_dir = os.path.join(cur_dir, '../data/CotN/')
 material_dir = os.path.join(cur_dir, '../data/materials/')
 
+
 class Material(object):
 
     def __init__(self):
@@ -19,6 +20,14 @@ class Material(object):
         self.atomDensity = 0.0
         self.elementDict = {}
         self.name = None
+        self.elements = []
+        self.zaids = []
+        self.weightFraction = []
+        self.density = 0
+        self.linearCoeffExpansion = 0
+        self.enrichmentZaids = []
+        self.enrichmentIsotopes = []
+        self.enrichmentVector = []
 
     def setMaterial(self, material):
         self.name = material
@@ -29,7 +38,8 @@ class Material(object):
         materialFile = glob.glob(os.path.join(material_dir, material + '.yaml'))
 
         if not materialFile:
-            raise AssertionError("Material {}, not found in material database. Please create material file for {}.".format(material, material))
+            raise AssertionError("Material {}, not found in material database. Please create material file for {}."
+                                 .format(material, material))
 
         with open(materialFile[0], "r") as file:
             inputs = yaml.load(file)
@@ -56,7 +66,8 @@ class Material(object):
                 self.elementDict[self.zaids[num]] = Element(element)
             self.adjustEnrichments()
             self.getWeightPercet()
-            self.atomDensity, self.atomPercent = getAtomPercent(self.weightPercent, self.density, self.elementDict, self.name)
+            self.atomDensity, self.atomPercent = getAtomPercent(self.weightPercent, self.density,
+                                                                self.elementDict, self.name)
 
     def adjustEnrichments(self):
         for elementEnrichement, zaidVector in self.enrichmentDict.items():
@@ -74,6 +85,7 @@ class Material(object):
             assert np.allclose(weightTotal, 1.0)
         except AssertionError:
             raise AssertionError("Weight percent does not sum to 1.0 for {}".format(self.name))
+
 
 def getAtomPercent(weightPercents, density, elementDict, name):
     atomDensities = {}
@@ -96,13 +108,15 @@ def getAtomPercent(weightPercents, density, elementDict, name):
         raise AssertionError("Atom percent does not sum to 1.0 for {}".format(name))
     return atomDensity, atomPercent
 
+
 class Element(object):
 
     def __init__(self, element):
         elementFile = glob.glob(os.path.join(element_dir, element + '.yaml'))
 
         if not elementFile:
-            raise AssertionError("Element {}, not found in Chart of the Nuclide Database. Please create element file for {}.".format(element, element))
+            raise AssertionError("Element {}, not found in Chart of the Nuclide Database. "
+                                 "Please create element file for {}.".format(element, element))
 
         with open(elementFile[0], "r") as file:
             inputs = yaml.load(file)

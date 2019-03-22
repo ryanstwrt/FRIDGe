@@ -42,7 +42,7 @@ class Assembly(object):
         self.cellNum += 1
         self.surfaceNum += 1
         self.materialNum += 1
-        if universeTest == True:
+        if universeTest:
             self.universe += 1
 
 

@@ -58,6 +58,3 @@ def test_global_variables_read_assembly():
     assert global_variables.ksens is True
     assert global_variables.output_name == 'Test'
     assert global_variables.input_type == 'Single'
-
-test_global_variables_default()
-test_global_variables_read_assembly()

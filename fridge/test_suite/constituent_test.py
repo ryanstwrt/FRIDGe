@@ -7,6 +7,11 @@ from FRIDGe.fridge.Constituent import FuelClad
 from FRIDGe.fridge.Constituent import FuelCoolant
 from FRIDGe.fridge.Constituent import FuelPin
 from FRIDGe.fridge.Constituent import FuelUniverse
+from FRIDGe.fridge.Constituent import InnerDuct
+from FRIDGe.fridge.Constituent import LowerSodium
+from FRIDGe.fridge.Constituent import OuterShell
+from FRIDGe.fridge.Constituent import Smear
+from FRIDGe.fridge.Constituent import UpperSodium
 from FRIDGe.fridge.utilities import materialReader as mr
 
 constituentInfo = [[0, 1, 2, 'LiquidNa', '82c', [1, 1, 1], 3], []]
@@ -100,3 +105,27 @@ def test_fuelCoolant():
     assert cellCard == c.cellCard
     assert surfaceCard == c.surfaceCard
 
+
+def test_fuelPin():
+    fuelPinInfo = [[0, 1, 2, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [0.1, 0.2]]
+    c = FuelPin.FuelPin(fuelPinInfo)
+    cellCard = '1 3 0.927 -2 u=0 imp:n=1  $Pin: Fuel'
+    surfaceCard = '2 RCC 1.0 1.0 1.0 0 0 0.2 0.05 $Pin: Fuel'
+    assert c.radius == 0.1 / 2
+    assert c.height == 0.2
+    assert cellCard == c.cellCard
+    assert surfaceCard == c.surfaceCard
+
+
+def test_fuelUniverse():
+    fuelUniverseInfo = [1, 2, 7, 3, 4, 5]
+    c = FuelUniverse.FuelUniverse(fuelUniverseInfo)
+    print(c.cellCard)
+    cellCard = '3 0 -4 lat=2 u=5 imp:n=1\n     fill=-2:2 -2:2 0:0\n      ' \
+               '2 2 2 2 2 2 2 1 1 2 2 1 1 1 2 2 1 1 2 2 2 2 2 2 2'
+    assert cellCard == c.cellCard
+
+
+def test_innerDuct():
+    innerDuctInfo = []
+    c = InnerDuct.InnerDuct(innerDuctInfo)

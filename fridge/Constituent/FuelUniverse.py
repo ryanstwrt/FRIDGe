@@ -15,6 +15,7 @@ class FuelUniverse(Constituent.Constituent):
     def getCellCard(self):
         cellCard = "{} 0 -{} lat=2 u={} imp:n=1\n".format(self.cellNum, self.blankCellNum, self.latticeUniverse)
         rings = int(max(np.roots([1, -1, -2*(self.numPins-1)/6])))
+        print(rings)
         lattice_array = np.zeros((rings * 2 + 1, rings * 2 + 1))
         for x in range(rings * 2 + 1):
             for y in range(rings * 2 + 1):

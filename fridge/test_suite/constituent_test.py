@@ -120,12 +120,19 @@ def test_fuelPin():
 def test_fuelUniverse():
     fuelUniverseInfo = [1, 2, 7, 3, 4, 5]
     c = FuelUniverse.FuelUniverse(fuelUniverseInfo)
-    print(c.cellCard)
     cellCard = '3 0 -4 lat=2 u=5 imp:n=1\n     fill=-2:2 -2:2 0:0\n      ' \
                '2 2 2 2 2 2 2 1 1 2 2 1 1 1 2 2 1 1 2 2 2 2 2 2 2'
     assert cellCard == c.cellCard
 
 
 def test_innerDuct():
-    innerDuctInfo = []
+    innerDuctInfo = [[0, 1, 2, 'HT9', '82c', [1.0, 1.0, 1.0], 3], [4, 5, 0.1, 0.2]]
     c = InnerDuct.InnerDuct(innerDuctInfo)
+    cellCard = '1 0 -2 u=4 fill=5 imp:n=1 $Assembly: Inner Portion of Assembly'
+    surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 0.202 0.1 0 0 $Assembly: Duct Inner Surface'
+    assert c.assemblyUniverse == 4
+    assert c.latticeUniverse == 5
+    assert c.flat2flat == 0.1
+    assert c.height == 0.2 * 1.01
+    assert c.cellCard == cellCard
+    assert c.surfaceCard == surfaceCard

@@ -102,9 +102,9 @@ class FuelAssembly(Assembly.Assembly):
         self.fuelUniverse = Fueluniverse.FuelUniverse([self.pinUniverse, self.blankUniverse, self.pinsPerAssembly,
                                                        self.cellNum, self.blankCoolant.cellNum, self.latticeUniverse])
         self.updateIdentifiers(True)
-        self.innerDuct = Innerduct.InnerDuct([self.universe, self.cellNum, self.surfaceNum, self.assemblyUniverse,
-                                              self.latticeUniverse, self.position, self.ductInnerFlatToFlat,
-                                              self.fuelHeight])
+        self.innerDuct = Innerduct.InnerDuct([[self.universe, self.cellNum, self.surfaceNum, '', '82c', self.position,
+                                              self.materialNum], [self.assemblyUniverse, self.latticeUniverse,
+                                              self.ductInnerFlatToFlat, self.fuelHeight]])
         self.updateIdentifiers(False)
         self.duct = Outerduct.Duct([[self.assemblyUniverse, self.cellNum, self.surfaceNum, self.coolantMaterial, '82C',
                                      self.position, self.materialNum],
@@ -113,6 +113,7 @@ class FuelAssembly(Assembly.Assembly):
         self.plenum = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum, self.plenumMaterial, '82C',
                                       self.plenumPosition, self.materialNum],
                                      [self.ductOuterFlatToFlatUniverse, self.plenumHeight], 'plenum'])
+
         self.updateIdentifiers(False)
         self.upperReflectorPosition = copy.deepcopy(self.position)
         self.upperReflectorPosition[2] = self.fuelHeight * 1.01 + self.plenumHeight
@@ -125,9 +126,9 @@ class FuelAssembly(Assembly.Assembly):
         self.lowerReflectorPosition = self.position
         self.lowerReflectorPosition[2] = -self.reflectorHeight
         self.lowerReflector = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                              self.reflectorMaterial, '82C', self.lowerReflectorPosition, self.materialNum],
-                                             [self.ductOuterFlatToFlatUniverse, self.reflectorHeight],
-                                             'lower Reflector'])
+                                              self.reflectorMaterial, '82C', self.lowerReflectorPosition,
+                                              self.materialNum], [self.ductOuterFlatToFlatUniverse,
+                                              self.reflectorHeight], 'lower Reflector'])
 
         self.updateIdentifiers(False)
         self.assemblyShell = Outershell.OuterShell([[self.assemblyUniverse, self.cellNum, self.surfaceNum,

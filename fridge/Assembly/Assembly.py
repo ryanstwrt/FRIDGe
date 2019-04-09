@@ -21,7 +21,7 @@ class Assembly(object):
         self.assemblyPitch = 0
         self.ductInnerFlatToFlat = 0
         self.ductOuterFlatToFlat = 0
-        self.ductOuterFlatToFlat = 0
+        self.ductOuterFlatToFlatMCNPEdge = 0
         self.assemblyGap = 0
         self.assemblyHeight = 0
         self.coolantMaterial = ''

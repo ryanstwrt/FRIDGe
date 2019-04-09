@@ -19,12 +19,12 @@ class Material(object):
         self.atomPercent = {}
         self.atomDensity = 0.0
         self.elementDict = {}
-        self.name = None
+        self.name = ''
         self.elements = []
         self.zaids = []
         self.weightFraction = []
-        self.density = 0
-        self.linearCoeffExpansion = 0
+        self.density = 0.0
+        self.linearCoeffExpansion = 0.0
         self.enrichmentZaids = []
         self.enrichmentIsotopes = []
         self.enrichmentVector = []

@@ -10,10 +10,10 @@ class LowerSodium(Constituent.Constituent):
 
     def makeComponent(self, lowerSodiumInfo):
         outerShell = lowerSodiumInfo[0]
-        flatToFlatUniverse = lowerSodiumInfo[1]
+        flatToFlat = lowerSodiumInfo[1]
         surfaceComment = "$Assembly: Lower Sodium"
         cellComment = "$Assembly: Lower Sodium"
-        self.surfaceCard = mcnpCF.getRHP(flatToFlatUniverse, outerShell.excessNaHeight,
+        self.surfaceCard = mcnpCF.getRHP(flatToFlat, outerShell.excessNaHeight,
                                          outerShell.positionBottomAssembly, self.surfaceNum, surfaceComment)
         self.cellCard = mcnpCF.getSingleCell(self.cellNum, self.materialNum, self.material.density, self.surfaceNum,
                                              self.universe, cellComment)

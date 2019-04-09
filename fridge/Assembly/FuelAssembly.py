@@ -108,27 +108,27 @@ class FuelAssembly(Assembly.Assembly):
         self.updateIdentifiers(False)
         self.duct = Outerduct.Duct([[self.assemblyUniverse, self.cellNum, self.surfaceNum, self.coolantMaterial, '82C',
                                      self.position, self.materialNum],
-                                    [self.ductOuterFlatToFlatUniverse, self.fuelHeight, self.innerDuct.surfaceNum]])
+                                    [self.ductOuterFlatToFlat, self.fuelHeight, self.innerDuct.surfaceNum]])
         self.updateIdentifiers(False)
         self.plenum = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum, self.plenumMaterial, '82C',
                                       self.plenumPosition, self.materialNum],
-                                     [self.ductOuterFlatToFlatUniverse, self.plenumHeight], 'plenum'])
+                                     [self.ductOuterFlatToFlat, self.plenumHeight], 'plenum'])
 
         self.updateIdentifiers(False)
         self.upperReflectorPosition = copy.deepcopy(self.position)
         self.upperReflectorPosition[2] = self.fuelHeight * 1.01 + self.plenumHeight
         self.upperReflector = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                               self.reflectorMaterial, '82C', self.upperReflectorPosition,
-                                              self.materialNum], [self.ductOuterFlatToFlatUniverse,
-                                              self.reflectorHeight], 'upper Reflector'])
+                                              self.materialNum],
+                                             [self.ductOuterFlatToFlat, self.reflectorHeight], 'upper Reflector'])
 
         self.updateIdentifiers(False)
         self.lowerReflectorPosition = self.position
         self.lowerReflectorPosition[2] = -self.reflectorHeight
         self.lowerReflector = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                               self.reflectorMaterial, '82C', self.lowerReflectorPosition,
-                                              self.materialNum], [self.ductOuterFlatToFlatUniverse,
-                                              self.reflectorHeight], 'lower Reflector'])
+                                              self.materialNum],
+                                             [self.ductOuterFlatToFlat, self.reflectorHeight], 'lower Reflector'])
 
         self.updateIdentifiers(False)
         self.assemblyShell = Outershell.OuterShell([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
@@ -140,12 +140,12 @@ class FuelAssembly(Assembly.Assembly):
         self.updateIdentifiers(False)
         self.lowerSodium = Lowersodium.LowerSodium([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                                      self.coolantMaterial, '82C', self.position, self.materialNum],
-                                                    [self.assemblyShell, self.ductOuterFlatToFlatUniverse]])
+                                                    [self.assemblyShell, self.ductOuterFlatToFlat]])
 
         self.updateIdentifiers(False)
         self.upperSodium = Uppersodium.UpperSodium([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                                      self.coolantMaterial, '82C', self.position, self.materialNum],
-                                                    [self.assemblyShell, self.ductOuterFlatToFlatUniverse]])
+                                                    [self.assemblyShell, self.ductOuterFlatToFlat]])
 
         if 'Single' in self.globalVars.input_type:
             self.updateIdentifiers(False)

@@ -11,7 +11,7 @@ class Smear(Constituent.Constituent):
         self.material = unitInfo[0][3]
         self.position = unitInfo[0][5]
         self.materialNum = unitInfo[0][6]
-        self.smearName = unitInfo[2]
+        self.componentName = unitInfo[2]
         self.material = mcnpCF.getSmearedMaterial(self.material, self.materialXCLibrary, self.materialNum)
         self.makeComponent(unitInfo[1])
         self.getMaterialCard(self.material)
@@ -21,8 +21,8 @@ class Smear(Constituent.Constituent):
     def makeComponent(self, ductInfo):
         self.flat2flat = ductInfo[0]
         self.height = ductInfo[1]
-        surfaceComment = "$Assembly: {}".format(self.smearName)
-        cellComment = "$Assembly: {}".format(self.smearName)
+        surfaceComment = "$Assembly: {}".format(self.componentName)
+        cellComment = "$Assembly: {}".format(self.componentName)
         self.surfaceCard = mcnpCF.getRHP(self.flat2flat, self.height, self.position, self.surfaceNum, surfaceComment)
         self.cellCard = mcnpCF.getSingleCell(self.cellNum, self.materialNum, self.material.density,
                                              self.surfaceNum, self.universe, cellComment)

@@ -25,20 +25,20 @@ def getRHPRotated(pitch, height, position, surfaceNum, comment):
 
 
 def getSingleCell(cellNum, matNum, density, surfaceNum, universe, comment):
-    cellCard = "{} {} {} -{} u={} imp:n=1  {}".format(cellNum, matNum, round(density, 5), surfaceNum, universe, comment)
+    cellCard = "{} {} {} -{} u={} imp:n=1 {}".format(cellNum, matNum, round(density, 5), surfaceNum, universe, comment)
     assert (len(cellCard) - len(comment)) < 80
     return cellCard
 
 
 def getConcentricCell(cellNum, matNum, density, innerSurface, outerSurface, universe, comment):
-    cellCard = "{} {} {} {} -{} u={} imp:n=1  {}".format(cellNum, matNum, round(density, 5), innerSurface, outerSurface,
+    cellCard = "{} {} {} {} -{} u={} imp:n=1 {}".format(cellNum, matNum, round(density, 5), innerSurface, outerSurface,
                                                          universe, comment)
     assert (len(cellCard) - len(comment)) < 80
     return cellCard
 
 
 def getOutsideCell(cellNum, matNum, density, surfaceNum, universe, comment):
-    cellCard = "{} {} {} {} u={} imp:n=1  {}".format(cellNum, matNum, round(density, 5), surfaceNum, universe, comment)
+    cellCard = "{} {} {} {} u={} imp:n=1 {}".format(cellNum, matNum, round(density, 5), surfaceNum, universe, comment)
     assert (len(cellCard) - len(comment)) < 80
     return cellCard
 

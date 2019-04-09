@@ -10,7 +10,6 @@ class FuelPin(Constituent.Constituent):
         self.getMaterialCard(unitInfo[0][3])
         self.makeComponent(unitInfo[1])
 
-
     def makeComponent(self, pinInfo):
         self.radius = pinInfo[0]/2
         self.height = pinInfo[1]

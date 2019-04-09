@@ -85,7 +85,7 @@ def test_material_UO2():
     """
     Test material is from the Compendium of Material Composition Data for Radiation Transport Modeling: Revision 1
     The atom density form the Compendium lists 0.07335, however the calculated atom density is 0.073361. This may
-    be due to slighty variations in abundance definitions. The error is within 0.01% of the known atom density.
+    be due to slight variations in abundance definitions. The error is within 0.01% of the known atom density.
     """
     m = materialReader.Material()
     m.setMaterial('UO2')
@@ -106,4 +106,31 @@ def test_material_UO2():
 def test_material_HT9():
     """
     Test material is from the Compendium of Material Composition Data for Radiation Transport Modeling: Revision 1
+    The atom density form the Compendium lists 0.08598, however the calculated atom density is 0.08599. This may
+    be due to slight variations in abundance definitions. The error is within 0.01% of the known atom density.
     """
+    m = materialReader.Material()
+    m.setMaterial('HT9')
+    assert m.name == 'HT9'
+    assert m.elements == ['C', 'Si', 'P', 'S', 'V', 'Cr', 'Mn', 'Fe', 'Ni', 'Mo', 'W']
+    assert m.zaids == [6000, 14000, 15000, 16000, 23000, 24000, 25000, 26000, 28000, 42000, 74000]
+    assert m.weightFraction == [0.0020, 0.0040, 0.0003, 0.0002, 0.0030, 0.1150, 0.0060, 0.8495, 0.0050, 0.0100, 0.0050]
+    assert m.enrichmentZaids == []
+    assert m.enrichmentIsotopes == []
+    assert m.enrichmentVector == []
+    assert m.density == 7.874
+    assert np.allclose(m.atomDensity, 8.599e-2, 5)
+    atomPercentKnown = {6000: 9.183e-3,
+                        14028: 7.244e-3, 14029: 3.680e-4, 14030: 2.428e-4,
+                        15031: 5.34e-4,
+                        16032: 3.268e-4, 16033: 2.58e-6, 16034: 1.462e-5, 16036: 3.44e-8,
+                        23050: 8.12e-6, 23051: 3.240e-3,
+                        24050: 5.300e-3, 24052: 1.02198e-1, 24053: 1.15885e-2, 24054: 2.885e-3,
+                        25055: 0.006023,
+                        26054: 4.96533e-2, 26056: 7.7945e-1, 26057: 1.80009e-2, 26058: 2.3956e-3,
+                        28058: 3.19826e-3, 28060: 1.23196e-3, 28061: 5.35572e-5, 28062: 1.70772e-4, 28064: 4.34565e-5,
+                        42092: 8.35184e-4, 42094: 5.25942e-4, 42095: 9.10483e-4, 42096: 9.58192e-4, 42097: 5.51808e-4,
+                        42098: 1.40194e-3, 42100: 5.64454e-4,
+                        74180: 1.8e-6, 74182: 3.975e-4, 74183: 2.1465e-4, 74184: 4.596e-4, 74186: 4.2645e-4}
+    for k, v in atomPercentKnown.items():
+        assert np.allclose(m.atomPercent[k], v, 5)

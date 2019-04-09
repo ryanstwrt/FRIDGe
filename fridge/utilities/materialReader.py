@@ -49,12 +49,9 @@ class Material(object):
             self.weightFraction = inputs['Weight Fractions']
             self.density = inputs['Density']
             self.linearCoeffExpansion = inputs['Linear Coefficient of Expansion']
-            self.enrichmentZaids = inputs['Enrichment ZAIDs']
-            try:
-                self.enrichmentIsotopes = inputs['Enrichment Isotopes']
-                self.enrichmentVector = inputs['Enrichment Vector']
-            except KeyError:
-                pass
+            self.enrichmentZaids = inputs['Enrichment ZAIDs'] if 'Enrichment ZAIDs' in inputs else []
+            self.enrichmentIsotopes = inputs['Enrichment Isotopes'] if 'Enrichment Isotopes' in inputs else []
+            self.enrichmentVector = inputs['Enrichment Vector'] if 'Enrichment Vector' in inputs else []
 
     def getMaterial(self):
             for num, zaid in enumerate(self.enrichmentZaids):
@@ -65,16 +62,17 @@ class Material(object):
             for num, element in enumerate(self.elements):
                 self.elementDict[self.zaids[num]] = Element(element)
             self.adjustEnrichments()
-            self.getWeightPercet()
+            self.getWeightPercent()
             self.atomDensity, self.atomPercent = getAtomPercent(self.weightPercent, self.density,
                                                                 self.elementDict, self.name)
 
     def adjustEnrichments(self):
         for elementEnrichement, zaidVector in self.enrichmentDict.items():
             for zaid, enrichmentPercent in zaidVector.items():
+
                 self.elementDict[elementEnrichement].isotopeDict[zaid] = enrichmentPercent
 
-    def getWeightPercet(self):
+    def getWeightPercent(self):
         weightTotal = 0.0
         for zaidNum, zaid in enumerate(self.zaids):
             for isotope, isotopeFraction in self.elementDict[zaid].isotopeDict.items():
@@ -84,7 +82,7 @@ class Material(object):
         try:
             assert np.allclose(weightTotal, 1.0)
         except AssertionError:
-            raise AssertionError("Weight percent does not sum to 1.0 for {}".format(self.name))
+            print("Weight percent does not sum to 1.0 for {}. Check the material file.".format(self.name))
 
 
 def getAtomPercent(weightPercents, density, elementDict, name):
@@ -105,7 +103,7 @@ def getAtomPercent(weightPercents, density, elementDict, name):
     try:
         assert np.allclose(atomPercentTotal, 1.0)
     except AssertionError:
-        raise AssertionError("Atom percent does not sum to 1.0 for {}".format(name))
+        print("Atom percent does not sum to 1.0 for {}. Check the material File".format(name))
     return atomDensity, atomPercent
 
 

@@ -18,7 +18,8 @@ from FRIDGe.fridge.driver import global_variables as gb
 # TODO Finish adding tests
 # TODO Add more documentation
 # TODO create atom number check for smear
-# TODO convert failure message to Assert Error messages
+# TODO convert AssertionErrors to print to screen errors
+# TODO utilize an avogadro's number from somewhere
 
 print('Welcome to FRIDGe, the Fast Reactor Input Deck Generator!')
 file_name = 'A271_Assembly'

@@ -13,7 +13,7 @@ class Duct(Constituent.Constituent):
 
     def makeComponent(self, ductInfo):
         self.flat2flat = ductInfo[0]
-        self.height = ductInfo[1] * 1.01
+        self.height = ductInfo[1]
         self.innerSurfaceNum = ductInfo[2]
         surfaceComment = "$Assembly:Duct Outer Surface"
         cellComment = "$Assembly: Assembly Duct"

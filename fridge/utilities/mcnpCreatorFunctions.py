@@ -31,6 +31,13 @@ def getSingleCell(cellNum, matNum, density, surfaceNum, universe, comment):
 
 
 def getConcentricCell(cellNum, matNum, density, innerSurface, outerSurface, universe, comment):
+    listType = []
+    if type(innerSurface) == type(listType):
+        newInnerSurface = ''
+        for i in innerSurface:
+            newInnerSurface += ' {}'.format(i)
+        innerSurface = newInnerSurface
+
     cellCard = "{} {} {} {} -{} u={} imp:n=1 {}".format(cellNum, matNum, round(density, 5), innerSurface, outerSurface,
                                                          universe, comment)
     assert (len(cellCard) - len(comment)) < 80

@@ -14,8 +14,9 @@ def mcnp_input_deck_maker(assembly, k_card, global_vars):
     assembly_surface_title = "Surface Cards for Fuel Assembly: {}".format(assembly.assemblyPosition)
     file.write("c " + assembly_surface_title.center(77, "*") + "\n")
     units = [assembly.fuel, assembly.bond, assembly.clad, assembly.coolant, assembly.blankCoolant,
-             assembly.innerDuct, assembly.duct, assembly.plenum,
-             assembly.upperReflector, assembly.lowerReflector, assembly.lowerSodium, assembly.upperSodium, assembly.assemblyShell]
+             assembly.innerDuct, assembly.plenum,
+             assembly.upperReflector, assembly.lowerReflector, assembly.duct, assembly.assemblyShell,
+             assembly.lowerSodium, assembly.upperSodium]
     for surface in units:
         file.write(surface.surfaceCard + '\n')
     file.write("\n")
@@ -26,8 +27,8 @@ def mcnp_input_deck_maker(assembly, k_card, global_vars):
     file.write(k_card)
     file.write("c " + "Material Information".center(77, "*"))
     units = [assembly.fuel, assembly.bond, assembly.clad, assembly.coolant, assembly.blankCoolant,
-             assembly.duct, assembly.plenum,
-             assembly.upperReflector, assembly.lowerReflector, assembly.lowerSodium, assembly.upperSodium, assembly.assemblyShell]
+             assembly.plenum, assembly.upperReflector, assembly.lowerReflector,
+             assembly.duct, assembly.assemblyShell, assembly.lowerSodium, assembly.upperSodium]
     for material in units:
         file.write(material.materialCard)
     file.close()

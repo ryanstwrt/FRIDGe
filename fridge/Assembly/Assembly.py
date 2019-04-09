@@ -32,7 +32,7 @@ class Assembly(object):
         self.assemblyPitch = float(inputs['Assembly Pitch'])
         self.ductInnerFlatToFlat = float(inputs['Duct Inside Flat to Flat'])
         self.ductOuterFlatToFlat = self.ductInnerFlatToFlat + 2*float(inputs['Duct Thickness'])
-        self.ductOuterFlatToFlat = self.ductOuterFlatToFlat * 1.00005
+        self.ductOuterFlatToFlatMCNPEdge = self.ductOuterFlatToFlat * 1.00005
         self.assemblyGap = float(inputs['Assembly Gap'])
         self.assemblyHeight = float(inputs['Assembly Height'])
         self.coolantMaterial = inputs['Coolant']

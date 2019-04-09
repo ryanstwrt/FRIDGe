@@ -57,9 +57,9 @@ def test_duct():
     ductInfo = [[0, 1, 2, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [0.1, 0.2, 4]]
     c = Duct.Duct(ductInfo)
     cellCard = '1 3 0.927 4 -2 u=0 imp:n=1 $Assembly: Assembly Duct'
-    surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 0.202 0.1 0 0 $Assembly:Duct Outer Surface'
+    surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 0.2 0.1 0 0 $Assembly:Duct Outer Surface'
     assert c.flat2flat == 0.1
-    assert c.height == 0.202
+    assert c.height == 0.20
     assert c.innerSurfaceNum == 4
     assert cellCard == c.cellCard
     assert surfaceCard == c.surfaceCard

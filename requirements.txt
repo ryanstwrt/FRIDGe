@@ -3,7 +3,7 @@
 #
 ##### Requirements without Version Specifiers #####
 pytest
-pytest-coveralls
+pytest_cov
 numpy
 pandas
 PyYAML

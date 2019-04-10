@@ -17,7 +17,7 @@ setup(
         'Intended Audience :: Reactor Designer',
         'Intended Audience :: Science/Research',
         'Natural Language :: English',
-        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.6',
     ],
     license='BSD-3-Clause',
     python_requires='>=3',

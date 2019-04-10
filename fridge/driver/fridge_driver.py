@@ -22,19 +22,21 @@ import FRIDGe.fridge.driver.global_variables as gb
 # TODO convert AssertionErrors to print to screen errors
 # TODO utilize an avogadro's number from somewhere
 
-print('Welcome to FRIDGe, the Fast Reactor Input Deck Generator!')
-file_name = 'A271_Assembly'
-# input('Please input the file name you would like to model: ')
 
-global_vars = gb.GlobalVariables()
-global_vars.read_input_file(file_name)
-print('Creating your Assembly/Core... Please Wait')
-assemblyInfo = [global_vars.assembly_name, '01A01', global_vars]
-assemblyLocation = Assembly.getAssemblyLocation(global_vars.assembly_name)
-assemblyType = Assembly.assemblyTypeReader(assemblyLocation)
-assembly = None
-if assemblyType == 'Fuel':
-    assembly = FuelAssembly.FuelAssembly(assemblyInfo)
-k_card = dm.make_mcnp_problem(global_vars)
-print('FRIDGe has finished creating your Assembly/Core')
-midm.mcnp_input_deck_maker(assembly, k_card, global_vars)
+def main(file_name):
+    print('Welcome to FRIDGe, the Fast Reactor Input Deck Generator!')
+    file_name = 'A271_Assembly'
+    # input('Please input the file name you would like to model: ')
+
+    global_vars = gb.GlobalVariables()
+    global_vars.read_input_file(file_name)
+    print('Creating your Assembly/Core... Please Wait')
+    assemblyInfo = [global_vars.assembly_name, '01A01', global_vars]
+    assemblyLocation = Assembly.getAssemblyLocation(global_vars.assembly_name)
+    assemblyType = Assembly.assemblyTypeReader(assemblyLocation)
+    assembly = None
+    if assemblyType == 'Fuel':
+        assembly = FuelAssembly.FuelAssembly(assemblyInfo)
+    k_card = dm.make_mcnp_problem(global_vars)
+    print('FRIDGe has finished creating your Assembly/Core')
+    midm.mcnp_input_deck_maker(assembly, k_card, global_vars)

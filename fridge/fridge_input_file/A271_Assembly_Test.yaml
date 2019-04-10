@@ -2,12 +2,12 @@ Assembly Name: A271_Test
 Number of Assemblies: 1
 Na Voiding: True
 Void Percent: 0.5
-Temperature: 600
+Temperature: 1200
 Temperature Adjusted Density: True
 Temperature Adjusted Volume: True
 Smear Clad: True
 Smear Bond: True
-XC Library: ENDFVII.1
+XC Library: JEFF3.1
 Number of Generations: 2300
 Number of Skipped Generations: 300
 Number of Particles per Generation: 1e10

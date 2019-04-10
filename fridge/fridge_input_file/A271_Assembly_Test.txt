@@ -12,5 +12,5 @@ Number of Generations: 230
 Number of Skipped Generations: 30
 Number of Particles Per Generation: 1e6
 kopts: True
-Output File Name: 30U
+Output File Name: 30U_Test
 Input Type: Single

@@ -87,3 +87,9 @@ def test_fuel_assembly():
 
     assert a.reflectorHeight == 60
     assert a.reflectorMaterial == {'LiquidNa': 0.20, 'HT9': 0.80}
+
+
+def test_getAssemblyLocation():
+    assembly_info1 = ['Nonsense', '01A01', global_vars]
+    a = Assembly.Assembly(assembly_info1)
+    assert a.assemblyType == ''

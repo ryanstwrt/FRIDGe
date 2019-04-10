@@ -99,11 +99,6 @@ def getAtomPercent(weightPercents, density, elementDict, name):
 
     for zaid, atomicDensity in atomDensities.items():
         atomPercent[zaid] = atomicDensity / atomDensity
-    atomPercentTotal = sum(atomPercent.values())
-    try:
-        assert np.allclose(atomPercentTotal, 1.0)
-    except AssertionError:
-        print("Atom percent does not sum to 1.0 for {}. Check the material File".format(name))
     return atomDensity, atomPercent
 
 

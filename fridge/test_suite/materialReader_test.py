@@ -3,11 +3,11 @@ import numpy as np
 
 
 def test_element_Unknown():
+    e = 1.0
     try:
         e = materialReader.Element('Unknown')
-        assert e.error == 'Element Unknown, not found in Chart of the Nuclide Database. Please create element file for Unknown'
     except AssertionError:
-        pass
+        assert e == 1.0
 
 
 def test_material_ImproperSum():
@@ -147,3 +147,17 @@ def test_material_HT9():
                         74180: 1.8e-6, 74182: 3.975e-4, 74183: 2.1465e-4, 74184: 4.596e-4, 74186: 4.2645e-4}
     for k, v in atomPercentKnown.items():
         assert np.allclose(m.atomPercent[k], v, 5)
+
+
+def test_material_BadWtPer():
+    m = materialReader.Material()
+    m.setMaterial('BadMaterial')
+    assert m.weightPercent != 1.0
+
+
+def test_material_NoMaterial():
+    m = materialReader.Material()
+    try:
+        m.setMaterial('NoMaterial')
+    except AssertionError:
+        m.density = 0.0

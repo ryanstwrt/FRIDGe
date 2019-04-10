@@ -19,6 +19,7 @@ constituentInfo = [[0, 1, 2, 'LiquidNa', '82c', [1, 1, 1], 3], []]
 
 def test_constituent():
     c = Constituent.Constituent(constituentInfo)
+    c.makeComponent([0])
     assert c.universe == 0
     assert c.surfaceNum == 2
     assert c.cellNum == 1

@@ -1,5 +1,5 @@
 def mcnp_input_deck_maker(assembly, k_card, global_vars):
-    file = open("../mcnp_input_files/" + global_vars.output_name + ".i", "w")
+    file = open("FRIDGe/fridge/mcnp_input_files/" + global_vars.output_name + ".i", "w")
     file.write("Input deck created by FRIDGe\n")
     file.write("c " + "Title".center(77, "*") + "\n")
     assembly_cell_title = "Cell Cards for Assembly: {}".format(assembly.assemblyPosition)

@@ -103,6 +103,7 @@ def test_material_UO2():
     for k, v in atomPercentKnown.items():
         assert np.allclose(m.atomPercent[k], v, 5)
 
+
 def test_material_HT9():
     """
     Test material is from the Compendium of Material Composition Data for Radiation Transport Modeling: Revision 1

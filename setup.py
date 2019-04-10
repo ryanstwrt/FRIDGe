@@ -6,7 +6,9 @@ except ImportError:
 setup(
     name='FRIDGe',
     version='0.1.0',
-    description='Fast Reactor Input Deck Generator (FRIDGe) is a general purpose fast reactor MCNP input deck creator. It will read in material/geometry files and create a fast reactor subassembly. Future iterations will be able to incoporate physical phenomena, smears, and full core creation.',
+    description='Fast Reactor Input Deck Generator (FRIDGe) is a general purpose fast reactor MCNP input deck creator. '
+                'It will read in material/geometry files and create a fast reactor subassembly. Future iterations will '
+                'be able to incoporate physical phenomena, smears, and full core creation.',
     author='Ryan Stewart',
     author_email='stewryan@oregonstat.edu',
     url='https://github.com/ryanstwrt/FRIDGe',
@@ -21,19 +23,21 @@ setup(
     python_requires='>=3',
     zip_safe=False,
 
-    packages=['fridge', 'frdige.driver', 'fridge.input_readers', 'fridge.test_suite', 'fridge.utilities'],
+    packages=['fridge', 'frdige.driver', 'fridge.Assembly', 'fridge.Constituent', 'fridge.test_suite',
+              'fridge.utilities'],
     package_dir={
         'fridge': 'fridge',
         'fridge.driver': 'fridge/driver',
-        'fridge.input_readers': 'fridge/input_readers',
         'fridge.test_suite': 'fridge/test_suite',
-        'fridge.utilities':  'fridge/utilities'
+        'fridge.utilities':  'fridge/utilities',
+        'fridge.Assembly': 'fridge/Assembly',
+        'fridge.Constituent': 'frdige/Constituent'
         },
 
     include_package_data = True,
     package_data={
-        'fridge': ['CotN/*.txt'],
-        'fridge': ['assembly/*.txt'],
-        'fridge': ['materials/*.txt'],
+        'fridge': ['data/CotN/*.txt'],
+        'fridge': ['data/assembly/*.txt'],
+        'fridge': ['data/materials/*.txt'],
     },
 )

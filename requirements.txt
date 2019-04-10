@@ -3,7 +3,6 @@
 #
 ##### Requirements without Version Specifiers #####
 pytest
-pytest_cov
 numpy
 pandas
 PyYAML

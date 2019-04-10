@@ -1,4 +1,4 @@
-from FRIDGe.fridge.utilities import mcnpCreatorFunctions as MCF
+import FRIDGe.fridge.utilities.mcnpCreatorFunctions as MCF
 import numpy as np
 
 

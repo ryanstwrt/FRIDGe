@@ -1,4 +1,4 @@
-from FRIDGe.fridge.Assembly import Assembly
+import FRIDGe.fridge.Assembly.Assembly as Assembly
 import FRIDGe.fridge.Constituent.FuelPin as Fuelpin
 import FRIDGe.fridge.Constituent.FuelBond as Fuelbond
 import FRIDGe.fridge.Constituent.FuelClad as Fuelclad

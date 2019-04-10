@@ -70,7 +70,7 @@ def getEverythingElseCard(cellNum, surfaceNum, comment):
 
 
 def getMaterialCard(material, xc, matNum):
-    materialCard = "\nc Material: {}; Density: {} atoms/bn*cm \nm{}".format(material.name, material.density, matNum)
+    materialCard = "\nc Material: {}; Density: {} atoms/bn*cm \nm{}".format(material.name, round(material.atomDensity, 5), matNum)
     i = 0
     for isotope, atomDensity in material.atomPercent.items():
         if i == 3:
@@ -108,7 +108,7 @@ def getSmearedMaterial(materials, xc, matNum):
     newMaterial = materialReader.Material()
     newMaterial.name = "{}".format([val for val in materials])
     newMaterial.atomPercent = smearMaterial
-    newMaterial.density = sum(smearMaterial.values())
+    newMaterial.atomDensity = sum(smearMaterial.values())
     return newMaterial
 
 

@@ -1,4 +1,4 @@
-from FRIDGe.fridge.Constituent import Constituent
+import FRIDGe.fridge.Constituent.Constituent as Constituent
 import FRIDGe.fridge.utilities.mcnpCreatorFunctions as mcnpCF
 
 
@@ -18,5 +18,5 @@ class FuelClad(Constituent.Constituent):
         surfaceComment = "$Pin: Clad - 1% higher than fuel"
         cellComment = "$Pin: Clad"
         self.surfaceCard = mcnpCF.getRCC(self.radius, self.height, self.position, self.surfaceNum, surfaceComment)
-        self.cellCard = mcnpCF.getConcentricCell(self.cellNum, self.materialNum, self.material.density,
+        self.cellCard = mcnpCF.getConcentricCell(self.cellNum, self.materialNum, self.material.atomDensity,
                                                  self.bondSurfaceNum, self.surfaceNum, self.universe, cellComment)

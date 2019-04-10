@@ -1,5 +1,6 @@
-from FRIDGe.fridge.Assembly import FuelAssembly, Assembly
-from FRIDGe.fridge.driver import global_variables as gb
+import FRIDGe.fridge.Assembly.FuelAssembly as FuelAssembly
+import FRIDGe.fridge.Assembly.Assembly as Assembly
+import FRIDGe.fridge.driver.global_variables as gb
 import numpy as np
 
 global_vars = gb.GlobalVariables()

@@ -1,5 +1,17 @@
-from FRIDGe.fridge.utilities import materialReader
+import FRIDGe.fridge.utilities.materialReader as materialReader
 import numpy as np
+
+
+def test_element_Unknown():
+    try:
+        e = materialReader.Element('Unknown')
+        assert e.error == 'Element Unknown, not found in Chart of the Nuclide Database. Please create element file for Unknown'
+    except AssertionError:
+        pass
+
+
+def test_material_ImproperSum():
+    pass
 
 
 def test_element_C():

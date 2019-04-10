@@ -1,4 +1,4 @@
-from FRIDGe.fridge.Constituent import Constituent
+import FRIDGe.fridge.Constituent.Constituent as Constituent
 import FRIDGe.fridge.utilities.mcnpCreatorFunctions as mcnpCF
 
 
@@ -18,5 +18,5 @@ class Duct(Constituent.Constituent):
         surfaceComment = "$Assembly:Duct Outer Surface"
         cellComment = "$Assembly: Assembly Duct"
         self.surfaceCard = mcnpCF.getRHP(self.flat2flat, self.height, self.position, self.surfaceNum, surfaceComment)
-        self.cellCard = mcnpCF.getConcentricCell(self.cellNum, self.materialNum, self.material.density,
+        self.cellCard = mcnpCF.getConcentricCell(self.cellNum, self.materialNum, self.material.atomDensity,
                                                  self.innerSurfaceNum, self.surfaceNum, self.universe, cellComment)

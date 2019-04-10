@@ -1,4 +1,4 @@
-from FRIDGe.fridge.Constituent import Constituent
+import FRIDGe.fridge.Constituent.Constituent as Constituent
 import FRIDGe.fridge.utilities.mcnpCreatorFunctions as mcnpCF
 
 
@@ -15,5 +15,5 @@ class UpperSodium(Constituent.Constituent):
         cellComment = "$Assembly: Upper Sodium"
         self.surfaceCard = mcnpCF.getRHP(flatToFlatUniverse, outerShell.excessNaHeight,
                                          outerShell.positionTopUpperReflector,  self.surfaceNum, surfaceComment)
-        self.cellCard = mcnpCF.getSingleCell(self.cellNum, self.materialNum, self.material.density, self.surfaceNum,
+        self.cellCard = mcnpCF.getSingleCell(self.cellNum, self.materialNum, self.material.atomDensity, self.surfaceNum,
                                              self.universe, cellComment)

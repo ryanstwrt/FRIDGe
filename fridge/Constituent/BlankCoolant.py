@@ -1,4 +1,4 @@
-from FRIDGe.fridge.Constituent import Constituent
+import FRIDGe.fridge.Constituent.Constituent as Constituent
 import FRIDGe.fridge.utilities.mcnpCreatorFunctions as mcnpCF
 
 
@@ -18,5 +18,5 @@ class BlankCoolant(Constituent.Constituent):
         surfaceComment = "$Pin: Blank Pin - 1% higher than fuel"
         cellComment = "$Pin: Blank Pin Coolant"
         self.surfaceCard = mcnpCF.getRHPRotated(self.pitch, self.height, self.position, self.surfaceNum, surfaceComment)
-        self.cellCard = mcnpCF.getSingleCell(self.cellNum, self.materialNum, self.material.density,
+        self.cellCard = mcnpCF.getSingleCell(self.cellNum, self.materialNum, self.material.atomDensity,
                                              self.blankCoolantSurfaceNum, self.universe, cellComment)

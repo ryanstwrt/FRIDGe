@@ -113,8 +113,9 @@ class Element(object):
         elementFile = glob.glob(os.path.join(element_dir, element + '.yaml'))
 
         if not elementFile:
-            raise AssertionError("Element {}, not found in Chart of the Nuclide Database. "
-                                 "Please create element file for {}.".format(element, element))
+            self.error = "Element {}, not found in Chart of the Nuclide Database. " \
+                                 "Please create element file for {}.".format(element, element)
+            raise AssertionError(self.error)
 
         with open(elementFile[0], "r") as file:
             inputs = yaml.load(file)

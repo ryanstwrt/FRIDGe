@@ -1,7 +1,8 @@
-from FRIDGe.fridge.driver import data_maker as dm
-from FRIDGe.fridge.Assembly import FuelAssembly, Assembly
-from FRIDGe.fridge.utilities import mcnp_input_deck_maker as midm
-from FRIDGe.fridge.driver import global_variables as gb
+import FRIDGe.fridge.driver.data_maker as dm
+import FRIDGe.fridge.Assembly.FuelAssembly as FuelAssembly
+import FRIDGe.fridge.Assembly.Assembly as Assembly
+import FRIDGe.fridge.utilities.mcnp_input_deck_maker as midm
+import FRIDGe.fridge.driver.global_variables as gb
 
 # TODO implement sodium voiding
 # TODO implement fuel radial expansion (density/volume change)

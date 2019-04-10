@@ -116,25 +116,29 @@ def getPosition(position, pitch, zPosition):
     ring = int(position[:2]) - 1
     hextant = position[2]
     assemblyNum = int(position[3:]) - 1
+    sqrtPitch = math.sqrt(pow(pitch, 2) - (pow(pitch/2, 2)))
     x = 0
     y = 0
 
     if hextant == 'A':
-        x = -ring * math.sqrt(pow(pitch, 2) + (pow(pitch/2, 2)))
-        y = ring * pow(pitch/2, 2) + pitch*assemblyNum
+        if ring == 0:
+            x = 0.0
+        else:
+            x = sqrtPitch * (-ring + assemblyNum)
+        y = 1/2 * pitch * (ring + assemblyNum)
     elif hextant == 'B':
-        x = pitch*assemblyNum
-        y = ring*pitch + pitch/2*assemblyNum
+        x = sqrtPitch * assemblyNum
+        y = pitch * (ring - 1/2 * assemblyNum)
     elif hextant == 'C':
-        x = ring * math.sqrt((pow(pitch, 2) - pow(pitch / 2, 2)))
-        y = ring * pow(pitch / 2, 2) - pitch * assemblyNum
+        x = ring * sqrtPitch
+        y = pitch * (1/2 * ring - assemblyNum)
     elif hextant == 'D':
-        x = -ring * math.sqrt(pow(pitch, 2) + (pow(pitch / 2, 2)))
-        y = -ring * pow(pitch / 2, 2) - pitch * assemblyNum
+        x = sqrtPitch * (ring - assemblyNum)
+        y = -1/2 * pitch * (ring + assemblyNum)
     elif hextant == 'E':
-        x = -pitch*assemblyNum
-        y = ring*pitch - pitch/2*assemblyNum
+        x = -sqrtPitch * assemblyNum
+        y = -pitch * (ring - 1/2 * assemblyNum)
     elif hextant == 'F':
-        x = -ring * math.sqrt((pow(pitch, 2)-pow(pitch/2, 2)))
-        y = ring * pow(pitch/2, 2)+pitch*assemblyNum
+        x = -ring * sqrtPitch
+        y = pitch * (-1/2 * ring + assemblyNum)
     return [x, y, zPosition]

@@ -1,6 +1,9 @@
 import FRIDGe.fridge.utilities.materialReader as materialReader
 from decimal import Decimal
 import math
+import os
+cur_dir = os.path.dirname(__file__)
+mcnp_dir = os.path.join(cur_dir, "../mcnp_input_files/")
 
 
 def getRCC(radius, height, position, surfaceNum, comment):
@@ -142,3 +145,53 @@ def getPosition(position, pitch, zPosition):
         x = -ring * sqrtPitch
         y = pitch * (-1/2 * ring + assemblyNum)
     return [x, y, zPosition]
+
+
+def mcnp_input_deck_maker(assembly, k_card, global_vars):
+    file = open(mcnp_dir + global_vars.output_name + ".i", "w")
+    file.write("Input deck created by FRIDGe\n")
+    file.write("c " + "Title".center(77, "*") + "\n")
+    assembly_cell_title = "Cell Cards for Assembly: {}".format(assembly.assemblyPosition)
+    file.write("c " + assembly_cell_title.center(77, "*") + " \n")
+    units = [assembly.fuel, assembly.bond, assembly.clad, assembly.coolant, assembly.blankCoolant,
+             assembly.fuelUniverse, assembly.innerDuct, assembly.duct, assembly.plenum,
+             assembly.upperReflector, assembly.lowerReflector, assembly.lowerSodium, assembly.upperSodium,
+             assembly.assemblyShell, assembly.everythingElse]
+    for cell in units:
+        file.write(cell.cellCard + '\n')
+    file.write("\n")
+    assembly_surface_title = "Surface Cards for Fuel Assembly: {}".format(assembly.assemblyPosition)
+    file.write("c " + assembly_surface_title.center(77, "*") + "\n")
+    units = [assembly.fuel, assembly.bond, assembly.clad, assembly.coolant, assembly.blankCoolant,
+             assembly.innerDuct, assembly.plenum,
+             assembly.upperReflector, assembly.lowerReflector, assembly.duct, assembly.assemblyShell,
+             assembly.lowerSodium, assembly.upperSodium]
+    for surface in units:
+        file.write(surface.surfaceCard + '\n')
+    file.write("\n")
+    assembly_data_title = "Data Cards"
+    file.write("c " + assembly_data_title.center(77, "*") + "\n")
+    assembly_kcode_title = "k-code Information"
+    file.write("c " + assembly_kcode_title.center(77, "*") + "\n")
+    file.write(k_card)
+    file.write("c " + "Material Information".center(77, "*"))
+    units = [assembly.fuel, assembly.bond, assembly.clad, assembly.coolant, assembly.blankCoolant,
+             assembly.plenum, assembly.upperReflector, assembly.lowerReflector,
+             assembly.duct, assembly.assemblyShell, assembly.lowerSodium, assembly.upperSodium]
+    for material in units:
+        file.write(material.materialCard)
+    file.close()
+
+
+def make_mcnp_problem(global_vars):
+    kopts_output = ''
+    if global_vars.kopts:
+        kopts_output = 'kopts BLOCKSIZE=10 KINETICS=YES PRECURSOR=Yes \n'
+
+    kcode_output = 'kcode ' + str(global_vars.number_particles_generation) + " 1.0 " + \
+                   str(global_vars.number_skipped_generations) + " " + str(global_vars.number_generations) + '\n'
+    ksrc_output = 'ksrc 0 0 80 \n'
+    prdmp_output = 'PRDMP 100 10 100 1 \n'
+
+    mcnp_output = kcode_output + ksrc_output + prdmp_output + kopts_output
+    return mcnp_output

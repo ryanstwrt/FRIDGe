@@ -1,5 +1,6 @@
 import FRIDGe.fridge.Constituent.Constituent as Constituent
 import FRIDGe.fridge.utilities.mcnpCreatorFunctions as mcnpCF
+import copy
 
 
 class LowerSodium(Constituent.Constituent):
@@ -13,7 +14,9 @@ class LowerSodium(Constituent.Constituent):
         flatToFlat = lowerSodiumInfo[1]
         surfaceComment = "$Assembly: Lower Sodium"
         cellComment = "$Assembly: Lower Sodium"
-        self.surfaceCard = mcnpCF.getRHP(flatToFlat, outerShell.excessNaHeight,
-                                         outerShell.positionBottomAssembly, self.surfaceNum, surfaceComment)
+        lowerNaPosition = copy.deepcopy(outerShell.positionBottomAssembly)
+        lowerNaPosition[2] -= 0.1
+        lowerNaHeight = outerShell.excessNaHeight+0.1
+        self.surfaceCard = mcnpCF.getRHP(flatToFlat, lowerNaHeight, lowerNaPosition, self.surfaceNum, surfaceComment)
         self.cellCard = mcnpCF.getSingleCell(self.cellNum, self.materialNum, self.material.atomDensity, self.surfaceNum,
                                              self.universe, cellComment)

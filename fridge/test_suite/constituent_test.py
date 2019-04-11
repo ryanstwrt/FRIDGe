@@ -145,7 +145,7 @@ def test_lowerSodium():
     lowerSodiumInfo = [[0, 1, 2, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [assemblyShell, 0.2]]
     c = LowerSodium.LowerSodium(lowerSodiumInfo)
     cellCard = '1 3 0.02428 -2 u=0 imp:n=1 $Assembly: Lower Sodium'
-    surfaceCard = '2 RHP 0.0 0.0 -14.95 0 0 4.95 0.2 0 0 $Assembly: Lower Sodium'
+    surfaceCard = '2 RHP 0.0 0.0 -15.05 0 0 5.05 0.2 0 0 $Assembly: Lower Sodium'
     assert c.cellCard == cellCard
     assert c.surfaceCard == surfaceCard
 

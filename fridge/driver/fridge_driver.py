@@ -1,7 +1,6 @@
-import FRIDGe.fridge.driver.data_maker as dm
 import FRIDGe.fridge.Assembly.FuelAssembly as FuelAssembly
 import FRIDGe.fridge.Assembly.Assembly as Assembly
-import FRIDGe.fridge.utilities.mcnp_input_deck_maker as midm
+import FRIDGe.fridge.utilities.mcnpCreatorFunctions as mcf
 import FRIDGe.fridge.driver.global_variables as gb
 
 # TODO implement sodium voiding
@@ -37,6 +36,6 @@ def main(file_name):
     assembly = None
     if assemblyType == 'Fuel':
         assembly = FuelAssembly.FuelAssembly(assemblyInfo)
-    k_card = dm.make_mcnp_problem(global_vars)
+    k_card = mcf.make_mcnp_problem(global_vars)
+    mcf.mcnp_input_deck_maker(assembly, k_card, global_vars)
     print('FRIDGe has finished creating your Assembly/Core')
-    midm.mcnp_input_deck_maker(assembly, k_card, global_vars)

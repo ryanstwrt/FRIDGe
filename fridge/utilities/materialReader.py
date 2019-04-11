@@ -42,7 +42,7 @@ class Material(object):
                                  .format(material, material))
 
         with open(materialFile[0], "r") as file:
-            inputs = yaml.load(file)
+            inputs = yaml.safe_load(file)
             self.name = inputs['Name']
             self.elements = inputs['Elements']
             self.zaids = inputs['ZAIDs']
@@ -113,7 +113,7 @@ class Element(object):
             raise AssertionError(self.error)
 
         with open(elementFile[0], "r") as file:
-            inputs = yaml.load(file)
+            inputs = yaml.safe_load(file)
             self.name = inputs['Name']
             self.zaid = inputs['ZAID']
             self.isotopes = inputs['Isotopes']

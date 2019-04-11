@@ -68,7 +68,7 @@ class FuelAssembly(Assembly.Assembly):
 
     def setAssembly(self, assemblyYamlFile):
         with open(assemblyYamlFile[0], "r") as mat_file:
-            inputs = yaml.load(mat_file)
+            inputs = yaml.safe_load(mat_file)
             self.getAssemblyInfo(inputs)
             self.getFuelRegionInfo(inputs)
             self.getPlenumRegionInfo(inputs)

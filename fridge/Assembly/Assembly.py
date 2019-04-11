@@ -48,7 +48,7 @@ class Assembly(object):
 
 def assemblyTypeReader(assemblyYamlFile):
     with open(assemblyYamlFile[0], "r") as mat_file:
-        inputs = yaml.load(mat_file)
+        inputs = yaml.safe_load(mat_file)
         assemblyType = inputs['Assembly Type']
     return assemblyType
 

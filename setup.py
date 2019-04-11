@@ -39,6 +39,7 @@ setup(
         'fridge.data.CotN': ['data/CotN/*.yaml'],
         'fridge.data.assembly': ['data/assembly/*.yaml'],
         'fridge.data.materials': ['data/materials/*.yaml'],
-        'fridge.fridge_input_file': ['fridge_input_file/*.yaml']
+        'fridge.fridge_input_file': ['fridge_input_file/*.yaml'],
+        'fridge.mcnp_input_file': ['mcnp_input_file/*.i']
     },
 )

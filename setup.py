@@ -40,6 +40,6 @@ setup(
         'fridge.data.assembly': ['data/assembly/*.yaml'],
         'fridge.data.materials': ['data/materials/*.yaml'],
         'fridge.fridge_input_file': ['fridge_input_file/*.yaml'],
-        'fridge.mcnp_input_file': ['mcnp_input_file/*.i']
+        'fridge.mcnp_input_files': ['mcnp_input_files/*.i']
     },
 )

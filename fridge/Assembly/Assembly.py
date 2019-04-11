@@ -56,7 +56,7 @@ def assemblyTypeReader(assemblyYamlFile):
 def getAssemblyLocation(assemblyType):
     assemblyYamlFile = glob.glob(os.path.join(geo_dir, assemblyType + '.yaml'))
     try:
-        assert assemblyYamlFile == '../data/assembly/{}.yaml'.format(assemblyType)
+        assert assemblyYamlFile[0][(-(len(assemblyType)+5)):] == '{}.yaml'.format(assemblyType)
     except AssertionError:
         print('No assembly type named {}. Change your assembly type to a previously created assembly, '
               'or create a new assembly.'.format(assemblyType))

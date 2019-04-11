@@ -1,5 +1,10 @@
+import os
+cur_dir = os.path.dirname(__file__)
+mcnp_dir = os.path.join(cur_dir, "../mcnp_input_files/")
+
+
 def mcnp_input_deck_maker(assembly, k_card, global_vars):
-    file = open("FRIDGe/fridge/mcnp_input_files/" + global_vars.output_name + ".i", "w")
+    file = open(mcnp_dir + global_vars.output_name + ".i", "w")
     file.write("Input deck created by FRIDGe\n")
     file.write("c " + "Title".center(77, "*") + "\n")
     assembly_cell_title = "Cell Cards for Assembly: {}".format(assembly.assemblyPosition)

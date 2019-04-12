@@ -19,6 +19,13 @@ import copy
 
 
 class FuelAssembly(Assembly.Assembly):
+    """
+    Subclass of base assembly for fuel assemblies.
+
+    Fuel assembly consists of upper/lower sodium region, upper/lower reflector regions,
+    a plenum region, and a fuel region. All information for fuel, reflector and plenum regions are read in from the
+    assembly yaml file.
+    """
 
     def __init__(self, assemblyInformation):
         super().__init__(assemblyInformation)
@@ -67,6 +74,7 @@ class FuelAssembly(Assembly.Assembly):
         self.getAssembly()
 
     def setAssembly(self, assemblyYamlFile):
+        """ Reads in data from assembly yaml file."""
         with open(assemblyYamlFile[0], "r") as mat_file:
             inputs = yaml.safe_load(mat_file)
             self.getAssemblyInfo(inputs)
@@ -75,6 +83,7 @@ class FuelAssembly(Assembly.Assembly):
             self.getReflectorInfo(inputs)
 
     def getAssembly(self):
+        """Creates each component of the assembly."""
         self.assemblyUniverse = self.universe
         self.universe += 1
         self.pinUniverse = self.universe
@@ -152,6 +161,7 @@ class FuelAssembly(Assembly.Assembly):
             self.everythingElse = Everythingelse.EveryThingElse([self.cellNum, self.assemblyShell.surfaceNum])
 
     def getFuelRegionInfo(self, inputs):
+        """Reads in the fuel region data from the assembly yaml file."""
         self.position = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, 0.0)
         self.cladOD = float(inputs['Pin Diameter'])
         self.cladID = self.cladOD - 2*float(inputs['Clad Thickness'])
@@ -167,6 +177,7 @@ class FuelAssembly(Assembly.Assembly):
         self.bondMaterial = inputs['Bond']
 
     def getPlenumRegionInfo(self, inputs):
+        """Reads in the plenum region data from the assembly yaml file."""
         self.plenumHeight = float(inputs['Plenum Height'])
         self.plenumPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, self.fuelHeight * 1.01)
         plenumSmear = [float(i) for i in inputs['Plenum Smear']]
@@ -176,6 +187,7 @@ class FuelAssembly(Assembly.Assembly):
             self.plenumMaterial[material] = plenumSmear[num]
 
     def getReflectorInfo(self, inputs):
+        """Reads in the reflector region data form the assembly yaml file."""
         self.reflectorHeight = float(inputs['Fuel Reflector Height'])
         reflectorSmear = [float(i) for i in inputs['Smear']]
         reflectorMaterial = inputs['Material']

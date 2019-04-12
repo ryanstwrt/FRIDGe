@@ -3,6 +3,7 @@ import FRIDGe.fridge.utilities.mcnpCreatorFunctions as mcnpCF
 
 
 class BlankCoolant(Constituent.Constituent):
+    """Creates a hexagon pin of coolant material for use around the fuel lattice."""
     def __init__(self, unitInfo):
         super().__init__(unitInfo)
         self.pitch = 0

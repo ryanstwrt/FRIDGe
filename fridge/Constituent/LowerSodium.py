@@ -4,6 +4,9 @@ import copy
 
 
 class LowerSodium(Constituent.Constituent):
+    """Creates a region of sodium to compensate for any excess height specified in the assembly file.
+    This is in addition to the upper sodium region. The sum of the upper and lower sodium region is the
+    excess height from the assembly file."""
     def __init__(self, unitInfo):
         super().__init__(unitInfo)
         self.getMaterialCard(unitInfo[0][3])

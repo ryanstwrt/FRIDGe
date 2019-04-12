@@ -3,6 +3,8 @@ import numpy as np
 
 
 class FuelUniverse(Constituent.Constituent):
+    """Creates the lattice for the fuel pin, bond, clad, and coolant.
+    This lattice gets repeated for the number of pins present, and all excess pins are BlankCoolant."""
     def __init__(self, fuelUniverseInfo):
         self.fuelUniverse = fuelUniverseInfo[0]
         self.blankUniverse = fuelUniverseInfo[1]

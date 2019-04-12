@@ -3,6 +3,7 @@ import FRIDGe.fridge.utilities.mcnpCreatorFunctions as mcnpCF
 
 
 class InnerDuct(Constituent.Constituent):
+    """Creates the inner surface for the duct surrounding the reflector, plenum and fuel regions."""
     def __init__(self, ductInfo):
         super().__init__(ductInfo)
         self.assemblyUniverse = 0

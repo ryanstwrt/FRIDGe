@@ -24,9 +24,6 @@ import FRIDGe.fridge.driver.global_variables as gb
 
 def main(file_name):
     print('Welcome to FRIDGe, the Fast Reactor Input Deck Generator!')
-    #file_name = 'A271_Assembly'
-    # input('Please input the file name you would like to model: ')
-
     global_vars = gb.GlobalVariables()
     global_vars.read_input_file(file_name)
     print('Creating your Assembly/Core... Please Wait')

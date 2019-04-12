@@ -3,6 +3,7 @@ import FRIDGe.fridge.utilities.mcnpCreatorFunctions as mcnpCF
 
 
 class FuelClad(Constituent.Constituent):
+    """Creates the jacket surrounding the fuel and bond material."""
     def __init__(self, unitInfo):
         super().__init__(unitInfo)
         self.radius = 0

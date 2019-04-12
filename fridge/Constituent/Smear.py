@@ -3,6 +3,7 @@ import FRIDGe.fridge.utilities.mcnpCreatorFunctions as mcnpCF
 
 
 class Smear(Constituent.Constituent):
+    """Creates a constituent which is a smear of materials."""
     def __init__(self, unitInfo):
         self.universe = unitInfo[0][0]
         self.surfaceNum = unitInfo[0][1]

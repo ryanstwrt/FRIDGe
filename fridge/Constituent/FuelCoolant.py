@@ -3,6 +3,8 @@ import FRIDGe.fridge.utilities.mcnpCreatorFunctions as mcnpCF
 
 
 class FuelCoolant(Constituent.Constituent):
+    """Creates the coolant surrounding the fuel pin.
+    This coolant is a homogenized material consisting of the coolant material and the wirewrap."""
     def __init__(self, unitInfo):
         super().__init__(unitInfo)
         self.pitch = 0

@@ -3,6 +3,7 @@ import FRIDGe.fridge.utilities.mcnpCreatorFunctions as mcnpCF
 
 
 class Duct(Constituent.Constituent):
+    """Encompasses the reflector, plenum, and fuel region in a hexagon duct."""
     def __init__(self, unitInfo):
         super().__init__(unitInfo)
         self.flat2flat = 0

@@ -7,6 +7,11 @@ geo_dir = os.path.join(cur_dir, "../data/assembly")
 
 
 class Assembly(object):
+    """
+    Holds all information required for modeling a basic assembly. Can be inherited to make specific assembly type.
+    Current types include:
+    Fuel Assembly
+    """
 
     def __init__(self, assemblyInformation):
         self.assemblyDesignation = assemblyInformation[0]
@@ -28,6 +33,7 @@ class Assembly(object):
         self.assemblyMaterial = ''
 
     def getAssemblyInfo(self, inputs):
+        """Assign assembly parameters based on yaml Assembly file."""
         self.pinsPerAssembly = float(inputs['Pins Per Assembly'])
         self.assemblyPitch = float(inputs['Assembly Pitch'])
         self.ductInnerFlatToFlat = float(inputs['Duct Inside Flat to Flat'])
@@ -39,6 +45,7 @@ class Assembly(object):
         self.assemblyMaterial = inputs['Assembly Material']
 
     def updateIdentifiers(self, universeTest):
+        """Updates cell, surface, material, and universe number to create uniqueness"""
         self.cellNum += 1
         self.surfaceNum += 1
         self.materialNum += 1
@@ -47,6 +54,7 @@ class Assembly(object):
 
 
 def assemblyTypeReader(assemblyYamlFile):
+    """Reads in the assembly type to determine what type of assembly to build."""
     with open(assemblyYamlFile[0], "r") as mat_file:
         inputs = yaml.safe_load(mat_file)
         assemblyType = inputs['Assembly Type']
@@ -54,6 +62,7 @@ def assemblyTypeReader(assemblyYamlFile):
 
 
 def getAssemblyLocation(assemblyType):
+    """Find the file location for the assembly, and determine if the given assembly exists."""
     assemblyYamlFile = glob.glob(os.path.join(geo_dir, assemblyType + '.yaml'))
     try:
         assert assemblyYamlFile[0][(-(len(assemblyType)+5)):] == '{}.yaml'.format(assemblyType)

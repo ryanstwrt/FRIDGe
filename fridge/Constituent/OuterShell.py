@@ -3,6 +3,7 @@ import FRIDGe.fridge.utilities.mcnpCreatorFunctions as mcnpCF
 
 
 class OuterShell(Constituent.Constituent):
+    """The creates a shell around the assembly which allows the assembly to fit into a single universe."""
     def __init__(self, unitInfo):
         self.reflectorHeight = unitInfo[1][0]
         self.fuelHeight = unitInfo[1][1] * 1.01

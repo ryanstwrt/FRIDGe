@@ -3,7 +3,9 @@ import FRIDGe.fridge.utilities.mcnpCreatorFunctions as mcnpCF
 
 
 class Constituent(object):
+    """Base class for creating an assembly."""
     def __init__(self, unitInfo):
+        """Initializes the data for creating a constituent."""
         self.universe = unitInfo[0][0]
         self.cellNum = unitInfo[0][1]
         self.surfaceNum = unitInfo[0][2]
@@ -16,9 +18,11 @@ class Constituent(object):
         self.material = None
 
     def getMaterialCard(self, materialName):
+        """Creates the material for the given constituent and creates the material card."""
         self.material = materialReader.Material()
         self.material.setMaterial(materialName)
         self.materialCard = mcnpCF.getMaterialCard(self.material, self.materialXCLibrary, self.materialNum)
 
     def makeComponent(self, unitInfo):
+        """Creates the component for the given constituent and creates the cell/surface cards."""
         pass

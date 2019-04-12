@@ -7,6 +7,7 @@ mcnp_dir = os.path.join(cur_dir, "../mcnp_input_files/")
 
 
 def getRCC(radius, height, position, surfaceNum, comment):
+    """Create a right circular cylinder in the z direction."""
     surfaceCard = "{} RCC {} {} {} 0 0 {} {} {}".format(surfaceNum, position[0], position[1], round(position[2], 5),
                                                         round(height, 5), round(radius, 5), comment)
     assert (len(surfaceCard) - len(comment)) < 80
@@ -14,6 +15,7 @@ def getRCC(radius, height, position, surfaceNum, comment):
 
 
 def getRHP(pitch, height, position, surfaceNum, comment):
+    """Create a right hexagonal prism in the z direction."""
     surfaceCard = "{} RHP {} {} {} 0 0 {} {} 0 0 {}".format(surfaceNum, position[0], position[1], round(position[2], 5),
                                                             round(height, 5), round(pitch, 5), comment)
     assert (len(surfaceCard) - len(comment)) < 80
@@ -21,6 +23,7 @@ def getRHP(pitch, height, position, surfaceNum, comment):
 
 
 def getRHPRotated(pitch, height, position, surfaceNum, comment):
+    """Create a right hexagonal prism in the z direction, rotated 30 degrees."""
     surfaceCard = "{} RHP {} {} {} 0 0 {} 0 {} 0 {}".format(surfaceNum, position[0], position[1], round(position[2], 5),
                                                             round(height, 5), round(pitch, 5), comment)
     assert (len(surfaceCard) - len(comment)) < 80
@@ -28,12 +31,14 @@ def getRHPRotated(pitch, height, position, surfaceNum, comment):
 
 
 def getSingleCell(cellNum, matNum, density, surfaceNum, universe, comment):
+    """Create a cell with one component"""
     cellCard = "{} {} {} -{} u={} imp:n=1 {}".format(cellNum, matNum, round(density, 5), surfaceNum, universe, comment)
     assert (len(cellCard) - len(comment)) < 80
     return cellCard
 
 
 def getConcentricCell(cellNum, matNum, density, innerSurface, outerSurface, universe, comment):
+    """Create a cell which has multiple components inside a cell."""
     listType = []
     if type(innerSurface) == type(listType):
         newInnerSurface = ''
@@ -48,12 +53,14 @@ def getConcentricCell(cellNum, matNum, density, innerSurface, outerSurface, univ
 
 
 def getOutsideCell(cellNum, matNum, density, surfaceNum, universe, comment):
+    """Create a cell which encompasses everything outside it."""
     cellCard = "{} {} {} {} u={} imp:n=1 {}".format(cellNum, matNum, round(density, 5), surfaceNum, universe, comment)
     assert (len(cellCard) - len(comment)) < 80
     return cellCard
 
 
 def getFuelLatticeCell(cellNum, surfaceNum, assemblyUniverse, latticeUniverse, comment):
+    """Create a hexagonal lattice cell."""
     cellCard = "{} 0 -{} u={} fill={} imp:n=1 {}".format(cellNum, surfaceNum, assemblyUniverse, latticeUniverse,
                                                          comment)
     assert (len(cellCard) - len(comment)) < 80
@@ -61,18 +68,21 @@ def getFuelLatticeCell(cellNum, surfaceNum, assemblyUniverse, latticeUniverse, c
 
 
 def getAssemblyUniverseCell(cellNum, surfaceNum, universe, comment):
+    """Create a cell which will encompass all aspects of an assembly."""
     cellCard = "{} 0 -{} fill={} imp:n=1 {}".format(cellNum, surfaceNum, universe, comment)
     assert (len(cellCard) - len(comment)) < 80
     return cellCard
 
 
 def getEverythingElseCard(cellNum, surfaceNum, comment):
+    """Create a cell which encompasses everything outside an assembly/core."""
     cellCard = "{} 0 {} imp:n=0 {}".format(cellNum, surfaceNum, comment)
     assert (len(cellCard) - len(comment)) < 80
     return cellCard
 
 
 def getMaterialCard(material, xc, matNum):
+    """Create the MCNP material data card."""
     materialCard = "\nc Material: {}; Density: {} atoms/bn*cm \nm{}".format(material.name, round(material.atomDensity, 5), matNum)
     i = 0
     for isotope, atomDensity in material.atomPercent.items():
@@ -85,6 +95,7 @@ def getMaterialCard(material, xc, matNum):
 
 
 def getSmearedMaterial(materials, xc, matNum):
+    """Create the material data card for a smeared material."""
     smearMaterial = {}
     avogadros = materialReader.AVOGADROS_NUMBER
     for material, materialWeightPercent in materials.items():
@@ -116,6 +127,7 @@ def getSmearedMaterial(materials, xc, matNum):
 
 
 def getPosition(position, pitch, zPosition):
+    """Get the centroid position of an assembly."""
     ring = int(position[:2]) - 1
     hextant = position[2]
     assemblyNum = int(position[3:]) - 1
@@ -148,6 +160,7 @@ def getPosition(position, pitch, zPosition):
 
 
 def mcnp_input_deck_maker(assembly, k_card, global_vars):
+    """Create the MCNP input deck based on the assembly/core data."""
     file = open(mcnp_dir + global_vars.output_name + ".i", "w")
     file.write("Input deck created by FRIDGe\n")
     file.write("c " + "Title".center(77, "*") + "\n")
@@ -184,6 +197,7 @@ def mcnp_input_deck_maker(assembly, k_card, global_vars):
 
 
 def make_mcnp_problem(global_vars):
+    """Create the MCNP specific kcode options."""
     kopts_output = ''
     if global_vars.kopts:
         kopts_output = 'kopts BLOCKSIZE=10 KINETICS=YES PRECURSOR=Yes \n'

@@ -11,7 +11,7 @@ material_dir = os.path.join(cur_dir, '../data/materials/')
 
 
 class Material(object):
-
+    """Creates a material consisting of elements based on the Material database."""
     def __init__(self):
         self.enrichmentDict = {}
         self.isotopeDict = {}
@@ -35,6 +35,7 @@ class Material(object):
         self.getMaterial()
 
     def readMaterial(self, material):
+        """Read in the material data from the material database."""
         materialFile = glob.glob(os.path.join(material_dir, material + '.yaml'))
 
         if not materialFile:
@@ -54,25 +55,27 @@ class Material(object):
             self.enrichmentVector = inputs['Enrichment Vector'] if 'Enrichment Vector' in inputs else []
 
     def getMaterial(self):
-            for num, zaid in enumerate(self.enrichmentZaids):
-                enrichedIsotopeDict = {}
-                for isoNum, isotopes in enumerate(self.enrichmentIsotopes[num]):
-                    enrichedIsotopeDict[isotopes] = self.enrichmentVector[num][isoNum]
-                self.enrichmentDict[zaid] = enrichedIsotopeDict
-            for num, element in enumerate(self.elements):
-                self.elementDict[self.zaids[num]] = Element(element)
-            self.adjustEnrichments()
-            self.getWeightPercent()
-            self.atomDensity, self.atomPercent = getAtomPercent(self.weightPercent, self.density,
-                                                                self.elementDict, self.name)
+        """Create a material based on the data from the material database."""
+        for num, zaid in enumerate(self.enrichmentZaids):
+            enrichedIsotopeDict = {}
+            for isoNum, isotopes in enumerate(self.enrichmentIsotopes[num]):
+                enrichedIsotopeDict[isotopes] = self.enrichmentVector[num][isoNum]
+            self.enrichmentDict[zaid] = enrichedIsotopeDict
+        for num, element in enumerate(self.elements):
+            self.elementDict[self.zaids[num]] = Element(element)
+        self.adjustEnrichments()
+        self.getWeightPercent()
+        self.atomDensity, self.atomPercent = getAtomPercent(self.weightPercent, self.density,
+                                                            self.elementDict)
 
     def adjustEnrichments(self):
+        """Adjust the element's natural abundance to compensate for enrichment."""
         for elementEnrichement, zaidVector in self.enrichmentDict.items():
             for zaid, enrichmentPercent in zaidVector.items():
-
                 self.elementDict[elementEnrichement].isotopeDict[zaid] = enrichmentPercent
 
     def getWeightPercent(self):
+        """Calculates the weight percent of a material."""
         weightTotal = 0.0
         for zaidNum, zaid in enumerate(self.zaids):
             for isotope, isotopeFraction in self.elementDict[zaid].isotopeDict.items():
@@ -85,7 +88,8 @@ class Material(object):
             print("Weight percent does not sum to 1.0 for {}. Check the material file.".format(self.name))
 
 
-def getAtomPercent(weightPercents, density, elementDict, name):
+def getAtomPercent(weightPercents, density, elementDict):
+    """Converts the weight percent of a material to the atom percent and atom density."""
     atomDensities = {}
     atomPercent = {}
     for zaid, weight in weightPercents.items():
@@ -103,7 +107,7 @@ def getAtomPercent(weightPercents, density, elementDict, name):
 
 
 class Element(object):
-
+    """Creates an element based on the Chart of the Nuclide Database."""
     def __init__(self, element):
         elementFile = glob.glob(os.path.join(element_dir, element + '.yaml'))
 

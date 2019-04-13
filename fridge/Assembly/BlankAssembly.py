@@ -1,6 +1,13 @@
 import FRIDGe.fridge.Assembly.Assembly as Assembly
 import FRIDGe.fridge.Constituent.Smear as Smeared
+import FRIDGe.fridge.Constituent.LowerSodium as Lowersodium
+import FRIDGe.fridge.Constituent.Duct as Outerduct
+import FRIDGe.fridge.Constituent.OuterShell as Outershell
+import FRIDGe.fridge.Constituent.UpperSodium as Uppersodium
+import FRIDGe.fridge.Constituent.InnerDuct as Innerduct
+import FRIDGe.fridge.utilities.mcnpCreatorFunctions as mcnpCF
 import yaml
+
 
 class BlankAssembly(Assembly.Assembly):
     """
@@ -18,7 +25,10 @@ class BlankAssembly(Assembly.Assembly):
         self.lowerSodium = None
         self.upperSodium = None
         self.blankMaterial = None
-        self.blankPosition = []
+        self.innerDuct = None
+        self.duct = None
+        self.assemblyShell = None
+        self.position = []
 
         assemblyYamlFile = Assembly.getAssemblyLocation(self.assemblyDesignation)
         self.setAssembly(assemblyYamlFile)
@@ -30,9 +40,15 @@ class BlankAssembly(Assembly.Assembly):
             self.getAssemblyInfo(inputs)
 
     def getAssembly(self):
-        self.assemblyUniverse = self.universe
-        self.universe += 1
         self.blankRegion = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                           self.blankMaterial, '82C', self.blankPosition,
-                                           self.materialNum],
-                                           [self.ductInnerFlatToFlat, self.blankRegionHeight], 'Blank Region'])
+                                           self.blankMaterial, self.xcSet, self.position, self.materialNum],
+                                          [self.ductInnerFlatToFlat, self.blankRegionHeight], 'Blank Region'])
+        self.updateIdentifiers(False)
+        self.lowerSodium = Lowersodium.LowerSodium([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
+                                                     self.coolantMaterial, self.xcSet, self.position, self.materialNum],
+                                                    [self.assemblyShell, self.ductOuterFlatToFlatMCNPEdge]])
+
+        self.updateIdentifiers(False)
+        self.upperSodium = Uppersodium.UpperSodium([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
+                                                     self.coolantMaterial, self.xcSet, self.position, self.materialNum],
+                                                    [self.assemblyShell, self.ductOuterFlatToFlatMCNPEdge]])

@@ -1,5 +1,6 @@
 import FRIDGe.fridge.Assembly.FuelAssembly as FuelAssembly
 import FRIDGe.fridge.Assembly.Assembly as Assembly
+import FRIDGe.fridge.Assembly.BlankAssembly as BlankAssembly
 import FRIDGe.fridge.utilities.mcnpCreatorFunctions as mcf
 import FRIDGe.fridge.driver.global_variables as gb
 
@@ -33,6 +34,8 @@ def main(file_name):
     assembly = None
     if assemblyType == 'Fuel':
         assembly = FuelAssembly.FuelAssembly(assemblyInfo)
+    elif assemblyType == 'Blank':
+        assembly = BlankAssembly.BlankAssembly(assemblyInfo)
     k_card = mcf.make_mcnp_problem(global_vars)
     mcf.mcnp_input_deck_maker(assembly, k_card, global_vars)
     print('FRIDGe has finished creating your Assembly/Core')

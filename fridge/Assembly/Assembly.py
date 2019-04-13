@@ -21,6 +21,7 @@ class Assembly(object):
         self.cellNum = self.globalVars.cellNumber
         self.surfaceNum = self.globalVars.surfaceNumber
         self.materialNum = self.globalVars.materialNumber
+        self.xcSet = self.globalVars.xc_set
         self.assemblyType = ''
         self.pinsPerAssembly = 0
         self.assemblyPitch = 0
@@ -34,7 +35,7 @@ class Assembly(object):
 
     def getAssemblyInfo(self, inputs):
         """Assign assembly parameters based on yaml Assembly file."""
-        self.pinsPerAssembly = float(inputs['Pins Per Assembly'])
+        self.pinsPerAssembly = float(inputs['Pins Per Assembly']) if 'Pins Per Assembly' in inputs else 0
         self.assemblyPitch = float(inputs['Assembly Pitch'])
         self.ductInnerFlatToFlat = float(inputs['Duct Inside Flat to Flat'])
         self.ductOuterFlatToFlat = self.ductInnerFlatToFlat + 2*float(inputs['Duct Thickness'])

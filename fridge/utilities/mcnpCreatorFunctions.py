@@ -47,7 +47,7 @@ def getConcentricCell(cellNum, matNum, density, innerSurface, outerSurface, univ
         innerSurface = newInnerSurface
 
     cellCard = "{} {} {} {} -{} u={} imp:n=1 {}".format(cellNum, matNum, round(density, 5), innerSurface, outerSurface,
-                                                         universe, comment)
+                                                        universe, comment)
     assert (len(cellCard) - len(comment)) < 80
     return cellCard
 
@@ -83,18 +83,19 @@ def getEverythingElseCard(cellNum, surfaceNum, comment):
 
 def getMaterialCard(material, xc, matNum):
     """Create the MCNP material data card."""
-    materialCard = "\nc Material: {}; Density: {} atoms/bn*cm \nm{}".format(material.name, round(material.atomDensity, 5), matNum)
+    materialCard = "\nc Material: {}; Density: {} atoms/bn*cm \nm{}".format(material.name,
+                                                                            round(material.atomDensity, 5), matNum)
     i = 0
     for isotope, atomDensity in material.atomPercent.items():
         if i == 3:
-            materialCard += "\n    ".format(isotope, xc, Decimal(atomDensity))
+            materialCard += "\n    "
             i = 0
         materialCard += " {}.{} {:.4E}".format(isotope, xc, Decimal(atomDensity))
         i += 1
     return materialCard
 
 
-def getSmearedMaterial(materials, xc, matNum):
+def getSmearedMaterial(materials):
     """Create the material data card for a smeared material."""
     smearMaterial = {}
     avogadros = materialReader.AVOGADROS_NUMBER

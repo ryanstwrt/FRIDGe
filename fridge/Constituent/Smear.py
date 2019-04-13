@@ -13,7 +13,7 @@ class Smear(Constituent.Constituent):
         self.position = unitInfo[0][5]
         self.materialNum = unitInfo[0][6]
         self.componentName = unitInfo[2]
-        self.material = mcnpCF.getSmearedMaterial(self.material, self.materialXCLibrary, self.materialNum)
+        self.material = mcnpCF.getSmearedMaterial(self.material)
         self.makeComponent(unitInfo[1])
         self.getMaterialCard(self.material)
         self.flat2flat = 0

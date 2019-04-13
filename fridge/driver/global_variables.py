@@ -81,21 +81,21 @@ class GlobalVariables(object):
         if self.temperature == 600:
             if self.xc_library == 'ENDFVII.1':
                 self.xc_set = '.81c'
-            elif self.xc_set == 'ENDFVII.0':
+            elif self.xc_library == 'ENDFVII.0':
                 self.xc_set = '.71c'
             elif self.xc_library == 'JEFF3.1':
                 self.xc_set = '.34c'
         elif self.temperature == 900:
             if self.xc_library == 'ENDFVII.1':
                 self.xc_set = '.82c'
-            elif self.xc_set == 'ENDFVII.0':
+            elif self.xc_library == 'ENDFVII.0':
                 self.xc_set = '.72c'
             elif self.xc_library == 'JEFF3.1':
                 self.xc_set = '.37c'
         elif self.temperature == 1200:
             if self.xc_library == 'ENDFVII.1':
                 self.xc_set = '.83c'
-            elif self.xc_set == 'ENDFVII.0':
+            elif self.xc_library == 'ENDFVII.0':
                 self.xc_set = '.73c'
             elif self.xc_library == 'JEFF3.1':
                 self.xc_set = '.39c'

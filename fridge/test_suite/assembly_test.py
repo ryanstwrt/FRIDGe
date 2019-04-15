@@ -1,4 +1,5 @@
 import FRIDGe.fridge.Assembly.FuelAssembly as FuelAssembly
+import FRIDGe.fridge.Assembly.BlankAssembly as BlankAssembly
 import FRIDGe.fridge.Assembly.Assembly as Assembly
 import FRIDGe.fridge.driver.global_variables as gb
 import numpy as np

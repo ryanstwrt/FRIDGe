@@ -72,9 +72,9 @@ c ********************Surface Cards for Fuel Assembly: 01A01*******************
 108 RHP 0.0 0.0 120.6 0 0 60.0 5.505 0 0 $Assembly: upper Reflector
 109 RHP 0.0 0.0 -60.0 0 0 60.0 5.505 0 0 $Assembly: lower Reflector
 110 RHP 0.0 0.0 -60.0 0 0 240.6 6.10531 0 0 $Assembly:Duct Outer Surface
-111 RHP 0.0 0.0 -99.7 0 0 320.0 6.105 0 0 $Assembly: Full Assembly Surface
-112 RHP 0.0 0.0 -99.8 0 0 39.8 6.10531 0 0 $Assembly: Lower Sodium
-113 RHP 0.0 0.0 180.6 0 0 39.7 6.10531 0 0 $Assembly: Upper Sodium
+111 RHP 0.0 0.0 -100.0 0 0 320.0 6.105 0 0 $Assembly: Full Assembly Surface
+112 RHP 0.0 0.0 -100.1 0 0 40.1 6.10531 0 0 $Assembly: Lower Sodium
+113 RHP 0.0 0.0 180.0 0 0 40.0 6.10531 0 0 $Assembly: Upper Sodium
 
 c **********************************Data Cards*********************************
 c ******************************k-code Information*****************************

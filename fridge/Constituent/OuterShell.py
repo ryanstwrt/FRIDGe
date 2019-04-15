@@ -6,12 +6,10 @@ class OuterShell(Constituent.Constituent):
     """The creates a shell around the assembly which allows the assembly to fit into a single universe."""
     def __init__(self, unitInfo):
         self.reflectorHeight = unitInfo[1][0]
-        self.fuelHeight = unitInfo[1][1] * 1.01
-        self.plenumHeight = unitInfo[1][2]
-        self.assemblyHeight = unitInfo[1][3]
-        self.pitch = unitInfo[1][4]
-        self.assemblyPosition = unitInfo[1][5]
-        self.definedHeight = 2 * self.reflectorHeight + self.fuelHeight + self.plenumHeight
+        self.definedHeight = unitInfo[1][1]
+        self.assemblyHeight = unitInfo[1][2]
+        self.pitch = unitInfo[1][3]
+        self.assemblyPosition = unitInfo[1][4]
         self.excessNaHeight = (self.assemblyHeight - self.definedHeight) / 2
         self.positionBottomAssembly = mcnpCF.getPosition(self.assemblyPosition, self.pitch,
                                                          -(self.reflectorHeight + self.excessNaHeight))

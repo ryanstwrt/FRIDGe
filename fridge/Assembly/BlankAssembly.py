@@ -1,10 +1,8 @@
 import FRIDGe.fridge.Assembly.Assembly as Assembly
 import FRIDGe.fridge.Constituent.Smear as Smeared
 import FRIDGe.fridge.Constituent.LowerSodium as Lowersodium
-import FRIDGe.fridge.Constituent.Duct as Outerduct
 import FRIDGe.fridge.Constituent.OuterShell as Outershell
 import FRIDGe.fridge.Constituent.UpperSodium as Uppersodium
-import FRIDGe.fridge.Constituent.InnerDuct as Innerduct
 import FRIDGe.fridge.utilities.mcnpCreatorFunctions as mcnpCF
 import yaml
 
@@ -38,30 +36,35 @@ class BlankAssembly(Assembly.Assembly):
         with open(assemblyYamlFile[0], "r") as mat_file:
             inputs = yaml.safe_load(mat_file)
             self.getAssemblyInfo(inputs)
+            self.blankMaterial = inputs['Blank Smear']
+            self.blankRegionHeight = inputs['Blank Height']
 
     def getAssembly(self):
         excessCoolantHeight = (self.assemblyHeight - self.blankRegionHeight) / 2
-        bottomCoolantPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, -self.zPosition)
-        upperBlankAssemblyPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, excessCoolantHeight)
+        bottomCoolantPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, -(self.zPosition +
+                                                                                                excessCoolantHeight))
+        bottomBlankPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, -self.zPosition)
+        upperBlankAssemblyPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, self.assemblyHeight -
+                                                        (self.zPosition + excessCoolantHeight))
 
         self.blankRegion = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                           self.blankMaterial, self.xcSet, self.position, self.materialNum],
+                                           self.blankMaterial, self.xcSet, bottomBlankPosition, self.materialNum],
                                           [self.ductInnerFlatToFlat, self.blankRegionHeight], 'Blank Region'])
 
         self.updateIdentifiers(False)
         self.assemblyShell = Outershell.OuterShell([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                                     self.coolantMaterial, self.xcSet, [], self.materialNum],
-                                                    [bottomCoolantPosition,  self.assemblyHeight,
+                                                     self.coolantMaterial, self.xcSet, bottomCoolantPosition, self.materialNum],
+                                                    [self.assemblyHeight,
                                                      self.ductOuterFlatToFlat]])
 
         self.updateIdentifiers(False)
         self.lowerSodium = Lowersodium.LowerSodium([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                                     self.coolantMaterial, self.xcSet, self.position, self.materialNum],
-                                                    [bottomCoolantPosition, excessCoolantHeight,
+                                                     self.coolantMaterial, self.xcSet, bottomCoolantPosition, self.materialNum],
+                                                    [excessCoolantHeight,
                                                      self.ductOuterFlatToFlatMCNPEdge]])
 
         self.updateIdentifiers(False)
         self.upperSodium = Uppersodium.UpperSodium([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                                     self.coolantMaterial, self.xcSet, self.position, self.materialNum],
-                                                    [upperBlankAssemblyPosition, excessCoolantHeight,
+                                                     self.coolantMaterial, self.xcSet, upperBlankAssemblyPosition, self.materialNum],
+                                                    [excessCoolantHeight,
                                                      self.ductOuterFlatToFlatMCNPEdge]])

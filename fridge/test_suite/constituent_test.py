@@ -140,7 +140,7 @@ def test_innerDuct():
 
 
 def test_lowerSodium():
-    lowerSodiumInfo = [[0, 1, 2, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [[0.0, 0.0, -20.0], 10.0, 0.2]]
+    lowerSodiumInfo = [[0, 1, 2, 'LiquidNa', '82c', [0.0, 0.0, -20.0], 3], [10.0, 0.2]]
     c = LowerSodium.LowerSodium(lowerSodiumInfo)
     cellCard = '1 3 0.02428 -2 u=0 imp:n=1 $Assembly: Lower Coolant'
     surfaceCard = '2 RHP 0.0 0.0 -20.1 0 0 10.1 0.2 0 0 $Assembly: Lower Coolant'
@@ -149,7 +149,7 @@ def test_lowerSodium():
 
 
 def test_outershell():
-    outerShellInfo = [[0, 1, 2, 'LiquidNa', '82c', [], 3], [[0.0, 0.0, -20.0], 50, 0.2]]
+    outerShellInfo = [[0, 1, 2, 'LiquidNa', '82c', [0.0, 0.0, -20.0], 3], [50, 0.2]]
     c = OuterShell.OuterShell(outerShellInfo)
     cellCard = '2 0 -1 fill=0 imp:n=1 $Assembly'
     surfaceCard = '2 RHP 0.0 0.0 -20.0 0 0 50 0.2 0 0 $Assembly: Full Assembly Surface'
@@ -167,7 +167,7 @@ def test_smear():
 
 
 def test_upperSodium():
-    upperSodiumInfo = [[0, 1, 2, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [[0.0, 0.0, 20], 10.0, 0.2]]
+    upperSodiumInfo = [[0, 1, 2, 'LiquidNa', '82c', [0.0, 0.0, 20], 3], [10.0, 0.2]]
     c = UpperSodium.UpperSodium(upperSodiumInfo)
     cellCard = '1 3 0.02428 -2 u=0 imp:n=1 $Assembly: Upper Coolant'
     surfaceCard = '2 RHP 0.0 0.0 20 0 0 10.0 0.2 0 0 $Assembly: Upper Coolant'

@@ -10,6 +10,5 @@ Assembly Height: 320
 Coolant: LiquidNa
 Assembly Material: HT9
 Blank Height: 240
-Blank Smear: [0.3, 0.7]
-Blank Material: [LiquidNa, HT9]
+Blank Smear: {LiquidNa: 0.3, HT9: 0.7}
 Z Position: -60

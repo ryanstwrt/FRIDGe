@@ -68,8 +68,6 @@ def test_fuel_assembly():
     assert a.upperSodium is not None
     assert a.lowerSodium is not None
     assert a.assemblyShell is not None
-    assert a.upperReflectorPosition == [0, 0, 120.6]
-    assert a.lowerReflectorPosition == [0, 0, -60.0]
     assert a.everythingElse is not None
 
     assert a.cladOD == 0.53
@@ -88,6 +86,19 @@ def test_fuel_assembly():
 
     assert a.reflectorHeight == 60
     assert a.reflectorMaterial == {'LiquidNa': 0.20, 'HT9': 0.80}
+
+
+global_vars = gb.GlobalVariables()
+global_vars.read_input_file('Blank_Assembly_Test')
+assembly_info2 = [global_vars.assembly_name, '01A01', global_vars]
+
+
+def test_blankAssembly():
+    a = BlankAssembly.BlankAssembly(assembly_info2)
+    assert a.assemblyPitch == 12
+    assert a.coolantMaterial == 'LiquidNa'
+    assert a.assemblyMaterial == 'HT9'
+    assert a.blankMaterial == {'LiquidNa': 0.3, 'HT9': 0.7}
 
 
 def test_getAssemblyLocation():

@@ -12,12 +12,11 @@ class UpperSodium(Constituent.Constituent):
         self.makeComponent(unitInfo[1])
 
     def makeComponent(self, upperCoolantInfo):
-        upperPosition = upperCoolantInfo[0]
-        excessCoolantHeight = upperCoolantInfo[1]
-        flatToFlatUniverse = upperCoolantInfo[2]
+        excessCoolantHeight = upperCoolantInfo[0]
+        flatToFlatUniverse = upperCoolantInfo[1]
         surfaceComment = "$Assembly: Upper Coolant"
         cellComment = "$Assembly: Upper Coolant"
-        self.surfaceCard = mcnpCF.getRHP(flatToFlatUniverse, excessCoolantHeight, upperPosition,  self.surfaceNum,
+        self.surfaceCard = mcnpCF.getRHP(flatToFlatUniverse, excessCoolantHeight, self.position,  self.surfaceNum,
                                          surfaceComment)
         self.cellCard = mcnpCF.getSingleCell(self.cellNum, self.materialNum, self.material.atomDensity, self.surfaceNum,
                                              self.universe, cellComment)

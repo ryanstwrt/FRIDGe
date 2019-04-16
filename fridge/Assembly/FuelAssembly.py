@@ -84,6 +84,14 @@ class FuelAssembly(Assembly.Assembly):
 
     def getAssembly(self):
         """Creates each component of the assembly."""
+        definedHeight = 2 * self.reflectorHeight + self.fuelHeight * 1.01 + self.plenumHeight
+        excessCoolantHeight = (self.assemblyHeight - definedHeight) / 2
+        heightToUpperCoolant = definedHeight - self.reflectorHeight
+        upperReflectorPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, heightToUpperCoolant)
+        lowerReflectorPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, -self.reflectorHeight)
+        bottomCoolantPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch,
+                                                   -(self.reflectorHeight + excessCoolantHeight))
+
         self.assemblyUniverse = self.universe
         self.universe += 1
         self.pinUniverse = self.universe
@@ -128,50 +136,41 @@ class FuelAssembly(Assembly.Assembly):
                                      [self.ductInnerFlatToFlat, self.plenumHeight], 'plenum'])
 
         self.updateIdentifiers(False)
-        self.upperReflectorPosition = copy.deepcopy(self.position)
-        self.upperReflectorPosition[2] = self.fuelHeight * 1.01 + self.plenumHeight
         self.upperReflector = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                              self.reflectorMaterial, self.xcSet, self.upperReflectorPosition,
+                                              self.reflectorMaterial, self.xcSet, upperReflectorPosition,
                                               self.materialNum],
                                              [self.ductInnerFlatToFlat, self.reflectorHeight], 'upper Reflector'])
         self.updateIdentifiers(False)
-        self.lowerReflectorPosition = self.position
-        self.lowerReflectorPosition[2] = -self.reflectorHeight
         self.lowerReflector = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                              self.reflectorMaterial, self.xcSet, self.lowerReflectorPosition,
+                                              self.reflectorMaterial, self.xcSet, lowerReflectorPosition,
                                               self.materialNum],
                                              [self.ductInnerFlatToFlat, self.reflectorHeight], 'lower Reflector'])
 
         self.updateIdentifiers(False)
         innerSurfaceNums = [self.innerDuct.surfaceNum, self.lowerReflector.surfaceNum, self. upperReflector.surfaceNum,
                             self.plenum.surfaceNum]
-        reflector2ReflectorHeight = self.reflectorHeight * 2 + self.plenumHeight + self.fuelHeight * 1.01
         self.duct = Outerduct.Duct([[self.assemblyUniverse, self.cellNum, self.surfaceNum, self.coolantMaterial,
-                                     self.xcSet, self.lowerReflectorPosition, self.materialNum],
-                                    [self.ductOuterFlatToFlatMCNPEdge, reflector2ReflectorHeight, innerSurfaceNums]])
+                                     self.xcSet, lowerReflectorPosition, self.materialNum],
+                                    [self.ductOuterFlatToFlatMCNPEdge, definedHeight, innerSurfaceNums]])
 
         self.updateIdentifiers(False)
-        definedHeight = 2 * self.reflectorHeight + self.fuelHeight * 1.01 + self.plenumHeight
-        excessCoolantHeight = (self.assemblyHeight - definedHeight) / 2
-        heightToUpperCoolant = definedHeight - self.reflectorHeight
-        upperReflectorPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, heightToUpperCoolant)
-        bottomCoolantPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch,
-                                                    -(self.reflectorHeight + excessCoolantHeight))
         self.assemblyShell = Outershell.OuterShell([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                                     self.coolantMaterial, self.xcSet, [], self.materialNum],
-                                                    [bottomCoolantPosition, self.assemblyHeight,
-                                                     self.ductOuterFlatToFlat]])
+                                                     self.coolantMaterial, self.xcSet, upperReflectorPosition,
+                                                     self.materialNum],
+                                                    [self.assemblyHeight,  self.ductOuterFlatToFlat]])
 
         self.updateIdentifiers(False)
         self.lowerSodium = Lowersodium.LowerSodium([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                                     self.coolantMaterial, self.xcSet, self.position, self.materialNum],
-                                                    [bottomCoolantPosition, excessCoolantHeight,
+                                                     self.coolantMaterial, self.xcSet, bottomCoolantPosition,
+                                                     self.materialNum],
+                                                    [excessCoolantHeight,
                                                      self.ductOuterFlatToFlatMCNPEdge]])
 
         self.updateIdentifiers(False)
         self.upperSodium = Uppersodium.UpperSodium([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                                     self.coolantMaterial, self.xcSet, self.position, self.materialNum],
-                                                    [upperReflectorPosition, excessCoolantHeight,
+                                                     self.coolantMaterial, self.xcSet, upperReflectorPosition,
+                                                     self.materialNum],
+                                                    [excessCoolantHeight,
                                                      self.ductOuterFlatToFlatMCNPEdge]])
 
         if 'Single' in self.globalVars.input_type:

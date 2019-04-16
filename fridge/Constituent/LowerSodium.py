@@ -13,13 +13,12 @@ class LowerSodium(Constituent.Constituent):
         self.makeComponent(unitInfo[1])
 
     def makeComponent(self, lowerCoolantInfo):
-        lowerCoolantPosition = lowerCoolantInfo[0]
-        excessCoolantHeight = lowerCoolantInfo[1]
-        flatToFlat = lowerCoolantInfo[2]
+        excessCoolantHeight = lowerCoolantInfo[0]
+        flatToFlat = lowerCoolantInfo[1]
         surfaceComment = "$Assembly: Lower Coolant"
         cellComment = "$Assembly: Lower Coolant"
-        lowerCoolantPosition[2] -= 0.1
+        self.position[2] -= 0.1
         lowerNaHeight = excessCoolantHeight + 0.1
-        self.surfaceCard = mcnpCF.getRHP(flatToFlat, lowerNaHeight, lowerCoolantPosition, self.surfaceNum, surfaceComment)
+        self.surfaceCard = mcnpCF.getRHP(flatToFlat, lowerNaHeight, self.position, self.surfaceNum, surfaceComment)
         self.cellCard = mcnpCF.getSingleCell(self.cellNum, self.materialNum, self.material.atomDensity, self.surfaceNum,
                                              self.universe, cellComment)

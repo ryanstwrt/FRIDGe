@@ -40,23 +40,28 @@ class BlankAssembly(Assembly.Assembly):
             self.getAssemblyInfo(inputs)
 
     def getAssembly(self):
+        excessCoolantHeight = (self.assemblyHeight - self.blankRegionHeight) / 2
+        bottomCoolantPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, -self.zPosition)
+        upperBlankAssemblyPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, excessCoolantHeight)
+
         self.blankRegion = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                            self.blankMaterial, self.xcSet, self.position, self.materialNum],
                                           [self.ductInnerFlatToFlat, self.blankRegionHeight], 'Blank Region'])
 
         self.updateIdentifiers(False)
-        zShift = self.zPosition
         self.assemblyShell = Outershell.OuterShell([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                                      self.coolantMaterial, self.xcSet, [], self.materialNum],
-                                                    [zShift, self.blankRegionHeight, self.assemblyHeight,
-                                                     self.ductOuterFlatToFlat, self.assemblyPosition]])
+                                                    [bottomCoolantPosition,  self.assemblyHeight,
+                                                     self.ductOuterFlatToFlat]])
 
         self.updateIdentifiers(False)
         self.lowerSodium = Lowersodium.LowerSodium([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                                      self.coolantMaterial, self.xcSet, self.position, self.materialNum],
-                                                    [self.assemblyShell, self.ductOuterFlatToFlatMCNPEdge]])
+                                                    [bottomCoolantPosition, excessCoolantHeight,
+                                                     self.ductOuterFlatToFlatMCNPEdge]])
 
         self.updateIdentifiers(False)
         self.upperSodium = Uppersodium.UpperSodium([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                                      self.coolantMaterial, self.xcSet, self.position, self.materialNum],
-                                                    [self.assemblyShell, self.ductOuterFlatToFlatMCNPEdge]])
+                                                    [upperBlankAssemblyPosition, excessCoolantHeight,
+                                                     self.ductOuterFlatToFlatMCNPEdge]])

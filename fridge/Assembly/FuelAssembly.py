@@ -151,9 +151,10 @@ class FuelAssembly(Assembly.Assembly):
                                     [self.ductOuterFlatToFlatMCNPEdge, reflector2ReflectorHeight, innerSurfaceNums]])
 
         self.updateIdentifiers(False)
-        definedHeight = 2 * self.reflectorHeight + self.fuelHeight + self.plenumHeight
-        excessCoolantHeight = (self.assemblyHeight - definedHeight) /2
-        upperReflectorPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, excessCoolantHeight)
+        definedHeight = 2 * self.reflectorHeight + self.fuelHeight * 1.01 + self.plenumHeight
+        excessCoolantHeight = (self.assemblyHeight - definedHeight) / 2
+        heightToUpperCoolant = definedHeight - self.reflectorHeight
+        upperReflectorPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, heightToUpperCoolant)
         bottomCoolantPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch,
                                                     -(self.reflectorHeight + excessCoolantHeight))
         self.assemblyShell = Outershell.OuterShell([[self.assemblyUniverse, self.cellNum, self.surfaceNum,

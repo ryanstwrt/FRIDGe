@@ -40,4 +40,4 @@ def main(file_name):
     mcf.mcnp_input_deck_maker(assembly, k_card, global_vars)
     print('FRIDGe has finished creating your Assembly/Core')
 
-main('A271_Assembly')
+#main('A271_Assembly')

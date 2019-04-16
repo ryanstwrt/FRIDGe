@@ -140,6 +140,7 @@ class FuelAssembly(Assembly.Assembly):
                                               self.reflectorMaterial, self.xcSet, upperReflectorPosition,
                                               self.materialNum],
                                              [self.ductInnerFlatToFlat, self.reflectorHeight], 'upper Reflector'])
+
         self.updateIdentifiers(False)
         self.lowerReflector = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                               self.reflectorMaterial, self.xcSet, lowerReflectorPosition,
@@ -197,17 +198,10 @@ class FuelAssembly(Assembly.Assembly):
         """Reads in the plenum region data from the assembly yaml file."""
         self.plenumHeight = float(inputs['Plenum Height'])
         self.plenumPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, self.fuelHeight * 1.01)
-        plenumSmear = [float(i) for i in inputs['Plenum Smear']]
-        plenumMaterial = inputs["Plenum Material"]
-        self.plenumMaterial = {}
-        for num, material in enumerate(plenumMaterial):
-            self.plenumMaterial[material] = plenumSmear[num]
+        self.plenumMaterial = inputs['Plenum Smear']
 
     def getReflectorInfo(self, inputs):
         """Reads in the reflector region data form the assembly yaml file."""
-        self.reflectorHeight = float(inputs['Fuel Reflector Height'])
-        reflectorSmear = [float(i) for i in inputs['Smear']]
-        reflectorMaterial = inputs['Material']
-        self.reflectorMaterial = {}
-        for num, material in enumerate(reflectorMaterial):
-            self.reflectorMaterial[material] = reflectorSmear[num]
+        self.reflectorHeight = float(inputs['Reflector Height'])
+        self.reflectorMaterial = inputs['Reflector Smear']
+

@@ -24,10 +24,8 @@ Assembly Material: HT9
 
 #Plenum Data
 Plenum Height: 60
-Plenum Smear: [0.50, 0.25, 0.25]
-Plenum Material: [LiquidNa, Void, HT9]
+Plenum Smear: {LiquidNa: 0.50, Void: 0.25, HT9: 0.25}
 
 #Fuel Reflector Data
-Fuel Reflector Height: 60
-Smear: [0.2, 0.8]
-Material: [LiquidNa, HT9]
+Reflector Height: 60
+Reflector Smear: {LiquidNa: 0.2, HT9: 0.8}

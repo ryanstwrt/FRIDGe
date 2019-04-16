@@ -140,18 +140,16 @@ def test_innerDuct():
 
 
 def test_lowerSodium():
-    outerShellInfo = [[0, 1, 2, 'HT9', '82c', [], 3], [10, 30, 50, 0.2, '01A01']]
-    assemblyShell = OuterShell.OuterShell(outerShellInfo)
-    lowerSodiumInfo = [[0, 1, 2, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [assemblyShell, 0.2]]
+    lowerSodiumInfo = [[0, 1, 2, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [[0.0, 0.0, -20.0], 10.0, 0.2]]
     c = LowerSodium.LowerSodium(lowerSodiumInfo)
-    cellCard = '1 3 0.02428 -2 u=0 imp:n=1 $Assembly: Lower Sodium'
-    surfaceCard = '2 RHP 0.0 0.0 -20.1 0 0 10.1 0.2 0 0 $Assembly: Lower Sodium'
+    cellCard = '1 3 0.02428 -2 u=0 imp:n=1 $Assembly: Lower Coolant'
+    surfaceCard = '2 RHP 0.0 0.0 -20.1 0 0 10.1 0.2 0 0 $Assembly: Lower Coolant'
     assert c.cellCard == cellCard
     assert c.surfaceCard == surfaceCard
 
 
 def test_outershell():
-    outerShellInfo = [[0, 1, 2, 'LiquidNa', '82c', [], 3], [10, 30, 50, 0.2, '01A01']]
+    outerShellInfo = [[0, 1, 2, 'LiquidNa', '82c', [], 3], [[0.0, 0.0, -20.0], 50, 0.2]]
     c = OuterShell.OuterShell(outerShellInfo)
     cellCard = '2 0 -1 fill=0 imp:n=1 $Assembly'
     surfaceCard = '2 RHP 0.0 0.0 -20.0 0 0 50 0.2 0 0 $Assembly: Full Assembly Surface'
@@ -169,11 +167,9 @@ def test_smear():
 
 
 def test_upperSodium():
-    outerShellInfo = [[0, 1, 2, 'HT9', '82c', [], 3], [10, 30, 50, 0.2, '01A01']]
-    assemblyShell = OuterShell.OuterShell(outerShellInfo)
-    upperSodiumInfo = [[0, 1, 2, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [assemblyShell, 0.2]]
+    upperSodiumInfo = [[0, 1, 2, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [[0.0, 0.0, 20], 10.0, 0.2]]
     c = UpperSodium.UpperSodium(upperSodiumInfo)
-    cellCard = '1 3 0.02428 -2 u=0 imp:n=1 $Assembly: Upper Sodium'
-    surfaceCard = '2 RHP 0.0 0.0 20 0 0 10.0 0.2 0 0 $Assembly: Upper Sodium'
+    cellCard = '1 3 0.02428 -2 u=0 imp:n=1 $Assembly: Upper Coolant'
+    surfaceCard = '2 RHP 0.0 0.0 20 0 0 10.0 0.2 0 0 $Assembly: Upper Coolant'
     assert c.cellCard == cellCard
     assert c.surfaceCard == surfaceCard

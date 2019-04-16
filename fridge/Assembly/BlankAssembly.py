@@ -43,6 +43,14 @@ class BlankAssembly(Assembly.Assembly):
         self.blankRegion = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                            self.blankMaterial, self.xcSet, self.position, self.materialNum],
                                           [self.ductInnerFlatToFlat, self.blankRegionHeight], 'Blank Region'])
+
+        self.updateIdentifiers(False)
+        zShift = self.zPosition
+        self.assemblyShell = Outershell.OuterShell([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
+                                                     self.coolantMaterial, self.xcSet, [], self.materialNum],
+                                                    [zShift, self.blankRegionHeight, self.assemblyHeight,
+                                                     self.ductOuterFlatToFlat, self.assemblyPosition]])
+
         self.updateIdentifiers(False)
         self.lowerSodium = Lowersodium.LowerSodium([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                                      self.coolantMaterial, self.xcSet, self.position, self.materialNum],

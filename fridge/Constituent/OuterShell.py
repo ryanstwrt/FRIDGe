@@ -5,16 +5,9 @@ import FRIDGe.fridge.utilities.mcnpCreatorFunctions as mcnpCF
 class OuterShell(Constituent.Constituent):
     """The creates a shell around the assembly which allows the assembly to fit into a single universe."""
     def __init__(self, unitInfo):
-        self.reflectorHeight = unitInfo[1][0]
-        self.definedHeight = unitInfo[1][1]
-        self.assemblyHeight = unitInfo[1][2]
-        self.pitch = unitInfo[1][3]
-        self.assemblyPosition = unitInfo[1][4]
-        self.excessNaHeight = (self.assemblyHeight - self.definedHeight) / 2
-        self.positionBottomAssembly = mcnpCF.getPosition(self.assemblyPosition, self.pitch,
-                                                         -(self.reflectorHeight + self.excessNaHeight))
-        self.positionTopUpperReflector = mcnpCF.getPosition(self.assemblyPosition, self.pitch,
-                                                            self.definedHeight - self.reflectorHeight)
+        self.positionBottomAssembly = unitInfo[1][0]
+        self.assemblyHeight = unitInfo[1][1]
+        self.pitch = unitInfo[1][2]
         super().__init__(unitInfo)
         self.getMaterialCard(unitInfo[0][3])
         self.makeComponent(unitInfo[1])

@@ -56,8 +56,8 @@ c ************************Cell Cards for Assembly: 01A01***********************
 107 17 0.03364 -107 u=100 imp:n=1 $Assembly: plenum
 108 18 0.07365 -108 u=100 imp:n=1 $Assembly: upper Reflector
 109 19 0.07365 -109 u=100 imp:n=1 $Assembly: lower Reflector
-112 22 0.02428 -112 u=100 imp:n=1 $Assembly: Lower Sodium
-113 23 0.02428 -113 u=100 imp:n=1 $Assembly: Upper Sodium
+112 22 0.02428 -112 u=100 imp:n=1 $Assembly: Lower Coolant
+113 23 0.02428 -113 u=100 imp:n=1 $Assembly: Upper Coolant
 111 0 -111 fill=100 imp:n=1 $Assembly
 114 0 111 imp:n=0 $Assembly: Outside Assembly
 
@@ -73,8 +73,8 @@ c ********************Surface Cards for Fuel Assembly: 01A01*******************
 109 RHP 0.0 0.0 -60.0 0 0 60.0 5.505 0 0 $Assembly: lower Reflector
 110 RHP 0.0 0.0 -60.0 0 0 240.6 6.10531 0 0 $Assembly:Duct Outer Surface
 111 RHP 0.0 0.0 -100.0 0 0 320.0 6.105 0 0 $Assembly: Full Assembly Surface
-112 RHP 0.0 0.0 -100.1 0 0 40.1 6.10531 0 0 $Assembly: Lower Sodium
-113 RHP 0.0 0.0 180.0 0 0 40.0 6.10531 0 0 $Assembly: Upper Sodium
+112 RHP 0.0 0.0 -100.1 0 0 40.1 6.10531 0 0 $Assembly: Lower Coolant
+113 RHP 0.0 0.0 40.0 0 0 40.0 6.10531 0 0 $Assembly: Upper Coolant
 
 c **********************************Data Cards*********************************
 c ******************************k-code Information*****************************

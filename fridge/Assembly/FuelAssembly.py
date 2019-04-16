@@ -152,21 +152,26 @@ class FuelAssembly(Assembly.Assembly):
 
         self.updateIdentifiers(False)
         definedHeight = 2 * self.reflectorHeight + self.fuelHeight + self.plenumHeight
-        zShift = self.reflectorHeight
+        excessCoolantHeight = (self.assemblyHeight - definedHeight) /2
+        upperReflectorPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, excessCoolantHeight)
+        bottomCoolantPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch,
+                                                    -(self.reflectorHeight + excessCoolantHeight))
         self.assemblyShell = Outershell.OuterShell([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                                      self.coolantMaterial, self.xcSet, [], self.materialNum],
-                                                    [zShift, definedHeight, self.assemblyHeight,
-                                                     self.ductOuterFlatToFlat, self.assemblyPosition]])
+                                                    [bottomCoolantPosition, self.assemblyHeight,
+                                                     self.ductOuterFlatToFlat]])
 
         self.updateIdentifiers(False)
         self.lowerSodium = Lowersodium.LowerSodium([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                                      self.coolantMaterial, self.xcSet, self.position, self.materialNum],
-                                                    [self.assemblyShell, self.ductOuterFlatToFlatMCNPEdge]])
+                                                    [bottomCoolantPosition, excessCoolantHeight,
+                                                     self.ductOuterFlatToFlatMCNPEdge]])
 
         self.updateIdentifiers(False)
         self.upperSodium = Uppersodium.UpperSodium([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                                      self.coolantMaterial, self.xcSet, self.position, self.materialNum],
-                                                    [self.assemblyShell, self.ductOuterFlatToFlatMCNPEdge]])
+                                                    [upperReflectorPosition, excessCoolantHeight,
+                                                     self.ductOuterFlatToFlatMCNPEdge]])
 
         if 'Single' in self.globalVars.input_type:
             self.updateIdentifiers(False)

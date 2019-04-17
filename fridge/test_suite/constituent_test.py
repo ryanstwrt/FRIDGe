@@ -14,7 +14,7 @@ import FRIDGe.fridge.Constituent.Smear as Smear
 import FRIDGe.fridge.Constituent.UpperSodium as UpperSodium
 import FRIDGe.fridge.utilities.materialReader as mr
 
-constituentInfo = [[0, 1, 2, 'LiquidNa', '82c', [1, 1, 1], 3], []]
+constituentInfo = [[0, 1, 2, 'LiquidNa', '.82c', [1, 1, 1], 3], []]
 
 
 def test_constituent():
@@ -23,7 +23,7 @@ def test_constituent():
     assert c.universe == 0
     assert c.surfaceNum == 2
     assert c.cellNum == 1
-    assert c.materialXCLibrary == '82c'
+    assert c.materialXCLibrary == '.82c'
     assert c.position == [1, 1, 1]
     assert c.materialNum == 3
     assert c.surfaceCard == ''
@@ -58,7 +58,7 @@ def test_duct():
     ductInfo = [[0, 1, 2, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [0.1, 0.2, 4]]
     c = Duct.Duct(ductInfo)
     cellCard = '1 3 0.02428 4 -2 u=0 imp:n=1 $Assembly: Assembly Duct'
-    surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 0.2 0.1 0 0 $Assembly:Duct Outer Surface'
+    surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 0.2 0.1 0 0 $Assembly: Duct Outer Surface'
     assert c.flat2flat == 0.1
     assert c.height == 0.20
     assert c.innerSurfaceNum == 4

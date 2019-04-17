@@ -89,6 +89,77 @@ def test_fuel_assembly():
 
     assert a.fuel.cellCard == '100 10 0.04575 -100 u=101 imp:n=1 $Pin: Fuel'
     assert a.fuel.surfaceCard == '100 RCC 0.0 0.0 0.0 0 0 60.0 0.19745 $Pin: Fuel'
+    assert a.bond.cellCard == '101 11 0.02428 100 -101 u=101 imp:n=1 $Pin: Bond'
+    assert a.bond.surfaceCard == '101 RCC 0.0 0.0 0.0 0 0 60.6 0.228 $Pin: Bond - 1% higher than fuel'
+    assert a.clad.cellCard == '102 12 0.08599 101 -102 u=101 imp:n=1 $Pin: Clad'
+    assert a.clad.surfaceCard == '102 RCC 0.0 0.0 0.0 0 0 60.6 0.265 $Pin: Clad - 1% higher than fuel'
+    assert a.coolant.cellCard == '103 13 0.02428 102 u=101 imp:n=1 $Pin: Wirewrap + Coolant'
+    assert a.coolant.surfaceCard == '103 RHP 0.0 0.0 0.0 0 0 60.6 0 0.66144 0 $Pin: Coolant - 1% higher than fuel'
+    assert a.blankCoolant.cellCard == '104 14 0.02428 -103 u=102 imp:n=1 $Pin: Blank Pin Coolant'
+    assert a.blankCoolant.surfaceCard == '104 RHP 0.0 0.0 0.0 0 0 60.6 0 0.33072 0 $Pin: Blank Pin - 1%\
+ higher than fuel'
+    assert a.fuelUniverse.cellCard == '105 0 -104 lat=2 u=103 imp:n=1\n'\
+                                      '     fill=-10:10 -10:10 0:0\n'\
+                                      '      102 102 102 102 102 102 102 102 102 102\n'\
+                                      '      102 102 102 102 102 102 102 102 102 102\n'\
+                                      '      102 102 102 102 102 102 102 102 102 102 102\n'\
+                                      '      101 101 101 101 101 101 101 101 101 101\n'\
+                                      '      102 102 102 102 102 102 102 102 102 102 101\n'\
+                                      '      101 101 101 101 101 101 101 101 101 101\n'\
+                                      '      102 102 102 102 102 102 102 102 102 101 101\n'\
+                                      '      101 101 101 101 101 101 101 101 101 101\n'\
+                                      '      102 102 102 102 102 102 102 102 101 101 101\n'\
+                                      '      101 101 101 101 101 101 101 101 101 101\n'\
+                                      '      102 102 102 102 102 102 102 101 101 101 101\n'\
+                                      '      101 101 101 101 101 101 101 101 101 101\n'\
+                                      '      102 102 102 102 102 102 101 101 101 101 101\n'\
+                                      '      101 101 101 101 101 101 101 101 101 101\n'\
+                                      '      102 102 102 102 102 101 101 101 101 101 101\n'\
+                                      '      101 101 101 101 101 101 101 101 101 101\n'\
+                                      '      102 102 102 102 101 101 101 101 101 101 101\n'\
+                                      '      101 101 101 101 101 101 101 101 101 101\n'\
+                                      '      102 102 102 101 101 101 101 101 101 101 101\n'\
+                                      '      101 101 101 101 101 101 101 101 101 101\n'\
+                                      '      102 102 101 101 101 101 101 101 101 101 101\n'\
+                                      '      101 101 101 101 101 101 101 101 101 101\n'\
+                                      '      102 102 101 101 101 101 101 101 101 101 101\n'\
+                                      '      101 101 101 101 101 101 101 101 101 102\n'\
+                                      '      102 102 101 101 101 101 101 101 101 101 101\n'\
+                                      '      101 101 101 101 101 101 101 101 102 102\n'\
+                                      '      102 102 101 101 101 101 101 101 101 101 101\n'\
+                                      '      101 101 101 101 101 101 101 102 102 102\n'\
+                                      '      102 102 101 101 101 101 101 101 101 101 101\n'\
+                                      '      101 101 101 101 101 101 102 102 102 102\n'\
+                                      '      102 102 101 101 101 101 101 101 101 101 101\n'\
+                                      '      101 101 101 101 101 102 102 102 102 102\n'\
+                                      '      102 102 101 101 101 101 101 101 101 101 101\n'\
+                                      '      101 101 101 101 102 102 102 102 102 102\n'\
+                                      '      102 102 101 101 101 101 101 101 101 101 101\n'\
+                                      '      101 101 101 102 102 102 102 102 102 102\n'\
+                                      '      102 102 101 101 101 101 101 101 101 101 101\n'\
+                                      '      101 101 102 102 102 102 102 102 102 102\n'\
+                                      '      102 102 101 101 101 101 101 101 101 101 101\n'\
+                                      '      101 102 102 102 102 102 102 102 102 102\n'\
+                                      '      102 102 102 102 102 102 102 102 102 102 102\n'\
+                                      '      102 102 102 102 102 102 102 102 102 102\n'\
+                                      '      102'
+    assert a.innerDuct.cellCard == '106 0 -106 u=100 fill=103 imp:n=1 $Assembly: Inner Portion of Assembly'
+    assert a.innerDuct.surfaceCard == '106 RHP 0.0 0.0 0.0 0 0 60.6 5.505 0 0 $Assembly: Duct Inner Surface'
+    assert a.plenum.cellCard == '107 17 0.03364 -107 u=100 imp:n=1 $Assembly: Plenum'
+    assert a.plenum.surfaceCard == '107 RHP 0.0 0.0 60.6 0 0 60.0 5.505 0 0 $Assembly: Plenum'
+    assert a.upperReflector.cellCard == '108 18 0.07365 -108 u=100 imp:n=1 $Assembly: Upper Reflector'
+    assert a.upperReflector.surfaceCard == '108 RHP 0.0 0.0 120.6 0 0 60.0 5.505 0 0 $Assembly: Upper Reflector'
+    assert a.lowerReflector.cellCard == '109 19 0.07365 -109 u=100 imp:n=1 $Assembly: Lower Reflector'
+    assert a.lowerReflector.surfaceCard == '109 RHP 0.0 0.0 -60.0 0 0 60.0 5.505 0 0 $Assembly: Lower Reflector'
+    assert a.duct.cellCard == '110 20 0.08599  106 109 108 107 -110 u=100 imp:n=1 $Assembly: Assembly Duct'
+    assert a.duct.surfaceCard == '110 RHP 0.0 0.0 -60.0 0 0 240.6 6.10531 0 0 $Assembly: Duct Outer Surface'
+    assert a.lowerSodium.cellCard == '111 21 0.02428 -111 u=100 imp:n=1 $Assembly: Lower Coolant'
+    assert a.lowerSodium.surfaceCard == '111 RHP 0.0 0.0 -99.8 0 0 39.8 6.10531 0 0 $Assembly: Lower Coolant'
+    assert a.upperSodium.cellCard == '112 22 0.02428 -112 u=100 imp:n=1 $Assembly: Upper Coolant'
+    assert a.upperSodium.surfaceCard == '112 RHP 0.0 0.0 180.6 0 0 39.7 6.10531 0 0 $Assembly: Upper Coolant'
+    assert a.assemblyShell.cellCard == '113 0 -113 fill=100 imp:n=1 $Assembly'
+    assert a.assemblyShell.surfaceCard == '113 RHP 0.0 0.0 -99.7 0 0 320.0 6.105 0 0 $Assembly: Full Assembly Surface'
+    assert a.everythingElse.cellCard == '114 0 113 imp:n=0 $Assembly: Outside Assembly'
 
 
 global_vars = gb.GlobalVariables()

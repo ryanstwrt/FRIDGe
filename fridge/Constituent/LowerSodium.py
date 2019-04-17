@@ -17,8 +17,9 @@ class LowerSodium(Constituent.Constituent):
         flatToFlat = lowerCoolantInfo[1]
         surfaceComment = "$Assembly: Lower Coolant"
         cellComment = "$Assembly: Lower Coolant"
-        self.position[2] -= 0.1
+        position = copy.deepcopy(self.position)
+        position[2] -= 0.1
         lowerNaHeight = excessCoolantHeight + 0.1
-        self.surfaceCard = mcnpCF.getRHP(flatToFlat, lowerNaHeight, self.position, self.surfaceNum, surfaceComment)
+        self.surfaceCard = mcnpCF.getRHP(flatToFlat, lowerNaHeight, position, self.surfaceNum, surfaceComment)
         self.cellCard = mcnpCF.getSingleCell(self.cellNum, self.materialNum, self.material.atomDensity, self.surfaceNum,
                                              self.universe, cellComment)

@@ -16,7 +16,7 @@ class Duct(Constituent.Constituent):
         self.flat2flat = ductInfo[0]
         self.height = ductInfo[1]
         self.innerSurfaceNum = ductInfo[2]
-        surfaceComment = "$Assembly:Duct Outer Surface"
+        surfaceComment = "$Assembly: Duct Outer Surface"
         cellComment = "$Assembly: Assembly Duct"
         self.surfaceCard = mcnpCF.getRHP(self.flat2flat, self.height, self.position, self.surfaceNum, surfaceComment)
         self.cellCard = mcnpCF.getConcentricCell(self.cellNum, self.materialNum, self.material.atomDensity,

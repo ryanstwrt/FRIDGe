@@ -1,4 +1,5 @@
 import FRIDGe.fridge.utilities.mcnpCreatorFunctions as MCF
+import FRIDGe.fridge.utilities.materialReader as MR
 import numpy as np
 
 
@@ -62,6 +63,14 @@ def test_getEverythingElseCard():
     assert cellCard == cellCardKnown
 
 
+def test_smearedMaterial():
+    smearMaterialDict = {'LiquidNa': 0.5, 'Void': 0.5}
+    smearedMaterial = MCF.getSmearedMaterial(smearMaterialDict)
+    assert np.allclose(smearedMaterial.atomDensity, 0.01214, 5)
+    assert smearedMaterial.name == "['LiquidNa', 'Void']"
+    assert smearedMaterial.atomPercent[11023] == 1.0
+
+
 def test_getPosition_02A01():
     position = MCF.getPosition('02A01', 2, 10)
     knownAPosition = [-1.73205, 1.0, 10]
@@ -74,6 +83,7 @@ def test_getPosition_02B01():
     knownAPosition = [0.0, 2.0, 10]
     for i, pos in enumerate(position):
         assert np.allclose(knownAPosition[i], pos)
+
 
 def test_getPosition_02C01():
     position = MCF.getPosition('02C01', 2, 10)

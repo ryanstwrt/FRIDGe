@@ -122,8 +122,11 @@ def getSmearedMaterial(materials):
                                              materialClass.elementDict[currentElement].molecularMassDict[isotope]
     newMaterial = materialReader.Material()
     newMaterial.name = "{}".format([val for val in materials])
-    newMaterial.atomPercent = smearMaterial
     newMaterial.atomDensity = sum(smearMaterial.values())
+    smearMaterialAtomPercent = {}
+    for k, v in smearMaterial.items():
+        smearMaterialAtomPercent[k] = v / newMaterial.atomDensity
+    newMaterial.atomPercent = smearMaterialAtomPercent
     return newMaterial
 
 

@@ -87,7 +87,9 @@ class FuelAssembly(Assembly.Assembly):
         definedHeight = 2 * self.reflectorHeight + self.fuelHeight * 1.01 + self.plenumHeight
         excessCoolantHeight = (self.assemblyHeight - definedHeight) / 2
         heightToUpperCoolant = definedHeight - self.reflectorHeight
-        upperReflectorPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, heightToUpperCoolant)
+        heightToUpperReflector = self.fuelHeight * 1.01 + self.plenumHeight
+        upperCoolantPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, heightToUpperCoolant)
+        upperReflectorPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, heightToUpperReflector)
         lowerReflectorPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, -self.reflectorHeight)
         bottomCoolantPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch,
                                                    -(self.reflectorHeight + excessCoolantHeight))
@@ -156,7 +158,7 @@ class FuelAssembly(Assembly.Assembly):
 
         self.updateIdentifiers(False)
         self.assemblyShell = Outershell.OuterShell([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                                     self.coolantMaterial, self.xcSet, upperReflectorPosition,
+                                                     self.coolantMaterial, self.xcSet, bottomCoolantPosition,
                                                      self.materialNum],
                                                     [self.assemblyHeight,  self.ductOuterFlatToFlat]])
 
@@ -169,7 +171,7 @@ class FuelAssembly(Assembly.Assembly):
 
         self.updateIdentifiers(False)
         self.upperSodium = Uppersodium.UpperSodium([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                                     self.coolantMaterial, self.xcSet, upperReflectorPosition,
+                                                     self.coolantMaterial, self.xcSet, upperCoolantPosition,
                                                      self.materialNum],
                                                     [excessCoolantHeight,
                                                      self.ductOuterFlatToFlatMCNPEdge]])

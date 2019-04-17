@@ -90,7 +90,7 @@ def getMaterialCard(material, xc, matNum):
         if i == 3:
             materialCard += "\n    "
             i = 0
-        materialCard += " {}.{} {:.4E}".format(isotope, xc, Decimal(atomDensity))
+        materialCard += " {}{} {:.4E}".format(isotope, xc, Decimal(atomDensity))
         i += 1
     return materialCard
 

@@ -87,6 +87,9 @@ def test_fuel_assembly():
     assert a.reflectorHeight == 60
     assert a.reflectorMaterial == {'LiquidNa': 0.20, 'HT9': 0.80}
 
+    assert a.fuel.cellCard == '100 10 0.04575 -100 u=101 imp:n=1 $Pin: Fuel'
+    assert a.fuel.surfaceCard == '100 RCC 0.0 0.0 0.0 0 0 60.0 0.19745 $Pin: Fuel'
+
 
 global_vars = gb.GlobalVariables()
 global_vars.read_input_file('Blank_Assembly_Test')

@@ -174,6 +174,15 @@ def test_blankAssembly():
     assert a.assemblyMaterial == 'HT9'
     assert a.blankMaterial == {'LiquidNa': 0.3, 'HT9': 0.7}
 
+    assert a.blankRegion.cellCard == "100 10 0.06748 -100 u=100 imp:n=1 $Assembly: Blank Region"
+    assert a.blankRegion.surfaceCard == "100 RHP 0.0 0.0 -60.0 0 0 240 6.10531 0 0 $Assembly: Blank Region"
+    assert a.lowerSodium.cellCard == '101 11 0.02428 -101 u=100 imp:n=1 $Assembly: Lower Coolant'
+    assert a.lowerSodium.surfaceCard == '101 RHP 0.0 0.0 -100.1 0 0 40.1 6.10531 0 0 $Assembly: Lower Coolant'
+    assert a.upperSodium.cellCard == '102 12 0.02428 -102 u=100 imp:n=1 $Assembly: Upper Coolant'
+    assert a.upperSodium.surfaceCard == '102 RHP 0.0 0.0 180.0 0 0 40.0 6.10531 0 0 $Assembly: Upper Coolant'
+    assert a.assemblyShell.cellCard == '103 0 -103 fill=100 imp:n=1 $Assembly'
+    assert a.assemblyShell.surfaceCard == '103 RHP 0.0 0.0 -100.0 0 0 320.0 6.105 0 0 $Assembly: Full Assembly Surface'
+
 
 def test_getAssemblyLocation():
     assembly_info1 = ['Nonsense', '01A01', global_vars]

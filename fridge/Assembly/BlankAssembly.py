@@ -40,31 +40,34 @@ class BlankAssembly(Assembly.Assembly):
             self.blankRegionHeight = inputs['Blank Height']
 
     def getAssembly(self):
+        self.assemblyUniverse = self.universe
         excessCoolantHeight = (self.assemblyHeight - self.blankRegionHeight) / 2
-        bottomCoolantPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, -(self.zPosition +
-                                                                                                excessCoolantHeight))
-        bottomBlankPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, -self.zPosition)
-        upperBlankAssemblyPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, self.assemblyHeight -
-                                                        (self.zPosition + excessCoolantHeight))
+        bottomCoolantPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, self.zPosition -
+                                                                                                excessCoolantHeight)
+        bottomBlankPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, self.zPosition)
+        upperBlankAssemblyPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch,
+                                                        self.blankRegionHeight + self.zPosition)
 
         self.blankRegion = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                            self.blankMaterial, self.xcSet, bottomBlankPosition, self.materialNum],
-                                          [self.ductInnerFlatToFlat, self.blankRegionHeight], 'Blank Region'])
-
-        self.updateIdentifiers(False)
-        self.assemblyShell = Outershell.OuterShell([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                                     self.coolantMaterial, self.xcSet, bottomCoolantPosition, self.materialNum],
-                                                    [self.assemblyHeight,
-                                                     self.ductOuterFlatToFlat]])
+                                          [self.ductOuterFlatToFlatMCNPEdge, self.blankRegionHeight], 'Blank Region'])
 
         self.updateIdentifiers(False)
         self.lowerSodium = Lowersodium.LowerSodium([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                                     self.coolantMaterial, self.xcSet, bottomCoolantPosition, self.materialNum],
-                                                    [excessCoolantHeight,
-                                                     self.ductOuterFlatToFlatMCNPEdge]])
+                                                     self.coolantMaterial, self.xcSet, bottomCoolantPosition,
+                                                     self.materialNum],
+                                                    [excessCoolantHeight, self.ductOuterFlatToFlatMCNPEdge]])
 
         self.updateIdentifiers(False)
         self.upperSodium = Uppersodium.UpperSodium([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                                     self.coolantMaterial, self.xcSet, upperBlankAssemblyPosition, self.materialNum],
-                                                    [excessCoolantHeight,
-                                                     self.ductOuterFlatToFlatMCNPEdge]])
+                                                     self.coolantMaterial, self.xcSet, upperBlankAssemblyPosition,
+                                                     self.materialNum],
+                                                    [excessCoolantHeight, self.ductOuterFlatToFlatMCNPEdge]])
+
+        self.updateIdentifiers(False)
+        self.assemblyShell = Outershell.OuterShell([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
+                                                     self.coolantMaterial, self.xcSet, bottomCoolantPosition,
+                                                     self.materialNum],
+                                                    [self.assemblyHeight, self.ductOuterFlatToFlat]])
+
+

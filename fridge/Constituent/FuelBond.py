@@ -15,7 +15,7 @@ class FuelBond(Constituent.Constituent):
 
     def makeComponent(self, bondInfo):
         self.radius = bondInfo[0]/2
-        self.height = bondInfo[1]*1.01
+        self.height = bondInfo[1]
         self.fuelSurfaceNum = bondInfo[2]
         surfaceComment = "$Pin: Bond - 1% higher than fuel"
         cellComment = "$Pin: Bond"

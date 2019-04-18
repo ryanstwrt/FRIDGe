@@ -14,7 +14,7 @@ class FuelClad(Constituent.Constituent):
 
     def makeComponent(self, cladInfo):
         self.radius = cladInfo[0]/2
-        self.height = cladInfo[1]*1.01
+        self.height = cladInfo[1]
         self.bondSurfaceNum = cladInfo[2]
         surfaceComment = "$Pin: Clad - 1% higher than fuel"
         cellComment = "$Pin: Clad"

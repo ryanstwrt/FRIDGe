@@ -11,6 +11,7 @@ Fuel Height: 60
 Fuel: 5Pu22U10Zr
 Clad: HT9
 Bond: LiquidNa
+Bond Above Fuel: 0.6
 
 #FuelAssembly Data
 Pins Per Assembly: 271

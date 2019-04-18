@@ -15,7 +15,7 @@ class FuelCoolant(Constituent.Constituent):
 
     def makeComponent(self, coolantInfo):
         self.pitch = coolantInfo[0]
-        self.height = coolantInfo[1] * 1.01
+        self.height = coolantInfo[1]
         self.cladSurfaceNum = coolantInfo[2]
         surfaceComment = "$Pin: Coolant - 1% higher than fuel"
         cellComment = "$Pin: Wirewrap + Coolant"

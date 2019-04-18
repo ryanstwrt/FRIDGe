@@ -14,7 +14,7 @@ class BlankCoolant(Constituent.Constituent):
 
     def makeComponent(self, coolantInfo):
         self.pitch = coolantInfo[0] / 2
-        self.height = coolantInfo[1] * 1.01
+        self.height = coolantInfo[1]
         self.blankCoolantSurfaceNum = coolantInfo[2]
         surfaceComment = "$Pin: Blank Pin - 1% higher than fuel"
         cellComment = "$Pin: Blank Pin Coolant"

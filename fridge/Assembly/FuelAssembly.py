@@ -15,7 +15,6 @@ import FRIDGe.fridge.Constituent.EveryThingElse as Everythingelse
 import FRIDGe.fridge.utilities.mcnpCreatorFunctions as mcnpCF
 import yaml
 import math
-import copy
 
 
 class FuelAssembly(Assembly.Assembly):
@@ -57,6 +56,7 @@ class FuelAssembly(Assembly.Assembly):
         self.fuelDiameter = 0
         self.fuelPitch = 0
         self.wireWrapDiameter = 0
+        self.bondAboveFuel = 0.0
         self.fuelHeight = 0
         self.fuelMaterial = ''
         self.cladMaterial = ''
@@ -84,10 +84,11 @@ class FuelAssembly(Assembly.Assembly):
 
     def getAssembly(self):
         """Creates each component of the assembly."""
-        definedHeight = 2 * self.reflectorHeight + self.fuelHeight * 1.01 + self.plenumHeight
+        self.fuelHeightWithBond = self.fuelHeight + self.bondAboveFuel
+        definedHeight = 2 * self.reflectorHeight + self.fuelHeightWithBond + self.plenumHeight
         excessCoolantHeight = (self.assemblyHeight - definedHeight) / 2
         heightToUpperCoolant = definedHeight - self.reflectorHeight
-        heightToUpperReflector = self.fuelHeight * 1.01 + self.plenumHeight
+        heightToUpperReflector = self.fuelHeightWithBond + self.plenumHeight
         upperCoolantPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, heightToUpperCoolant)
         upperReflectorPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, heightToUpperReflector)
         lowerReflectorPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, -self.reflectorHeight)
@@ -103,24 +104,25 @@ class FuelAssembly(Assembly.Assembly):
         self.updateIdentifiers(False)
         self.bond = Fuelbond.FuelBond([[self.universe, self.cellNum, self.surfaceNum, self.bondMaterial, self.xcSet,
                                         self.position, self.materialNum],
-                                       [self.cladID, self.fuelHeight, self.fuel.surfaceNum]])
+                                       [self.cladID, self.fuelHeightWithBond, self.fuel.surfaceNum]])
 
         self.updateIdentifiers(False)
         self.clad = Fuelclad.FuelClad([[self.universe, self.cellNum, self.surfaceNum, self.cladMaterial, self.xcSet,
                                         self.position, self.materialNum],
-                                       [self.cladOD, self.fuelHeight, self.bond.surfaceNum]])
+                                       [self.cladOD, self.fuelHeightWithBond, self.bond.surfaceNum]])
 
         self.updateIdentifiers(False)
         self.coolant = Fuelcoolant.FuelCoolant([[self.universe, self.cellNum, self.surfaceNum, self.coolantMaterial,
                                                  self.xcSet, self.position, self.materialNum],
-                                                [self.fuelPitch, self.fuelHeight, self.clad.surfaceNum]])
+                                                [self.fuelPitch, self.fuelHeightWithBond, self.clad.surfaceNum]])
 
         self.updateIdentifiers(True)
         self.blankUniverse = self.universe
         self.blankCoolant = Blankcoolant.BlankCoolant([[self.universe, self.cellNum, self.surfaceNum,
                                                         self.coolantMaterial, self.xcSet, self.position,
                                                         self.materialNum],
-                                                       [self.fuelPitch, self.fuelHeight, self.coolant.surfaceNum]])
+                                                       [self.fuelPitch, self.fuelHeightWithBond,
+                                                        self.coolant.surfaceNum]])
         self.updateIdentifiers(True)
         self.latticeUniverse = self.universe
         self.fuelUniverse = Fueluniverse.FuelUniverse([self.pinUniverse, self.blankUniverse, self.pinsPerAssembly,
@@ -195,11 +197,14 @@ class FuelAssembly(Assembly.Assembly):
         self.fuelMaterial = inputs['Fuel']
         self.cladMaterial = inputs['Clad']
         self.bondMaterial = inputs['Bond']
+        self.bondAboveFuel = float(inputs["Bond Above Fuel"]) \
+            if 'Bond Above Fuel' in inputs else 0.0
 
     def getPlenumRegionInfo(self, inputs):
         """Reads in the plenum region data from the assembly yaml file."""
         self.plenumHeight = float(inputs['Plenum Height'])
-        self.plenumPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, self.fuelHeight * 1.01)
+        self.plenumPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch,
+                                                 self.fuelHeight + self.bondAboveFuel)
         self.plenumMaterial = inputs['Plenum Smear']
 
     def getReflectorInfo(self, inputs):

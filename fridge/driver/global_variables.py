@@ -55,7 +55,7 @@ class GlobalVariables(object):
         self.temp_adjusted_volume = bool(inputs["Temperature Adjusted Volume"]) \
             if 'Temperature Adjusted Volume' in inputs else False
         self.clad_smear = bool(inputs["Smear Clad"]) \
-            if 'Smear Bond' in inputs else False
+            if 'Smear Clad' in inputs else False
         self.bond_smear = bool(inputs["Smear Bond"]) \
             if 'Smear Bond' in inputs else False
         self.xc_library = inputs["XC Library"] \

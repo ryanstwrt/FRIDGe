@@ -46,9 +46,9 @@ def test_blankCoolant():
     blankCoolantInfo = [[0, 1, 2, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [0.1, 0.2, 4]]
     c = BlankCoolant.BlankCoolant(blankCoolantInfo)
     cellCard = '1 3 0.02428 -4 u=0 imp:n=1 $Pin: Blank Pin Coolant'
-    surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 0.202 0 0.05 0 $Pin: Blank Pin - 1% higher than fuel'
+    surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 0.2 0 0.05 0 $Pin: Blank Pin - 1% higher than fuel'
     assert c.pitch == 0.1 / 2
-    assert c.height == 0.2 * 1.01
+    assert c.height == 0.2
     assert c.blankCoolantSurfaceNum == 4
     assert cellCard == c.cellCard
     assert surfaceCard == c.surfaceCard
@@ -78,9 +78,9 @@ def test_fuelBond():
     fuelBondInfo = [[0, 1, 2, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [0.1, 0.2, 4]]
     c = FuelBond.FuelBond(fuelBondInfo)
     cellCard = '1 3 0.02428 4 -2 u=0 imp:n=1 $Pin: Bond'
-    surfaceCard = '2 RCC 1.0 1.0 1.0 0 0 0.202 0.05 $Pin: Bond - 1% higher than fuel'
+    surfaceCard = '2 RCC 1.0 1.0 1.0 0 0 0.2 0.05 $Pin: Bond - 1% higher than fuel'
     assert c.radius == 0.1 / 2
-    assert c.height == 0.2 * 1.01
+    assert c.height == 0.2
     assert cellCard == c.cellCard
     assert surfaceCard == c.surfaceCard
 
@@ -89,9 +89,9 @@ def test_fuelClad():
     fuelCladInfo = [[0, 1, 2, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [0.1, 0.2, 4]]
     c = FuelClad.FuelClad(fuelCladInfo)
     cellCard = '1 3 0.02428 4 -2 u=0 imp:n=1 $Pin: Clad'
-    surfaceCard = '2 RCC 1.0 1.0 1.0 0 0 0.202 0.05 $Pin: Clad - 1% higher than fuel'
+    surfaceCard = '2 RCC 1.0 1.0 1.0 0 0 0.2 0.05 $Pin: Clad - 1% higher than fuel'
     assert c.radius == 0.1 / 2
-    assert c.height == 0.2 * 1.01
+    assert c.height == 0.2
     assert cellCard == c.cellCard
     assert surfaceCard == c.surfaceCard
 
@@ -100,9 +100,9 @@ def test_fuelCoolant():
     fuelCoolantInfo = [[0, 1, 2, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [0.1, 0.2, 4]]
     c = FuelCoolant.FuelCoolant(fuelCoolantInfo)
     cellCard = '1 3 0.02428 4 u=0 imp:n=1 $Pin: Wirewrap + Coolant'
-    surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 0.202 0 0.1 0 $Pin: Coolant - 1% higher than fuel'
+    surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 0.2 0 0.1 0 $Pin: Coolant - 1% higher than fuel'
     assert c.pitch == 0.1
-    assert c.height == 0.2 * 1.01
+    assert c.height == 0.2
     assert cellCard == c.cellCard
     assert surfaceCard == c.surfaceCard
 

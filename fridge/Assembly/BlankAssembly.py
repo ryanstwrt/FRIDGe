@@ -3,6 +3,7 @@ import FRIDGe.fridge.Constituent.Smear as Smeared
 import FRIDGe.fridge.Constituent.LowerCoolant as Lowersodium
 import FRIDGe.fridge.Constituent.OuterShell as Outershell
 import FRIDGe.fridge.Constituent.UpperCoolant as Uppersodium
+import FRIDGe.fridge.Constituent.EveryThingElse as Everythingelse
 import FRIDGe.fridge.utilities.mcnpCreatorFunctions as mcnpCF
 import yaml
 
@@ -26,7 +27,11 @@ class BlankAssembly(Assembly.Assembly):
         self.innerDuct = None
         self.duct = None
         self.assemblyShell = None
+        self.everythingElse = None
         self.position = []
+        self.assemblyCellList = []
+        self.assemblySurfaceList = []
+        self.assemblyMaterialList = []
 
         assemblyYamlFile = Assembly.getAssemblyLocation(self.assemblyDesignation)
         self.setAssembly(assemblyYamlFile)
@@ -42,8 +47,8 @@ class BlankAssembly(Assembly.Assembly):
     def getAssembly(self):
         self.assemblyUniverse = self.universe
         excessCoolantHeight = (self.assemblyHeight - self.blankRegionHeight) / 2
-        bottomCoolantPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, self.zPosition -
-                                                                                                excessCoolantHeight)
+        bottomCoolantPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch,
+                                                   self.zPosition - excessCoolantHeight)
         bottomBlankPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, self.zPosition)
         upperBlankAssemblyPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch,
                                                         self.blankRegionHeight + self.zPosition)
@@ -70,4 +75,11 @@ class BlankAssembly(Assembly.Assembly):
                                                      self.materialNum],
                                                     [self.assemblyHeight, self.ductOuterFlatToFlat]])
 
+        self.assemblyCellList = [self.blankRegion, self.lowerSodium, self.upperSodium, self.assemblyShell]
+        self.assemblySurfaceList = [self.blankRegion, self.lowerSodium, self.upperSodium, self.assemblyShell]
+        self.assemblyMaterialList = [self.blankRegion, self.lowerSodium, self.upperSodium, self.assemblyShell]
 
+        if 'Single' in self.globalVars.input_type:
+            self.updateIdentifiers(False)
+            self.everythingElse = Everythingelse.EveryThingElse([self.cellNum, self.assemblyShell.surfaceNum])
+            self.assemblyCellList.append(self.everythingElse)

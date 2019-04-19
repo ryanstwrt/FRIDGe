@@ -112,9 +112,13 @@ class FuelAssembly(Assembly.Assembly):
                                        [self.cladOD, self.fuelHeightWithBond, self.bond.surfaceNum]])
 
         self.updateIdentifiers(False)
-        self.coolant = Fuelcoolant.FuelCoolant([[self.universe, self.cellNum, self.surfaceNum, self.coolantMaterial,
+        smearedCoolantInfo = [self.fuelHeightWithBond, self.cladOD, self.wireWrapDiameter,
+                              self.wireWrapAxialPitch, self.fuelPitch, self.coolantMaterial, self.cladMaterial]
+        smearedCoolantMaterial = mcnpCF.getCoolantWireWrapSmear(smearedCoolantInfo)
+        self.coolant = Fuelcoolant.FuelCoolant([[self.universe, self.cellNum, self.surfaceNum, smearedCoolantMaterial,
                                                  self.xcSet, self.position, self.materialNum],
-                                                [self.fuelPitch, self.fuelHeightWithBond, self.clad.surfaceNum]])
+                                                [self.fuelPitch, self.fuelHeightWithBond, self.clad.surfaceNum],
+                                                'Wire Wrap + Coolant'])
 
         self.updateIdentifiers(True)
         self.blankUniverse = self.universe
@@ -193,6 +197,7 @@ class FuelAssembly(Assembly.Assembly):
             self.fuelDiameter = math.sqrt(float(inputs['Fuel Smear'])) * self.cladID
         self.fuelPitch = float(inputs['Pitch'])
         self.wireWrapDiameter = float(inputs['Wire Wrap Diameter'])
+        self.wireWrapAxialPitch = float(inputs['Wire Wrap Axial Pitch'])
         self.fuelHeight = float(inputs['Fuel Height'])
         self.fuelMaterial = inputs['Fuel']
         self.cladMaterial = inputs['Clad']

@@ -1,8 +1,9 @@
 import FRIDGe.fridge.Constituent.Constituent as Constituent
+import FRIDGe.fridge.Constituent.Smear as Smear
 import FRIDGe.fridge.utilities.mcnpCreatorFunctions as mcnpCF
 
 
-class FuelCoolant(Constituent.Constituent):
+class FuelCoolant(Smear.Smear):
     """Creates the coolant surrounding the fuel pin.
     This coolant is a homogenized material consisting of the coolant material and the wirewrap."""
     def __init__(self, unitInfo):

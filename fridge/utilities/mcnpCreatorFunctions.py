@@ -95,6 +95,25 @@ def getMaterialCard(material, xc, matNum):
     return materialCard
 
 
+def getRHPVolume(pitch, height):
+    halfPitch = pitch / 2
+    area = math.sqrt(3) * 2 * pow(halfPitch, 2)
+    volume = area * height
+    return volume
+
+
+def getRCCVolume(radius, height):
+    volume = math.pi * pow(radius, 2) * height
+    return volume
+
+
+def getToroidalVolume(innerRadius, toroidRadius, axialPitch, height):
+    numberOfWraps = height / axialPitch
+    meanRadius = innerRadius + toroidRadius
+    volume = (math.pi*pow(toroidRadius, 2))*(2*math.pi*numberOfWraps*meanRadius)
+    return volume
+
+
 def getSmearedMaterial(materials):
     """Create the material data card for a smeared material."""
     smearMaterial = {}
@@ -128,6 +147,25 @@ def getSmearedMaterial(materials):
         smearMaterialAtomPercent[k] = v / newMaterial.atomDensity
     newMaterial.atomPercent = smearMaterialAtomPercent
     return newMaterial
+
+
+def getCoolantWireWrapSmear(info):
+    height = info[0]
+    fuelradius = info[1] / 2
+    wireWrapRadius = info[2] / 2
+    wireWrapAxialPitch = info[3]
+    fuelPitch = info[4]
+    coolantMaterial = info[5]
+    cladMaterial = info[6]
+    fuelVolume = getRCCVolume(fuelradius, height)
+    wireWrapVolume = getToroidalVolume(fuelradius, wireWrapRadius, wireWrapAxialPitch, height)
+    pinHexagonalUniverseVolume = getRHPVolume(fuelPitch, height)
+    coolantVolume = pinHexagonalUniverseVolume - fuelVolume - wireWrapVolume
+    totalCoolantWireWrapVolume = coolantVolume + wireWrapVolume
+    wireWrapVolumePercent = wireWrapVolume / totalCoolantWireWrapVolume
+    coolantVolumePercent = coolantVolume / totalCoolantWireWrapVolume
+    smearedMaterialDict = {cladMaterial: wireWrapVolumePercent, coolantMaterial: coolantVolumePercent}
+    return smearedMaterialDict
 
 
 def getPosition(position, pitch, zPosition):

@@ -97,7 +97,7 @@ def test_fuelClad():
 
 
 def test_fuelCoolant():
-    fuelCoolantInfo = [[0, 1, 2, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [0.1, 0.2, 4]]
+    fuelCoolantInfo = [[0, 1, 2, {'LiquidNa': 1.0}, '82c', [1.0, 1.0, 1.0], 3], [0.1, 0.2, 4], 'Wirewrap + Coolant']
     c = FuelCoolant.FuelCoolant(fuelCoolantInfo)
     cellCard = '1 3 0.02428 4 u=0 imp:n=1 $Pin: Wirewrap + Coolant'
     surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 0.2 0 0.1 0 $Pin: Coolant - 1% higher than fuel'
@@ -160,8 +160,8 @@ def test_outershell():
 def test_smear():
     smearInfo = [[0, 1, 2, {'HT9': 0.5, 'LiquidNa': 0.5}, '82c', [1.0, 1.0, 1.0], 3], [0.2, 10], 'Plenum']
     c = Smear.Smear(smearInfo)
-    cellCard = '2 3 0.05514 -1 u=0 imp:n=1 $Assembly: Plenum'
-    surfaceCard = '1 RHP 1.0 1.0 1.0 0 0 10 0.2 0 0 $Assembly: Plenum'
+    cellCard = '1 3 0.05514 -2 u=0 imp:n=1 $Assembly: Plenum'
+    surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 10 0.2 0 0 $Assembly: Plenum'
     assert c.cellCard == cellCard
     assert c.surfaceCard == surfaceCard
 

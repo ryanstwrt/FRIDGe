@@ -93,7 +93,7 @@ def test_fuel_assembly():
     assert a.bond.surfaceCard == '101 RCC 0.0 0.0 0.0 0 0 60.6 0.228 $Pin: Bond - 1% higher than fuel'
     assert a.clad.cellCard == '102 12 0.08599 101 -102 u=101 imp:n=1 $Pin: Clad'
     assert a.clad.surfaceCard == '102 RCC 0.0 0.0 0.0 0 0 60.6 0.265 $Pin: Clad - 1% higher than fuel'
-    assert a.coolant.cellCard == '103 13 0.02428 102 u=101 imp:n=1 $Pin: Wirewrap + Coolant'
+    assert a.coolant.cellCard == '103 13 0.02929 102 u=101 imp:n=1 $Pin: Wirewrap + Coolant'
     assert a.coolant.surfaceCard == '103 RHP 0.0 0.0 0.0 0 0 60.6 0 0.66144 0 $Pin: Coolant - 1% higher than fuel'
     assert a.blankCoolant.cellCard == '104 14 0.02428 -103 u=102 imp:n=1 $Pin: Blank Pin Coolant'
     assert a.blankCoolant.surfaceCard == '104 RHP 0.0 0.0 0.0 0 0 60.6 0 0.33072 0 $Pin: Blank Pin - 1%\

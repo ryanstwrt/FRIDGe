@@ -6,8 +6,8 @@ class Smear(Constituent.Constituent):
     """Creates a constituent which is a smear of materials."""
     def __init__(self, unitInfo):
         self.universe = unitInfo[0][0]
-        self.surfaceNum = unitInfo[0][1]
-        self.cellNum = unitInfo[0][2]
+        self.cellNum = unitInfo[0][1]
+        self.surfaceNum = unitInfo[0][2]
         self.materialXCLibrary = unitInfo[0][4]
         self.material = unitInfo[0][3]
         self.position = unitInfo[0][5]

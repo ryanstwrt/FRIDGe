@@ -1,5 +1,4 @@
 import FRIDGe.fridge.utilities.mcnpCreatorFunctions as MCF
-import FRIDGe.fridge.utilities.materialReader as MR
 import numpy as np
 
 
@@ -69,6 +68,14 @@ def test_smearedMaterial():
     assert np.allclose(smearedMaterial.atomDensity, 0.01214, 5)
     assert smearedMaterial.name == "['LiquidNa', 'Void']"
     assert smearedMaterial.atomPercent[11023] == 1.0
+
+
+def test_coolantWireWrapSmear():
+    info = [60, 0.53, 0.126, 2, 0.66144, 'LiquidNa', 'Void']
+    smearedDict = MCF.getCoolantWireWrapSmear(info)
+    knownSmearDict = {'LiquidNa': 0.918819, 'Void': 0.081181}
+    for k, v in knownSmearDict.items():
+        assert np.allclose(smearedDict[k], v, 5)
 
 
 def test_getPosition_02A01():
@@ -166,3 +173,18 @@ def test_getPosition_04B03():
     knownAPosition = [3.4641, 4.0, 10]
     for i, pos in enumerate(position):
         assert np.allclose(knownAPosition[i], pos)
+
+
+def test_getRCCVolume():
+    volume = MCF.getRCCVolume(0.2, 10)
+    assert np.allclose(volume, 1.25664, 5)
+
+
+def test_getRHPVolume():
+    volume = MCF.getRCCVolume(5, 10)
+    assert np.allclose(volume, 216.506, 5)
+
+
+def test_getToroidalVolume():
+    volume = MCF.getToroidalVolume(0.5, 0.05, 5, 10)
+    assert np.allclose(volume, 1.03631, 5)

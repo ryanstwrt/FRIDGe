@@ -134,7 +134,7 @@ def test_innerDuct():
     assert c.assemblyUniverse == 4
     assert c.latticeUniverse == 5
     assert c.flat2flat == 0.1
-    assert c.height == 0.2 * 1.01
+    assert c.height == 0.2
     assert c.cellCard == cellCard
     assert c.surfaceCard == surfaceCard
 

@@ -136,7 +136,7 @@ class FuelAssembly(Assembly.Assembly):
         self.innerDuct = Innerduct.InnerDuct([[self.universe, self.cellNum, self.surfaceNum, '', self.xcSet,
                                                self.position, self.materialNum],
                                               [self.assemblyUniverse, self.latticeUniverse, self.ductInnerFlatToFlat,
-                                               self.fuelHeight]])
+                                               self.fuelHeightWithBond]])
 
         self.updateIdentifiers(False)
         self.plenum = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum, self.plenumMaterial,

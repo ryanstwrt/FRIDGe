@@ -209,17 +209,19 @@ def mcnp_input_deck_maker(assembly, k_card, global_vars):
     """Create the MCNP input deck based on the assembly/core data."""
     file = open(mcnp_dir + global_vars.output_name + ".i", "w")
     file.write("Input deck created by FRIDGe\n")
-    file.write("c " + "Title".center(77, "*") + "\n")
+    file.write("c " + global_vars.assembly_file_name.center(77, "*") + "\n")
     assembly_cell_title = "Cell Cards for Assembly: {}".format(assembly.assemblyPosition)
     file.write("c " + assembly_cell_title.center(77, "*") + " \n")
     for cell in assembly.assemblyCellList:
         file.write(cell.cellCard + '\n')
     file.write("\n")
+
     assembly_surface_title = "Surface Cards for Fuel Assembly: {}".format(assembly.assemblyPosition)
     file.write("c " + assembly_surface_title.center(77, "*") + "\n")
     for surface in assembly.assemblySurfaceList:
         file.write(surface.surfaceCard + '\n')
     file.write("\n")
+
     assembly_data_title = "Data Cards"
     file.write("c " + assembly_data_title.center(77, "*") + "\n")
     assembly_kcode_title = "k-code Information"

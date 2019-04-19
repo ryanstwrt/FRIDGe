@@ -184,13 +184,13 @@ class FuelAssembly(Assembly.Assembly):
                                                      self.materialNum],
                                                     [self.assemblyHeight,  self.ductOuterFlatToFlat]])
 
-        self.assemblyCellList = [self.fuel, self.bond, self.clad, self.coolant,  self.fuelUniverse,
+        self.assemblyCellList = [self.fuel, self.bond, self.clad, self.coolant, self.blankCoolant, self.fuelUniverse,
                                  self.innerDuct, self.plenum, self.upperReflector, self.lowerReflector,
                                  self.duct, self. lowerSodium, self.upperSodium, self.assemblyShell]
-        self.assemblySurfaceList = [self.fuel, self.bond, self.clad, self.coolant,  self.innerDuct, self.plenum,
+        self.assemblySurfaceList = [self.fuel, self.bond, self.clad, self.coolant, self.blankCoolant, self.innerDuct, self.plenum,
                                     self.upperReflector, self.lowerReflector, self.duct, self. lowerSodium,
                                     self.upperSodium, self.assemblyShell]
-        self.assemblyMaterialList = [self.fuel, self.bond, self.clad, self.coolant, self.innerDuct, self.plenum,
+        self.assemblyMaterialList = [self.fuel, self.bond, self.clad, self.coolant, self.blankCoolant, self.innerDuct, self.plenum,
                                      self.upperReflector, self.lowerReflector, self.duct, self. lowerSodium,
                                      self.upperSodium]
 

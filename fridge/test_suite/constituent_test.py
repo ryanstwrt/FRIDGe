@@ -101,7 +101,7 @@ def test_fuelCoolant():
     c = FuelCoolant.FuelCoolant(fuelCoolantInfo)
     cellCard = '1 3 0.02428 4 u=0 imp:n=1 $Pin: Wirewrap + Coolant'
     surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 0.2 0 0.1 0 $Pin: Coolant - 1% higher than fuel'
-    assert c.pitch == 0.1
+    assert c.flat2flat == 0.1
     assert c.height == 0.2
     assert cellCard == c.cellCard
     assert surfaceCard == c.surfaceCard

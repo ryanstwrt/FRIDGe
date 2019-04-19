@@ -48,6 +48,9 @@ class FuelAssembly(Assembly.Assembly):
         self.assemblyShell = None
         self.upperReflectorPosition = []
         self.lowerReflectorPosition = []
+        self.assemblyCellList = []
+        self.assemblySurfaceList = []
+        self.assemblyMaterialList = []
         self.everythingElse = None
 
         self.position = []
@@ -119,7 +122,6 @@ class FuelAssembly(Assembly.Assembly):
                                                  self.xcSet, self.position, self.materialNum],
                                                 [self.fuelPitch, self.fuelHeightWithBond, self.clad.surfaceNum],
                                                 'Wire Wrap + Coolant'])
-
         self.updateIdentifiers(True)
         self.blankUniverse = self.universe
         self.blankCoolant = Blankcoolant.BlankCoolant([[self.universe, self.cellNum, self.surfaceNum,
@@ -182,9 +184,20 @@ class FuelAssembly(Assembly.Assembly):
                                                      self.materialNum],
                                                     [self.assemblyHeight,  self.ductOuterFlatToFlat]])
 
+        self.assemblyCellList = [self.fuel, self.bond, self.clad, self.coolant,  self.fuelUniverse,
+                                 self.innerDuct, self.plenum, self.upperReflector, self.lowerReflector,
+                                 self.duct, self. lowerSodium, self.upperSodium, self.assemblyShell]
+        self.assemblySurfaceList = [self.fuel, self.bond, self.clad, self.coolant,  self.innerDuct, self.plenum,
+                                    self.upperReflector, self.lowerReflector, self.duct, self. lowerSodium,
+                                    self.upperSodium, self.assemblyShell]
+        self.assemblyMaterialList = [self.fuel, self.bond, self.clad, self.coolant, self.innerDuct, self.plenum,
+                                     self.upperReflector, self.lowerReflector, self.duct, self. lowerSodium,
+                                     self.upperSodium]
+
         if 'Single' in self.globalVars.input_type:
             self.updateIdentifiers(False)
             self.everythingElse = Everythingelse.EveryThingElse([self.cellNum, self.assemblyShell.surfaceNum])
+            self.assemblyCellList.append(self.everythingElse)
 
     def getFuelRegionInfo(self, inputs):
         """Reads in the fuel region data from the assembly yaml file."""

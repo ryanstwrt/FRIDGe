@@ -96,6 +96,7 @@ def getMaterialCard(material, xc, matNum):
 
 
 def getRHPVolume(pitch, height):
+    """Returns the volume of a hexagonal prism."""
     halfPitch = pitch / 2
     area = math.sqrt(3) * 2 * pow(halfPitch, 2)
     volume = area * height
@@ -103,11 +104,13 @@ def getRHPVolume(pitch, height):
 
 
 def getRCCVolume(radius, height):
+    """Returns the volume of a right circular cylinder"""
     volume = math.pi * pow(radius, 2) * height
     return volume
 
 
 def getToroidalVolume(innerRadius, toroidRadius, axialPitch, height):
+    """Returns the volume of a toroidal spring"""
     numberOfWraps = height / axialPitch
     meanRadius = innerRadius + toroidRadius
     volume = (math.pi*pow(toroidRadius, 2))*(2*math.pi*numberOfWraps*meanRadius)
@@ -150,6 +153,7 @@ def getSmearedMaterial(materials):
 
 
 def getCoolantWireWrapSmear(info):
+    """Returns a smeared material for the coolant and wire wrap."""
     height = info[0]
     fuelradius = info[1] / 2
     wireWrapRadius = info[2] / 2
@@ -208,20 +212,12 @@ def mcnp_input_deck_maker(assembly, k_card, global_vars):
     file.write("c " + "Title".center(77, "*") + "\n")
     assembly_cell_title = "Cell Cards for Assembly: {}".format(assembly.assemblyPosition)
     file.write("c " + assembly_cell_title.center(77, "*") + " \n")
-    units = [assembly.fuel, assembly.bond, assembly.clad, assembly.coolant, assembly.blankCoolant,
-             assembly.fuelUniverse, assembly.innerDuct, assembly.duct, assembly.plenum,
-             assembly.upperReflector, assembly.lowerReflector, assembly.lowerSodium, assembly.upperSodium,
-             assembly.assemblyShell, assembly.everythingElse]
-    for cell in units:
+    for cell in assembly.assemblyCellList:
         file.write(cell.cellCard + '\n')
     file.write("\n")
     assembly_surface_title = "Surface Cards for Fuel Assembly: {}".format(assembly.assemblyPosition)
     file.write("c " + assembly_surface_title.center(77, "*") + "\n")
-    units = [assembly.fuel, assembly.bond, assembly.clad, assembly.coolant, assembly.blankCoolant,
-             assembly.innerDuct, assembly.plenum,
-             assembly.upperReflector, assembly.lowerReflector, assembly.duct, assembly.assemblyShell,
-             assembly.lowerSodium, assembly.upperSodium]
-    for surface in units:
+    for surface in assembly.assemblySurfaceList:
         file.write(surface.surfaceCard + '\n')
     file.write("\n")
     assembly_data_title = "Data Cards"
@@ -230,10 +226,7 @@ def mcnp_input_deck_maker(assembly, k_card, global_vars):
     file.write("c " + assembly_kcode_title.center(77, "*") + "\n")
     file.write(k_card)
     file.write("c " + "Material Information".center(77, "*"))
-    units = [assembly.fuel, assembly.bond, assembly.clad, assembly.coolant, assembly.blankCoolant,
-             assembly.plenum, assembly.upperReflector, assembly.lowerReflector,
-             assembly.duct, assembly.assemblyShell, assembly.lowerSodium, assembly.upperSodium]
-    for material in units:
+    for material in assembly.assemblyMaterialList:
         file.write(material.materialCard)
     file.close()
 

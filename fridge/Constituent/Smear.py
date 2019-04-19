@@ -16,8 +16,8 @@ class Smear(Constituent.Constituent):
         self.material = mcnpCF.getSmearedMaterial(self.material)
         self.makeComponent(unitInfo[1])
         self.getMaterialCard(self.material)
-        self.flat2flat = 0
-        self.height = 0
+        self.flat2flat = unitInfo[1][0]
+        self.height = unitInfo[1][1]
 
     def makeComponent(self, ductInfo):
         self.flat2flat = ductInfo[0]

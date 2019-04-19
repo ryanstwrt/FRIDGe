@@ -5,7 +5,6 @@ c ************************Cell Cards for Assembly: 01A01***********************
 101 11 0.02428 100 -101 u=101 imp:n=1 $Pin: Bond
 102 12 0.08599 101 -102 u=101 imp:n=1 $Pin: Clad
 103 13 0.02929 102 u=101 imp:n=1 $Pin: Wirewrap + Coolant
-104 14 0.02428 -103 u=102 imp:n=1 $Pin: Blank Pin Coolant
 105 0 -104 lat=2 u=103 imp:n=1
      fill=-10:10 -10:10 0:0
       102 102 102 102 102 102 102 102 102 102
@@ -52,10 +51,10 @@ c ************************Cell Cards for Assembly: 01A01***********************
       102 102 102 102 102 102 102 102 102 102
       102
 106 0 -106 u=100 fill=103 imp:n=1 $Assembly: Inner Portion of Assembly
-110 20 0.08599  106 109 108 107 -110 u=100 imp:n=1 $Assembly: Assembly Duct
 107 17 0.03364 -107 u=100 imp:n=1 $Assembly: Plenum
 108 18 0.07365 -108 u=100 imp:n=1 $Assembly: Upper Reflector
 109 19 0.07365 -109 u=100 imp:n=1 $Assembly: Lower Reflector
+110 20 0.08599  106 109 108 107 -110 u=100 imp:n=1 $Assembly: Assembly Duct
 111 21 0.02428 -111 u=100 imp:n=1 $Assembly: Lower Coolant
 112 22 0.02428 -112 u=100 imp:n=1 $Assembly: Upper Coolant
 113 0 -113 fill=100 imp:n=1 $Assembly
@@ -66,15 +65,14 @@ c ********************Surface Cards for Fuel Assembly: 01A01*******************
 101 RCC 0.0 0.0 0.0 0 0 60.6 0.228 $Pin: Bond - 1% higher than fuel
 102 RCC 0.0 0.0 0.0 0 0 60.6 0.265 $Pin: Clad - 1% higher than fuel
 103 RHP 0.0 0.0 0.0 0 0 60.6 0 0.66144 0 $Pin: Coolant - 1% higher than fuel
-104 RHP 0.0 0.0 0.0 0 0 60.6 0 0.33072 0 $Pin: Blank Pin - 1% higher than fuel
 106 RHP 0.0 0.0 0.0 0 0 60.6 5.505 0 0 $Assembly: Duct Inner Surface
 107 RHP 0.0 0.0 60.6 0 0 60.0 5.505 0 0 $Assembly: Plenum
 108 RHP 0.0 0.0 120.6 0 0 60.0 5.505 0 0 $Assembly: Upper Reflector
 109 RHP 0.0 0.0 -60.0 0 0 60.0 5.505 0 0 $Assembly: Lower Reflector
 110 RHP 0.0 0.0 -60.0 0 0 240.6 6.10531 0 0 $Assembly: Duct Outer Surface
-113 RHP 0.0 0.0 -99.7 0 0 320.0 6.105 0 0 $Assembly: Full Assembly Surface
 111 RHP 0.0 0.0 -99.8 0 0 39.8 6.10531 0 0 $Assembly: Lower Coolant
 112 RHP 0.0 0.0 180.6 0 0 39.7 6.10531 0 0 $Assembly: Upper Coolant
+113 RHP 0.0 0.0 -99.7 0 0 320.0 6.105 0 0 $Assembly: Full Assembly Surface
 
 c **********************************Data Cards*********************************
 c ******************************k-code Information*****************************
@@ -117,8 +115,6 @@ m13 6000.39c 2.1883E-3 14028.39c 1.7328E-3 14029.39c 8.4991E-5
      42098.39c 3.2738E-4 42100.39c 1.2917E-4 74180.39c 4.3818E-7
      74182.39c 9.5701E-5 74183.39c 5.1396E-5 74184.39c 1.0945E-4
      74186.39c 1.0046E-4 11023.39c 7.6168E-1
-c Material: Liquid Sodium; Density: 0.02428 atoms/bn*cm 
-m14 11023.39c 1.0000E+0
 c Material: ['LiquidNa', 'Void', 'HT9']; Density: 0.03364 atoms/bn*cm 
 m17 11023.39c 3.6093E-1 6000.39c 5.8682E-3 14028.39c 4.6466E-3
      14029.39c 2.2791E-4 14030.39c 1.4541E-4 15031.39c 3.4132E-4
@@ -175,8 +171,6 @@ m20 6000.39c 9.1823E-3 14028.39c 7.2709E-3 14029.39c 3.5663E-4
      42098.39c 1.3737E-3 42100.39c 5.4201E-4 74180.39c 1.8386E-6
      74182.39c 4.0157E-4 74183.39c 2.1566E-4 74184.39c 4.5925E-4
      74186.39c 4.2153E-4
-c Material: Liquid Sodium; Density: 0.02428 atoms/bn*cm 
-m23 11023.39c 1.0000E+0
 c Material: Liquid Sodium; Density: 0.02428 atoms/bn*cm 
 m21 11023.39c 1.0000E+0
 c Material: Liquid Sodium; Density: 0.02428 atoms/bn*cm 

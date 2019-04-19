@@ -8,10 +8,10 @@ import FRIDGe.fridge.Constituent.FuelCoolant as FuelCoolant
 import FRIDGe.fridge.Constituent.FuelPin as FuelPin
 import FRIDGe.fridge.Constituent.FuelUniverse as FuelUniverse
 import FRIDGe.fridge.Constituent.InnerDuct as InnerDuct
-import FRIDGe.fridge.Constituent.LowerSodium as LowerSodium
+import FRIDGe.fridge.Constituent.LowerCoolant as LowerSodium
 import FRIDGe.fridge.Constituent.OuterShell as OuterShell
 import FRIDGe.fridge.Constituent.Smear as Smear
-import FRIDGe.fridge.Constituent.UpperSodium as UpperSodium
+import FRIDGe.fridge.Constituent.UpperCoolant as UpperSodium
 import FRIDGe.fridge.utilities.materialReader as mr
 
 constituentInfo = [[0, 1, 2, 'LiquidNa', '.82c', [1, 1, 1], 3], []]
@@ -130,7 +130,7 @@ def test_innerDuct():
     innerDuctInfo = [[0, 1, 2, 'HT9', '82c', [1.0, 1.0, 1.0], 3], [4, 5, 0.1, 0.2]]
     c = InnerDuct.InnerDuct(innerDuctInfo)
     cellCard = '1 0 -2 u=4 fill=5 imp:n=1 $Assembly: Inner Portion of Assembly'
-    surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 0.202 0.1 0 0 $Assembly: Duct Inner Surface'
+    surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 0.2 0.1 0 0 $Assembly: Duct Inner Surface'
     assert c.assemblyUniverse == 4
     assert c.latticeUniverse == 5
     assert c.flat2flat == 0.1

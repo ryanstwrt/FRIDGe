@@ -1,8 +1,8 @@
 import FRIDGe.fridge.Assembly.Assembly as Assembly
 import FRIDGe.fridge.Constituent.Smear as Smeared
-import FRIDGe.fridge.Constituent.LowerSodium as Lowersodium
+import FRIDGe.fridge.Constituent.LowerCoolant as Lowersodium
 import FRIDGe.fridge.Constituent.OuterShell as Outershell
-import FRIDGe.fridge.Constituent.UpperSodium as Uppersodium
+import FRIDGe.fridge.Constituent.UpperCoolant as Uppersodium
 import FRIDGe.fridge.utilities.mcnpCreatorFunctions as mcnpCF
 import yaml
 

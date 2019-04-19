@@ -39,5 +39,3 @@ def main(file_name):
     k_card = mcf.make_mcnp_problem(global_vars)
     mcf.mcnp_input_deck_maker(assembly, k_card, global_vars)
     print('FRIDGe has finished creating your Assembly/Core')
-
-main('A271_Assembly')

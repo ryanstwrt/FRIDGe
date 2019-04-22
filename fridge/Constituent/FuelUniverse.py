@@ -1,4 +1,4 @@
-import FRIDGe.fridge.Constituent.Constituent as Constituent
+import fridge.Constituent.Constituent as Constituent
 import numpy as np
 
 

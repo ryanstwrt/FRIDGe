@@ -1,5 +1,5 @@
-import FRIDGe.fridge.driver.global_variables as gb
-import FRIDGe.fridge.driver.reactorMaker as rm
+import fridge.driver.global_variables as gb
+import fridge.driver.reactorMaker as rm
 
 # TODO implement sodium voiding
 # TODO implement fuel radial expansion (density/volume change)

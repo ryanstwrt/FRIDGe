@@ -1,4 +1,4 @@
-import FRIDGe.fridge.utilities.materialReader as materialReader
+import fridge.utilities.materialReader as materialReader
 import numpy as np
 
 

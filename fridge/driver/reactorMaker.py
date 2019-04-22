@@ -1,8 +1,8 @@
-import FRIDGe.fridge.Assembly.FuelAssembly as FuelAssembly
-import FRIDGe.fridge.Assembly.Assembly as Assembly
-import FRIDGe.fridge.Assembly.BlankAssembly as BlankAssembly
-import FRIDGe.fridge.utilities.mcnpCreatorFunctions as mcf
-import FRIDGe.fridge.Core.Core as Core
+import fridge.Assembly.FuelAssembly as FuelAssembly
+import fridge.Assembly.Assembly as Assembly
+import fridge.Assembly.BlankAssembly as BlankAssembly
+import fridge.utilities.mcnpCreatorFunctions as mcf
+import fridge.Core.Core as Core
 
 
 def singleAssemblyMaker(global_vars):

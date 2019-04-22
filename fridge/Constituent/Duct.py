@@ -1,5 +1,5 @@
-import FRIDGe.fridge.Constituent.Constituent as Constituent
-import FRIDGe.fridge.utilities.mcnpCreatorFunctions as mcnpCF
+import fridge.Constituent.Constituent as Constituent
+import fridge.utilities.mcnpCreatorFunctions as mcnpCF
 
 
 class Duct(Constituent.Constituent):

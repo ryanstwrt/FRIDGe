@@ -1,5 +1,5 @@
-import FRIDGe.fridge.utilities.materialReader as materialReader
-import FRIDGe.fridge.utilities.mcnpCreatorFunctions as mcnpCF
+import fridge.utilities.materialReader as materialReader
+import fridge.utilities.mcnpCreatorFunctions as mcnpCF
 
 
 class Constituent(object):

@@ -1,4 +1,4 @@
-import FRIDGe.fridge.utilities.materialReader as materialReader
+import fridge.utilities.materialReader as materialReader
 from decimal import Decimal
 import math
 import os

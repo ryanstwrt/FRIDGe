@@ -1,18 +1,18 @@
-import FRIDGe.fridge.Assembly.Assembly as Assembly
-import FRIDGe.fridge.Constituent.FuelPin as Fuelpin
-import FRIDGe.fridge.Constituent.FuelBond as Fuelbond
-import FRIDGe.fridge.Constituent.FuelClad as Fuelclad
-import FRIDGe.fridge.Constituent.FuelCoolant as Fuelcoolant
-import FRIDGe.fridge.Constituent.BlankCoolant as Blankcoolant
-import FRIDGe.fridge.Constituent.FuelUniverse as Fueluniverse
-import FRIDGe.fridge.Constituent.InnerDuct as Innerduct
-import FRIDGe.fridge.Constituent.Duct as Outerduct
-import FRIDGe.fridge.Constituent.Smear as Smeared
-import FRIDGe.fridge.Constituent.OuterShell as Outershell
-import FRIDGe.fridge.Constituent.UpperCoolant as Uppersodium
-import FRIDGe.fridge.Constituent.LowerCoolant as Lowersodium
-import FRIDGe.fridge.Constituent.EveryThingElse as Everythingelse
-import FRIDGe.fridge.utilities.mcnpCreatorFunctions as mcnpCF
+import fridge.Assembly.Assembly as Assembly
+import fridge.Constituent.FuelPin as Fuelpin
+import fridge.Constituent.FuelBond as Fuelbond
+import fridge.Constituent.FuelClad as Fuelclad
+import fridge.Constituent.FuelCoolant as Fuelcoolant
+import fridge.Constituent.BlankCoolant as Blankcoolant
+import fridge.Constituent.FuelUniverse as Fueluniverse
+import fridge.Constituent.InnerDuct as Innerduct
+import fridge.Constituent.Duct as Outerduct
+import fridge.Constituent.Smear as Smeared
+import fridge.Constituent.OuterShell as Outershell
+import fridge.Constituent.UpperCoolant as Uppersodium
+import fridge.Constituent.LowerCoolant as Lowersodium
+import fridge.Constituent.EveryThingElse as Everythingelse
+import fridge.utilities.mcnpCreatorFunctions as mcnpCF
 import yaml
 import math
 

@@ -1,4 +1,4 @@
-import FRIDGe.fridge.driver.fridge_driver as fd
+import fridge.driver.fridge_driver as fd
 import glob
 import os
 cur_dir = os.path.dirname(__file__)

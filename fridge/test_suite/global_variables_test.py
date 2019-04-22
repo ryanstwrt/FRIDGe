@@ -1,4 +1,4 @@
-import FRIDGe.fridge.driver.global_variables as gb
+import fridge.driver.global_variables as gb
 
 
 def test_global_variables_default():

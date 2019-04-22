@@ -1,18 +1,18 @@
-import FRIDGe.fridge.Constituent.Constituent as Constituent
-import FRIDGe.fridge.Constituent.BlankCoolant as BlankCoolant
-import FRIDGe.fridge.Constituent.Duct as Duct
-import FRIDGe.fridge.Constituent.EveryThingElse as EveryThingElse
-import FRIDGe.fridge.Constituent.FuelBond as FuelBond
-import FRIDGe.fridge.Constituent.FuelClad as FuelClad
-import FRIDGe.fridge.Constituent.FuelCoolant as FuelCoolant
-import FRIDGe.fridge.Constituent.FuelPin as FuelPin
-import FRIDGe.fridge.Constituent.FuelUniverse as FuelUniverse
-import FRIDGe.fridge.Constituent.InnerDuct as InnerDuct
-import FRIDGe.fridge.Constituent.LowerCoolant as LowerSodium
-import FRIDGe.fridge.Constituent.OuterShell as OuterShell
-import FRIDGe.fridge.Constituent.Smear as Smear
-import FRIDGe.fridge.Constituent.UpperCoolant as UpperSodium
-import FRIDGe.fridge.utilities.materialReader as mr
+import fridge.Constituent.Constituent as Constituent
+import fridge.Constituent.BlankCoolant as BlankCoolant
+import fridge.Constituent.Duct as Duct
+import fridge.Constituent.EveryThingElse as EveryThingElse
+import fridge.Constituent.FuelBond as FuelBond
+import fridge.Constituent.FuelClad as FuelClad
+import fridge.Constituent.FuelCoolant as FuelCoolant
+import fridge.Constituent.FuelPin as FuelPin
+import fridge.Constituent.FuelUniverse as FuelUniverse
+import fridge.Constituent.InnerDuct as InnerDuct
+import fridge.Constituent.LowerCoolant as LowerSodium
+import fridge.Constituent.OuterShell as OuterShell
+import fridge.Constituent.Smear as Smear
+import fridge.Constituent.UpperCoolant as UpperSodium
+import fridge.utilities.materialReader as mr
 
 constituentInfo = [[0, 1, 2, 'LiquidNa', '.82c', [1, 1, 1], 3], []]
 

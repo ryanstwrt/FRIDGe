@@ -1,7 +1,7 @@
-import FRIDGe.fridge.Assembly.FuelAssembly as FuelAssembly
-import FRIDGe.fridge.Assembly.BlankAssembly as BlankAssembly
-import FRIDGe.fridge.Assembly.Assembly as Assembly
-import FRIDGe.fridge.driver.global_variables as gb
+import fridge.Assembly.FuelAssembly as FuelAssembly
+import fridge.Assembly.BlankAssembly as BlankAssembly
+import fridge.Assembly.Assembly as Assembly
+import fridge.driver.global_variables as gb
 import numpy as np
 
 global_vars = gb.GlobalVariables()

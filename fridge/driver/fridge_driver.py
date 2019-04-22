@@ -1,13 +1,33 @@
-from FRIDGe.fridge.driver import assembly_holder as ah
-from FRIDGe.fridge.driver import assembly_maker
-from FRIDGe.fridge.utilities import mcnp_input_deck_maker as midm
+import FRIDGe.fridge.Assembly.FuelAssembly as FuelAssembly
+import FRIDGe.fridge.Assembly.Assembly as Assembly
+import FRIDGe.fridge.Assembly.BlankAssembly as BlankAssembly
+import FRIDGe.fridge.utilities.mcnpCreatorFunctions as mcf
+import FRIDGe.fridge.driver.global_variables as gb
 
-print('Welcome to FRIDGe, the Fast Reactor Input Deck Generator!')
-assembly_type = 'A271'# input('Please input the assembly type you would like to model: ')
+# TODO implement sodium voiding
+# TODO implement fuel radial expansion (density/volume change)
+# TODO implement fuel axial expansion
+# TODO implement coolant expansion
+# TODO implement clad expansion
+# TODO implement homogenization
+# TODO add sensitivity parameter's to input
+# TODO split XC to fuel, coolant, structure
+# TODO utilize an avogadro's number from somewhere
 
-universe_number = 100
 
-assembly = ah.Assembly(assembly_type, universe_number)
-assembly_maker.assembly_maker(assembly)
-
-midm.mcnp_input_deck_maker(assembly)
+def main(file_name):
+    print('Welcome to FRIDGe, the Fast Reactor Input Deck Generator!')
+    global_vars = gb.GlobalVariables()
+    global_vars.read_input_file(file_name)
+    print('Creating your Assembly/Core... Please Wait')
+    assemblyInfo = [global_vars.assembly_name, '01A01', global_vars]
+    assemblyLocation = Assembly.getAssemblyLocation(global_vars.assembly_name)
+    assemblyType = Assembly.assemblyTypeReader(assemblyLocation)
+    assembly = None
+    if assemblyType == 'Fuel':
+        assembly = FuelAssembly.FuelAssembly(assemblyInfo)
+    elif assemblyType == 'Blank':
+        assembly = BlankAssembly.BlankAssembly(assemblyInfo)
+    k_card = mcf.make_mcnp_problem(global_vars)
+    mcf.mcnp_input_deck_maker(assembly, k_card, global_vars)
+    print('FRIDGe has finished creating your Assembly/Core')

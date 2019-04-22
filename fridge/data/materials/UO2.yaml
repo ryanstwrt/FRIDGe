@@ -1,0 +1,9 @@
+Name: Uranium Dioxide
+Elements: ['U', 'O']
+ZAIDs: [92000, 8000]
+Weight Fractions: [0.881467, 0.118533]
+Enrichment ZAIDs: [92000, 8000]
+Enrichment Isotopes: [[92234, 92235, 92236, 92238], [8016, 8017, 8018]]
+Enrichment Vector: [[0.00026660018529341, 0.029999988655276, 0.0001384056351514, 0.96959500496104], [1.0, 0.0, 0.0]]
+Density: 10.96
+Linear Coefficient of Expansion: 0.0

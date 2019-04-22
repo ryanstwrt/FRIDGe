@@ -1,4 +1,0 @@
-Carbon
-06000
-ZAID     Mass #     Abun.   Den. LCoE
-06000 12.0107 1.0 1.8 0.0

@@ -121,8 +121,10 @@ def test_fuelPin():
 def test_fuelUniverse():
     fuelUniverseInfo = [1, 2, 7, 3, 4, 5]
     c = FuelUniverse.FuelUniverse(fuelUniverseInfo)
-    cellCard = '3 0 -4 lat=2 u=5 imp:n=1\n     fill=-2:2 -2:2 0:0\n      ' \
-               '2 2 2 2 2 2 2 1 1 2 2 1 1 1 2 2 1 1 2 2 2 2 2 2 2'
+    cellCard = '3 0 -4 lat=2 u=5 imp:n=1\n     fill=-2:2 -2:2 0:0\n' \
+               '      2 2 2 2 2 2 2 1 1 2\n' \
+               '      2 1 1 1 2 2 1 1 2 2\n' \
+               '      2 2 2 2 2'
     assert cellCard == c.cellCard
 
 

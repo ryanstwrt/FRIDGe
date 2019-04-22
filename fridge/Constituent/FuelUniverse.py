@@ -34,10 +34,12 @@ class FuelUniverse(Constituent.Constituent):
                         lattice_array[x][y] = self.fuelUniverse
 
         cellCard += "     fill=-{}:{} -{}:{} 0:0\n     ".format(rings, rings, rings, rings)
+        row_jump = 0
         for row in lattice_array:
             for lat_iter, element in enumerate(row):
-                if (lat_iter+1) % 10 == 0:
+                if (row_jump+1) % 10 == 0:
                     cellCard += " {}\n     ".format(int(element))
                 else:
                     cellCard += " {}".format(int(element))
+                row_jump += 1
         return cellCard

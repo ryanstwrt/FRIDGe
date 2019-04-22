@@ -12,14 +12,6 @@ import FRIDGe.fridge.driver.global_variables as gb
 # TODO implement homogenization
 # TODO add sensitivity parameter's to input
 # TODO split XC to fuel, coolant, structure
-# TODO add catch for clad greater than sodium universe
-# TODO add catch for clad+wire wrap greater than sodium universe
-# TODO add catch for fuel/bond greater than each other or clad
-# TODO Allow user to input fuel diameter
-# TODO Finish adding tests
-# TODO Add more documentation
-# TODO create atom number check for smear
-# TODO convert AssertionErrors to print to screen errors
 # TODO utilize an avogadro's number from somewhere
 
 

@@ -16,9 +16,11 @@ def main(file_name):
     print('Welcome to FRIDGe, the Fast Reactor Input Deck Generator!')
     global_vars = gb.GlobalVariables()
     global_vars.read_input_file(file_name)
-    print('Creating your Assembly/Core... Please Wait')
+    print('Creating your Assembly/core... Please Wait')
     if 'Input Type' == 'Single':
         rm.singleAssemblyMaker(global_vars)
     elif 'Input Type' == 'Core':
         rm.coreMaker(global_vars)
-    print('FRIDGe has finished creating your Assembly/Core')
+    print('FRIDGe has finished creating your Assembly/core')
+
+main('Full_Core_Test')

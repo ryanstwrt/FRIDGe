@@ -3,11 +3,11 @@ import yaml
 import os
 
 cur_dir = os.path.dirname(__file__)
-geo_dir = os.path.join(cur_dir, "../data/assembly")
+geo_dir = os.path.join(cur_dir, "../data/core")
 
 
 class Core:
-    """"Core class will hold all of the assemblies present in the core."""
+    """"core class will hold all of the assemblies present in the core."""
 
     def __init__(self):
         self.name = ''

@@ -1,8 +1,5 @@
-import FRIDGe.fridge.Assembly.FuelAssembly as FuelAssembly
-import FRIDGe.fridge.Assembly.Assembly as Assembly
-import FRIDGe.fridge.Assembly.BlankAssembly as BlankAssembly
-import FRIDGe.fridge.utilities.mcnpCreatorFunctions as mcf
 import FRIDGe.fridge.driver.global_variables as gb
+import FRIDGe.fridge.driver.reactorMaker as rm
 
 # TODO implement sodium voiding
 # TODO implement fuel radial expansion (density/volume change)
@@ -20,14 +17,8 @@ def main(file_name):
     global_vars = gb.GlobalVariables()
     global_vars.read_input_file(file_name)
     print('Creating your Assembly/Core... Please Wait')
-    assemblyInfo = [global_vars.assembly_name, '01A01', global_vars]
-    assemblyLocation = Assembly.getAssemblyLocation(global_vars.assembly_name)
-    assemblyType = Assembly.assemblyTypeReader(assemblyLocation)
-    assembly = None
-    if assemblyType == 'Fuel':
-        assembly = FuelAssembly.FuelAssembly(assemblyInfo)
-    elif assemblyType == 'Blank':
-        assembly = BlankAssembly.BlankAssembly(assemblyInfo)
-    k_card = mcf.make_mcnp_problem(global_vars)
-    mcf.mcnp_input_deck_maker(assembly, k_card, global_vars)
+    if 'Input Type' == 'Single':
+        rm.singleAssemblyMaker(global_vars)
+    elif 'Input Type' == 'Core':
+        rm.coreMaker(global_vars)
     print('FRIDGe has finished creating your Assembly/Core')

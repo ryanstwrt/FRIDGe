@@ -20,7 +20,7 @@ def test_global_variables_default():
     assert global_variables.clad_smear is False
     assert global_variables.bond_smear is False
     assert global_variables.void_per == 0
-    assert global_variables.assembly_name == ''
+    assert global_variables.file_name == ''
     assert global_variables.number_generations == 0
     assert global_variables.number_skipped_generations == 0
     assert global_variables.number_particles_generation == 0
@@ -50,7 +50,7 @@ def test_global_variables_read_assembly():
     assert global_variables.clad_smear is True
     assert global_variables.bond_smear is True
     assert global_variables.void_per == 0.5
-    assert global_variables.assembly_name == 'A271_Test'
+    assert global_variables.file_name == 'A271_Test'
     assert global_variables.number_generations == 2300
     assert global_variables.number_skipped_generations == 300
     assert global_variables.number_particles_generation == 1e10

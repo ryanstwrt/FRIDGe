@@ -26,7 +26,7 @@ def coreMaker(global_vars):
     coreDict.pop('Vessel Thickness')
     coreDict.pop('Vessel Material')
     for position, assemblyType in coreDict.items():
-        print(position, assemblyType)
+        print('Building assembly {} in position {}.'.format(assemblyType, position))
         assemblyInfo = [assemblyType, position, global_vars]
         assemblyLocation = Assembly.getAssemblyLocation(assemblyType)
         assemblyType = Assembly.assemblyTypeReader(assemblyLocation)
@@ -37,7 +37,9 @@ def coreMaker(global_vars):
             assembly = BlankAssembly.BlankAssembly(assemblyInfo)
         core.assemblyList.append(copy.deepcopy(assembly))
         global_vars.updateNumbering()
+    print('Building reactor core and coolant.')
     core.getCoreData(global_vars.file_name)
     core.getCore(global_vars)
+    print('Creating MCNP input file.')
     k_card = mcf.make_mcnp_problem(global_vars)
     mcf.mcnp_input_deck_maker_core(core, k_card, global_vars)

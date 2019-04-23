@@ -55,15 +55,14 @@ def getConcentricCell(cellNum, matNum, density, innerSurface, outerSurface, univ
 def getConcentricCellCoolant(cellNum, matNum, density, innerSurface, outerSurface, comment):
     """Create a cell which has multiple components inside a cell."""
     newInnerSurface = ''
-    for i in innerSurface:
+    for i, surface in enumerate(innerSurface):
         if i % 5 == 0:
-            newInnerSurface += ' {}\n     '.format(i)
+            newInnerSurface += ' {}\n     '.format(surface)
         else:
-            newInnerSurface += ' {}'.format(i)
+            newInnerSurface += ' {}'.format(surface)
     innerSurface = newInnerSurface
     cellCard = "{} {} {} {} -{} imp:n=1 {}".format(cellNum, matNum, round(density, 5), innerSurface, outerSurface,
                                                    comment)
-    assert (len(cellCard) - len(comment)) < 80
     return cellCard
 
 
@@ -295,6 +294,7 @@ def make_mcnp_problem(global_vars):
                    str(global_vars.number_skipped_generations) + " " + str(global_vars.number_generations) + '\n'
     ksrc_output = 'ksrc 0 0 80 \n'
     prdmp_output = 'PRDMP 100 10 100 1 \n'
+    dbcn_output = 'DBCN 68J 20000'
 
-    mcnp_output = kcode_output + ksrc_output + prdmp_output + kopts_output
+    mcnp_output = kcode_output + ksrc_output + prdmp_output + kopts_output + dbcn_output
     return mcnp_output

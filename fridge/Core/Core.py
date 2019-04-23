@@ -46,7 +46,8 @@ class Core:
         return inputs
 
     def getCore(self, global_vars):
-        rings = (len(self.assemblyList) - 1) / 6 + 1
+        lastAssembly = self.assemblyList[-1]
+        rings = int(lastAssembly.assemblyPosition[:2])
         assembly = self.assemblyList[0]
         pitch = assembly.assemblyPitch
         self.coolantRadius = rings * pitch - pitch * 0.45
@@ -56,17 +57,15 @@ class Core:
         assemblySurfaceList = []
         for assembly in self.assemblyList:
             assemblySurfaceList.append(assembly.assemblyShell.surfaceNum)
-
-        self.vesselRadius = self.coolantRadius + self.vesselThickness
-        self.vesselPosition = self.coolantPosition
-        self.vesselPosition[2] -= self.vesselThickness
-        self.vesselHeight = 2 * self.vesselThickness + self.coolantHeight
-
         self.coreCoolant = Corecoolant.CoreCoolant([[0, global_vars.cellNumber, global_vars.surfaceNumber,
                                                      assembly.coolantMaterial, global_vars.xc_set,
                                                      self.coolantPosition, global_vars.materialNumber],
                                                     [self.coolantRadius, self.coolantHeight, assemblySurfaceList]])
         global_vars.updateNumbering()
+        self.vesselRadius = self.coolantRadius + self.vesselThickness
+        self.vesselPosition = self.coolantPosition
+        self.vesselPosition[2] -= self.vesselThickness
+        self.vesselHeight = 2 * self.vesselThickness + self.coolantHeight
         self.reactorVessel = Reactorvessel.ReactorVessel([[0, global_vars.cellNumber, global_vars.surfaceNumber,
                                                          self.vesselMaterialString, global_vars.xc_set,
                                                          self.vesselPosition, global_vars.materialNumber],

@@ -38,10 +38,10 @@ class Assembly(object):
         """Assign assembly parameters based on yaml Assembly file."""
         self.pinsPerAssembly = int(inputs['Pins Per Assembly']) if 'Pins Per Assembly' in inputs else 0
         self.assemblyPitch = float(inputs['Assembly Pitch'])
-        self.ductInnerFlatToFlat = float(inputs['Duct Inside Flat to Flat']) if 'Duct Inside Flat to Flat' in \
+        self.ductInnerFlatToFlat = float(inputs['Duct Inside Flat to Flat']) / 2 if 'Duct Inside Flat to Flat' in \
                                                                                 inputs else 0.0
         thickness = float(inputs['Duct Thickness']) if 'Duct Thickness' in inputs else 0.0
-        self.ductOuterFlatToFlat = self.ductInnerFlatToFlat + 2 * thickness
+        self.ductOuterFlatToFlat = self.ductInnerFlatToFlat + thickness
         self.ductOuterFlatToFlatMCNPEdge = self.ductOuterFlatToFlat * 1.00005
         self.assemblyGap = float(inputs['Assembly Gap']) if 'Assembly Gap' in inputs else 0.0
         self.assemblyHeight = float(inputs['Assembly Height'])

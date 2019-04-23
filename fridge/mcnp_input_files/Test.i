@@ -73,10 +73,10 @@ c ********************Surface Cards for Fuel Assembly: 01A01*******************
 107 RHP 0.0 0.0 60.6 0 0 60.0 0 5.505 0 $Assembly: Plenum
 108 RHP 0.0 0.0 120.6 0 0 60.0 0 5.505 0 $Assembly: Upper Reflector
 109 RHP 0.0 0.0 -60.0 0 0 60.0 0 5.505 0 $Assembly: Lower Reflector
-110 RHP 0.0 0.0 -60.0 0 0 240.6 0 6.10531 0 $Assembly: Duct Outer Surface
-111 RHP 0.0 0.0 -99.8 0 0 39.8 0 6.10531 0 $Assembly: Lower Coolant
-112 RHP 0.0 0.0 180.6 0 0 39.7 0 6.10531 0 $Assembly: Upper Coolant
-113 RHP 0.0 0.0 -99.7 0 0 320.0 0 6.105 0 $Assembly: Full Assembly Surface
+110 RHP 0.0 0.0 -60.0 0 0 240.6 0 5.80529 0 $Assembly: Duct Outer Surface
+111 RHP 0.0 0.0 -99.8 0 0 39.8 0 5.80529 0 $Assembly: Lower Coolant
+112 RHP 0.0 0.0 180.6 0 0 39.7 0 5.80529 0 $Assembly: Upper Coolant
+113 RHP 0.0 0.0 -99.7 0 0 320.0 0 5.805 0 $Assembly: Full Assembly Surface
 
 c **********************************Data Cards*********************************
 c ******************************k-code Information*****************************

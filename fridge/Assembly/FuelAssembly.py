@@ -165,17 +165,17 @@ class FuelAssembly(Assembly.Assembly):
                                     [self.ductOuterFlatToFlatMCNPEdge, definedHeight, innerSurfaceNums]])
 
         self.updateIdentifiers(False)
-        self.lowerSodium = Lowersodium.LowerSodium([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                                     self.coolantMaterial, self.xcSet, bottomCoolantPosition,
-                                                     self.materialNum],
-                                                    [excessCoolantHeight,
+        self.lowerSodium = Lowersodium.LowerCoolant([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
+                                                      self.coolantMaterial, self.xcSet, bottomCoolantPosition,
+                                                      self.materialNum],
+                                                     [excessCoolantHeight,
                                                      self.ductOuterFlatToFlatMCNPEdge]])
 
         self.updateIdentifiers(False)
-        self.upperSodium = Uppersodium.UpperSodium([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                                     self.coolantMaterial, self.xcSet, upperCoolantPosition,
-                                                     self.materialNum],
-                                                    [excessCoolantHeight,
+        self.upperSodium = Uppersodium.UpperCoolant([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
+                                                      self.coolantMaterial, self.xcSet, upperCoolantPosition,
+                                                      self.materialNum],
+                                                     [excessCoolantHeight,
                                                      self.ductOuterFlatToFlatMCNPEdge]])
 
         self.updateIdentifiers(False)

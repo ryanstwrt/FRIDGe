@@ -3,7 +3,7 @@ import fridge.utilities.mcnpCreatorFunctions as mcnpCF
 import copy
 
 
-class LowerSodium(Constituent.Constituent):
+class LowerCoolant(Constituent.Constituent):
     """Creates a region of sodium to compensate for any excess height specified in the assembly file.
     This is in addition to the upper coolant region. The sum of the upper and lower coolant region is the
     excess height from the assembly file."""
@@ -20,6 +20,6 @@ class LowerSodium(Constituent.Constituent):
         position = copy.deepcopy(self.position)
         position[2] -= 0.1
         lowerNaHeight = excessCoolantHeight + 0.1
-        self.surfaceCard = mcnpCF.getRHP(flatToFlat, lowerNaHeight, position, self.surfaceNum, surfaceComment)
+        self.surfaceCard = mcnpCF.getRHPRotated(flatToFlat, lowerNaHeight, position, self.surfaceNum, surfaceComment)
         self.cellCard = mcnpCF.getSingleCell(self.cellNum, self.materialNum, self.material.atomDensity, self.surfaceNum,
                                              self.universe, cellComment)

@@ -24,7 +24,7 @@ class Smear(Constituent.Constituent):
         self.height = ductInfo[1]
         surfaceComment = "$Assembly: {}".format(self.componentName)
         cellComment = "$Assembly: {}".format(self.componentName)
-        self.surfaceCard = mcnpCF.getRHP(self.flat2flat, self.height, self.position, self.surfaceNum, surfaceComment)
+        self.surfaceCard = mcnpCF.getRHPRotated(self.flat2flat, self.height, self.position, self.surfaceNum, surfaceComment)
         self.cellCard = mcnpCF.getSingleCell(self.cellNum, self.materialNum, self.material.atomDensity,
                                              self.surfaceNum, self.universe, cellComment)
 

@@ -52,6 +52,22 @@ def getConcentricCell(cellNum, matNum, density, innerSurface, outerSurface, univ
     return cellCard
 
 
+def getConcentricCellCoolant(cellNum, matNum, density, innerSurface, outerSurface, comment):
+    """Create a cell which has multiple components inside a cell."""
+    newInnerSurface = ''
+    for i in innerSurface:
+        if i % 5 == 0:
+            newInnerSurface += ' {}\n     '.format(i)
+        else:
+            newInnerSurface += ' {}'.format(i)
+    innerSurface = newInnerSurface
+    print(innerSurface)
+    cellCard = "{} {} {} {} -{} imp:n=1 {}".format(cellNum, matNum, round(density, 5), innerSurface, outerSurface,
+                                                   comment)
+    assert (len(cellCard) - len(comment)) < 80
+    return cellCard
+
+
 def getOutsideCell(cellNum, matNum, density, surfaceNum, universe, comment):
     """Create a cell which encompasses everything outside it."""
     cellCard = "{} {} {} {} u={} imp:n=1 {}".format(cellNum, matNum, round(density, 5), surfaceNum, universe, comment)
@@ -230,6 +246,40 @@ def mcnp_input_deck_maker(assembly, k_card, global_vars):
     file.write("c " + "Material Information".center(77, "*"))
     for material in assembly.assemblyMaterialList:
         file.write(material.materialCard)
+    file.close()
+
+
+def mcnp_input_deck_maker_core(core, k_card, global_vars):
+    """Create the MCNP input deck based on the assembly/core data."""
+    file = open(mcnp_dir + global_vars.output_name + ".i", "w")
+    file.write("Input deck created by FRIDGe\n")
+    file.write("c " + global_vars.assembly_file_name.center(77, "*") + "\n")
+    for assembly in core.assemblyList:
+        assembly_cell_title = "Cell Cards for Assembly: {}".format(assembly.assemblyPosition)
+        file.write("c " + assembly_cell_title.center(77, "*") + " \n")
+        for cell in assembly.assemblyCellList:
+            file.write(cell.cellCard + '\n')
+    file.write(core.coolantCellCard + '\n')
+    file.write("\n")
+
+    for assembly in core.assemblyList:
+        assembly_surface_title = "Surface Cards for Fuel Assembly: {}".format(assembly.assemblyPosition)
+        file.write("c " + assembly_surface_title.center(77, "*") + "\n")
+        for surface in assembly.assemblySurfaceList:
+            file.write(surface.surfaceCard + '\n')
+    file.write(core.coolantSurfaceCard + '\n')
+    file.write("\n")
+
+    assembly_data_title = "Data Cards"
+    file.write("c " + assembly_data_title.center(77, "*") + "\n")
+    assembly_kcode_title = "k-code Information"
+    file.write("c " + assembly_kcode_title.center(77, "*") + "\n")
+    file.write(k_card)
+    file.write("c " + "Material Information".center(77, "*"))
+    for assembly in core.assemblyList:
+        for material in assembly.assemblyMaterialList:
+            file.write(material.materialCard)
+    file.write(core.materialCard)
     file.close()
 
 

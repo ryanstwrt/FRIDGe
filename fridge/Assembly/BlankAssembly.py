@@ -1,8 +1,8 @@
 import fridge.Assembly.Assembly as Assembly
 import fridge.Constituent.Smear as Smeared
-import fridge.Constituent.LowerCoolant as Lowersodium
+import fridge.Constituent.LowerCoolant as Lowercoolant
 import fridge.Constituent.OuterShell as Outershell
-import fridge.Constituent.UpperCoolant as Uppersodium
+import fridge.Constituent.UpperCoolant as Uppercoolant
 import fridge.Constituent.EveryThingElse as Everythingelse
 import fridge.utilities.mcnpCreatorFunctions as mcnpCF
 import yaml
@@ -21,8 +21,8 @@ class BlankAssembly(Assembly.Assembly):
         self.assemblyUniverse = 0
         self.blankRegionHeight = 0
         self.blankRegion = None
-        self.lowerSodium = None
-        self.upperSodium = None
+        self.lowerCoolant = None
+        self.upperCoolant = None
         self.blankMaterial = None
         self.innerDuct = None
         self.duct = None
@@ -58,16 +58,16 @@ class BlankAssembly(Assembly.Assembly):
                                           [self.ductOuterFlatToFlatMCNPEdge, self.blankRegionHeight], 'Blank Region'])
 
         self.updateIdentifiers(False)
-        self.lowerSodium = Lowersodium.LowerSodium([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                                     self.coolantMaterial, self.xcSet, bottomCoolantPosition,
-                                                     self.materialNum],
-                                                    [excessCoolantHeight, self.ductOuterFlatToFlatMCNPEdge]])
+        self.lowerCoolant = Lowercoolant.LowerCoolant([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
+                                                       self.coolantMaterial, self.xcSet, bottomCoolantPosition,
+                                                       self.materialNum],
+                                                      [excessCoolantHeight, self.ductOuterFlatToFlatMCNPEdge]])
 
         self.updateIdentifiers(False)
-        self.upperSodium = Uppersodium.UpperSodium([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                                     self.coolantMaterial, self.xcSet, upperBlankAssemblyPosition,
-                                                     self.materialNum],
-                                                    [excessCoolantHeight, self.ductOuterFlatToFlatMCNPEdge]])
+        self.upperCoolant = Uppercoolant.UpperCoolant([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
+                                                       self.coolantMaterial, self.xcSet, upperBlankAssemblyPosition,
+                                                       self.materialNum],
+                                                      [excessCoolantHeight, self.ductOuterFlatToFlatMCNPEdge]])
 
         self.updateIdentifiers(False)
         self.assemblyShell = Outershell.OuterShell([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
@@ -75,9 +75,9 @@ class BlankAssembly(Assembly.Assembly):
                                                      self.materialNum],
                                                     [self.assemblyHeight, self.ductOuterFlatToFlat]])
 
-        self.assemblyCellList = [self.blankRegion, self.lowerSodium, self.upperSodium, self.assemblyShell]
-        self.assemblySurfaceList = [self.blankRegion, self.lowerSodium, self.upperSodium, self.assemblyShell]
-        self.assemblyMaterialList = [self.blankRegion, self.lowerSodium, self.upperSodium, self.assemblyShell]
+        self.assemblyCellList = [self.blankRegion, self.lowerCoolant, self.upperCoolant, self.assemblyShell]
+        self.assemblySurfaceList = [self.blankRegion, self.lowerCoolant, self.upperCoolant, self.assemblyShell]
+        self.assemblyMaterialList = [self.blankRegion, self.lowerCoolant, self.upperCoolant, self.assemblyShell]
 
         if 'Single' in self.globalVars.input_type:
             self.updateIdentifiers(False)

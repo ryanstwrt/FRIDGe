@@ -18,6 +18,6 @@ class BlankCoolant(Constituent.Constituent):
         self.blankCoolantSurfaceNum = coolantInfo[2]
         surfaceComment = "$Pin: Blank Pin - 1% higher than fuel"
         cellComment = "$Pin: Blank Pin Coolant"
-        self.surfaceCard = mcnpCF.getRHPRotated(self.pitch, self.height, self.position, self.surfaceNum, surfaceComment)
+        self.surfaceCard = mcnpCF.getRHP(self.pitch, self.height, self.position, self.surfaceNum, surfaceComment)
         self.cellCard = mcnpCF.getSingleCell(self.cellNum, self.materialNum, self.material.atomDensity,
                                              self.blankCoolantSurfaceNum, self.universe, cellComment)

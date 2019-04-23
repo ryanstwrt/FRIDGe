@@ -15,7 +15,7 @@ class FuelCoolant(Smear.Smear):
         self.cladSurfaceNum = coolantInfo[2]
         surfaceComment = "$Pin: Coolant - 1% higher than fuel"
         cellComment = "$Pin: Wirewrap + Coolant"
-        self.surfaceCard = mcnpCF.getRHPRotated(self.flat2flat, self.height, self.position, self.surfaceNum,
+        self.surfaceCard = mcnpCF.getRHP(self.flat2flat, self.height, self.position, self.surfaceNum,
                                                 surfaceComment)
         self.cellCard = mcnpCF.getOutsideCell(self.cellNum, self.materialNum, self.material.atomDensity,
                                               self.cladSurfaceNum, self.universe, cellComment)

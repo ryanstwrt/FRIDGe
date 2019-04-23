@@ -14,6 +14,6 @@ class OuterShell(Constituent.Constituent):
         pitch = unitInfo[1]
         surfaceComment = "$Assembly: Full Assembly Surface"
         cellComment = "$Assembly"
-        self.surfaceCard = mcnpCF.getRHP(pitch, assemblyHeight, self.position, self.surfaceNum,
+        self.surfaceCard = mcnpCF.getRHPRotated(pitch, assemblyHeight, self.position, self.surfaceNum,
                                          surfaceComment)
         self.cellCard = mcnpCF.getAssemblyUniverseCell(self.surfaceNum, self.cellNum, self.universe, cellComment)

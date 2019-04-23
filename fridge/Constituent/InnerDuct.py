@@ -19,6 +19,6 @@ class InnerDuct(Constituent.Constituent):
         self.height = ductInfo[3]
         surfaceComment = "$Assembly: Duct Inner Surface"
         cellComment = "$Assembly: Inner Portion of Assembly"
-        self.surfaceCard = mcnpCF.getRHP(self.flat2flat, self.height, self.position, self.surfaceNum, surfaceComment)
+        self.surfaceCard = mcnpCF.getRHPRotated(self.flat2flat, self.height, self.position, self.surfaceNum, surfaceComment)
         self.cellCard = mcnpCF.getFuelLatticeCell(self.cellNum, self.surfaceNum, self.assemblyUniverse,
                                                   self.latticeUniverse, cellComment)

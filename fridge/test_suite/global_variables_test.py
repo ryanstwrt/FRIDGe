@@ -11,7 +11,7 @@ def test_global_variables_default():
     assert global_variables.universe == 100
     assert global_variables.cellNumber == 100
     assert global_variables.surfaceNumber == 100
-    assert global_variables.materialNumber == 10
+    assert global_variables.materialNumber == 100
     assert global_variables.number_assemblies == 1
     assert global_variables.na_voiding is False
     assert global_variables.temperature == 0
@@ -41,7 +41,7 @@ def test_global_variables_read_assembly():
     assert global_variables.universe == 100
     assert global_variables.cellNumber == 100
     assert global_variables.surfaceNumber == 100
-    assert global_variables.materialNumber == 10
+    assert global_variables.materialNumber == 100
     assert global_variables.number_assemblies == 1
     assert global_variables.na_voiding is True
     assert global_variables.temperature == 1200

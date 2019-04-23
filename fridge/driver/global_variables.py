@@ -14,7 +14,7 @@ class GlobalVariables(object):
         self.universe = 100
         self.cellNumber = 100
         self.surfaceNumber = 100
-        self.materialNumber = 10
+        self.materialNumber = 100
         self.number_assemblies = 1
         self.na_voiding = False
         self.temperature = 0
@@ -99,3 +99,9 @@ class GlobalVariables(object):
                 self.xc_set = '.73c'
             elif self.xc_library == 'JEFF3.1':
                 self.xc_set = '.39c'
+
+    def updateNumbering(self):
+        self.universe += 20
+        self.cellNumber += 20
+        self.surfaceNumber += 20
+        self.materialNumber += 20

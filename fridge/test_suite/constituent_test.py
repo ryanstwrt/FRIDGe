@@ -8,10 +8,10 @@ import fridge.Constituent.FuelCoolant as FuelCoolant
 import fridge.Constituent.FuelPin as FuelPin
 import fridge.Constituent.FuelUniverse as FuelUniverse
 import fridge.Constituent.InnerDuct as InnerDuct
-import fridge.Constituent.LowerCoolant as LowerSodium
+import fridge.Constituent.LowerCoolant as LowerCoolant
 import fridge.Constituent.OuterShell as OuterShell
 import fridge.Constituent.Smear as Smear
-import fridge.Constituent.UpperCoolant as UpperSodium
+import fridge.Constituent.UpperCoolant as UpperCoolant
 import fridge.utilities.materialReader as mr
 
 constituentInfo = [[0, 1, 2, 'LiquidNa', '.82c', [1, 1, 1], 3], []]
@@ -46,7 +46,7 @@ def test_blankCoolant():
     blankCoolantInfo = [[0, 1, 2, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [0.1, 0.2, 4]]
     c = BlankCoolant.BlankCoolant(blankCoolantInfo)
     cellCard = '1 3 0.02428 -4 u=0 imp:n=1 $Pin: Blank Pin Coolant'
-    surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 0.2 0 0.05 0 $Pin: Blank Pin - 1% higher than fuel'
+    surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 0.2 0.05 0 0 $Pin: Blank Pin - 1% higher than fuel'
     assert c.pitch == 0.1 / 2
     assert c.height == 0.2
     assert c.blankCoolantSurfaceNum == 4
@@ -58,7 +58,7 @@ def test_duct():
     ductInfo = [[0, 1, 2, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [0.1, 0.2, 4]]
     c = Duct.Duct(ductInfo)
     cellCard = '1 3 0.02428 4 -2 u=0 imp:n=1 $Assembly: Assembly Duct'
-    surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 0.2 0.1 0 0 $Assembly: Duct Outer Surface'
+    surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 0.2 0 0.1 0 $Assembly: Duct Outer Surface'
     assert c.flat2flat == 0.1
     assert c.height == 0.20
     assert c.innerSurfaceNum == 4
@@ -100,7 +100,7 @@ def test_fuelCoolant():
     fuelCoolantInfo = [[0, 1, 2, {'LiquidNa': 1.0}, '82c', [1.0, 1.0, 1.0], 3], [0.1, 0.2, 4], 'Wirewrap + Coolant']
     c = FuelCoolant.FuelCoolant(fuelCoolantInfo)
     cellCard = '1 3 0.02428 4 u=0 imp:n=1 $Pin: Wirewrap + Coolant'
-    surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 0.2 0 0.1 0 $Pin: Coolant - 1% higher than fuel'
+    surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 0.2 0.1 0 0 $Pin: Coolant - 1% higher than fuel'
     assert c.flat2flat == 0.1
     assert c.height == 0.2
     assert cellCard == c.cellCard
@@ -132,7 +132,7 @@ def test_innerDuct():
     innerDuctInfo = [[0, 1, 2, 'HT9', '82c', [1.0, 1.0, 1.0], 3], [4, 5, 0.1, 0.2]]
     c = InnerDuct.InnerDuct(innerDuctInfo)
     cellCard = '1 0 -2 u=4 fill=5 imp:n=1 $Assembly: Inner Portion of Assembly'
-    surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 0.2 0.1 0 0 $Assembly: Duct Inner Surface'
+    surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 0.2 0 0.1 0 $Assembly: Duct Inner Surface'
     assert c.assemblyUniverse == 4
     assert c.latticeUniverse == 5
     assert c.flat2flat == 0.1
@@ -141,11 +141,11 @@ def test_innerDuct():
     assert c.surfaceCard == surfaceCard
 
 
-def test_lowerSodium():
-    lowerSodiumInfo = [[0, 1, 2, 'LiquidNa', '82c', [0.0, 0.0, -20.0], 3], [10.0, 0.2]]
-    c = LowerSodium.LowerSodium(lowerSodiumInfo)
+def test_lowerCoolant():
+    lowerCoolantInfo = [[0, 1, 2, 'LiquidNa', '82c', [0.0, 0.0, -20.0], 3], [10.0, 0.2]]
+    c = LowerCoolant.LowerCoolant(lowerCoolantInfo)
     cellCard = '1 3 0.02428 -2 u=0 imp:n=1 $Assembly: Lower Coolant'
-    surfaceCard = '2 RHP 0.0 0.0 -20.1 0 0 10.1 0.2 0 0 $Assembly: Lower Coolant'
+    surfaceCard = '2 RHP 0.0 0.0 -20.1 0 0 10.1 0 0.2 0 $Assembly: Lower Coolant'
     assert c.cellCard == cellCard
     assert c.surfaceCard == surfaceCard
 
@@ -154,7 +154,7 @@ def test_outershell():
     outerShellInfo = [[0, 1, 2, 'LiquidNa', '82c', [0.0, 0.0, -20.0], 3], [50, 0.2]]
     c = OuterShell.OuterShell(outerShellInfo)
     cellCard = '2 0 -1 fill=0 imp:n=1 $Assembly'
-    surfaceCard = '2 RHP 0.0 0.0 -20.0 0 0 50 0.2 0 0 $Assembly: Full Assembly Surface'
+    surfaceCard = '2 RHP 0.0 0.0 -20.0 0 0 50 0 0.2 0 $Assembly: Full Assembly Surface'
     assert c.cellCard == cellCard
     assert c.surfaceCard == surfaceCard
 
@@ -163,15 +163,15 @@ def test_smear():
     smearInfo = [[0, 1, 2, {'HT9': 0.5, 'LiquidNa': 0.5}, '82c', [1.0, 1.0, 1.0], 3], [0.2, 10], 'Plenum']
     c = Smear.Smear(smearInfo)
     cellCard = '1 3 0.05514 -2 u=0 imp:n=1 $Assembly: Plenum'
-    surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 10 0.2 0 0 $Assembly: Plenum'
+    surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 10 0 0.2 0 $Assembly: Plenum'
     assert c.cellCard == cellCard
     assert c.surfaceCard == surfaceCard
 
 
-def test_upperSodium():
-    upperSodiumInfo = [[0, 1, 2, 'LiquidNa', '82c', [0.0, 0.0, 20], 3], [10.0, 0.2]]
-    c = UpperSodium.UpperSodium(upperSodiumInfo)
+def test_upperCoolant():
+    upperCoolantInfo = [[0, 1, 2, 'LiquidNa', '82c', [0.0, 0.0, 20], 3], [10.0, 0.2]]
+    c = UpperCoolant.UpperCoolant(upperCoolantInfo)
     cellCard = '1 3 0.02428 -2 u=0 imp:n=1 $Assembly: Upper Coolant'
-    surfaceCard = '2 RHP 0.0 0.0 20 0 0 10.0 0.2 0 0 $Assembly: Upper Coolant'
+    surfaceCard = '2 RHP 0.0 0.0 20 0 0 10.0 0 0.2 0 $Assembly: Upper Coolant'
     assert c.cellCard == cellCard
     assert c.surfaceCard == surfaceCard

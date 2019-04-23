@@ -69,7 +69,7 @@ def test_duct():
 def test_EverythingElse():
     everyThingElseInfo = [1, 2]
     c = EveryThingElse.EveryThingElse(everyThingElseInfo)
-    cellCard = '1 0 2 imp:n=0 $Assembly: Outside Assembly'
+    cellCard = '1 0 2 imp:n=0 $Everything Else'
     assert c.assemblySurfaceNum == 2
     assert cellCard == c.cellCard
 

@@ -161,7 +161,7 @@ def test_fuel_assembly():
     assert a.upperSodium.surfaceCard == '112 RHP 0.0 0.0 180.6 0 0 39.7 0 6.10531 0 $Assembly: Upper Coolant'
     assert a.assemblyShell.cellCard == '113 0 -113 fill=100 imp:n=1 $Assembly'
     assert a.assemblyShell.surfaceCard == '113 RHP 0.0 0.0 -99.7 0 0 320.0 0 6.105 0 $Assembly: Full Assembly Surface'
-    assert a.everythingElse.cellCard == '114 0 113 imp:n=0 $Assembly: Outside Assembly'
+    assert a.everythingElse.cellCard == '114 0 113 imp:n=0 $Everything Else'
 
 
 global_vars = gb.GlobalVariables()

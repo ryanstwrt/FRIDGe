@@ -1,9 +1,10 @@
 Name: Test
 Vessel Thickness: 10
+Vessel Material: HT9
 01A01: Blank_Test
-02A01: A271_Test
-02B01: A271_Test
-02C01: A271_Test
-02D01: A271_Test
-02E01: A271_Test
-02F01: A271_Test
+02A01: A271_Test2
+02B01: A271_Test2
+02C01: A271_Test2
+02D01: A271_Test2
+02E01: A271_Test2
+02F01: A271_Test2

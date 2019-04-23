@@ -61,7 +61,6 @@ def getConcentricCellCoolant(cellNum, matNum, density, innerSurface, outerSurfac
         else:
             newInnerSurface += ' {}'.format(i)
     innerSurface = newInnerSurface
-    print(innerSurface)
     cellCard = "{} {} {} {} -{} imp:n=1 {}".format(cellNum, matNum, round(density, 5), innerSurface, outerSurface,
                                                    comment)
     assert (len(cellCard) - len(comment)) < 80
@@ -259,7 +258,8 @@ def mcnp_input_deck_maker_core(core, k_card, global_vars):
         file.write("c " + assembly_cell_title.center(77, "*") + " \n")
         for cell in assembly.assemblyCellList:
             file.write(cell.cellCard + '\n')
-    file.write(core.coolantCellCard + '\n')
+    for cell in core.coreCellList:
+        file.write(cell.cellCard + '\n')
     file.write("\n")
 
     for assembly in core.assemblyList:
@@ -267,7 +267,8 @@ def mcnp_input_deck_maker_core(core, k_card, global_vars):
         file.write("c " + assembly_surface_title.center(77, "*") + "\n")
         for surface in assembly.assemblySurfaceList:
             file.write(surface.surfaceCard + '\n')
-    file.write(core.coolantSurfaceCard + '\n')
+    for surface in core.coreSurfaceList:
+        file.write(surface.surfaceCard + '\n')
     file.write("\n")
 
     assembly_data_title = "Data Cards"
@@ -279,7 +280,8 @@ def mcnp_input_deck_maker_core(core, k_card, global_vars):
     for assembly in core.assemblyList:
         for material in assembly.assemblyMaterialList:
             file.write(material.materialCard)
-    file.write(core.materialCard)
+    for material in core.coreMaterialList:
+        file.write(material.materialCard)
     file.close()
 
 

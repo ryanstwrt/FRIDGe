@@ -10,5 +10,5 @@ class EveryThingElse(Constituent.Constituent):
         self.makeComponent()
 
     def makeComponent(self):
-        cellComment = "$Assembly: Outside Assembly"
+        cellComment = "$Everything Else"
         self.cellCard = mcnpCF.getEverythingElseCard(self.cellNum, self.assemblySurfaceNum, cellComment)

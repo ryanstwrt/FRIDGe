@@ -61,7 +61,7 @@ c ************************Cell Cards for Assembly: 01A01***********************
 111 111 0.02428 -111 u=100 imp:n=1 $Assembly: Lower Coolant
 112 112 0.02428 -112 u=100 imp:n=1 $Assembly: Upper Coolant
 113 0 -113 fill=100 imp:n=1 $Assembly
-114 0 113 imp:n=0 $Assembly: Outside Assembly
+114 0 113 imp:n=0 $Everything Else
 
 c ********************Surface Cards for Fuel Assembly: 01A01*******************
 100 RCC 0.0 0.0 0.0 0 0 60.0 0.19745 $Pin: Fuel

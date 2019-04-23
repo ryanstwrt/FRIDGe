@@ -1,5 +1,6 @@
-import fridge.utilities.mcnpCreatorFunctions as MCF
-import fridge.utilities.materialReader as materialReader
+import fridge.Constituent.CoreCoolant as Corecoolant
+import fridge.Constituent.ReactorVessel as Reactorvessel
+import fridge.Constituent.EveryThingElse as Everytyhingelse
 import glob
 import yaml
 import os
@@ -20,6 +21,20 @@ class Core:
         self.coolantSurfaceCard = ''
         self.coolantCellCard = ''
         self.materialCard = ''
+        self.vesselMaterial = None
+        self.vesselMaterialString = ''
+        self.coolantRadius = 0
+        self.coolantHeight = 0
+        self.coolantPosition = []
+        self.coolantMaterial = None
+        self.vesselRadius = 0
+        self.vesselPosition = []
+        self.vesselSurfaceCard = ''
+        self.coreCellList = []
+        self.coreSurfaceList = []
+        self.coreMaterialList = []
+        self.everythingElse = None
+
 
     def getCoreData(self, coreFile):
         coreYamlFile = glob.glob(os.path.join(geo_dir, coreFile + '.yaml'))
@@ -27,28 +42,40 @@ class Core:
             inputs = yaml.safe_load(coreFile)
             self.name = inputs['Name']
             self.vesselThickness = inputs['Vessel Thickness']
+            self.vesselMaterialString = inputs['Vessel Material']
         return inputs
 
-    def buildExcessCoolant(self, global_vars):
+    def getCore(self, global_vars):
         rings = (len(self.assemblyList) - 1) / 6 + 1
         assembly = self.assemblyList[0]
         pitch = assembly.assemblyPitch
         self.coolantRadius = rings * pitch - pitch / 2
         self.coolantHeight = assembly.assemblyHeight * 1.1
-        self.position = assembly.assemblyShell.position
-        self.position[2] -= 10
-        self.coolantSurfaceCard = MCF.getRCC(self.coolantRadius, self.coolantHeight, self.position,
-                                             global_vars.surfaceNumber, '$Coolant Surrounding Assemblies')
+        self.coolantPosition = assembly.assemblyShell.position
+        self.coolantPosition[2] -= 10
         assemblySurfaceList = []
         for assembly in self.assemblyList:
             assemblySurfaceList.append(assembly.assemblyShell.surfaceNum)
-        print(assemblySurfaceList)
-        self.material = materialReader.Material()
-        self.material.setMaterial(assembly.coolantMaterial)
-        self.materialCard = MCF.getMaterialCard(self.material, global_vars.xc_library, global_vars.materialNumber)
-        self.coolantCellCard = MCF.getConcentricCellCoolant(global_vars.cellNumber, global_vars.materialNumber,
-                                                    self.material.density, assemblySurfaceList,
-                                                    global_vars.surfaceNumber, '$Coolant Surrounding Assemblies')
 
-    def buildReactorVessel(self):
-        pass
+        self.vesselRadius = self.coolantRadius + self.vesselThickness
+        self.vesselPosition = self.coolantPosition
+        self.vesselPosition[2] -= self.vesselThickness
+        self.vesselHeight = 2 * self.vesselThickness + self.coolantHeight
+
+        self.coreCoolant = Corecoolant.CoreCoolant([[0, global_vars.cellNumber, global_vars.surfaceNumber,
+                                                     assembly.coolantMaterial, global_vars.xc_library,
+                                                     self.coolantPosition, global_vars.materialNumber],
+                                                    [self.coolantRadius, self.coolantHeight, assemblySurfaceList]])
+        global_vars.updateNumbering()
+        self.reactorVessel = Reactorvessel.ReactorVessel([[0, global_vars.cellNumber, global_vars.surfaceNumber,
+                                                         self.vesselMaterialString, global_vars.xc_library,
+                                                         self.vesselPosition, global_vars.materialNumber],
+                                                         [self.vesselRadius, self.vesselHeight,
+                                                         self.coreCoolant.surfaceNum]])
+        global_vars.updateNumbering()
+        self.everythingElse = Everytyhingelse.EveryThingElse([global_vars.cellNumber, self.reactorVessel.surfaceNum])
+
+        self.coreCellList = [self.coreCoolant, self.reactorVessel, self.everythingElse]
+        self.coreSurfaceList = [self.coreCoolant, self.reactorVessel]
+        self.coreMaterialList = [self.coreCoolant, self.reactorVessel]
+

@@ -56,5 +56,5 @@ def test_global_variables_read_assembly():
     assert global_variables.number_particles_generation == 1e10
     assert global_variables.kopts is True
     assert global_variables.ksens is True
-    assert global_variables.output_name == 'Test'
+    assert global_variables.output_name == 'Fuel_Assembly_Test'
     assert global_variables.input_type == 'Single'

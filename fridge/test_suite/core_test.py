@@ -36,22 +36,3 @@ def test_getCoreData():
     assert core.name == 'Test_Core'
     assert core.vesselThickness == 10
     assert core.vesselMaterialString == 'HT9'
-
-
-#def test_getCore():
-#    core = Core.Core()
-#    core.getCoreData('Core_Test')
-#    core.getCore(global_vars)
-#
-#    assert core.vesselMaterial is not None
-#    assert core.coolantMaterial is not None
-#    assert core.everythingElse is not None
-#    assert core.excessCoolant is not None
-#    assert core.vessel is not None
-#    assert core.coolantRadius == 5.4
-#    assert core.coolantHeight == 352
-#    assert core.coolantPosition == [0, 0, -70]
-#    assert core.vesselRadius == 15.4
-#    assert core.vesselPosition == [0, 0, -80]
-#    assert core.vesselHeight == 372
-#    assert len(core.assemblyList) == 7

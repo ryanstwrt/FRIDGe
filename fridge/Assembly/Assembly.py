@@ -69,6 +69,8 @@ def assemblyTypeReader(assemblyYamlFile):
 def getAssemblyLocation(assemblyType):
     """Find the file location for the assembly, and determine if the given assembly exists."""
     assemblyYamlFile = glob.glob(os.path.join(geo_dir, assemblyType + '.yaml'))
+    print(assemblyType)
+    print(assemblyYamlFile)
     try:
         assert assemblyYamlFile[0][(-(len(assemblyType)+5)):] == '{}.yaml'.format(assemblyType)
     except AssertionError:

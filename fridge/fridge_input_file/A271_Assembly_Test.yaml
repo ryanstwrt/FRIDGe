@@ -13,6 +13,6 @@ Number of Skipped Generations: 300
 Number of Particles per Generation: 1e10
 kopts: True
 ksens: True
-Output File Name: Test
+Output File Name: Fuel_Assembly_Test
 Input Type: Single
 Random Variable: True

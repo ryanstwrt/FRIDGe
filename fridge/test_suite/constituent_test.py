@@ -12,6 +12,8 @@ import fridge.Constituent.LowerCoolant as LowerCoolant
 import fridge.Constituent.OuterShell as OuterShell
 import fridge.Constituent.Smear as Smear
 import fridge.Constituent.UpperCoolant as UpperCoolant
+import fridge.Constituent.CoreCoolant as CoreCoolant
+import fridge.Constituent.ReactorVessel as ReactorVessel
 import fridge.utilities.materialReader as mr
 
 constituentInfo = [[0, 1, 2, 'LiquidNa', '.82c', [1, 1, 1], 3], []]
@@ -173,5 +175,23 @@ def test_upperCoolant():
     c = UpperCoolant.UpperCoolant(upperCoolantInfo)
     cellCard = '1 3 0.02428 -2 u=0 imp:n=1 $Assembly: Upper Coolant'
     surfaceCard = '2 RHP 0.0 0.0 20 0 0 10.0 0 0.2 0 $Assembly: Upper Coolant'
+    assert c.cellCard == cellCard
+    assert c.surfaceCard == surfaceCard
+
+
+def test_coreCoolant():
+    coreCoolantInfo = [[0, 10, 11, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [2, 5, [1, 2]]]
+    c = CoreCoolant.CoreCoolant(coreCoolantInfo)
+    cellCard = '10 3 0.02428  1\n      2 -11 imp:n=1 $Coolant Surrounding Assemblies'
+    surfaceCard = '11 RCC 1.0 1.0 1.0 0 0 5 2 $Coolant Surrounding Assemblies'
+    assert c.cellCard == cellCard
+    assert c.surfaceCard == surfaceCard
+
+
+def test_reactorVessel():
+    reactorVesselInfo = [[0, 10, 11, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [2, 5, 15]]
+    c = ReactorVessel.ReactorVessel(reactorVesselInfo)
+    cellCard = '10 3 0.02428  15\n      -11 imp:n=1 $Reactor Vessel'
+    surfaceCard = '11 RCC 1.0 1.0 1.0 0 0 5 2 $Vessel surrounding the core'
     assert c.cellCard == cellCard
     assert c.surfaceCard == surfaceCard

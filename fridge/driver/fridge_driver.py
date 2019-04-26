@@ -26,4 +26,4 @@ def main(file_name):
         rm.coreMaker(global_vars)
         print('FRIDGe has finished creating your core')
 
-main('FullCoreBase')
+main('FullCore_H90')

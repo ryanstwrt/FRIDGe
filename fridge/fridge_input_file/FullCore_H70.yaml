@@ -1,0 +1,10 @@
+Name: FullCore_H70
+Temperature: 900
+XC Library: ENDFVII.1
+Number of Generations: 250
+Number of Skipped Generations: 50
+Number of Particles per Generation: 1e6
+kopts: True
+ksens: True
+Output File Name: FullCore_H70
+Input Type: Core

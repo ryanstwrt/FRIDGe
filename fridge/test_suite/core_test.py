@@ -9,8 +9,8 @@ def test_baseCore():
     core = Core.Core()
     assert core.name == ''
     assert core.assemblyList == []
-    assert core.excessCoolant is None
-    assert core.vessel is None
+    assert core.coreCoolant is None
+    assert core.reactorVessel is None
     assert core.vesselThickness == 0
     assert core.coolantSurfaceCard == ''
     assert core.coolantCellCard == ''

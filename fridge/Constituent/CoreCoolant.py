@@ -14,6 +14,6 @@ class CoreCoolant(Constituent.Constituent):
     def makeComponent(self, unitInfo):
         self.surfaceCard = MCF.getRCC(self.coolantRadius, self.coolantHeight, self.position,
                                              self.surfaceNum, '$Coolant Surrounding Assemblies')
-        self.cellCard = MCF.getConcentricCellCoolant(self.cellNum, self.materialNum, self.material.atomDensity,
-                                                            self.assemblySurfaceList, self.surfaceNum,
+        self.cellCard = MCF.getConcentricCell(self.cellNum, self.materialNum, self.material.atomDensity,
+                                                            self.assemblySurfaceList, self.surfaceNum, '',
                                                             '$Coolant Surrounding Assemblies')

@@ -371,11 +371,9 @@ c ************************Cell Cards for Assembly: 02F01***********************
 231 231 0.02428 -231 u=220 imp:n=1 $Assembly: Lower Coolant
 232 232 0.02428 -232 u=220 imp:n=1 $Assembly: Upper Coolant
 233 0 -233 fill=220 imp:n=1 $Assembly
-240 240 0.02428  103
-      133 153 173 193 213
-      233 -240 imp:n=1 $Coolant Surrounding Assemblies
-260 260 0.08599  240
-      -260 imp:n=1 $Reactor Vessel
+240 240 0.02428  103 133 153 173 193
+      213 233 -240  imp:n=1 $Coolant Surrounding Assemblies
+260 260 0.08599  240 -260  imp:n=1 $Reactor Vessel
 280 0 260 imp:n=0 $Everything Else
 
 c ********************Surface Cards for Fuel Assembly: 01A01*******************

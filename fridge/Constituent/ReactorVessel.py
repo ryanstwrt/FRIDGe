@@ -14,5 +14,5 @@ class ReactorVessel(Constituent.Constituent):
     def makeComponent(self, unitInfo):
         self.surfaceCard = MCF.getRCC(self.vesselRadius, self.vesselHeight, self.position, self.surfaceNum,
                                       '$Vessel surrounding the core')
-        self.cellCard = MCF.getConcentricCellCoolant(self.cellNum, self.materialNum, self.material.atomDensity,
-                                                     [self.coreCoolantSurfaceNum], self.surfaceNum, '$Reactor Vessel')
+        self.cellCard = MCF.getConcentricCell(self.cellNum, self.materialNum, self.material.atomDensity,
+                                                     [self.coreCoolantSurfaceNum], self.surfaceNum, '', '$Reactor Vessel')

@@ -15,8 +15,6 @@ class Core:
     def __init__(self):
         self.name = ''
         self.assemblyList = []
-        self.excessCoolant = None
-        self.vessel = None
         self.vesselThickness = 0
         self.coolantSurfaceCard = ''
         self.coolantCellCard = ''
@@ -28,13 +26,15 @@ class Core:
         self.coolantPosition = []
         self.coolantMaterial = None
         self.vesselRadius = 0
+        self.vesselHeight = 0
         self.vesselPosition = []
         self.vesselSurfaceCard = ''
         self.coreCellList = []
         self.coreSurfaceList = []
         self.coreMaterialList = []
         self.everythingElse = None
-
+        self.coreCoolant = None
+        self.reactorVessel = None
 
     def getCoreData(self, coreFile):
         coreYamlFile = glob.glob(os.path.join(geo_dir, coreFile + '.yaml'))
@@ -77,4 +77,3 @@ class Core:
         self.coreCellList = [self.coreCoolant, self.reactorVessel, self.everythingElse]
         self.coreSurfaceList = [self.coreCoolant, self.reactorVessel]
         self.coreMaterialList = [self.coreCoolant, self.reactorVessel]
-

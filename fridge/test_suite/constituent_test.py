@@ -182,8 +182,10 @@ def test_upperCoolant():
 def test_coreCoolant():
     coreCoolantInfo = [[0, 10, 11, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [2, 5, [1, 2]]]
     c = CoreCoolant.CoreCoolant(coreCoolantInfo)
-    cellCard = '10 3 0.02428  1\n      2 -11 imp:n=1 $Coolant Surrounding Assemblies'
+    cellCard = '10 3 0.02428  1 2 -11  imp:n=1 $Coolant Surrounding Assemblies'
     surfaceCard = '11 RCC 1.0 1.0 1.0 0 0 5 2 $Coolant Surrounding Assemblies'
+    print(cellCard)
+    print(c.cellCard)
     assert c.cellCard == cellCard
     assert c.surfaceCard == surfaceCard
 
@@ -191,7 +193,7 @@ def test_coreCoolant():
 def test_reactorVessel():
     reactorVesselInfo = [[0, 10, 11, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [2, 5, 15]]
     c = ReactorVessel.ReactorVessel(reactorVesselInfo)
-    cellCard = '10 3 0.02428  15\n      -11 imp:n=1 $Reactor Vessel'
+    cellCard = '10 3 0.02428  15 -11  imp:n=1 $Reactor Vessel'
     surfaceCard = '11 RCC 1.0 1.0 1.0 0 0 5 2 $Vessel surrounding the core'
     assert c.cellCard == cellCard
     assert c.surfaceCard == surfaceCard

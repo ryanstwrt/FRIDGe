@@ -32,37 +32,34 @@ def getRHPRotated(pitch, height, position, surfaceNum, comment):
 
 def getSingleCell(cellNum, matNum, density, surfaceNum, universe, comment):
     """Create a cell with one component"""
-    cellCard = "{} {} {} -{} u={} imp:n=1 {}".format(cellNum, matNum, round(density, 5), surfaceNum, universe, comment)
+    uCard = ''
+    if type(universe) is int:
+        uCard = 'u=' + str(universe)
+    cellCard = "{} {} {} -{} {} imp:n=1 {}".format(cellNum, matNum, round(density, 5), surfaceNum, uCard, comment)
     assert (len(cellCard) - len(comment)) < 80
     return cellCard
 
 
 def getConcentricCell(cellNum, matNum, density, innerSurface, outerSurface, universe, comment):
     """Create a cell which has multiple components inside a cell."""
+    uCard = ''
+    if type(universe) is int:
+        uCard = 'u=' + str(universe)
     listType = []
     if type(innerSurface) == type(listType):
         newInnerSurface = ''
-        for i in innerSurface:
-            newInnerSurface += ' {}'.format(i)
+        i = 1
+        for surface in innerSurface:
+            if i % 5 == 0:
+                newInnerSurface += ' {}\n     '.format(surface)
+            else:
+                newInnerSurface += ' {}'.format(surface)
+            i += 1
         innerSurface = newInnerSurface
 
-    cellCard = "{} {} {} {} -{} u={} imp:n=1 {}".format(cellNum, matNum, round(density, 5), innerSurface, outerSurface,
-                                                        universe, comment)
+    cellCard = "{} {} {} {} -{} {} imp:n=1 {}".format(cellNum, matNum, round(density, 5), innerSurface, outerSurface,
+                                                        uCard, comment)
     assert (len(cellCard) - len(comment)) < 80
-    return cellCard
-
-
-def getConcentricCellCoolant(cellNum, matNum, density, innerSurface, outerSurface, comment):
-    """Create a cell which has multiple components inside a cell."""
-    newInnerSurface = ''
-    for i, surface in enumerate(innerSurface):
-        if i % 5 == 0:
-            newInnerSurface += ' {}\n     '.format(surface)
-        else:
-            newInnerSurface += ' {}'.format(surface)
-    innerSurface = newInnerSurface
-    cellCard = "{} {} {} {} -{} imp:n=1 {}".format(cellNum, matNum, round(density, 5), innerSurface, outerSurface,
-                                                   comment)
     return cellCard
 
 

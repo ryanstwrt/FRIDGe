@@ -59,7 +59,6 @@ def getConcentricCell(cellNum, matNum, density, innerSurface, outerSurface, univ
 
     cellCard = "{} {} {} {} -{} {} imp:n=1 {}".format(cellNum, matNum, round(density, 5), innerSurface, outerSurface,
                                                         uCard, comment)
-    assert (len(cellCard) - len(comment)) < 80
     return cellCard
 
 

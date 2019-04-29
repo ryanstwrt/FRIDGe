@@ -36,7 +36,7 @@ def coreMaker(global_vars):
             assembly = FuelAssembly.FuelAssembly(assemblyInfo)
         elif assemblyType == 'Blank':
             assembly = BlankAssembly.BlankAssembly(assemblyInfo)
-        core.assemblyList.append(copy.deepcopy(assembly))
+        core.assemblyList.append(assembly)
         global_vars.updateNumbering()
     print('Building reactor core and coolant.')
     core.getCore(global_vars)

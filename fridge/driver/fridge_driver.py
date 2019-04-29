@@ -1,7 +1,6 @@
 import fridge.driver.global_variables as gb
 import fridge.driver.reactorMaker as rm
 
-# TODO implement sodium voiding
 # TODO implement fuel radial expansion (density/volume change)
 # TODO implement fuel axial expansion
 # TODO implement coolant expansion
@@ -25,3 +24,5 @@ def main(file_name):
         print('Creating core: {}... Please Wait'.format(global_vars.file_name))
         rm.coreMaker(global_vars)
         print('FRIDGe has finished creating your core')
+
+main('FullCoreBase_600K')

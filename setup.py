@@ -24,7 +24,7 @@ setup(
     zip_safe=False,
 
     packages=['fridge', 'frdige.driver', 'fridge.Assembly', 'fridge.Constituent', 'fridge.test_suite',
-              'fridge.utilities'],
+              'fridge.utilities', 'fridge.Core'],
     package_dir={
         'fridge': 'fridge',
         'fridge.driver': 'fridge/driver',
@@ -39,6 +39,7 @@ setup(
         'fridge.data.CotN': ['data/CotN/*.yaml'],
         'fridge.data.assembly': ['data/assembly/*.yaml'],
         'fridge.data.materials': ['data/materials/*.yaml'],
+        'fridge.data.materials': ['data/core/*.yaml'],
         'fridge.fridge_input_file': ['fridge_input_file/*.yaml'],
         'fridge.mcnp_input_files': ['mcnp_input_files/*.i']
     },

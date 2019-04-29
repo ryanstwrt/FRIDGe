@@ -24,5 +24,3 @@ def main(file_name):
         print('Creating core: {}... Please Wait'.format(global_vars.file_name))
         rm.coreMaker(global_vars)
         print('FRIDGe has finished creating your core')
-
-main('FullCoreBase_600K')

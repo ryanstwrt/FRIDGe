@@ -71,7 +71,7 @@ class GlobalVariables(object):
         self.ksens = bool(inputs["ksens"]) \
             if 'ksens' in inputs else False
         self.void_per = float(inputs["Void Percent"]) \
-            if "Void Percent" in inputs else 0
+            if "Void Percent" in inputs else 1.0
         self.output_name = inputs["Output File Name"] \
             if "Output File Name" in inputs else 'FRIDGe1'
         self.input_type = inputs["Input Type"] \

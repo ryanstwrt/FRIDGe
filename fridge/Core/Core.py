@@ -43,6 +43,7 @@ class Core:
             self.name = inputs['Name']
             self.vesselThickness = inputs['Vessel Thickness']
             self.vesselMaterialString = inputs['Vessel Material']
+            self.coolantMaterial = inputs['Coolant Material']
         return inputs
 
     def getCore(self, global_vars):
@@ -58,9 +59,10 @@ class Core:
         for assembly in self.assemblyList:
             assemblySurfaceList.append(assembly.assemblyShell.surfaceNum)
         self.coreCoolant = Corecoolant.CoreCoolant([[0, global_vars.cellNumber, global_vars.surfaceNumber,
-                                                     assembly.coolantMaterial, global_vars.xc_set,
+                                                     self.coolantMaterial, global_vars.xc_set,
                                                      self.coolantPosition, global_vars.materialNumber],
-                                                    [self.coolantRadius, self.coolantHeight, assemblySurfaceList]])
+                                                    [self.coolantRadius, self.coolantHeight, assemblySurfaceList]],
+                                                   voidPercent=global_vars.void_per)
         global_vars.updateNumbering()
         self.vesselRadius = self.coolantRadius + self.vesselThickness
         self.vesselPosition = self.coolantPosition

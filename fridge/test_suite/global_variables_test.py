@@ -43,13 +43,12 @@ def test_global_variables_read_assembly():
     assert global_variables.surfaceNumber == 100
     assert global_variables.materialNumber == 100
     assert global_variables.number_assemblies == 1
-    assert global_variables.na_voiding is True
+    assert global_variables.na_voiding is False
     assert global_variables.temperature == 1200
     assert global_variables.temp_adjusted_density is True
     assert global_variables.temp_adjusted_volume is True
     assert global_variables.clad_smear is True
     assert global_variables.bond_smear is True
-    assert global_variables.void_per == 0.5
     assert global_variables.file_name == 'A271_Test'
     assert global_variables.number_generations == 2300
     assert global_variables.number_skipped_generations == 300

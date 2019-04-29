@@ -121,14 +121,15 @@ class FuelAssembly(Assembly.Assembly):
         self.coolant = Fuelcoolant.FuelCoolant([[self.universe, self.cellNum, self.surfaceNum, smearedCoolantMaterial,
                                                  self.xcSet, self.position, self.materialNum],
                                                 [self.fuelPitch, self.fuelHeightWithBond, self.clad.surfaceNum],
-                                                'Wire Wrap + Coolant'])
+                                                'Wire Wrap + Coolant'], voidMaterial=self.coolantMaterial,
+                                               voidPercent=self.voidPercent)
         self.updateIdentifiers(True)
         self.blankUniverse = self.universe
         self.blankCoolant = Blankcoolant.BlankCoolant([[self.universe, self.cellNum, self.surfaceNum,
                                                         self.coolantMaterial, self.xcSet, self.position,
                                                         self.materialNum],
                                                        [self.fuelPitch, self.fuelHeightWithBond,
-                                                        self.coolant.surfaceNum]])
+                                                        self.coolant.surfaceNum]], voidPercent=self.voidPercent)
         self.updateIdentifiers(True)
         self.latticeUniverse = self.universe
         self.fuelUniverse = Fueluniverse.FuelUniverse([self.pinUniverse, self.blankUniverse, self.pinsPerAssembly,
@@ -143,19 +144,22 @@ class FuelAssembly(Assembly.Assembly):
         self.updateIdentifiers(False)
         self.plenum = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum, self.plenumMaterial,
                                       self.xcSet, self.plenumPosition, self.materialNum],
-                                     [self.ductInnerFlatToFlat, self.plenumHeight], 'Plenum'])
+                                     [self.ductInnerFlatToFlat, self.plenumHeight], 'Plenum'],
+                                    voidMaterial=self.coolantMaterial, voidPercent=self.voidPercent)
 
         self.updateIdentifiers(False)
         self.upperReflector = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                               self.reflectorMaterial, self.xcSet, upperReflectorPosition,
                                               self.materialNum],
-                                             [self.ductInnerFlatToFlat, self.reflectorHeight], 'Upper Reflector'])
+                                             [self.ductInnerFlatToFlat, self.reflectorHeight], 'Upper Reflector'],
+                                            voidMaterial=self.coolantMaterial, voidPercent=self.voidPercent)
 
         self.updateIdentifiers(False)
         self.lowerReflector = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                               self.reflectorMaterial, self.xcSet, lowerReflectorPosition,
                                               self.materialNum],
-                                             [self.ductInnerFlatToFlat, self.reflectorHeight], 'Lower Reflector'])
+                                             [self.ductInnerFlatToFlat, self.reflectorHeight], 'Lower Reflector'],
+                                            voidMaterial=self.coolantMaterial, voidPercent=self.voidPercent)
 
         self.updateIdentifiers(False)
         innerSurfaceNums = [self.innerDuct.surfaceNum, self.lowerReflector.surfaceNum, self. upperReflector.surfaceNum,
@@ -169,14 +173,14 @@ class FuelAssembly(Assembly.Assembly):
                                                       self.coolantMaterial, self.xcSet, bottomCoolantPosition,
                                                       self.materialNum],
                                                      [excessCoolantHeight,
-                                                     self.ductOuterFlatToFlatMCNPEdge]])
+                                                     self.ductOuterFlatToFlatMCNPEdge]], voidPercent=self.voidPercent)
 
         self.updateIdentifiers(False)
         self.upperSodium = Uppersodium.UpperCoolant([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                                       self.coolantMaterial, self.xcSet, upperCoolantPosition,
                                                       self.materialNum],
                                                      [excessCoolantHeight,
-                                                     self.ductOuterFlatToFlatMCNPEdge]])
+                                                     self.ductOuterFlatToFlatMCNPEdge]], voidPercent=self.voidPercent)
 
         self.updateIdentifiers(False)
         self.assemblyShell = Outershell.OuterShell([[self.assemblyUniverse, self.cellNum, self.surfaceNum,

@@ -4,7 +4,7 @@ import fridge.utilities.mcnpCreatorFunctions as mcnpCF
 
 class Smear(Constituent.Constituent):
     """Creates a constituent which is a smear of materials."""
-    def __init__(self, unitInfo):
+    def __init__(self, unitInfo, voidMaterial='', voidPercent=1.0):
         self.universe = unitInfo[0][0]
         self.cellNum = unitInfo[0][1]
         self.surfaceNum = unitInfo[0][2]
@@ -13,7 +13,10 @@ class Smear(Constituent.Constituent):
         self.position = unitInfo[0][5]
         self.materialNum = unitInfo[0][6]
         self.componentName = unitInfo[2]
-        self.material = mcnpCF.getSmearedMaterial(self.material)
+        if voidPercent == 1.0:
+            self.material = mcnpCF.getSmearedMaterial(self.material)
+        else:
+            self.material = mcnpCF.getSmearedMaterial(self.material, voidMaterial=voidMaterial, voidPercent=voidPercent)
         self.makeComponent(unitInfo[1])
         self.getMaterialCard(self.material)
         self.flat2flat = unitInfo[1][0]

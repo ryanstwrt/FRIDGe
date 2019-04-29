@@ -1,6 +1,8 @@
-Name: A271_Test
+Name: Core_Test
 Number of Assemblies: 1
-Temperature: 1200
+Na Voiding: True
+Void Percent: 0.1
+Temperature: 900
 Temperature Adjusted Density: True
 Temperature Adjusted Volume: True
 Smear Clad: True
@@ -11,6 +13,6 @@ Number of Skipped Generations: 300
 Number of Particles per Generation: 1e10
 kopts: True
 ksens: True
-Output File Name: Fuel_Assembly_Test
-Input Type: Single
+Output File Name: Full_Core_Void_Test
+Input Type: Core
 Random Variable: True

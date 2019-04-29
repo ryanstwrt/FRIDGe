@@ -28,6 +28,7 @@ class Material(object):
         self.enrichmentZaids = []
         self.enrichmentIsotopes = []
         self.enrichmentVector = []
+        self.materialName = ''
 
     def setMaterial(self, material):
         self.name = material
@@ -45,6 +46,7 @@ class Material(object):
         with open(materialFile[0], "r") as file:
             inputs = yaml.safe_load(file)
             self.name = inputs['Name']
+            self.materialName = material
             self.elements = inputs['Elements']
             self.zaids = inputs['ZAIDs']
             self.weightFraction = inputs['Weight Fractions']
@@ -74,18 +76,23 @@ class Material(object):
             for zaid, enrichmentPercent in zaidVector.items():
                 self.elementDict[elementEnrichement].isotopeDict[zaid] = enrichmentPercent
 
-    def getWeightPercent(self):
+    def getWeightPercent(self, voidPercent=1.0):
         """Calculates the weight percent of a material."""
         weightTotal = 0.0
         for zaidNum, zaid in enumerate(self.zaids):
             for isotope, isotopeFraction in self.elementDict[zaid].isotopeDict.items():
                 if isotopeFraction != 0.0:
-                    self.weightPercent[isotope] = isotopeFraction * self.weightFraction[zaidNum]
+                    self.weightPercent[isotope] = isotopeFraction * self.weightFraction[zaidNum] * voidPercent
                     weightTotal += self.weightPercent[isotope]
         try:
-            assert np.allclose(weightTotal, 1.0)
+            assert np.allclose(weightTotal, 1.0 * voidPercent)
         except AssertionError:
             print("Weight percent does not sum to 1.0 for {}. Check the material file.".format(self.name))
+
+    def voidMaterial(self, voidPercent):
+        self.getWeightPercent(voidPercent)
+        self.atomDensity, self.atomPercent = getAtomPercent(self.weightPercent, self.density,
+                                                            self.elementDict)
 
 
 def getAtomPercent(weightPercents, density, elementDict):

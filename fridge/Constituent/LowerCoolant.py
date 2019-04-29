@@ -7,8 +7,8 @@ class LowerCoolant(Constituent.Constituent):
     """Creates a region of sodium to compensate for any excess height specified in the assembly file.
     This is in addition to the upper coolant region. The sum of the upper and lower coolant region is the
     excess height from the assembly file."""
-    def __init__(self, unitInfo):
-        super().__init__(unitInfo)
+    def __init__(self, unitInfo, voidPercent=1.0):
+        super().__init__(unitInfo, voidPercent=voidPercent)
         self.getMaterialCard(unitInfo[0][3])
         self.makeComponent(unitInfo[1])
 

@@ -81,6 +81,22 @@ def test_material_liqduiNa():
     assert m.atomPercent == {11023: 1.0}
 
 
+def test_material_voidLiquidNa():
+    m = materialReader.Material()
+    m.setMaterial('LiquidNa')
+    m.voidMaterial(0.1)
+    assert m.name == 'Liquid Sodium'
+    assert m.elements == ['Na']
+    assert m.zaids == [11000]
+    assert m.weightFraction == [1.0]
+    assert m.enrichmentZaids == []
+    assert m.enrichmentIsotopes == []
+    assert m.enrichmentVector == []
+    assert m.density == 0.927
+    assert np.allclose(m.atomDensity, 0.00242826)
+    assert m.atomPercent == {11023: 1.0}
+
+
 def test_material_5Pu22U10Zr():
     m = materialReader.Material()
     m.setMaterial('5Pu22U10Zr')

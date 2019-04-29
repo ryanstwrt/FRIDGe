@@ -7,7 +7,7 @@ import copy
 
 
 def singleAssemblyMaker(global_vars):
-    assemblyInfo = [global_vars.file_name, '01A01', global_vars]
+    assemblyInfo = [global_vars.file_name, '01A01', global_vars, None]
     assemblyLocation = Assembly.getAssemblyLocation(global_vars.file_name)
     assemblyType = Assembly.assemblyTypeReader(assemblyLocation)
     assembly = None
@@ -25,9 +25,10 @@ def coreMaker(global_vars):
     coreDict.pop('Name')
     coreDict.pop('Vessel Thickness')
     coreDict.pop('Vessel Material')
+    coreDict.pop('Coolant Material')
     for position, assemblyType in coreDict.items():
         print('Building assembly {} in position {}.'.format(assemblyType, position))
-        assemblyInfo = [assemblyType, position, global_vars]
+        assemblyInfo = [assemblyType, position, global_vars, core]
         assemblyLocation = Assembly.getAssemblyLocation(assemblyType)
         assemblyType = Assembly.assemblyTypeReader(assemblyLocation)
         assembly = None
@@ -38,7 +39,6 @@ def coreMaker(global_vars):
         core.assemblyList.append(copy.deepcopy(assembly))
         global_vars.updateNumbering()
     print('Building reactor core and coolant.')
-    core.getCoreData(global_vars.file_name)
     core.getCore(global_vars)
     print('Creating MCNP input file.')
     k_card = mcf.make_mcnp_problem(global_vars)

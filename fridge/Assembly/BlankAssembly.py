@@ -55,19 +55,22 @@ class BlankAssembly(Assembly.Assembly):
 
         self.blankRegion = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                            self.blankMaterial, self.xcSet, bottomBlankPosition, self.materialNum],
-                                          [self.ductOuterFlatToFlatMCNPEdge, self.blankRegionHeight], 'Blank Region'])
+                                          [self.ductOuterFlatToFlatMCNPEdge, self.blankRegionHeight], 'Blank Region'],
+                                         voidMaterial=self.coolantMaterial, voidPercent=self.voidPercent)
 
         self.updateIdentifiers(False)
         self.lowerCoolant = Lowercoolant.LowerCoolant([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                                        self.coolantMaterial, self.xcSet, bottomCoolantPosition,
                                                        self.materialNum],
-                                                      [excessCoolantHeight, self.ductOuterFlatToFlatMCNPEdge]])
+                                                      [excessCoolantHeight, self.ductOuterFlatToFlatMCNPEdge]],
+                                                      voidPercent=self.voidPercent)
 
         self.updateIdentifiers(False)
         self.upperCoolant = Uppercoolant.UpperCoolant([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                                        self.coolantMaterial, self.xcSet, upperBlankAssemblyPosition,
                                                        self.materialNum],
-                                                      [excessCoolantHeight, self.ductOuterFlatToFlatMCNPEdge]])
+                                                      [excessCoolantHeight, self.ductOuterFlatToFlatMCNPEdge]],
+                                                      voidPercent=self.voidPercent)
 
         self.updateIdentifiers(False)
         self.assemblyShell = Outershell.OuterShell([[self.assemblyUniverse, self.cellNum, self.surfaceNum,

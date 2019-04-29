@@ -6,7 +6,7 @@ import numpy as np
 
 global_vars = gb.GlobalVariables()
 global_vars.read_input_file('A271_Assembly_Test')
-assembly_info = [global_vars.file_name, '01A01', global_vars]
+assembly_info = [global_vars.file_name, '01A01', global_vars, None]
 
 
 def test_assembly():
@@ -166,7 +166,7 @@ def test_fuel_assembly():
 
 global_vars = gb.GlobalVariables()
 global_vars.read_input_file('Blank_Assembly_Test')
-assembly_info2 = [global_vars.file_name, '01A01', global_vars]
+assembly_info2 = [global_vars.file_name, '01A01', global_vars, None]
 
 
 def test_blankAssembly():
@@ -187,6 +187,6 @@ def test_blankAssembly():
 
 
 def test_getAssemblyLocation():
-    assembly_info1 = ['Nonsense', '01A01', global_vars]
+    assembly_info1 = ['Nonsense', '01A01', global_vars, None]
     a = Assembly.Assembly(assembly_info1)
     assert a.assemblyType == ''

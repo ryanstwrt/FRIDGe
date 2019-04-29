@@ -17,11 +17,13 @@ class Assembly(object):
         self.assemblyDesignation = assemblyInformation[0]
         self.assemblyPosition = assemblyInformation[1]
         self.globalVars = assemblyInformation[2]
+        self.core = assemblyInformation[3]
         self.universe = self.globalVars.universe
         self.cellNum = self.globalVars.cellNumber
         self.surfaceNum = self.globalVars.surfaceNumber
         self.materialNum = self.globalVars.materialNumber
         self.xcSet = self.globalVars.xc_set
+        self.voidPercent = self.globalVars.void_per
         self.assemblyType = ''
         self.pinsPerAssembly = 0
         self.assemblyPitch = 0.0
@@ -45,7 +47,10 @@ class Assembly(object):
         self.ductOuterFlatToFlatMCNPEdge = self.ductOuterFlatToFlat * 1.00005
         self.assemblyGap = float(inputs['Assembly Gap']) if 'Assembly Gap' in inputs else 0.0
         self.assemblyHeight = float(inputs['Assembly Height'])
-        self.coolantMaterial = inputs['Coolant']
+        if self.core is None:
+            self.coolantMaterial = inputs['Coolant']
+        else:
+            self.coolantMaterial = self.core.coolantMaterial
         self.assemblyMaterial = inputs['Assembly Material']
         self.zPosition = float(inputs['Z Position']) if 'Z Position' in inputs else 0.0
 

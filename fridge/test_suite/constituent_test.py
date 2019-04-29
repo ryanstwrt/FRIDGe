@@ -56,6 +56,18 @@ def test_blankCoolant():
     assert surfaceCard == c.surfaceCard
 
 
+def test_blankCoolant_voided():
+    blankCoolantInfo = [[0, 1, 2, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [0.1, 0.2, 4]]
+    c = BlankCoolant.BlankCoolant(blankCoolantInfo, voidPercent=0.1)
+    cellCard = '1 3 0.00243 -4 u=0 imp:n=1 $Pin: Blank Pin Coolant'
+    surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 0.2 0.05 0 0 $Pin: Blank Pin - 1% higher than fuel'
+    assert c.pitch == 0.1 / 2
+    assert c.height == 0.2
+    assert c.blankCoolantSurfaceNum == 4
+    assert cellCard == c.cellCard
+    assert surfaceCard == c.surfaceCard
+
+
 def test_duct():
     ductInfo = [[0, 1, 2, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [0.1, 0.2, 4]]
     c = Duct.Duct(ductInfo)
@@ -109,6 +121,17 @@ def test_fuelCoolant():
     assert surfaceCard == c.surfaceCard
 
 
+def test_fuelCoolant():
+    fuelCoolantInfo = [[0, 1, 2, {'LiquidNa': 1.0}, '82c', [1.0, 1.0, 1.0], 3], [0.1, 0.2, 4], 'Wirewrap + Coolant']
+    c = FuelCoolant.FuelCoolant(fuelCoolantInfo, voidMaterial='LiquidNa', voidPercent=0.1)
+    cellCard = '1 3 0.00243 4 u=0 imp:n=1 $Pin: Wirewrap + Coolant'
+    surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 0.2 0.1 0 0 $Pin: Coolant - 1% higher than fuel'
+    assert c.flat2flat == 0.1
+    assert c.height == 0.2
+    assert cellCard == c.cellCard
+    assert surfaceCard == c.surfaceCard
+
+
 def test_fuelPin():
     fuelPinInfo = [[0, 1, 2, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [0.1, 0.2]]
     c = FuelPin.FuelPin(fuelPinInfo)
@@ -151,6 +174,14 @@ def test_lowerCoolant():
     assert c.cellCard == cellCard
     assert c.surfaceCard == surfaceCard
 
+def test_lowerCoolant_void():
+    lowerCoolantInfo = [[0, 1, 2, 'LiquidNa', '82c', [0.0, 0.0, -20.0], 3], [10.0, 0.2]]
+    c = LowerCoolant.LowerCoolant(lowerCoolantInfo, voidPercent=0.1)
+    cellCard = '1 3 0.00243 -2 u=0 imp:n=1 $Assembly: Lower Coolant'
+    surfaceCard = '2 RHP 0.0 0.0 -20.1 0 0 10.1 0 0.2 0 $Assembly: Lower Coolant'
+    assert c.cellCard == cellCard
+    assert c.surfaceCard == surfaceCard
+
 
 def test_outershell():
     outerShellInfo = [[0, 1, 2, 'LiquidNa', '82c', [0.0, 0.0, -20.0], 3], [50, 0.2]]
@@ -170,6 +201,15 @@ def test_smear():
     assert c.surfaceCard == surfaceCard
 
 
+def test_smear_void():
+    smearInfo = [[0, 1, 2, {'HT9': 0.5, 'LiquidNa': 0.5}, '82c', [1.0, 1.0, 1.0], 3], [0.2, 10], 'Plenum']
+    c = Smear.Smear(smearInfo, voidMaterial='LiquidNa', voidPercent=0.1)
+    cellCard = '1 3 0.04421 -2 u=0 imp:n=1 $Assembly: Plenum'
+    surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 10 0 0.2 0 $Assembly: Plenum'
+    assert c.cellCard == cellCard
+    assert c.surfaceCard == surfaceCard
+
+
 def test_upperCoolant():
     upperCoolantInfo = [[0, 1, 2, 'LiquidNa', '82c', [0.0, 0.0, 20], 3], [10.0, 0.2]]
     c = UpperCoolant.UpperCoolant(upperCoolantInfo)
@@ -179,10 +219,30 @@ def test_upperCoolant():
     assert c.surfaceCard == surfaceCard
 
 
+def test_upperCoolant_void():
+    upperCoolantInfo = [[0, 1, 2, 'LiquidNa', '82c', [0.0, 0.0, 20], 3], [10.0, 0.2]]
+    c = UpperCoolant.UpperCoolant(upperCoolantInfo, voidPercent=0.1)
+    cellCard = '1 3 0.00243 -2 u=0 imp:n=1 $Assembly: Upper Coolant'
+    surfaceCard = '2 RHP 0.0 0.0 20 0 0 10.0 0 0.2 0 $Assembly: Upper Coolant'
+    assert c.cellCard == cellCard
+    assert c.surfaceCard == surfaceCard
+
+
 def test_coreCoolant():
     coreCoolantInfo = [[0, 10, 11, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [2, 5, [1, 2]]]
     c = CoreCoolant.CoreCoolant(coreCoolantInfo)
     cellCard = '10 3 0.02428  1 2 -11  imp:n=1 $Coolant Surrounding Assemblies'
+    surfaceCard = '11 RCC 1.0 1.0 1.0 0 0 5 2 $Coolant Surrounding Assemblies'
+    print(cellCard)
+    print(c.cellCard)
+    assert c.cellCard == cellCard
+    assert c.surfaceCard == surfaceCard
+
+
+def test_coreCoolant():
+    coreCoolantInfo = [[0, 10, 11, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [2, 5, [1, 2]]]
+    c = CoreCoolant.CoreCoolant(coreCoolantInfo, voidPercent=0.1)
+    cellCard = '10 3 0.00243  1 2 -11  imp:n=1 $Coolant Surrounding Assemblies'
     surfaceCard = '11 RCC 1.0 1.0 1.0 0 0 5 2 $Coolant Surrounding Assemblies'
     print(cellCard)
     print(c.cellCard)

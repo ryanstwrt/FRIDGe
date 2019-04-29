@@ -69,6 +69,12 @@ def test_smearedMaterial():
     assert smearedMaterial.name == "['LiquidNa', 'Void']"
     assert smearedMaterial.atomPercent[11023] == 1.0
 
+def test_smearedMAterial_voided():
+    smearMaterialDict = {'LiquidNa': 0.5, 'Void': 0.5}
+    smearedMaterial = MCF.getSmearedMaterial(smearMaterialDict, voidMaterial='LiquidNa', voidPercent=0.1)
+    assert np.allclose(smearedMaterial.atomDensity, 0.001214, 5)
+    assert smearedMaterial.name == "['LiquidNa', 'Void']"
+    assert smearedMaterial.atomPercent[11023] == 1.0
 
 def test_coolantWireWrapSmear():
     info = [60, 0.53, 0.126, 2, 0.66144, 'LiquidNa', 'Void']

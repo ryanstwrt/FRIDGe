@@ -128,16 +128,23 @@ def getToroidalVolume(innerRadius, toroidRadius, axialPitch, height):
     return volume
 
 
-def getSmearedMaterial(materials):
+def getSmearedMaterial(materials, voidMaterial = '', voidPercent = 1.0):
     """Create the material data card for a smeared material."""
     smearMaterial = {}
     avogadros = materialReader.AVOGADROS_NUMBER
+    voidMultiplier = 1.0
     for material, materialWeightPercent in materials.items():
         if material == 'Void':
             pass
         else:
             materialClass = materialReader.Material()
             materialClass.setMaterial(material)
+
+            if materialClass.materialName == voidMaterial:
+                voidMultiplier = voidPercent
+            else:
+                voidMultiplier = 1.0
+
             for isotope, isotopeWeightPercent in materialClass.weightPercent.items():
                 element = str(isotope)
                 if len(element) < 5:
@@ -147,11 +154,11 @@ def getSmearedMaterial(materials):
                 currentElement = int(currentElement)
                 try:
                     smearMaterial[isotope] += isotopeWeightPercent * materialWeightPercent * materialClass.density \
-                                              * avogadros / \
+                                              * avogadros * voidMultiplier / \
                                               materialClass.elementDict[currentElement].molecularMassDict[isotope]
                 except KeyError:
                     smearMaterial[isotope] = isotopeWeightPercent * materialWeightPercent * materialClass.density \
-                                             * avogadros / \
+                                             * avogadros * voidMultiplier / \
                                              materialClass.elementDict[currentElement].molecularMassDict[isotope]
     newMaterial = materialReader.Material()
     newMaterial.name = "{}".format([val for val in materials])

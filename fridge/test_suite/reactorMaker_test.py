@@ -31,3 +31,11 @@ def test_fullCore():
     knownTestFile = glob.glob(os.path.join(mcnp_dir, 'Prefab_Full_Core_Test.i'))
     testFile = glob.glob(os.path.join(mcnp_dir, 'Full_Core_Test.i'))
     assert filecmp.cmp(testFile[0], knownTestFile[0]) is True
+
+
+def test_fullCore_void():
+    global_vars.read_input_file('Full_Core_Void_Test')
+    rM.coreMaker(global_vars)
+    knownTestFile = glob.glob(os.path.join(mcnp_dir, 'Prefab_Full_Core_Void_Test.i'))
+    testFile = glob.glob(os.path.join(mcnp_dir, 'Full_Core_Void_Test.i'))
+    assert filecmp.cmp(testFile[0], knownTestFile[0]) is True

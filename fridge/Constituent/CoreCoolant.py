@@ -3,8 +3,8 @@ import fridge.utilities.mcnpCreatorFunctions as MCF
 
 
 class CoreCoolant(Constituent.Constituent):
-    def __init__(self, unitInfo):
-        super().__init__(unitInfo)
+    def __init__(self, unitInfo, voidPercent=1.0):
+        super().__init__(unitInfo, voidPercent=voidPercent)
         self.coolantRadius = unitInfo[1][0]
         self.coolantHeight = unitInfo[1][1]
         self.assemblySurfaceList = unitInfo[1][2]

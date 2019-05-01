@@ -10,8 +10,8 @@ The input file gives the user the ability to set the temperature, cross-section 
 # Documentation
 
 Documentation can be found in ```/fridge/docs```.
-This documentation holds all of the information or building elements, materials, assemblies, cores, and FRIDGe input files.
-FRIDGe also comes packaged with 24 elements, 8 materials, 2 assemblies, and 1 FRIDGe input file that are pre-built.
+This documentation holds all of the information to build elements, materials, assemblies, cores, and FRIDGe input files.
+FRIDGe comes packaged with 24 elements, 8 materials, 2 assemblies, and 1 FRIDGe input file that are pre-built.
 Along with this there are 3 test assemblies, 1 test core, and 4 test FRIDGe input files that can be used as a template for building these files.
 
 # Install

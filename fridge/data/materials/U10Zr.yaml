@@ -1,0 +1,9 @@
+Name: U10Zr
+Elements: [U, Zr]
+ZAIDs: [92000, 40000]
+Weight Fractions: [0.9, 0.1]
+Enrichment ZAIDs: [92000]
+Enrichment Isotopes: [[92233, 92234, 92235, 92236, 92238]]
+Enrichment Vector: [[0, 0, 0.27, 0, 0.63]]
+Density: 15.47
+Linear Coefficient of Expansion: 0.0

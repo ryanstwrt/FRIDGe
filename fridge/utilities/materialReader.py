@@ -49,7 +49,7 @@ class Material(object):
             self.materialName = material
             self.elements = inputs['Elements']
             self.zaids = inputs['ZAIDs']
-            self.weightFraction = inputs['Weight Fractions']
+            self.weightFraction = inputs['Weight Fractions'] if 'Weight Fractions' in inputs else []
             self.density = inputs['Density']
             self.linearCoeffExpansion = inputs['Linear Coefficient of Expansion']
             self.enrichmentZaids = inputs['Enrichment ZAIDs'] if 'Enrichment ZAIDs' in inputs else []

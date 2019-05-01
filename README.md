@@ -7,17 +7,29 @@ Currently FRIDGe has the ability to create two different types of assemblies; fu
 These assemblies can the be arranged to create a full reactor core model.
 The input file gives the user the ability to set the temperature, cross-section set, and MCNP variables for a given problem.
 
-# Use
+# Documentation
+
+Documentation can be found in ```/fridge/docs```.
+This documentation holds all of the information or building elements, materials, assemblies, cores, and FRIDGe input files.
+FRIDGe also comes packaged with 24 elements, 8 materials, 2 assemblies, and 1 FRIDGe input file that are pre-built.
+Along with this there are 3 test assemblies, 1 test core, and 4 test FRIDGe input files that can be used as a template for building these files.
 
 # Install
 
-To install FRIDGe, change into your directory of choice and follow the instructions below:
+To download FRIDGe, change into your directory of choice and follow the instructions below:
 
 ```bash
 git clone https://github.com/ryanstwrt/FRIDGe
 ```
 
 # Testing
+
+It is encouraged to run the test suite built into FRIDGe before creating any models. Testing FRIDGe is relatively simple.
+Open a terminal in the ```/fridge``` directory and run the following:
+
+```bash
+python -m pytest
+```
 
 # Development
 

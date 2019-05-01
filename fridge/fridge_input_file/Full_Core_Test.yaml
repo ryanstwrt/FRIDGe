@@ -9,7 +9,7 @@ XC Library: JEFF3.1
 Number of Generations: 2300
 Number of Skipped Generations: 300
 Number of Particles per Generation: 1e10
-kopts: True
+Run Kinetics: True
 ksens: True
 Output File Name: Full_Core_Test
 Input Type: Core

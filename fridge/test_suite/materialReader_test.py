@@ -81,6 +81,40 @@ def test_material_liqduiNa():
     assert m.atomPercent == {11023: 1.0}
 
 
+def test_material_liqduiPbBi():
+    m = materialReader.Material()
+    m.setMaterial('LiquidPbBi')
+    assert m.name == 'Liquid Lead Bismuth (Eutectic)'
+    assert m.elements == ['Pb', 'Bi']
+    assert m.zaids == [82000, 83000]
+    assert m.weightFraction == [0.445, 0.555]
+    assert m.enrichmentZaids == []
+    assert m.enrichmentIsotopes == []
+    assert m.enrichmentVector == []
+    assert m.density == 11.096
+    knownAtomPercent = {82204: 0.006259, 82206: 0.107749, 82207: 0.098808, 82208: 0.234277, 83209: 0.552907}
+    for k, v in knownAtomPercent.items():
+        assert np.allclose(m.atomPercent[k], v, 5)
+    assert np.allclose(m.atomDensity, 0.032096, 5)
+
+
+def test_material_liqduiPb():
+    m = materialReader.Material()
+    m.setMaterial('LiquidPb')
+    assert m.name == 'Liquid Lead'
+    assert m.elements == ['Pb']
+    assert m.zaids == [82000]
+    assert m.weightFraction == [1.0]
+    assert m.enrichmentZaids == []
+    assert m.enrichmentIsotopes == []
+    assert m.enrichmentVector == []
+    assert m.density == 10.678
+    knownAtomPercent = {82204: 0.014, 82206: 0.241, 82207: 0.221, 82208: 0.524}
+    for k, v in knownAtomPercent.items():
+        assert np.allclose(m.atomPercent[k], v, 5)
+    assert np.allclose(m.atomDensity, 0.032956, 5)
+
+
 def test_material_voidLiquidNa():
     m = materialReader.Material()
     m.setMaterial('LiquidNa')
@@ -111,9 +145,7 @@ def test_material_5Pu22U10Zr():
 
 def test_material_UO2():
     """
-    Test material is from the Compendium of Material Composition Data for Radiation Transport Modeling: Revision 1
-    The atom density form the Compendium lists 0.07335, however the calculated atom density is 0.073361. This may
-    be due to slight variations in abundance definitions. The error is within 0.01% of the known atom density.
+    Test material is from the Compendium of Material Composition Data for Radiation Transport Modeling: Revision 1.
     """
     m = materialReader.Material()
     m.setMaterial('UO2')
@@ -126,17 +158,15 @@ def test_material_UO2():
     assert m.enrichmentVector == [[0.00026660018529341, 0.029999988655276, 0.0001384056351514, 0.96959500496104],
                                   [1.0, 0.0, 0.0]]
     assert m.density == 10.96
-    assert np.allclose(m.atomDensity, 0.07336, 5)
+    assert np.allclose(m.atomDensity, 0.07335, 6)
     atomPercentKnown = {92234: 0.000090, 92235: 0.010124, 92236: 0.000046, 92238: 0.323072, 8016: 0.666667}
     for k, v in atomPercentKnown.items():
-        assert np.allclose(m.atomPercent[k], v, 5)
+        assert np.allclose(m.atomPercent[k], v, 6)
 
 
 def test_material_HT9():
     """
-    Test material is from the Compendium of Material Composition Data for Radiation Transport Modeling: Revision 1
-    The atom density form the Compendium lists 0.08598, however the calculated atom density is 0.08599. This may
-    be due to slight variations in abundance definitions. The error is within 0.01% of the known atom density.
+    Test material is from the Compendium of Material Composition Data for Radiation Transport Modeling: Revision 1.
     """
     m = materialReader.Material()
     m.setMaterial('HT9')
@@ -148,7 +178,7 @@ def test_material_HT9():
     assert m.enrichmentIsotopes == []
     assert m.enrichmentVector == []
     assert m.density == 7.874
-    assert np.allclose(m.atomDensity, 8.599e-2, 5)
+    assert np.allclose(m.atomDensity, 8.598e-2, 6)
     atomPercentKnown = {6000: 9.183e-3,
                         14028: 7.244e-3, 14029: 3.680e-4, 14030: 2.428e-4,
                         15031: 5.34e-4,
@@ -161,6 +191,35 @@ def test_material_HT9():
                         42092: 8.35184e-4, 42094: 5.25942e-4, 42095: 9.10483e-4, 42096: 9.58192e-4, 42097: 5.51808e-4,
                         42098: 1.40194e-3, 42100: 5.64454e-4,
                         74180: 1.8e-6, 74182: 3.975e-4, 74183: 2.1465e-4, 74184: 4.596e-4, 74186: 4.2645e-4}
+    for k, v in atomPercentKnown.items():
+        assert np.allclose(m.atomPercent[k], v, 5)
+
+
+def test_material_SS316():
+    """
+    Test material is from the Compendium of Material Composition Data for Radiation Transport Modeling: Revision 1.
+    """
+    m = materialReader.Material()
+    m.setMaterial('SS316')
+    assert m.name == 'Stainless Steel 316'
+    assert m.elements == ['C', 'Si', 'P', 'S', 'Cr', 'Mn', 'Fe', 'Ni', 'Mo']
+    assert m.zaids == [6000, 14000, 15000, 16000, 24000, 25000, 26000, 28000, 42000]
+    assert m.weightFraction == [0.00041, 0.00507, 0.00023, 0.00015, 0.17, 0.01014, 0.669, 0.12, 0.025]
+    assert m.enrichmentZaids == []
+    assert m.enrichmentIsotopes == []
+    assert m.enrichmentVector == []
+    assert m.density == 8.0
+    assert np.allclose(m.atomDensity, 8.655e-2, 5)
+    atomPercentKnown = {6000: 1.900e-3,
+                        14028: 9.231e-3, 14029: 4.857e-4, 14030: 3.316e-4,
+                        15031: 4.133e-4,
+                        16032: 2.466e-4, 16033: 2.008e-6, 16034: 1.172e-5, 16036: 2.921e-8,
+                        24050: 7.596e-3, 24052: 1.523e-1, 24053: 1.760e-2, 24054: 4.465e-3,
+                        25055: 1.027e-2,
+                        26054: 3.765e-2, 26056: 6.128e-1, 26057: 1.441e-2, 26058: 1.951e-3,
+                        28058: 7.647e-2, 28060: 3.047e-2, 28061: 1.347e-3, 28062: 4.365e-3, 28064: 1.147e-3,
+                        42092: 2.018e-3, 42094: 1.298e-3, 42095: 2.272e-3, 42096: 2.416e-3, 42097: 1.406e-3,
+                        42098: 3.609e-3, 42100: 1.483e-3}
     for k, v in atomPercentKnown.items():
         assert np.allclose(m.atomPercent[k], v, 5)
 

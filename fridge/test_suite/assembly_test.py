@@ -87,11 +87,11 @@ def test_fuel_assembly():
     assert a.reflectorHeight == 60
     assert a.reflectorMaterial == {'LiquidNa': 0.20, 'HT9': 0.80}
 
-    assert a.fuel.cellCard == '100 100 0.04575 -100 u=101 imp:n=1 $Pin: Fuel'
+    assert a.fuel.cellCard == '100 100 0.04574 -100 u=101 imp:n=1 $Pin: Fuel'
     assert a.fuel.surfaceCard == '100 RCC 0.0 0.0 0.0 0 0 60.0 0.19745 $Pin: Fuel'
     assert a.bond.cellCard == '101 101 0.02428 100 -101 u=101 imp:n=1 $Pin: Bond'
     assert a.bond.surfaceCard == '101 RCC 0.0 0.0 0.0 0 0 60.6 0.228 $Pin: Bond - 1% higher than fuel'
-    assert a.clad.cellCard == '102 102 0.08599 101 -102 u=101 imp:n=1 $Pin: Clad'
+    assert a.clad.cellCard == '102 102 0.08598 101 -102 u=101 imp:n=1 $Pin: Clad'
     assert a.clad.surfaceCard == '102 RCC 0.0 0.0 0.0 0 0 60.6 0.265 $Pin: Clad - 1% higher than fuel'
     assert a.coolant.cellCard == '103 103 0.02929 102 u=101 imp:n=1 $Pin: Wirewrap + Coolant'
     assert a.coolant.surfaceCard == '103 RHP 0.0 0.0 0.0 0 0 60.6 0.66144 0 0 $Pin: Coolant - 1% higher than fuel'
@@ -149,11 +149,11 @@ def test_fuel_assembly():
     assert a.innerDuct.surfaceCard == '106 RHP 0.0 0.0 0.0 0 0 60.6 0 5.505 0 $Assembly: Duct Inner Surface'
     assert a.plenum.cellCard == '107 107 0.03364 -107 u=100 imp:n=1 $Assembly: Plenum'
     assert a.plenum.surfaceCard == '107 RHP 0.0 0.0 60.6 0 0 60.0 0 5.505 0 $Assembly: Plenum'
-    assert a.upperReflector.cellCard == '108 108 0.07365 -108 u=100 imp:n=1 $Assembly: Upper Reflector'
+    assert a.upperReflector.cellCard == '108 108 0.07364 -108 u=100 imp:n=1 $Assembly: Upper Reflector'
     assert a.upperReflector.surfaceCard == '108 RHP 0.0 0.0 120.6 0 0 60.0 0 5.505 0 $Assembly: Upper Reflector'
-    assert a.lowerReflector.cellCard == '109 109 0.07365 -109 u=100 imp:n=1 $Assembly: Lower Reflector'
+    assert a.lowerReflector.cellCard == '109 109 0.07364 -109 u=100 imp:n=1 $Assembly: Lower Reflector'
     assert a.lowerReflector.surfaceCard == '109 RHP 0.0 0.0 -60.0 0 0 60.0 0 5.505 0 $Assembly: Lower Reflector'
-    assert a.duct.cellCard == '110 110 0.08599  106 109 108 107 -110 u=100 imp:n=1 $Assembly: Assembly Duct'
+    assert a.duct.cellCard == '110 110 0.08598  106 109 108 107 -110 u=100 imp:n=1 $Assembly: Assembly Duct'
     assert a.duct.surfaceCard == '110 RHP 0.0 0.0 -60.0 0 0 240.6 0 5.80529 0 $Assembly: Duct Outer Surface'
     assert a.lowerSodium.cellCard == '111 111 0.02428 -111 u=100 imp:n=1 $Assembly: Lower Coolant'
     assert a.lowerSodium.surfaceCard == '111 RHP 0.0 0.0 -99.8 0 0 39.8 0 5.80529 0 $Assembly: Lower Coolant'
@@ -176,7 +176,7 @@ def test_blankAssembly():
     assert a.assemblyMaterial == 'HT9'
     assert a.blankMaterial == {'LiquidNa': 0.3, 'HT9': 0.7}
 
-    assert a.blankRegion.cellCard == "100 100 0.06748 -100 u=100 imp:n=1 $Assembly: Blank Region"
+    assert a.blankRegion.cellCard == "100 100 0.06747 -100 u=100 imp:n=1 $Assembly: Blank Region"
     assert a.blankRegion.surfaceCard == "100 RHP 0.0 0.0 -60.0 0 0 240 0 5.80529 0 $Assembly: Blank Region"
     assert a.lowerCoolant.cellCard == '101 101 0.02428 -101 u=100 imp:n=1 $Assembly: Lower Coolant'
     assert a.lowerCoolant.surfaceCard == '101 RHP 0.0 0.0 -100.1 0 0 40.1 0 5.80529 0 $Assembly: Lower Coolant'

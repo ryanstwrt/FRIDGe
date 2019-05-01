@@ -74,13 +74,13 @@ class Material(object):
         """Adjust the element's natural abundance to compensate for enrichment."""
         for elementEnrichement, zaidVector in self.enrichmentDict.items():
             for zaid, enrichmentPercent in zaidVector.items():
-                self.elementDict[elementEnrichement].isotopeDict[zaid] = enrichmentPercent
+                self.elementDict[elementEnrichement].weightPercentDict[zaid] = enrichmentPercent
 
     def getWeightPercent(self, voidPercent=1.0):
         """Calculates the weight percent of a material."""
         weightTotal = 0.0
         for zaidNum, zaid in enumerate(self.zaids):
-            for isotope, isotopeFraction in self.elementDict[zaid].isotopeDict.items():
+            for isotope, isotopeFraction in self.elementDict[zaid].weightPercentDict.items():
                 if isotopeFraction != 0.0:
                     self.weightPercent[isotope] = isotopeFraction * self.weightFraction[zaidNum] * voidPercent
                     weightTotal += self.weightPercent[isotope]
@@ -132,9 +132,18 @@ class Element(object):
             self.density = inputs['Density']
             self.abundance = inputs['Abundance']
             self.linearCoeffExpansion = inputs['Linear Coefficient of Expansion']
-            self.isotopeDict = {}
+            self.atomPercentDict = {}
             self.molecularMassDict = {}
+            self.elementalMolecularMass = 0
+            self.weightPercentDict = {}
             for num, isotope in enumerate(self.isotopes):
-                self.isotopeDict[isotope] = self.abundance[num]
+                self.atomPercentDict[isotope] = self.abundance[num]
             for num, isotope in enumerate(self.isotopes):
                 self.molecularMassDict[isotope] = self.molecularMass[num]
+
+            for k, v in self.atomPercentDict.items():
+                self.elementalMolecularMass += self.molecularMassDict[k] * v
+
+            if not all(v == 0 for v in self.abundance):
+                for k, v in self.atomPercentDict.items():
+                    self.weightPercentDict[k] = self.molecularMassDict[k] * v / self.elementalMolecularMass

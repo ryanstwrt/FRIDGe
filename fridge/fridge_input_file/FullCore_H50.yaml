@@ -4,7 +4,7 @@ XC Library: ENDFVII.1
 Number of Generations: 250
 Number of Skipped Generations: 50
 Number of Particles per Generation: 1e6
-kopts: True
+Run Kinetics: True
 ksens: True
 Output File Name: FullCore_H50
 Input Type: Core

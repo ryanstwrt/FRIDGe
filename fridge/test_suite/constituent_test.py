@@ -195,7 +195,7 @@ def test_outershell():
 def test_smear():
     smearInfo = [[0, 1, 2, {'HT9': 0.5, 'LiquidNa': 0.5}, '82c', [1.0, 1.0, 1.0], 3], [0.2, 10], 'Plenum']
     c = Smear.Smear(smearInfo)
-    cellCard = '1 3 0.05514 -2 u=0 imp:n=1 $Assembly: Plenum'
+    cellCard = '1 3 0.05513 -2 u=0 imp:n=1 $Assembly: Plenum'
     surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 10 0 0.2 0 $Assembly: Plenum'
     assert c.cellCard == cellCard
     assert c.surfaceCard == surfaceCard

@@ -15,8 +15,6 @@ class GlobalVariables(object):
         self.cellNumber = 100
         self.surfaceNumber = 100
         self.materialNumber = 100
-        self.number_assemblies = 1
-        self.na_voiding = False
         self.temperature = 0
         self.temp_adjusted_density = False
         self.temp_adjusted_volume = False
@@ -30,7 +28,7 @@ class GlobalVariables(object):
         self.kopts = False
         self.ksens = False
         self.output_name = ''
-        self.input_type = 'Single'
+        self.input_type = ''
 
     def read_input_file(self, assembly_name):
         """Reads the yaml file for a FRIDGE input file and assigns any variables found."""
@@ -44,10 +42,9 @@ class GlobalVariables(object):
             inputs = yaml.safe_load(file)
 
         self.file_name = inputs["Name"]
-        self.number_assemblies = int(inputs["Number of Assemblies"]) \
-            if 'Number of Assemblies' in inputs else 1
-        self.na_voiding = bool(inputs["Na Voiding"]) \
-            if 'Na Voiding' in inputs else False
+        self.input_type = inputs["Input Type"]
+        self.output_name = inputs["Output File Name"] \
+            if "Output File Name" in inputs else 'FRIDGe1'
         self.temperature = float(inputs["Temperature"]) \
             if 'Temperature' in inputs else 900
         self.temp_adjusted_density = bool(inputs["Temperature Adjusted Density"]) \
@@ -66,16 +63,13 @@ class GlobalVariables(object):
             if 'Number of Skipped Generations' in inputs else 30
         self.number_particles_generation = int(float(inputs["Number of Particles per Generation"])) \
             if 'Number of Particles per Generation' in inputs else int(1e6)
-        self.kopts = bool(inputs["kopts"]) \
-            if 'kopts' in inputs else False
+        self.kopts = bool(inputs["Run Kinetics"]) \
+            if 'Run Kinetics' in inputs else False
         self.ksens = bool(inputs["ksens"]) \
             if 'ksens' in inputs else False
         self.void_per = float(inputs["Void Percent"]) \
             if "Void Percent" in inputs else 1.0
-        self.output_name = inputs["Output File Name"] \
-            if "Output File Name" in inputs else 'FRIDGe1'
-        self.input_type = inputs["Input Type"] \
-            if "Input Type" in inputs else 'Single'
+
 
         # Set the XC set depending on the temperature
         if self.temperature == 600:

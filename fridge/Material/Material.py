@@ -6,7 +6,6 @@ import fridge.Material.Element as Element
 import fridge.utilities.utilities as utilities
 
 AVOGADROS_NUMBER = 0.6022140857
-# Requirements for the material reader
 cur_dir = os.path.dirname(__file__)
 material_dir = os.path.join(cur_dir, '../data/materials/')
 

@@ -44,11 +44,11 @@ class Material(object):
         self.name = inputs['Name']
         self.materialName = material
         self.elements = inputs['Elements']
-        self.zaids = inputs['ZAIDs']
-        self.weightFraction = inputs['Weight Fractions'] if 'Weight Fractions' in inputs else []
-        self.enrichmentZaids = inputs['Enrichment ZAIDs'] if 'Enrichment ZAIDs' in inputs else []
-        self.enrichmentIsotopes = inputs['Enrichment Isotopes'] if 'Enrichment Isotopes' in inputs else []
-        self.enrichmentVector = inputs['Enrichment Vector'] if 'Enrichment Vector' in inputs else []
+        self.zaids = inputs['Elemental ZAIDs']
+        self.weightFraction = inputs['Elemental Weight Fractions'] if 'Elemental Weight Fractions' in inputs else []
+        self.enrichmentZaids = inputs['Elemental Adjustment ZAIDs'] if 'Elemental Adjustment ZAIDs' in inputs else []
+        self.enrichmentIsotopes = inputs['Isotopic Adjustment ZAIDs'] if 'Isotopic Adjustment ZAIDs' in inputs else []
+        self.enrichmentVector = inputs['Isotopic Weight Percents'] if 'Isotopic Weight Percents' in inputs else []
         self.density = inputs['Density']
         self.linearCoeffExpansion = inputs['Linear Coefficient of Expansion']
 

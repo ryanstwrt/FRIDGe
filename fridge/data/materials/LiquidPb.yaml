@@ -1,6 +1,6 @@
 Name: Liquid Lead
 Elements: ['Pb']
-ZAIDs: [82000]
-Weight Fractions: [1.0]
+Elemental ZAIDs: [82000]
+Elemental Weight Fractions: [1.0]
 Density: 10.678
 Linear Coefficient of Expansion: 0.0

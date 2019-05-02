@@ -1,8 +1,8 @@
 Name: HT9
 Elements: [C, Si, P, S, V, Cr, Mn, Fe, Ni, Mo, W]
-ZAIDs: [6000, 14000, 15000, 16000, 23000, 24000, 25000, 26000, 28000, 42000, 74000]
-Weight Fractions: [0.0020, 0.0040, 0.0003, 0.0002, 0.0030, 0.1150, 0.0060, 0.8495, 0.0050, 0.0100, 0.0050]
-Enrichment ZAIDs: []
-Enrichment Vector: []
+Elemental ZAIDs: [6000, 14000, 15000, 16000, 23000, 24000, 25000, 26000, 28000, 42000, 74000]
+Elemental Weight Fractions: [0.0020, 0.0040, 0.0003, 0.0002, 0.0030, 0.1150, 0.0060, 0.8495, 0.0050, 0.0100, 0.0050]
+Elemental Adjustment ZAIDs: []
+Isotopic Weight Percents: []
 Density: 7.8740
 Linear Coefficient of Expansion: 0.0

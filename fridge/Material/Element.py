@@ -18,7 +18,7 @@ class Element(object):
 
         inputs = utilities.yaml_reader(element_yaml_file, element_dir, element)
         self.name = inputs['Name']
-        self.zaid = inputs['Elemental ZAID']
+        self.zaid = inputs['Elemental ZAIDs']
         self.isotopes = inputs['Isotopic ZAID']
         self.molecularMass = inputs['Mass']
         self.density = inputs['Density']

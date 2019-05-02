@@ -1,6 +1,6 @@
 Name: Liquid Lead Bismuth (Eutectic)
 Elements: ['Pb', 'Bi']
-ZAIDs: [82000, 83000]
-Weight Fractions: [0.445, 0.555]
+Elemental ZAIDs: [82000, 83000]
+Elemental Weight Fractions: [0.445, 0.555]
 Density: 11.096
 Linear Coefficient of Expansion: 0.0

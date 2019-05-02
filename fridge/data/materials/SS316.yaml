@@ -1,8 +1,8 @@
 Name: Stainless Steel 316
 Elements: [C, Si, P, S, Cr, Mn, Fe, Ni, Mo]
-ZAIDs: [6000, 14000, 15000, 16000, 24000, 25000, 26000, 28000, 42000]
-Weight Fractions: [0.00041, 0.00507, 0.00023, 0.00015, 0.17, 0.01014, 0.669, 0.12, 0.025]
-Enrichment ZAIDs: []
-Enrichment Vector: []
+Elemental ZAIDs: [6000, 14000, 15000, 16000, 24000, 25000, 26000, 28000, 42000]
+Elemental Weight Fractions: [0.00041, 0.00507, 0.00023, 0.00015, 0.17, 0.01014, 0.669, 0.12, 0.025]
+Elemental Adjustment ZAIDs: []
+Isotopic Weight Percents: []
 Density: 8.00
 Linear Coefficient of Expansion: 0.0

@@ -48,7 +48,7 @@ class Assembly(object):
         self.ductOuterFlatToFlatMCNPEdge = self.ductOuterFlatToFlat * 1.00005
         self.assemblyHeight = float(inputs['Assembly Height'])
         if self.core is None:
-            self.coolantMaterial = inputs['Coolant']
+            self.coolantMaterial = inputs['Coolant Material']
         else:
             self.coolantMaterial = self.core.coolantMaterial
         self.assemblyMaterial = inputs['Assembly Material']

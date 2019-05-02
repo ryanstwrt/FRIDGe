@@ -217,9 +217,9 @@ class FuelAssembly(Assembly.Assembly):
         self.wireWrapDiameter = float(inputs['Wire Wrap Diameter'])
         self.wireWrapAxialPitch = float(inputs['Wire Wrap Axial Pitch'])
         self.fuelHeight = float(inputs['Fuel Height'])
-        self.fuelMaterial = inputs['Fuel']
-        self.cladMaterial = inputs['Clad']
-        self.bondMaterial = inputs['Bond']
+        self.fuelMaterial = inputs['Fuel Material']
+        self.cladMaterial = inputs['Clad Material']
+        self.bondMaterial = inputs['Bond Material']
         self.bondAboveFuel = float(inputs["Bond Above Fuel"]) \
             if 'Bond Above Fuel' in inputs else 0.0
 

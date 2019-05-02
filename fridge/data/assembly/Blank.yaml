@@ -7,7 +7,7 @@ Duct Thickness: 0.3
 Assembly Gap: 0.3
 Duct Inside Flat to Flat: 11.1
 Assembly Height: 240
-Coolant: LiquidNa
+Coolant Material: LiquidNa
 Assembly Material: HT9
 Blank Height: 220
 Blank Smear: {LiquidNa: 0.9, HT9: 0.1}

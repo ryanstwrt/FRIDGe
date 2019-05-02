@@ -9,9 +9,9 @@ Pitch: 0.66144
 Wire Wrap Diameter: 0.126
 Wire Wrap Axial Pitch: 2
 Fuel Height: 60
-Fuel: 5Pu22U10Zr
-Clad: HT9
-Bond: LiquidNa
+Fuel Material: 5Pu22U10Zr
+Clad Material: HT9
+Bond Material: LiquidNa
 Bond Above Fuel: 0.6
 
 #FuelAssembly Data
@@ -21,7 +21,7 @@ Duct Thickness: 0.3
 Assembly Gap: 0.2
 Duct Inside Flat to Flat: 11.01
 Assembly Height: 320
-Coolant: LiquidNa
+Coolant Material: LiquidNa
 Assembly Material: HT9
 
 #Plenum Data

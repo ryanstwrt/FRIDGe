@@ -24,7 +24,7 @@ class Constituent(object):
         self.material.set_material(material_name)
         if self.voidPercent != 1.0:
             self.material.set_void(self.voidPercent)
-        self.materialCard = mcnpCF.getMaterialCard(self.material, self.materialXCLibrary, self.materialNum)
+        self.materialCard = mcnpCF.build_material_card(self.material, self.materialXCLibrary, self.materialNum)
 
     def make_component(self, unit_info):
         """Creates the component for the given constituent and creates the cell/surface cards."""

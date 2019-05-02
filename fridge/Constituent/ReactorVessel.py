@@ -12,8 +12,9 @@ class ReactorVessel(Constituent.Constituent):
         self.make_component([1])
 
     def make_component(self, unit_info):
-        self.surfaceCard = mcnpCF.getRCC(self.vesselRadius, self.vesselHeight, self.position, self.surfaceNum,
-                                         '$Vessel surrounding the core')
-        self.cellCard = mcnpCF.getConcentricCell(self.cellNum, self.materialNum, self.material.atomDensity,
-                                                 [self.coreCoolantSurfaceNum], self.surfaceNum, '',
-                                                 '$Reactor Vessel')
+        self.surfaceCard = mcnpCF.build_right_circular_cylinder_surface(self.vesselRadius, self.vesselHeight,
+                                                                        self.position, self.surfaceNum,
+                                                                        '$Vessel surrounding the core')
+        self.cellCard = mcnpCF.build_concentric_cell(self.cellNum, self.materialNum, self.material.atomDensity,
+                                                     [self.coreCoolantSurfaceNum], self.surfaceNum, '',
+                                                     '$Reactor Vessel')

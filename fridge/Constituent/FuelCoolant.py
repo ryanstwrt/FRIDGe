@@ -15,7 +15,7 @@ class FuelCoolant(Smear.Smear):
         self.cladSurfaceNum = coolant_info[2]
         surface_comment = "$Pin: Coolant - 1% higher than fuel"
         cell_comment = "$Pin: Wirewrap + Coolant"
-        self.surfaceCard = mcnpCF.getRHP(self.flat2flat, self.height, self.position, self.surfaceNum,
-                                         surface_comment)
-        self.cellCard = mcnpCF.getOutsideCell(self.cellNum, self.materialNum, self.material.atomDensity,
-                                              self.cladSurfaceNum, self.universe, cell_comment)
+        self.surfaceCard = mcnpCF.build_right_hexagonal_prism_surface(self.flat2flat, self.height, self.position,
+                                                                      self.surfaceNum, surface_comment)
+        self.cellCard = mcnpCF.build_outside_cell(self.cellNum, self.materialNum, self.material.atomDensity,
+                                                  self.cladSurfaceNum, self.universe, cell_comment)

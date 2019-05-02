@@ -20,7 +20,7 @@ class LowerCoolant(Constituent.Constituent):
         position = copy.deepcopy(self.position)
         position[2] -= 0.1
         lower_na_height = excess_coolant_height + 0.1
-        self.surfaceCard = mcnpCF.getRHPRotated(flat_to_flat, lower_na_height, position, self.surfaceNum,
-                                                surface_comment)
-        self.cellCard = mcnpCF.getSingleCell(self.cellNum, self.materialNum, self.material.atomDensity, self.surfaceNum,
-                                             self.universe, cell_comment)
+        self.surfaceCard = mcnpCF.build_rotated_right_hexagonal_prism_surface(flat_to_flat, lower_na_height, position,
+                                                                              self.surfaceNum, surface_comment)
+        self.cellCard = mcnpCF.build_single_cell(self.cellNum, self.materialNum, self.material.atomDensity,
+                                                 self.surfaceNum, self.universe, cell_comment)

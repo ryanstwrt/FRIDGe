@@ -30,10 +30,11 @@ class Smear(Constituent.Constituent):
         self.height = unit_info[1]
         surface_comment = "$Assembly: {}".format(self.componentName)
         cell_comment = "$Assembly: {}".format(self.componentName)
-        self.surfaceCard = mcnpCF.getRHPRotated(self.flat2flat, self.height, self.position, self.surfaceNum,
-                                                surface_comment)
-        self.cellCard = mcnpCF.getSingleCell(self.cellNum, self.materialNum, self.material.atomDensity,
-                                             self.surfaceNum, self.universe, cell_comment)
+        self.surfaceCard = mcnpCF.build_rotated_right_hexagonal_prism_surface(self.flat2flat, self.height,
+                                                                              self.position, self.surfaceNum,
+                                                                              surface_comment)
+        self.cellCard = mcnpCF.build_single_cell(self.cellNum, self.materialNum, self.material.atomDensity,
+                                                 self.surfaceNum, self.universe, cell_comment)
 
     def get_material_card(self, material_name):
-        self.materialCard = mcnpCF.getMaterialCard(self.material, self.materialXCLibrary, self.materialNum)
+        self.materialCard = mcnpCF.build_material_card(self.material, self.materialXCLibrary, self.materialNum)

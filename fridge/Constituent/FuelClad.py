@@ -18,6 +18,7 @@ class FuelClad(Constituent.Constituent):
         self.bondSurfaceNum = clad_info[2]
         surface_comment = "$Pin: Clad - 1% higher than fuel"
         cell_comment = "$Pin: Clad"
-        self.surfaceCard = mcnpCF.getRCC(self.radius, self.height, self.position, self.surfaceNum, surface_comment)
-        self.cellCard = mcnpCF.getConcentricCell(self.cellNum, self.materialNum, self.material.atomDensity,
-                                                 self.bondSurfaceNum, self.surfaceNum, self.universe, cell_comment)
+        self.surfaceCard = mcnpCF.build_right_circular_cylinder_surface(self.radius, self.height, self.position,
+                                                                        self.surfaceNum, surface_comment)
+        self.cellCard = mcnpCF.build_concentric_cell(self.cellNum, self.materialNum, self.material.atomDensity,
+                                                     self.bondSurfaceNum, self.surfaceNum, self.universe, cell_comment)

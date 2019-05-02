@@ -14,6 +14,6 @@ class OuterShell(Constituent.Constituent):
         pitch = unit_info[1]
         surface_comment = "$Assembly: Full Assembly Surface"
         cell_comment = "$Assembly"
-        self.surfaceCard = mcnpCF.getRHPRotated(pitch, assembly_height, self.position, self.surfaceNum,
-                                         surface_comment)
-        self.cellCard = mcnpCF.getAssemblyUniverseCell(self.surfaceNum, self.cellNum, self.universe, cell_comment)
+        self.surfaceCard = mcnpCF.build_rotated_right_hexagonal_prism_surface(pitch, assembly_height, self.position,
+                                                                              self.surfaceNum, surface_comment)
+        self.cellCard = mcnpCF.build_assembly_universe_cell(self.surfaceNum, self.cellNum, self.universe, cell_comment)

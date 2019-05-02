@@ -12,8 +12,9 @@ class CoreCoolant(Constituent.Constituent):
         self.make_component([1])
 
     def make_component(self, unit_info):
-        self.surfaceCard = mcnpCF.getRCC(self.coolantRadius, self.coolantHeight, self.position,
-                                         self.surfaceNum, '$Coolant Surrounding Assemblies')
-        self.cellCard = mcnpCF.getConcentricCell(self.cellNum, self.materialNum, self.material.atomDensity,
-                                                 self.assemblySurfaceList, self.surfaceNum, '',
-                                                 '$Coolant Surrounding Assemblies')
+        self.surfaceCard = mcnpCF.build_right_circular_cylinder_surface(self.coolantRadius, self.coolantHeight,
+                                                                        self.position, self.surfaceNum,
+                                                                        '$Coolant Surrounding Assemblies')
+        self.cellCard = mcnpCF.build_concentric_cell(self.cellNum, self.materialNum, self.material.atomDensity,
+                                                     self.assemblySurfaceList, self.surfaceNum, '',
+                                                     '$Coolant Surrounding Assemblies')

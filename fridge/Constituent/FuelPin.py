@@ -16,6 +16,7 @@ class FuelPin(Constituent.Constituent):
         self.height = pin_info[1]
         surface_comment = "$Pin: Fuel"
         cell_comment = "$Pin: Fuel"
-        self.surfaceCard = mcnpCF.getRCC(self.radius, self.height, self.position, self.surfaceNum, surface_comment)
-        self.cellCard = mcnpCF.getSingleCell(self.cellNum, self.materialNum, self.material.atomDensity, self.surfaceNum,
-                                             self.universe, cell_comment)
+        self.surfaceCard = mcnpCF.build_right_circular_cylinder_surface(self.radius, self.height, self.position,
+                                                                        self.surfaceNum, surface_comment)
+        self.cellCard = mcnpCF.build_single_cell(self.cellNum, self.materialNum, self.material.atomDensity,
+                                                 self.surfaceNum, self.universe, cell_comment)

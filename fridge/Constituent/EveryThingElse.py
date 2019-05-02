@@ -11,4 +11,4 @@ class EveryThingElse(Constituent.Constituent):
 
     def make_component(self):
         cell_comment = "$Everything Else"
-        self.cellCard = mcnpCF.getEverythingElseCard(self.cellNum, self.assemblySurfaceNum, cell_comment)
+        self.cellCard = mcnpCF.build_everything_else_cell(self.cellNum, self.assemblySurfaceNum, cell_comment)

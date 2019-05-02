@@ -16,7 +16,8 @@ class UpperCoolant(Constituent.Constituent):
         flat_to_flat_universe = upper_coolant_info[1]
         surface_comment = "$Assembly: Upper Coolant"
         cell_comment = "$Assembly: Upper Coolant"
-        self.surfaceCard = mcnpCF.getRHPRotated(flat_to_flat_universe, excess_coolant_height, self.position,
-                                                self.surfaceNum, surface_comment)
-        self.cellCard = mcnpCF.getSingleCell(self.cellNum, self.materialNum, self.material.atomDensity, self.surfaceNum,
-                                             self.universe, cell_comment)
+        self.surfaceCard = mcnpCF.build_rotated_right_hexagonal_prism_surface(flat_to_flat_universe,
+                                                                              excess_coolant_height, self.position,
+                                                                              self.surfaceNum, surface_comment)
+        self.cellCard = mcnpCF.build_single_cell(self.cellNum, self.materialNum, self.material.atomDensity,
+                                                 self.surfaceNum, self.universe, cell_comment)

@@ -4,103 +4,107 @@ cur_dir = os.path.dirname(__file__)
 mcnp_dir = os.path.join(cur_dir, "../mcnp_input_files/")
 
 
-def getRCC(radius, height, position, surfaceNum, comment):
+def build_right_circular_cylinder_surface(radius, height, position, surface_num, comment):
     """Create a right circular cylinder in the z direction."""
-    surfaceCard = "{} RCC {} {} {} 0 0 {} {} {}".format(surfaceNum, position[0], position[1], round(position[2], 5),
-                                                        round(height, 5), round(radius, 5), comment)
-    assert (len(surfaceCard) - len(comment)) < 80
-    return surfaceCard
+    surface_card = "{} RCC {} {} {} 0 0 {} {} {}".format(surface_num, position[0], position[1], round(position[2], 5),
+                                                         round(height, 5), round(radius, 5), comment)
+    assert (len(surface_card) - len(comment)) < 80
+    return surface_card
 
 
-def getRHP(pitch, height, position, surfaceNum, comment):
+def build_right_hexagonal_prism_surface(pitch, height, position, surface_num, comment):
     """Create a right hexagonal prism in the z direction."""
-    surfaceCard = "{} RHP {} {} {} 0 0 {} {} 0 0 {}".format(surfaceNum, position[0], position[1], round(position[2], 5),
-                                                            round(height, 5), round(pitch, 5), comment)
-    assert (len(surfaceCard) - len(comment)) < 80
-    return surfaceCard
+    surface_card = "{} RHP {} {} {} 0 0 {} {} 0 0 {}".format(surface_num, position[0], position[1],
+                                                             round(position[2], 5),
+                                                             round(height, 5), round(pitch, 5), comment)
+    assert (len(surface_card) - len(comment)) < 80
+    return surface_card
 
 
-def getRHPRotated(pitch, height, position, surfaceNum, comment):
+def build_rotated_right_hexagonal_prism_surface(pitch, height, position, surface_num, comment):
     """Create a right hexagonal prism in the z direction, rotated 30 degrees."""
-    surfaceCard = "{} RHP {} {} {} 0 0 {} 0 {} 0 {}".format(surfaceNum, position[0], position[1], round(position[2], 5),
-                                                            round(height, 5), round(pitch, 5), comment)
-    assert (len(surfaceCard) - len(comment)) < 80
-    return surfaceCard
+    surface_card = "{} RHP {} {} {} 0 0 {} 0 {} 0 {}".format(surface_num, position[0], position[1],
+                                                             round(position[2], 5),
+                                                             round(height, 5), round(pitch, 5), comment)
+    assert (len(surface_card) - len(comment)) < 80
+    return surface_card
 
 
-def getSingleCell(cellNum, matNum, density, surfaceNum, universe, comment):
+def build_single_cell(cell_num, mat_num, density, surface_num, universe, comment):
     """Create a cell with one component"""
-    uCard = ''
+    universe_card = ''
     if type(universe) is int:
-        uCard = 'u=' + str(universe)
-    cellCard = "{} {} {} -{} {} imp:n=1 {}".format(cellNum, matNum, round(density, 5), surfaceNum, uCard, comment)
-    assert (len(cellCard) - len(comment)) < 80
-    return cellCard
+        universe_card = 'u=' + str(universe)
+    cell_card = "{} {} {} -{} {} imp:n=1 {}".format(cell_num, mat_num, round(density, 5), surface_num, universe_card,
+                                                    comment)
+    assert (len(cell_card) - len(comment)) < 80
+    return cell_card
 
 
-def getConcentricCell(cellNum, matNum, density, innerSurface, outerSurface, universe, comment):
+def build_concentric_cell(cell_num, mat_num, density, inner_surface, outer_surface, universe, comment):
     """Create a cell which has multiple components inside a cell."""
-    uCard = ''
+    universe_card = ''
     if type(universe) is int:
-        uCard = 'u=' + str(universe)
-    listType = []
-    if type(innerSurface) == type(listType):
-        newInnerSurface = ''
+        universe_card = 'u=' + str(universe)
+    list_type = []
+    if type(inner_surface) == type(list_type):
+        new_inner_surface = ''
         i = 1
-        for surface in innerSurface:
+        for surface in inner_surface:
             if i % 5 == 0:
-                newInnerSurface += ' {}\n     '.format(surface)
+                new_inner_surface += ' {}\n     '.format(surface)
             else:
-                newInnerSurface += ' {}'.format(surface)
+                new_inner_surface += ' {}'.format(surface)
             i += 1
-        innerSurface = newInnerSurface
+        inner_surface = new_inner_surface
 
-    cellCard = "{} {} {} {} -{} {} imp:n=1 {}".format(cellNum, matNum, round(density, 5), innerSurface, outerSurface,
-                                                        uCard, comment)
-    return cellCard
+    cell_card = "{} {} {} {} -{} {} imp:n=1 {}".format(cell_num, mat_num, round(density, 5), inner_surface,
+                                                       outer_surface, universe_card, comment)
+    return cell_card
 
 
-def getOutsideCell(cellNum, matNum, density, surfaceNum, universe, comment):
+def build_outside_cell(cell_num, mat_num, density, surface_num, universe, comment):
     """Create a cell which encompasses everything outside it."""
-    cellCard = "{} {} {} {} u={} imp:n=1 {}".format(cellNum, matNum, round(density, 5), surfaceNum, universe, comment)
-    assert (len(cellCard) - len(comment)) < 80
-    return cellCard
+    cell_card = "{} {} {} {} u={} imp:n=1 {}".format(cell_num, mat_num, round(density, 5), surface_num, universe,
+                                                     comment)
+    assert (len(cell_card) - len(comment)) < 80
+    return cell_card
 
 
-def getFuelLatticeCell(cellNum, surfaceNum, assemblyUniverse, latticeUniverse, comment):
+def build_fuel_lattice_cell(cell_num, surface_num, assembly_universe, lattice_universe, comment):
     """Create a hexagonal lattice cell."""
-    cellCard = "{} 0 -{} u={} fill={} imp:n=1 {}".format(cellNum, surfaceNum, assemblyUniverse, latticeUniverse,
-                                                         comment)
-    assert (len(cellCard) - len(comment)) < 80
-    return cellCard
+    cell_card = "{} 0 -{} u={} fill={} imp:n=1 {}".format(cell_num, surface_num, assembly_universe, lattice_universe,
+                                                          comment)
+    assert (len(cell_card) - len(comment)) < 80
+    return cell_card
 
 
-def getAssemblyUniverseCell(cellNum, surfaceNum, universe, comment):
+def build_assembly_universe_cell(cell_num, surface_num, universe, comment):
     """Create a cell which will encompass all aspects of an assembly."""
-    cellCard = "{} 0 -{} fill={} imp:n=1 {}".format(cellNum, surfaceNum, universe, comment)
-    assert (len(cellCard) - len(comment)) < 80
-    return cellCard
+    cell_card = "{} 0 -{} fill={} imp:n=1 {}".format(cell_num, surface_num, universe, comment)
+    assert (len(cell_card) - len(comment)) < 80
+    return cell_card
 
 
-def getEverythingElseCard(cellNum, surfaceNum, comment):
+def build_everything_else_cell(cell_num, surface_num, comment):
     """Create a cell which encompasses everything outside an assembly/core."""
-    cellCard = "{} 0 {} imp:n=0 {}".format(cellNum, surfaceNum, comment)
-    assert (len(cellCard) - len(comment)) < 80
-    return cellCard
+    cell_card = "{} 0 {} imp:n=0 {}".format(cell_num, surface_num, comment)
+    assert (len(cell_card) - len(comment)) < 80
+    return cell_card
 
 
-def getMaterialCard(material, xc, matNum):
+def build_material_card(material, xc, mat_num):
     """Create the MCNP material data card."""
-    materialCard = "\nc Material: {}; Density: {} atoms/bn*cm \nm{}".format(material.name,
-                                                                            round(material.atomDensity, 5), matNum)
+    material_card = "\nc Material: {}; Density: {} atoms/bn*cm \nm{}".format(material.name,
+                                                                             round(material.atomDensity, 5), mat_num)
     i = 0
     for isotope, atomDensity in material.atomPercent.items():
         if i == 3:
-            materialCard += "\n    "
+            material_card += "\n    "
             i = 0
-        materialCard += " {}{} {:.4E}".format(isotope, xc, Decimal(atomDensity))
+        material_card += " {}{} {:.4E}".format(isotope, xc, Decimal(atomDensity))
         i += 1
-    return materialCard
+    return material_card
 
 
 def mcnp_input_deck_maker(assembly, k_card, global_vars):

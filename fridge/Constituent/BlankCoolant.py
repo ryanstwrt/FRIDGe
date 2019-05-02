@@ -18,6 +18,7 @@ class BlankCoolant(Constituent.Constituent):
         self.blankCoolantSurfaceNum = coolant_info[2]
         surface_comment = "$Pin: Blank Pin - 1% higher than fuel"
         cell_comment = "$Pin: Blank Pin Coolant"
-        self.surfaceCard = mcnpCF.getRHP(self.pitch, self.height, self.position, self.surfaceNum, surface_comment)
-        self.cellCard = mcnpCF.getSingleCell(self.cellNum, self.materialNum, self.material.atomDensity,
-                                             self.blankCoolantSurfaceNum, self.universe, cell_comment)
+        self.surfaceCard = mcnpCF.build_right_hexagonal_prism_surface(self.pitch, self.height, self.position,
+                                                                      self.surfaceNum, surface_comment)
+        self.cellCard = mcnpCF.build_single_cell(self.cellNum, self.materialNum, self.material.atomDensity,
+                                                 self.blankCoolantSurfaceNum, self.universe, cell_comment)

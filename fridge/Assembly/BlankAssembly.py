@@ -18,8 +18,8 @@ class BlankAssembly(Assembly.Assembly):
     in from an assembly yaml file.
     """
 
-    def __init__(self, assemblyInformation):
-        super().__init__(assemblyInformation)
+    def __init__(self, assembly_information):
+        super().__init__(assembly_information)
         self.assemblyUniverse = 0
         self.blankRegionHeight = 0
         self.blankRegion = None
@@ -39,7 +39,7 @@ class BlankAssembly(Assembly.Assembly):
         self.getAssembly()
 
     def setAssembly(self):
-        self.getAssemblyInfo(self.inputs)
+        self.get_assembly_data(self.inputs)
         self.blankMaterial = self.inputs['Blank Smear']
         self.blankRegionHeight = self.inputs['Blank Height']
 
@@ -57,21 +57,21 @@ class BlankAssembly(Assembly.Assembly):
                                           [self.ductOuterFlatToFlatMCNPEdge, self.blankRegionHeight], 'Blank Region'],
                                          voidMaterial=self.coolantMaterial, voidPercent=self.voidPercent)
 
-        self.updateIdentifiers(False)
+        self.update_global_identifiers(False)
         self.lowerCoolant = Lowercoolant.LowerCoolant([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                                        self.coolantMaterial, self.xcSet, bottomCoolantPosition,
                                                        self.materialNum],
                                                       [excessCoolantHeight, self.ductOuterFlatToFlatMCNPEdge]],
                                                       voidPercent=self.voidPercent)
 
-        self.updateIdentifiers(False)
+        self.update_global_identifiers(False)
         self.upperCoolant = Uppercoolant.UpperCoolant([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                                        self.coolantMaterial, self.xcSet, upperBlankAssemblyPosition,
                                                        self.materialNum],
                                                       [excessCoolantHeight, self.ductOuterFlatToFlatMCNPEdge]],
                                                       voidPercent=self.voidPercent)
 
-        self.updateIdentifiers(False)
+        self.update_global_identifiers(False)
         self.assemblyShell = Outershell.OuterShell([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                                      self.coolantMaterial, self.xcSet, bottomCoolantPosition,
                                                      self.materialNum],
@@ -82,6 +82,6 @@ class BlankAssembly(Assembly.Assembly):
         self.assemblyMaterialList = [self.blankRegion, self.lowerCoolant, self.upperCoolant, self.assemblyShell]
 
         if 'Single' in self.globalVars.input_type:
-            self.updateIdentifiers(False)
+            self.update_global_identifiers(False)
             self.everythingElse = Everythingelse.EveryThingElse([self.cellNum, self.assemblyShell.surfaceNum])
             self.assemblyCellList.append(self.everythingElse)

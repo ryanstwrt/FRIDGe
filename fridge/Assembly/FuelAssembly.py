@@ -29,8 +29,8 @@ class FuelAssembly(Assembly.Assembly):
     assembly yaml file.
     """
 
-    def __init__(self, assemblyInformation):
-        super().__init__(assemblyInformation)
+    def __init__(self, assembly_information):
+        super().__init__(assembly_information)
         self.assemblyUniverse = 0
         self.pinUniverse = 0
         self.fuel = None
@@ -80,7 +80,7 @@ class FuelAssembly(Assembly.Assembly):
 
     def read_assembly_data(self):
         """ Reads in data from assembly yaml file."""
-        self.getAssemblyInfo(self.inputs)
+        self.get_assembly_data(self.inputs)
         self.getFuelRegionInfo(self.inputs)
         self.getPlenumRegionInfo(self.inputs)
         self.getReflectorInfo(self.inputs)
@@ -104,17 +104,17 @@ class FuelAssembly(Assembly.Assembly):
         self.fuel = Fuelpin.FuelPin([[self.universe, self.cellNum, self.surfaceNum, self.fuelMaterial, self.xcSet,
                                       self.position, self.materialNum], [self.fuelDiameter, self.fuelHeight]])
 
-        self.updateIdentifiers(False)
+        self.update_global_identifiers(False)
         self.bond = Fuelbond.FuelBond([[self.universe, self.cellNum, self.surfaceNum, self.bondMaterial, self.xcSet,
                                         self.position, self.materialNum],
                                        [self.cladID, self.fuelHeightWithBond, self.fuel.surfaceNum]])
 
-        self.updateIdentifiers(False)
+        self.update_global_identifiers(False)
         self.clad = Fuelclad.FuelClad([[self.universe, self.cellNum, self.surfaceNum, self.cladMaterial, self.xcSet,
                                         self.position, self.materialNum],
                                        [self.cladOD, self.fuelHeightWithBond, self.bond.surfaceNum]])
 
-        self.updateIdentifiers(False)
+        self.update_global_identifiers(False)
         smearedCoolantInfo = [self.fuelHeightWithBond, self.cladOD, self.wireWrapDiameter,
                               self.wireWrapAxialPitch, self.fuelPitch, self.coolantMaterial, self.cladMaterial]
         smearedCoolantMaterial = fridge.Material.Material.smear_coolant_wirewrap(smearedCoolantInfo)
@@ -123,66 +123,66 @@ class FuelAssembly(Assembly.Assembly):
                                                 [self.fuelPitch, self.fuelHeightWithBond, self.clad.surfaceNum],
                                                 'Wire Wrap + Coolant'], voidMaterial=self.coolantMaterial,
                                                voidPercent=self.voidPercent)
-        self.updateIdentifiers(True)
+        self.update_global_identifiers(True)
         self.blankUniverse = self.universe
         self.blankCoolant = Blankcoolant.BlankCoolant([[self.universe, self.cellNum, self.surfaceNum,
                                                         self.coolantMaterial, self.xcSet, self.position,
                                                         self.materialNum],
                                                        [self.fuelPitch, self.fuelHeightWithBond,
                                                         self.coolant.surfaceNum]], voidPercent=self.voidPercent)
-        self.updateIdentifiers(True)
+        self.update_global_identifiers(True)
         self.latticeUniverse = self.universe
         self.fuelUniverse = Fueluniverse.FuelUniverse([self.pinUniverse, self.blankUniverse, self.pinsPerAssembly,
                                                        self.cellNum, self.blankCoolant.cellNum, self.latticeUniverse])
 
-        self.updateIdentifiers(True)
+        self.update_global_identifiers(True)
         self.innerDuct = Innerduct.InnerDuct([[self.universe, self.cellNum, self.surfaceNum, '', self.xcSet,
                                                self.position, self.materialNum],
                                               [self.assemblyUniverse, self.latticeUniverse, self.ductInnerFlatToFlat,
                                                self.fuelHeightWithBond]])
 
-        self.updateIdentifiers(False)
+        self.update_global_identifiers(False)
         self.plenum = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum, self.plenumMaterial,
                                       self.xcSet, self.plenumPosition, self.materialNum],
                                      [self.ductInnerFlatToFlat, self.plenumHeight], 'Plenum'],
                                     voidMaterial=self.coolantMaterial, voidPercent=self.voidPercent)
 
-        self.updateIdentifiers(False)
+        self.update_global_identifiers(False)
         self.upperReflector = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                               self.reflectorMaterial, self.xcSet, upperReflectorPosition,
                                               self.materialNum],
                                              [self.ductInnerFlatToFlat, self.reflectorHeight], 'Upper Reflector'],
                                             voidMaterial=self.coolantMaterial, voidPercent=self.voidPercent)
 
-        self.updateIdentifiers(False)
+        self.update_global_identifiers(False)
         self.lowerReflector = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                               self.reflectorMaterial, self.xcSet, lowerReflectorPosition,
                                               self.materialNum],
                                              [self.ductInnerFlatToFlat, self.reflectorHeight], 'Lower Reflector'],
                                             voidMaterial=self.coolantMaterial, voidPercent=self.voidPercent)
 
-        self.updateIdentifiers(False)
+        self.update_global_identifiers(False)
         innerSurfaceNums = [self.innerDuct.surfaceNum, self.lowerReflector.surfaceNum, self. upperReflector.surfaceNum,
                             self.plenum.surfaceNum]
         self.duct = Outerduct.Duct([[self.assemblyUniverse, self.cellNum, self.surfaceNum, self.assemblyMaterial,
                                      self.xcSet, lowerReflectorPosition, self.materialNum],
                                     [self.ductOuterFlatToFlatMCNPEdge, definedHeight, innerSurfaceNums]])
 
-        self.updateIdentifiers(False)
+        self.update_global_identifiers(False)
         self.lowerSodium = Lowersodium.LowerCoolant([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                                       self.coolantMaterial, self.xcSet, bottomCoolantPosition,
                                                       self.materialNum],
                                                      [excessCoolantHeight,
                                                      self.ductOuterFlatToFlatMCNPEdge]], voidPercent=self.voidPercent)
 
-        self.updateIdentifiers(False)
+        self.update_global_identifiers(False)
         self.upperSodium = Uppersodium.UpperCoolant([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                                       self.coolantMaterial, self.xcSet, upperCoolantPosition,
                                                       self.materialNum],
                                                      [excessCoolantHeight,
                                                      self.ductOuterFlatToFlatMCNPEdge]], voidPercent=self.voidPercent)
 
-        self.updateIdentifiers(False)
+        self.update_global_identifiers(False)
         self.assemblyShell = Outershell.OuterShell([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                                      self.coolantMaterial, self.xcSet, bottomCoolantPosition,
                                                      self.materialNum],
@@ -199,7 +199,7 @@ class FuelAssembly(Assembly.Assembly):
                                      self.upperSodium]
 
         if 'Single' in self.globalVars.input_type:
-            self.updateIdentifiers(False)
+            self.update_global_identifiers(False)
             self.everythingElse = Everythingelse.EveryThingElse([self.cellNum, self.assemblyShell.surfaceNum])
             self.assemblyCellList.append(self.everythingElse)
 

@@ -37,7 +37,7 @@ def test_updateIdentifiers():
     assert baseAssembly.cellNum == 100
     assert baseAssembly.surfaceNum == 100
     assert baseAssembly.materialNum == 100
-    baseAssembly.updateIdentifiers(False)
+    baseAssembly.update_global_identifiers(False)
     assert baseAssembly.universe == 100
     assert baseAssembly.cellNum == 101
     assert baseAssembly.surfaceNum == 101

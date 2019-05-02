@@ -1,6 +1,5 @@
 import glob
 import os
-import yaml
 import fridge.utilities.utilities as utilities
 
 cur_dir = os.path.dirname(__file__)
@@ -14,11 +13,11 @@ class Assembly(object):
     Fuel Assembly
     """
 
-    def __init__(self, assemblyInformation):
-        self.assembly_file_name = assemblyInformation[0]
-        self.assemblyPosition = assemblyInformation[1]
-        self.globalVars = assemblyInformation[2]
-        self.core = assemblyInformation[3]
+    def __init__(self, assembly_information):
+        self.assembly_file_name = assembly_information[0]
+        self.assemblyPosition = assembly_information[1]
+        self.globalVars = assembly_information[2]
+        self.core = assembly_information[3]
         self.universe = self.globalVars.universe
         self.cellNum = self.globalVars.cellNumber
         self.surfaceNum = self.globalVars.surfaceNumber
@@ -39,13 +38,12 @@ class Assembly(object):
         assembly_yaml_file = glob.glob(os.path.join(assembly_directory, self.assembly_file_name + '.yaml'))
         self.inputs = utilities.yaml_reader(assembly_yaml_file, assembly_directory, self.assembly_file_name)
 
-
-    def getAssemblyInfo(self, inputs):
+    def get_assembly_data(self, inputs):
         """Assign assembly parameters based on yaml Assembly file."""
         self.pinsPerAssembly = int(inputs['Pins Per Assembly']) if 'Pins Per Assembly' in inputs else 0
         self.assemblyPitch = float(inputs['Assembly Pitch'])
         self.ductInnerFlatToFlat = float(inputs['Duct Inside Flat to Flat']) / 2 if 'Duct Inside Flat to Flat' in \
-                                                                                inputs else 0.0
+            inputs else 0.0
         thickness = float(inputs['Duct Thickness']) if 'Duct Thickness' in inputs else 0.0
         self.ductOuterFlatToFlat = self.ductInnerFlatToFlat + thickness
         self.ductOuterFlatToFlatMCNPEdge = self.ductOuterFlatToFlat * 1.00005
@@ -58,12 +56,12 @@ class Assembly(object):
         self.assemblyMaterial = inputs['Assembly Material']
         self.zPosition = float(inputs['Z Position']) if 'Z Position' in inputs else 0.0
 
-    def updateIdentifiers(self, universeTest):
+    def update_global_identifiers(self, universe_test):
         """Updates cell, surface, material, and universe number to create uniqueness"""
         self.cellNum += 1
         self.surfaceNum += 1
         self.materialNum += 1
-        if universeTest:
+        if universe_test:
             self.universe += 1
 
 
@@ -71,5 +69,5 @@ def read_assembly_type(assembly_file_name):
     """Reads in the assembly type to determine what type of assembly to build."""
     assembly_yaml_file = glob.glob(os.path.join(assembly_directory, assembly_file_name + '.yaml'))
     inputs = utilities.yaml_reader(assembly_yaml_file, assembly_directory, assembly_file_name)
-    assemblyType = inputs['Assembly Type']
-    return assemblyType
+    assembly_type = inputs['Assembly Type']
+    return assembly_type

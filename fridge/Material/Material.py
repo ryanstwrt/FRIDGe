@@ -33,10 +33,10 @@ class Material(object):
 
     def set_material(self, material):
         self.name = material
-        self.read_material(self.name)
+        self.read_material_data(self.name)
         self.create_material_data()
 
-    def read_material(self, material):
+    def read_material_data(self, material):
         """Read in the material data from the material database."""
         material_yaml_file = glob.glob(os.path.join(material_dir, material + '.yaml'))
 

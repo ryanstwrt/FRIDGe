@@ -1,9 +1,10 @@
 import glob
 import os
 import yaml
+import fridge.utilities.utilities as utilities
 
 cur_dir = os.path.dirname(__file__)
-geo_dir = os.path.join(cur_dir, "../data/assembly")
+assembly_directory = os.path.join(cur_dir, "../data/assembly")
 
 
 class Assembly(object):
@@ -14,7 +15,7 @@ class Assembly(object):
     """
 
     def __init__(self, assemblyInformation):
-        self.assemblyDesignation = assemblyInformation[0]
+        self.assembly_file_name = assemblyInformation[0]
         self.assemblyPosition = assemblyInformation[1]
         self.globalVars = assemblyInformation[2]
         self.core = assemblyInformation[3]
@@ -35,6 +36,9 @@ class Assembly(object):
         self.zPosition = 0.0
         self.coolantMaterial = ''
         self.assemblyMaterial = ''
+        assembly_yaml_file = glob.glob(os.path.join(assembly_directory, self.assembly_file_name + '.yaml'))
+        self.inputs = utilities.yaml_reader(assembly_yaml_file, assembly_directory, self.assembly_file_name)
+
 
     def getAssemblyInfo(self, inputs):
         """Assign assembly parameters based on yaml Assembly file."""
@@ -63,20 +67,9 @@ class Assembly(object):
             self.universe += 1
 
 
-def assemblyTypeReader(assemblyYamlFile):
+def read_assembly_type(assembly_file_name):
     """Reads in the assembly type to determine what type of assembly to build."""
-    with open(assemblyYamlFile[0], "r") as mat_file:
-        inputs = yaml.safe_load(mat_file)
-        assemblyType = inputs['Assembly Type']
+    assembly_yaml_file = glob.glob(os.path.join(assembly_directory, assembly_file_name + '.yaml'))
+    inputs = utilities.yaml_reader(assembly_yaml_file, assembly_directory, assembly_file_name)
+    assemblyType = inputs['Assembly Type']
     return assemblyType
-
-
-def getAssemblyLocation(assemblyType):
-    """Find the file location for the assembly, and determine if the given assembly exists."""
-    assemblyYamlFile = glob.glob(os.path.join(geo_dir, assemblyType + '.yaml'))
-    try:
-        assert assemblyYamlFile[0][(-(len(assemblyType)+5)):] == '{}.yaml'.format(assemblyType)
-    except AssertionError:
-        print('No assembly type named {}. Change your assembly type to a previously created assembly, '
-              'or create a new assembly.'.format(assemblyType))
-    return assemblyYamlFile

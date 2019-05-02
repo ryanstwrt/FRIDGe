@@ -12,7 +12,7 @@ assembly_info = [global_vars.file_name, '01A01', global_vars, None]
 def test_assembly():
     """Check the base assembly init"""
     baseAssembly = Assembly.Assembly(assembly_info)
-    assert baseAssembly.assemblyDesignation == 'A271_Test'
+    assert baseAssembly.assembly_file_name == 'A271_Test'
     assert baseAssembly.assemblyPosition == '01A01'
     assert baseAssembly.universe == 100
     assert baseAssembly.cellNum == 100
@@ -188,5 +188,8 @@ def test_blankAssembly():
 
 def test_getAssemblyLocation():
     assembly_info1 = ['Nonsense', '01A01', global_vars, None]
-    a = Assembly.Assembly(assembly_info1)
-    assert a.assemblyType == ''
+    a = None
+    try:
+        a = Assembly.Assembly(assembly_info1)
+    except IndexError:
+        assert a is None

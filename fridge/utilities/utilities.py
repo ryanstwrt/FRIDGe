@@ -1,4 +1,5 @@
 import math
+import yaml
 
 
 def getRHPVolume(pitch, height):
@@ -54,3 +55,14 @@ def getPosition(position, pitch, zPosition):
         x = -ring * sqrtPitch
         y = pitch * (-1/2 * ring + assemblyNum)
     return [x, y, zPosition]
+
+
+def yaml_reader(yaml_file_destination, known_directory, file_name):
+    """Reads in the yaml file and returns the variables."""
+    try:
+        with open(yaml_file_destination[0], "r") as file:
+            inputs = yaml.safe_load(file)
+    except IndexError:
+        raise IndexError("{} was not found in {}. Please ensure the file exists and then try again."
+                         .format(file_name, known_directory))
+    return inputs

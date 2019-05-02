@@ -14,7 +14,7 @@ import fridge.Constituent.LowerCoolant as Lowersodium
 import fridge.Constituent.EveryThingElse as Everythingelse
 import fridge.Material.Material
 import fridge.utilities.mcnpCreatorFunctions as mcnpCF
-import yaml
+import fridge.utilities.utilities as utilities
 import math
 
 import fridge.utilities.utilities
@@ -75,18 +75,15 @@ class FuelAssembly(Assembly.Assembly):
         self.reflectorHeight = 0
         self.reflectorMaterial = ''
 
-        assemblyYamlFile = Assembly.getAssemblyLocation(self.assemblyDesignation)
-        self.setAssembly(assemblyYamlFile)
+        self.read_assembly_data()
         self.getAssembly()
 
-    def setAssembly(self, assemblyYamlFile):
+    def read_assembly_data(self):
         """ Reads in data from assembly yaml file."""
-        with open(assemblyYamlFile[0], "r") as mat_file:
-            inputs = yaml.safe_load(mat_file)
-            self.getAssemblyInfo(inputs)
-            self.getFuelRegionInfo(inputs)
-            self.getPlenumRegionInfo(inputs)
-            self.getReflectorInfo(inputs)
+        self.getAssemblyInfo(self.inputs)
+        self.getFuelRegionInfo(self.inputs)
+        self.getPlenumRegionInfo(self.inputs)
+        self.getReflectorInfo(self.inputs)
 
     def getAssembly(self):
         """Creates each component of the assembly."""

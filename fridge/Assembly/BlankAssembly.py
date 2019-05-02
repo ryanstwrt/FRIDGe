@@ -35,16 +35,13 @@ class BlankAssembly(Assembly.Assembly):
         self.assemblySurfaceList = []
         self.assemblyMaterialList = []
 
-        assemblyYamlFile = Assembly.getAssemblyLocation(self.assemblyDesignation)
-        self.setAssembly(assemblyYamlFile)
+        self.setAssembly()
         self.getAssembly()
 
-    def setAssembly(self, assemblyYamlFile):
-        with open(assemblyYamlFile[0], "r") as mat_file:
-            inputs = yaml.safe_load(mat_file)
-            self.getAssemblyInfo(inputs)
-            self.blankMaterial = inputs['Blank Smear']
-            self.blankRegionHeight = inputs['Blank Height']
+    def setAssembly(self):
+        self.getAssemblyInfo(self.inputs)
+        self.blankMaterial = self.inputs['Blank Smear']
+        self.blankRegionHeight = self.inputs['Blank Height']
 
     def getAssembly(self):
         self.assemblyUniverse = self.universe

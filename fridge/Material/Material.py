@@ -1,7 +1,6 @@
 import numpy as np
 import glob
 import os
-import yaml
 import fridge.Material.Element as Element
 import fridge.utilities.utilities as utilities
 
@@ -41,22 +40,17 @@ class Material(object):
         """Read in the material data from the material database."""
         material_yaml_file = glob.glob(os.path.join(material_dir, material + '.yaml'))
 
-        if not material_yaml_file:
-            raise AssertionError("Material {}, not found in material database. Please create material file for {}."
-                                 .format(material, material))
-
-        with open(material_yaml_file[0], "r") as file:
-            inputs = yaml.safe_load(file)
-            self.name = inputs['Name']
-            self.materialName = material
-            self.elements = inputs['Elements']
-            self.zaids = inputs['ZAIDs']
-            self.weightFraction = inputs['Weight Fractions'] if 'Weight Fractions' in inputs else []
-            self.enrichmentZaids = inputs['Enrichment ZAIDs'] if 'Enrichment ZAIDs' in inputs else []
-            self.enrichmentIsotopes = inputs['Enrichment Isotopes'] if 'Enrichment Isotopes' in inputs else []
-            self.enrichmentVector = inputs['Enrichment Vector'] if 'Enrichment Vector' in inputs else []
-            self.density = inputs['Density']
-            self.linearCoeffExpansion = inputs['Linear Coefficient of Expansion']
+        inputs = utilities.yaml_reader(material_yaml_file, material_dir, material)
+        self.name = inputs['Name']
+        self.materialName = material
+        self.elements = inputs['Elements']
+        self.zaids = inputs['ZAIDs']
+        self.weightFraction = inputs['Weight Fractions'] if 'Weight Fractions' in inputs else []
+        self.enrichmentZaids = inputs['Enrichment ZAIDs'] if 'Enrichment ZAIDs' in inputs else []
+        self.enrichmentIsotopes = inputs['Enrichment Isotopes'] if 'Enrichment Isotopes' in inputs else []
+        self.enrichmentVector = inputs['Enrichment Vector'] if 'Enrichment Vector' in inputs else []
+        self.density = inputs['Density']
+        self.linearCoeffExpansion = inputs['Linear Coefficient of Expansion']
 
     def create_material_data(self):
         """Create a material based on the data from the material database."""

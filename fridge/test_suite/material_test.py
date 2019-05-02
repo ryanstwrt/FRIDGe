@@ -234,5 +234,5 @@ def test_material_NoMaterial():
     m = materialReader.Material()
     try:
         m.set_material('NoMaterial')
-    except AssertionError:
+    except IndexError:
         m.density = 0.0

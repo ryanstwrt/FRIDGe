@@ -57,21 +57,21 @@ class BlankAssembly(Assembly.Assembly):
         self.blankRegion = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                            self.blankMaterial, self.xcSet, bottom_blank_position, self.materialNum],
                                           [self.ductOuterFlatToFlatMCNPEdge, self.blankRegionHeight], 'Blank Region'],
-                                         voidMaterial=self.coolantMaterial, voidPercent=self.voidPercent)
+                                         void_material=self.coolantMaterial, void_percent=self.voidPercent)
 
         self.update_global_identifiers(False)
         self.lowerCoolant = Lowercoolant.LowerCoolant([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                                        self.coolantMaterial, self.xcSet, bottom_coolant_position,
                                                        self.materialNum],
                                                       [excess_coolant_height, self.ductOuterFlatToFlatMCNPEdge]],
-                                                      voidPercent=self.voidPercent)
+                                                      void_percent=self.voidPercent)
 
         self.update_global_identifiers(False)
         self.upperCoolant = Uppercoolant.UpperCoolant([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                                        self.coolantMaterial, self.xcSet, upper_blank_assembly_position,
                                                        self.materialNum],
                                                       [excess_coolant_height, self.ductOuterFlatToFlatMCNPEdge]],
-                                                      voidPercent=self.voidPercent)
+                                                      void_percent=self.voidPercent)
 
         self.update_global_identifiers(False)
         self.assemblyShell = Outershell.OuterShell([[self.assemblyUniverse, self.cellNum, self.surfaceNum,

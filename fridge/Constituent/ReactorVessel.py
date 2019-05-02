@@ -1,18 +1,19 @@
 import fridge.Constituent.Constituent as Constituent
-import fridge.utilities.mcnpCreatorFunctions as MCF
+import fridge.utilities.mcnpCreatorFunctions as mcnpCF
 
 
 class ReactorVessel(Constituent.Constituent):
-    def __init__(self, unitInfo):
-        super().__init__(unitInfo)
-        self.vesselRadius = unitInfo[1][0]
-        self.vesselHeight = unitInfo[1][1]
-        self.coreCoolantSurfaceNum = unitInfo[1][2]
-        self.getMaterialCard(unitInfo[0][3])
-        self.makeComponent([1])
+    def __init__(self, unit_info):
+        super().__init__(unit_info)
+        self.vesselRadius = unit_info[1][0]
+        self.vesselHeight = unit_info[1][1]
+        self.coreCoolantSurfaceNum = unit_info[1][2]
+        self.get_material_card(unit_info[0][3])
+        self.make_component([1])
 
-    def makeComponent(self, unitInfo):
-        self.surfaceCard = MCF.getRCC(self.vesselRadius, self.vesselHeight, self.position, self.surfaceNum,
-                                      '$Vessel surrounding the core')
-        self.cellCard = MCF.getConcentricCell(self.cellNum, self.materialNum, self.material.atomDensity,
-                                                     [self.coreCoolantSurfaceNum], self.surfaceNum, '', '$Reactor Vessel')
+    def make_component(self, unit_info):
+        self.surfaceCard = mcnpCF.getRCC(self.vesselRadius, self.vesselHeight, self.position, self.surfaceNum,
+                                         '$Vessel surrounding the core')
+        self.cellCard = mcnpCF.getConcentricCell(self.cellNum, self.materialNum, self.material.atomDensity,
+                                                 [self.coreCoolantSurfaceNum], self.surfaceNum, '',
+                                                 '$Reactor Vessel')

@@ -62,7 +62,7 @@ class Core:
                                                      self.coolantMaterial, global_vars.xc_set,
                                                      self.coolantPosition, global_vars.materialNumber],
                                                     [self.coolantRadius, self.coolantHeight, assemblySurfaceList]],
-                                                   voidPercent=global_vars.void_per)
+                                                   void_percent=global_vars.void_per)
         global_vars.updateNumbering()
         self.vesselRadius = self.coolantRadius + self.vesselThickness
         self.vesselPosition = self.coolantPosition

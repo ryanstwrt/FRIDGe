@@ -1,19 +1,19 @@
 import fridge.Constituent.Constituent as Constituent
-import fridge.utilities.mcnpCreatorFunctions as MCF
+import fridge.utilities.mcnpCreatorFunctions as mcnpCF
 
 
 class CoreCoolant(Constituent.Constituent):
-    def __init__(self, unitInfo, voidPercent=1.0):
-        super().__init__(unitInfo, voidPercent=voidPercent)
-        self.coolantRadius = unitInfo[1][0]
-        self.coolantHeight = unitInfo[1][1]
-        self.assemblySurfaceList = unitInfo[1][2]
-        self.getMaterialCard(unitInfo[0][3])
-        self.makeComponent([1])
+    def __init__(self, unit_info, void_percent=1.0):
+        super().__init__(unit_info, void_percent=void_percent)
+        self.coolantRadius = unit_info[1][0]
+        self.coolantHeight = unit_info[1][1]
+        self.assemblySurfaceList = unit_info[1][2]
+        self.get_material_card(unit_info[0][3])
+        self.make_component([1])
 
-    def makeComponent(self, unitInfo):
-        self.surfaceCard = MCF.getRCC(self.coolantRadius, self.coolantHeight, self.position,
-                                             self.surfaceNum, '$Coolant Surrounding Assemblies')
-        self.cellCard = MCF.getConcentricCell(self.cellNum, self.materialNum, self.material.atomDensity,
-                                                            self.assemblySurfaceList, self.surfaceNum, '',
-                                                            '$Coolant Surrounding Assemblies')
+    def make_component(self, unit_info):
+        self.surfaceCard = mcnpCF.getRCC(self.coolantRadius, self.coolantHeight, self.position,
+                                         self.surfaceNum, '$Coolant Surrounding Assemblies')
+        self.cellCard = mcnpCF.getConcentricCell(self.cellNum, self.materialNum, self.material.atomDensity,
+                                                 self.assemblySurfaceList, self.surfaceNum, '',
+                                                 '$Coolant Surrounding Assemblies')

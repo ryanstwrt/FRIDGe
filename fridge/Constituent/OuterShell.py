@@ -4,16 +4,16 @@ import fridge.utilities.mcnpCreatorFunctions as mcnpCF
 
 class OuterShell(Constituent.Constituent):
     """The creates a shell around the assembly which allows the assembly to fit into a single universe."""
-    def __init__(self, unitInfo):
-        super().__init__(unitInfo)
-        self.getMaterialCard(unitInfo[0][3])
-        self.makeComponent(unitInfo[1])
+    def __init__(self, unit_info):
+        super().__init__(unit_info)
+        self.get_material_card(unit_info[0][3])
+        self.make_component(unit_info[1])
 
-    def makeComponent(self, unitInfo):
-        assemblyHeight = unitInfo[0]
-        pitch = unitInfo[1]
-        surfaceComment = "$Assembly: Full Assembly Surface"
-        cellComment = "$Assembly"
-        self.surfaceCard = mcnpCF.getRHPRotated(pitch, assemblyHeight, self.position, self.surfaceNum,
-                                         surfaceComment)
-        self.cellCard = mcnpCF.getAssemblyUniverseCell(self.surfaceNum, self.cellNum, self.universe, cellComment)
+    def make_component(self, unit_info):
+        assembly_height = unit_info[0]
+        pitch = unit_info[1]
+        surface_comment = "$Assembly: Full Assembly Surface"
+        cell_comment = "$Assembly"
+        self.surfaceCard = mcnpCF.getRHPRotated(pitch, assembly_height, self.position, self.surfaceNum,
+                                         surface_comment)
+        self.cellCard = mcnpCF.getAssemblyUniverseCell(self.surfaceNum, self.cellNum, self.universe, cell_comment)

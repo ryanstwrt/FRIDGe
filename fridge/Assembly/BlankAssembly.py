@@ -7,6 +7,8 @@ import fridge.Constituent.EveryThingElse as Everythingelse
 import fridge.utilities.mcnpCreatorFunctions as mcnpCF
 import yaml
 
+import fridge.utilities.utilities
+
 
 class BlankAssembly(Assembly.Assembly):
     """
@@ -47,11 +49,11 @@ class BlankAssembly(Assembly.Assembly):
     def getAssembly(self):
         self.assemblyUniverse = self.universe
         excessCoolantHeight = (self.assemblyHeight - self.blankRegionHeight) / 2
-        bottomCoolantPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch,
-                                                   self.zPosition - excessCoolantHeight)
-        bottomBlankPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, self.zPosition)
-        upperBlankAssemblyPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch,
-                                                        self.blankRegionHeight + self.zPosition)
+        bottomCoolantPosition = fridge.utilities.utilities.getPosition(self.assemblyPosition, self.assemblyPitch,
+                                                                       self.zPosition - excessCoolantHeight)
+        bottomBlankPosition = fridge.utilities.utilities.getPosition(self.assemblyPosition, self.assemblyPitch, self.zPosition)
+        upperBlankAssemblyPosition = fridge.utilities.utilities.getPosition(self.assemblyPosition, self.assemblyPitch,
+                                                                            self.blankRegionHeight + self.zPosition)
 
         self.blankRegion = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                            self.blankMaterial, self.xcSet, bottomBlankPosition, self.materialNum],

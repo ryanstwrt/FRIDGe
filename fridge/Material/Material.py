@@ -3,6 +3,7 @@ import glob
 import os
 import yaml
 import fridge.Material.Element as Element
+import fridge.utilities.utilities as utilities
 
 AVOGADROS_NUMBER = 0.6022140857
 # Requirements for the material reader
@@ -113,3 +114,62 @@ def set_atom_percent(weight_percents, density, element_dict):
     for zaid, atomicDensity in atom_densities.items():
         atom_percent[zaid] = atomicDensity / atom_density
     return atom_density, atom_percent
+
+
+def get_smeared_material(materials, void_material='', void_percent=1.0):
+    """Create the material data card for a smeared material."""
+    smear_material = {}
+    for material, materialWeightPercent in materials.items():
+        void_multiplier = 1.0
+        if material == 'Void':
+            pass
+        else:
+            base_material = Material()
+            base_material.set_material(material)
+
+            if base_material.materialName == void_material:
+                void_multiplier = void_percent
+
+            for isotope, isotopeWeightPercent in base_material.weightPercent.items():
+                element = str(isotope)
+                if len(element) < 5:
+                    current_element = element[:1] + '000'
+                else:
+                    current_element = element[:2] + '000'
+                current_element = int(current_element)
+                try:
+                    smear_material[isotope] += isotopeWeightPercent * materialWeightPercent * base_material.density \
+                                              * AVOGADROS_NUMBER * void_multiplier / \
+                                              base_material.elementDict[current_element].molecularMassDict[isotope]
+                except KeyError:
+                    smear_material[isotope] = isotopeWeightPercent * materialWeightPercent * base_material.density \
+                                             * AVOGADROS_NUMBER * void_multiplier / \
+                                             base_material.elementDict[current_element].molecularMassDict[isotope]
+    smeared_material = Material()
+    smeared_material.name = "{}".format([val for val in materials])
+    smeared_material.atomDensity = sum(smear_material.values())
+    smeared_atom_percent = {}
+    for k, v in smear_material.items():
+        smeared_atom_percent[k] = v / smeared_material.atomDensity
+    smeared_material.atomPercent = smeared_atom_percent
+    return smeared_material
+
+
+def smear_coolant_wirewrap(info):
+    """Returns a smeared material for the coolant and wire wrap."""
+    height = info[0]
+    fuel_radius = info[1] / 2
+    wirewrap_radius = info[2] / 2
+    wire_wrap_axial_pitch = info[3]
+    fuel_pitch = info[4]
+    coolant_material = info[5]
+    clad_material = info[6]
+    fuel_volume = utilities.getRCCVolume(fuel_radius, height)
+    wire_wrap_volume = utilities.getToroidalVolume(fuel_radius, wirewrap_radius, wire_wrap_axial_pitch, height)
+    pin_hexagonal_universe_volume = utilities.getRHPVolume(fuel_pitch, height)
+    coolant_volume = pin_hexagonal_universe_volume - fuel_volume - wire_wrap_volume
+    total_coolant_wire_wrap_volume = coolant_volume + wire_wrap_volume
+    wire_wrap_volume_percent = wire_wrap_volume / total_coolant_wire_wrap_volume
+    coolant_volume_percent = coolant_volume / total_coolant_wire_wrap_volume
+    smeared_material_dict = {clad_material: wire_wrap_volume_percent, coolant_material: coolant_volume_percent}
+    return smeared_material_dict

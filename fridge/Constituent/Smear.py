@@ -1,4 +1,5 @@
 import fridge.Constituent.Constituent as Constituent
+import fridge.Material.Material
 import fridge.utilities.mcnpCreatorFunctions as mcnpCF
 
 
@@ -14,9 +15,9 @@ class Smear(Constituent.Constituent):
         self.materialNum = unitInfo[0][6]
         self.componentName = unitInfo[2]
         if voidPercent == 1.0:
-            self.material = mcnpCF.getSmearedMaterial(self.material)
+            self.material = fridge.Material.Material.get_smeared_material(self.material)
         else:
-            self.material = mcnpCF.getSmearedMaterial(self.material, voidMaterial=voidMaterial, voidPercent=voidPercent)
+            self.material = fridge.Material.Material.get_smeared_material(self.material, void_material=voidMaterial, void_percent=voidPercent)
         self.makeComponent(unitInfo[1])
         self.getMaterialCard(self.material)
         self.flat2flat = unitInfo[1][0]

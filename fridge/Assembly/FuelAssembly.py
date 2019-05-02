@@ -12,9 +12,12 @@ import fridge.Constituent.OuterShell as Outershell
 import fridge.Constituent.UpperCoolant as Uppersodium
 import fridge.Constituent.LowerCoolant as Lowersodium
 import fridge.Constituent.EveryThingElse as Everythingelse
+import fridge.Material.Material
 import fridge.utilities.mcnpCreatorFunctions as mcnpCF
 import yaml
 import math
+
+import fridge.utilities.utilities
 
 
 class FuelAssembly(Assembly.Assembly):
@@ -92,11 +95,11 @@ class FuelAssembly(Assembly.Assembly):
         excessCoolantHeight = (self.assemblyHeight - definedHeight) / 2
         heightToUpperCoolant = definedHeight - self.reflectorHeight
         heightToUpperReflector = self.fuelHeightWithBond + self.plenumHeight
-        upperCoolantPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, heightToUpperCoolant)
-        upperReflectorPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, heightToUpperReflector)
-        lowerReflectorPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, -self.reflectorHeight)
-        bottomCoolantPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch,
-                                                   -(self.reflectorHeight + excessCoolantHeight))
+        upperCoolantPosition = fridge.utilities.utilities.getPosition(self.assemblyPosition, self.assemblyPitch, heightToUpperCoolant)
+        upperReflectorPosition = fridge.utilities.utilities.getPosition(self.assemblyPosition, self.assemblyPitch, heightToUpperReflector)
+        lowerReflectorPosition = fridge.utilities.utilities.getPosition(self.assemblyPosition, self.assemblyPitch, -self.reflectorHeight)
+        bottomCoolantPosition = fridge.utilities.utilities.getPosition(self.assemblyPosition, self.assemblyPitch,
+                                                                       -(self.reflectorHeight + excessCoolantHeight))
 
         self.assemblyUniverse = self.universe
         self.universe += 1
@@ -117,7 +120,7 @@ class FuelAssembly(Assembly.Assembly):
         self.updateIdentifiers(False)
         smearedCoolantInfo = [self.fuelHeightWithBond, self.cladOD, self.wireWrapDiameter,
                               self.wireWrapAxialPitch, self.fuelPitch, self.coolantMaterial, self.cladMaterial]
-        smearedCoolantMaterial = mcnpCF.getCoolantWireWrapSmear(smearedCoolantInfo)
+        smearedCoolantMaterial = fridge.Material.Material.smear_coolant_wirewrap(smearedCoolantInfo)
         self.coolant = Fuelcoolant.FuelCoolant([[self.universe, self.cellNum, self.surfaceNum, smearedCoolantMaterial,
                                                  self.xcSet, self.position, self.materialNum],
                                                 [self.fuelPitch, self.fuelHeightWithBond, self.clad.surfaceNum],
@@ -205,7 +208,7 @@ class FuelAssembly(Assembly.Assembly):
 
     def getFuelRegionInfo(self, inputs):
         """Reads in the fuel region data from the assembly yaml file."""
-        self.position = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch, 0.0)
+        self.position = fridge.utilities.utilities.getPosition(self.assemblyPosition, self.assemblyPitch, 0.0)
         self.cladOD = float(inputs['Pin Diameter'])
         self.cladID = self.cladOD - 2*float(inputs['Clad Thickness'])
         try:
@@ -225,8 +228,8 @@ class FuelAssembly(Assembly.Assembly):
     def getPlenumRegionInfo(self, inputs):
         """Reads in the plenum region data from the assembly yaml file."""
         self.plenumHeight = float(inputs['Plenum Height'])
-        self.plenumPosition = mcnpCF.getPosition(self.assemblyPosition, self.assemblyPitch,
-                                                 self.fuelHeight + self.bondAboveFuel)
+        self.plenumPosition = fridge.utilities.utilities.getPosition(self.assemblyPosition, self.assemblyPitch,
+                                                                     self.fuelHeight + self.bondAboveFuel)
         self.plenumMaterial = inputs['Plenum Smear']
 
     def getReflectorInfo(self, inputs):

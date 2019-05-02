@@ -137,7 +137,7 @@ def getSmearedMaterial(materials, voidMaterial = '', voidPercent = 1.0):
             pass
         else:
             materialClass = materialReader.Material()
-            materialClass.setMaterial(material)
+            materialClass.set_material(material)
 
             if materialClass.materialName == voidMaterial:
                 voidMultiplier = voidPercent

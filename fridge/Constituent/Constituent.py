@@ -21,9 +21,9 @@ class Constituent(object):
     def getMaterialCard(self, materialName):
         """Creates the material for the given constituent and creates the material card."""
         self.material = materialReader.Material()
-        self.material.setMaterial(materialName)
+        self.material.set_material(materialName)
         if self.voidPercent != 1.0:
-            self.material.voidMaterial(self.voidPercent)
+            self.material.set_void(self.voidPercent)
         self.materialCard = mcnpCF.getMaterialCard(self.material, self.materialXCLibrary, self.materialNum)
 
     def makeComponent(self, unitInfo):

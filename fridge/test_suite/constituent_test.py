@@ -37,7 +37,7 @@ def test_constituent():
 def test_constituent_getMaterialCard():
     c = Constituent.Constituent(constituentInfo)
     sodium = mr.Material()
-    sodium.setMaterial('LiquidNa')
+    sodium.set_material('LiquidNa')
     knownMaterialCard = '\nc Material: Liquid Sodium; Density: 0.02428 atoms/bn*cm \nm3 11023.82c 1.0000E+0'
     c.getMaterialCard(constituentInfo[0][3])
     assert sodium.name == c.material.name

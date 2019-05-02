@@ -51,7 +51,6 @@ def test_element_Pu():
 def test_material():
     m = materialReader.Material()
     assert m.enrichmentDict == {}
-    assert m.isotopeDict == {}
     assert m.weightPercent == {}
     assert m.atomPercent == {}
     assert m.atomDensity == 0.0
@@ -69,7 +68,7 @@ def test_material():
 
 def test_material_liqduiNa():
     m = materialReader.Material()
-    m.setMaterial('LiquidNa')
+    m.set_material('LiquidNa')
     assert m.name == 'Liquid Sodium'
     assert m.elements == ['Na']
     assert m.zaids == [11000]
@@ -84,7 +83,7 @@ def test_material_liqduiNa():
 
 def test_material_liqduiPbBi():
     m = materialReader.Material()
-    m.setMaterial('LiquidPbBi')
+    m.set_material('LiquidPbBi')
     assert m.name == 'Liquid Lead Bismuth (Eutectic)'
     assert m.elements == ['Pb', 'Bi']
     assert m.zaids == [82000, 83000]
@@ -101,7 +100,7 @@ def test_material_liqduiPbBi():
 
 def test_material_liqduiPb():
     m = materialReader.Material()
-    m.setMaterial('LiquidPb')
+    m.set_material('LiquidPb')
     assert m.name == 'Liquid Lead'
     assert m.elements == ['Pb']
     assert m.zaids == [82000]
@@ -118,8 +117,8 @@ def test_material_liqduiPb():
 
 def test_material_voidLiquidNa():
     m = materialReader.Material()
-    m.setMaterial('LiquidNa')
-    m.voidMaterial(0.1)
+    m.set_material('LiquidNa')
+    m.set_void(0.1)
     assert m.name == 'Liquid Sodium'
     assert m.elements == ['Na']
     assert m.zaids == [11000]
@@ -134,7 +133,7 @@ def test_material_voidLiquidNa():
 
 def test_material_5Pu22U10Zr():
     m = materialReader.Material()
-    m.setMaterial('5Pu22U10Zr')
+    m.set_material('5Pu22U10Zr')
     assert m.name == '5Pu22U10Zr'
     assert m.elements == ['U', 'Pu', 'Zr']
     assert m.zaids == [92000, 94000, 40000]
@@ -149,7 +148,7 @@ def test_material_UO2():
     Test material is from the Compendium of Material Composition Data for Radiation Transport Modeling: Revision 1.
     """
     m = materialReader.Material()
-    m.setMaterial('UO2')
+    m.set_material('UO2')
     assert m.name == 'Uranium Dioxide'
     assert m.elements == ['U', 'O']
     assert m.zaids == [92000, 8000]
@@ -170,7 +169,7 @@ def test_material_HT9():
     Test material is from the Compendium of Material Composition Data for Radiation Transport Modeling: Revision 1.
     """
     m = materialReader.Material()
-    m.setMaterial('HT9')
+    m.set_material('HT9')
     assert m.name == 'HT9'
     assert m.elements == ['C', 'Si', 'P', 'S', 'V', 'Cr', 'Mn', 'Fe', 'Ni', 'Mo', 'W']
     assert m.zaids == [6000, 14000, 15000, 16000, 23000, 24000, 25000, 26000, 28000, 42000, 74000]
@@ -201,7 +200,7 @@ def test_material_SS316():
     Test material is from the Compendium of Material Composition Data for Radiation Transport Modeling: Revision 1.
     """
     m = materialReader.Material()
-    m.setMaterial('SS316')
+    m.set_material('SS316')
     assert m.name == 'Stainless Steel 316'
     assert m.elements == ['C', 'Si', 'P', 'S', 'Cr', 'Mn', 'Fe', 'Ni', 'Mo']
     assert m.zaids == [6000, 14000, 15000, 16000, 24000, 25000, 26000, 28000, 42000]
@@ -227,13 +226,13 @@ def test_material_SS316():
 
 def test_material_BadWtPer():
     m = materialReader.Material()
-    m.setMaterial('BadMaterial')
+    m.set_material('BadMaterial')
     assert m.weightPercent != 1.0
 
 
 def test_material_NoMaterial():
     m = materialReader.Material()
     try:
-        m.setMaterial('NoMaterial')
+        m.set_material('NoMaterial')
     except AssertionError:
         m.density = 0.0

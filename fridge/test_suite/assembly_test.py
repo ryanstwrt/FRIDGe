@@ -24,7 +24,6 @@ def test_assembly():
     assert baseAssembly.ductInnerFlatToFlat == 0
     assert baseAssembly.ductOuterFlatToFlat == 0
     assert baseAssembly.ductOuterFlatToFlat == 0
-    assert baseAssembly.assemblyGap == 0
     assert baseAssembly.assemblyHeight == 0
     assert baseAssembly.coolantMaterial == ''
     assert baseAssembly.assemblyMaterial == ''

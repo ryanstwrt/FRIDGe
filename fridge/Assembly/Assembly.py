@@ -30,7 +30,6 @@ class Assembly(object):
         self.ductInnerFlatToFlat = 0.0
         self.ductOuterFlatToFlat = 0.0
         self.ductOuterFlatToFlatMCNPEdge = 0.0
-        self.assemblyGap = 0.0
         self.assemblyHeight = 0.0
         self.zPosition = 0.0
         self.coolantMaterial = ''
@@ -47,7 +46,6 @@ class Assembly(object):
         thickness = float(inputs['Duct Thickness']) if 'Duct Thickness' in inputs else 0.0
         self.ductOuterFlatToFlat = self.ductInnerFlatToFlat + thickness
         self.ductOuterFlatToFlatMCNPEdge = self.ductOuterFlatToFlat * 1.00005
-        self.assemblyGap = float(inputs['Assembly Gap']) if 'Assembly Gap' in inputs else 0.0
         self.assemblyHeight = float(inputs['Assembly Height'])
         if self.core is None:
             self.coolantMaterial = inputs['Coolant']

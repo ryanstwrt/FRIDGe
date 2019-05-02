@@ -12,12 +12,9 @@ import fridge.Constituent.OuterShell as Outershell
 import fridge.Constituent.UpperCoolant as Uppersodium
 import fridge.Constituent.LowerCoolant as Lowersodium
 import fridge.Constituent.EveryThingElse as Everythingelse
-import fridge.Material.Material
-import fridge.utilities.mcnpCreatorFunctions as mcnpCF
+import fridge.Material.Material as Material
 import fridge.utilities.utilities as utilities
 import math
-
-import fridge.utilities.utilities
 
 
 class FuelAssembly(Assembly.Assembly):
@@ -49,8 +46,6 @@ class FuelAssembly(Assembly.Assembly):
         self.upperSodium = None
         self.lowerSodium = None
         self.assemblyShell = None
-        self.upperReflectorPosition = []
-        self.lowerReflectorPosition = []
         self.assemblyCellList = []
         self.assemblySurfaceList = []
         self.assemblyMaterialList = []
@@ -62,8 +57,10 @@ class FuelAssembly(Assembly.Assembly):
         self.fuelDiameter = 0
         self.fuelPitch = 0
         self.wireWrapDiameter = 0
+        self.wireWrapAxialPitch = 0
         self.bondAboveFuel = 0.0
         self.fuelHeight = 0
+        self.fuel_height_with_bond = 0
         self.fuelMaterial = ''
         self.cladMaterial = ''
         self.bondMaterial = ''
@@ -75,28 +72,32 @@ class FuelAssembly(Assembly.Assembly):
         self.reflectorHeight = 0
         self.reflectorMaterial = ''
 
-        self.read_assembly_data()
-        self.getAssembly()
+        self.read_fuel_assembly_data()
+        self.build_fuel_assembly()
 
-    def read_assembly_data(self):
+    def read_fuel_assembly_data(self):
         """ Reads in data from assembly yaml file."""
         self.get_assembly_data(self.inputs)
-        self.getFuelRegionInfo(self.inputs)
-        self.getPlenumRegionInfo(self.inputs)
-        self.getReflectorInfo(self.inputs)
+        self.read_fuel_region_data(self.inputs)
+        self.read_plenum_region_data(self.inputs)
+        self.read_reflector_region_data(self.inputs)
 
-    def getAssembly(self):
+    def build_fuel_assembly(self):
         """Creates each component of the assembly."""
-        self.fuelHeightWithBond = self.fuelHeight + self.bondAboveFuel
-        definedHeight = 2 * self.reflectorHeight + self.fuelHeightWithBond + self.plenumHeight
-        excessCoolantHeight = (self.assemblyHeight - definedHeight) / 2
-        heightToUpperCoolant = definedHeight - self.reflectorHeight
-        heightToUpperReflector = self.fuelHeightWithBond + self.plenumHeight
-        upperCoolantPosition = fridge.utilities.utilities.getPosition(self.assemblyPosition, self.assemblyPitch, heightToUpperCoolant)
-        upperReflectorPosition = fridge.utilities.utilities.getPosition(self.assemblyPosition, self.assemblyPitch, heightToUpperReflector)
-        lowerReflectorPosition = fridge.utilities.utilities.getPosition(self.assemblyPosition, self.assemblyPitch, -self.reflectorHeight)
-        bottomCoolantPosition = fridge.utilities.utilities.getPosition(self.assemblyPosition, self.assemblyPitch,
-                                                                       -(self.reflectorHeight + excessCoolantHeight))
+        self.fuel_height_with_bond = self.fuelHeight + self.bondAboveFuel
+        defined_height = 2 * self.reflectorHeight + self.fuel_height_with_bond + self.plenumHeight
+        excess_coolant_height = (self.assemblyHeight - defined_height) / 2
+        height_to_upper_coolant = defined_height - self.reflectorHeight
+        height_to_upper_reflector = self.fuel_height_with_bond + self.plenumHeight
+        upper_coolant_position = utilities.getPosition(self.assemblyPosition, self.assemblyPitch,
+                                                       height_to_upper_coolant)
+        upper_reflector_position = utilities.getPosition(self.assemblyPosition, self.assemblyPitch,
+                                                         height_to_upper_reflector)
+        lower_reflector_position = utilities.getPosition(self.assemblyPosition, self.assemblyPitch,
+                                                         -self.reflectorHeight)
+        bottom_coolant_position = utilities.getPosition(self.assemblyPosition, self.assemblyPitch,
+                                                        -(self.reflectorHeight
+                                                          + excess_coolant_height))
 
         self.assemblyUniverse = self.universe
         self.universe += 1
@@ -107,20 +108,20 @@ class FuelAssembly(Assembly.Assembly):
         self.update_global_identifiers(False)
         self.bond = Fuelbond.FuelBond([[self.universe, self.cellNum, self.surfaceNum, self.bondMaterial, self.xcSet,
                                         self.position, self.materialNum],
-                                       [self.cladID, self.fuelHeightWithBond, self.fuel.surfaceNum]])
+                                       [self.cladID, self.fuel_height_with_bond, self.fuel.surfaceNum]])
 
         self.update_global_identifiers(False)
         self.clad = Fuelclad.FuelClad([[self.universe, self.cellNum, self.surfaceNum, self.cladMaterial, self.xcSet,
                                         self.position, self.materialNum],
-                                       [self.cladOD, self.fuelHeightWithBond, self.bond.surfaceNum]])
+                                       [self.cladOD, self.fuel_height_with_bond, self.bond.surfaceNum]])
 
         self.update_global_identifiers(False)
-        smearedCoolantInfo = [self.fuelHeightWithBond, self.cladOD, self.wireWrapDiameter,
-                              self.wireWrapAxialPitch, self.fuelPitch, self.coolantMaterial, self.cladMaterial]
-        smearedCoolantMaterial = fridge.Material.Material.smear_coolant_wirewrap(smearedCoolantInfo)
-        self.coolant = Fuelcoolant.FuelCoolant([[self.universe, self.cellNum, self.surfaceNum, smearedCoolantMaterial,
+        smeared_coolant_info = [self.fuel_height_with_bond, self.cladOD, self.wireWrapDiameter,
+                                self.wireWrapAxialPitch, self.fuelPitch, self.coolantMaterial, self.cladMaterial]
+        smeared_coolant_material = Material.smear_coolant_wirewrap(smeared_coolant_info)
+        self.coolant = Fuelcoolant.FuelCoolant([[self.universe, self.cellNum, self.surfaceNum, smeared_coolant_material,
                                                  self.xcSet, self.position, self.materialNum],
-                                                [self.fuelPitch, self.fuelHeightWithBond, self.clad.surfaceNum],
+                                                [self.fuelPitch, self.fuel_height_with_bond, self.clad.surfaceNum],
                                                 'Wire Wrap + Coolant'], voidMaterial=self.coolantMaterial,
                                                voidPercent=self.voidPercent)
         self.update_global_identifiers(True)
@@ -128,7 +129,7 @@ class FuelAssembly(Assembly.Assembly):
         self.blankCoolant = Blankcoolant.BlankCoolant([[self.universe, self.cellNum, self.surfaceNum,
                                                         self.coolantMaterial, self.xcSet, self.position,
                                                         self.materialNum],
-                                                       [self.fuelPitch, self.fuelHeightWithBond,
+                                                       [self.fuelPitch, self.fuel_height_with_bond,
                                                         self.coolant.surfaceNum]], voidPercent=self.voidPercent)
         self.update_global_identifiers(True)
         self.latticeUniverse = self.universe
@@ -139,7 +140,7 @@ class FuelAssembly(Assembly.Assembly):
         self.innerDuct = Innerduct.InnerDuct([[self.universe, self.cellNum, self.surfaceNum, '', self.xcSet,
                                                self.position, self.materialNum],
                                               [self.assemblyUniverse, self.latticeUniverse, self.ductInnerFlatToFlat,
-                                               self.fuelHeightWithBond]])
+                                               self.fuel_height_with_bond]])
 
         self.update_global_identifiers(False)
         self.plenum = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum, self.plenumMaterial,
@@ -149,63 +150,63 @@ class FuelAssembly(Assembly.Assembly):
 
         self.update_global_identifiers(False)
         self.upperReflector = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                              self.reflectorMaterial, self.xcSet, upperReflectorPosition,
+                                              self.reflectorMaterial, self.xcSet, upper_reflector_position,
                                               self.materialNum],
                                              [self.ductInnerFlatToFlat, self.reflectorHeight], 'Upper Reflector'],
                                             voidMaterial=self.coolantMaterial, voidPercent=self.voidPercent)
 
         self.update_global_identifiers(False)
         self.lowerReflector = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                              self.reflectorMaterial, self.xcSet, lowerReflectorPosition,
+                                              self.reflectorMaterial, self.xcSet, lower_reflector_position,
                                               self.materialNum],
                                              [self.ductInnerFlatToFlat, self.reflectorHeight], 'Lower Reflector'],
                                             voidMaterial=self.coolantMaterial, voidPercent=self.voidPercent)
 
         self.update_global_identifiers(False)
-        innerSurfaceNums = [self.innerDuct.surfaceNum, self.lowerReflector.surfaceNum, self. upperReflector.surfaceNum,
-                            self.plenum.surfaceNum]
+        inner_surface_nums = [self.innerDuct.surfaceNum, self.lowerReflector.surfaceNum, self.upperReflector.surfaceNum,
+                              self.plenum.surfaceNum]
         self.duct = Outerduct.Duct([[self.assemblyUniverse, self.cellNum, self.surfaceNum, self.assemblyMaterial,
-                                     self.xcSet, lowerReflectorPosition, self.materialNum],
-                                    [self.ductOuterFlatToFlatMCNPEdge, definedHeight, innerSurfaceNums]])
+                                     self.xcSet, lower_reflector_position, self.materialNum],
+                                    [self.ductOuterFlatToFlatMCNPEdge, defined_height, inner_surface_nums]])
 
         self.update_global_identifiers(False)
         self.lowerSodium = Lowersodium.LowerCoolant([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                                      self.coolantMaterial, self.xcSet, bottomCoolantPosition,
+                                                      self.coolantMaterial, self.xcSet, bottom_coolant_position,
                                                       self.materialNum],
-                                                     [excessCoolantHeight,
+                                                     [excess_coolant_height,
                                                      self.ductOuterFlatToFlatMCNPEdge]], voidPercent=self.voidPercent)
 
         self.update_global_identifiers(False)
         self.upperSodium = Uppersodium.UpperCoolant([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                                      self.coolantMaterial, self.xcSet, upperCoolantPosition,
+                                                      self.coolantMaterial, self.xcSet, upper_coolant_position,
                                                       self.materialNum],
-                                                     [excessCoolantHeight,
+                                                     [excess_coolant_height,
                                                      self.ductOuterFlatToFlatMCNPEdge]], voidPercent=self.voidPercent)
 
         self.update_global_identifiers(False)
         self.assemblyShell = Outershell.OuterShell([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                                     self.coolantMaterial, self.xcSet, bottomCoolantPosition,
+                                                     self.coolantMaterial, self.xcSet, bottom_coolant_position,
                                                      self.materialNum],
                                                     [self.assemblyHeight,  self.ductOuterFlatToFlat]])
 
         self.assemblyCellList = [self.fuel, self.bond, self.clad, self.coolant, self.blankCoolant, self.fuelUniverse,
                                  self.innerDuct, self.plenum, self.upperReflector, self.lowerReflector,
                                  self.duct, self. lowerSodium, self.upperSodium, self.assemblyShell]
-        self.assemblySurfaceList = [self.fuel, self.bond, self.clad, self.coolant, self.blankCoolant, self.innerDuct, self.plenum,
-                                    self.upperReflector, self.lowerReflector, self.duct, self. lowerSodium,
+        self.assemblySurfaceList = [self.fuel, self.bond, self.clad, self.coolant, self.blankCoolant, self.innerDuct,
+                                    self.plenum, self.upperReflector, self.lowerReflector, self.duct, self. lowerSodium,
                                     self.upperSodium, self.assemblyShell]
-        self.assemblyMaterialList = [self.fuel, self.bond, self.clad, self.coolant, self.blankCoolant, self.innerDuct, self.plenum,
-                                     self.upperReflector, self.lowerReflector, self.duct, self. lowerSodium,
-                                     self.upperSodium]
+        self.assemblyMaterialList = [self.fuel, self.bond, self.clad, self.coolant, self.blankCoolant, self.innerDuct,
+                                     self.plenum, self.upperReflector, self.lowerReflector, self.duct,
+                                     self. lowerSodium, self.upperSodium]
 
         if 'Single' in self.globalVars.input_type:
             self.update_global_identifiers(False)
             self.everythingElse = Everythingelse.EveryThingElse([self.cellNum, self.assemblyShell.surfaceNum])
             self.assemblyCellList.append(self.everythingElse)
 
-    def getFuelRegionInfo(self, inputs):
+    def read_fuel_region_data(self, inputs):
         """Reads in the fuel region data from the assembly yaml file."""
-        self.position = fridge.utilities.utilities.getPosition(self.assemblyPosition, self.assemblyPitch, 0.0)
+        self.position = utilities.getPosition(self.assemblyPosition, self.assemblyPitch, 0.0)
         self.cladOD = float(inputs['Pin Diameter'])
         self.cladID = self.cladOD - 2*float(inputs['Clad Thickness'])
         try:
@@ -222,15 +223,14 @@ class FuelAssembly(Assembly.Assembly):
         self.bondAboveFuel = float(inputs["Bond Above Fuel"]) \
             if 'Bond Above Fuel' in inputs else 0.0
 
-    def getPlenumRegionInfo(self, inputs):
+    def read_plenum_region_data(self, inputs):
         """Reads in the plenum region data from the assembly yaml file."""
         self.plenumHeight = float(inputs['Plenum Height'])
-        self.plenumPosition = fridge.utilities.utilities.getPosition(self.assemblyPosition, self.assemblyPitch,
-                                                                     self.fuelHeight + self.bondAboveFuel)
+        self.plenumPosition = utilities.getPosition(self.assemblyPosition, self.assemblyPitch,
+                                                    self.fuelHeight + self.bondAboveFuel)
         self.plenumMaterial = inputs['Plenum Smear']
 
-    def getReflectorInfo(self, inputs):
+    def read_reflector_region_data(self, inputs):
         """Reads in the reflector region data form the assembly yaml file."""
         self.reflectorHeight = float(inputs['Reflector Height'])
         self.reflectorMaterial = inputs['Reflector Smear']
-

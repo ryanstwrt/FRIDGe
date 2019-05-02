@@ -1,11 +1,12 @@
-import fridge.utilities.materialReader as materialReader
+import fridge.Material.Element
+import fridge.Material.Material as materialReader
 import numpy as np
 
 
 def test_element_Unknown():
     e = 1.0
     try:
-        e = materialReader.Element('Unknown')
+        e = fridge.Material.Element.Element('Unknown')
     except AssertionError:
         assert e == 1.0
 
@@ -15,7 +16,7 @@ def test_material_ImproperSum():
 
 
 def test_element_C():
-    e = materialReader.Element('C')
+    e = fridge.Material.Element.Element('C')
     assert e.name == 'Carbon'
     assert e.zaid == 6000
     assert e.isotopes == [6000]
@@ -26,7 +27,7 @@ def test_element_C():
 
 
 def test_element_Fe():
-    e = materialReader.Element('Fe')
+    e = fridge.Material.Element.Element('Fe')
     assert e.name == 'Iron'
     assert e.zaid == 26000
     assert e.isotopes == [26054, 26056, 26057, 26058]
@@ -37,7 +38,7 @@ def test_element_Fe():
 
 
 def test_element_Pu():
-    e = materialReader.Element('Pu')
+    e = fridge.Material.Element.Element('Pu')
     assert e.name == 'Plutonium'
     assert e.zaid == 94000
     assert e.isotopes == [94238, 94239, 94240, 94241, 94242]

@@ -1,4 +1,4 @@
-import fridge.utilities.materialReader as materialReader
+import fridge.Material.Material as materialReader
 import fridge.utilities.mcnpCreatorFunctions as mcnpCF
 
 

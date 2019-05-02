@@ -2,11 +2,11 @@ import numpy as np
 import glob
 import os
 import yaml
+import fridge.Material.Element as Element
 
 AVOGADROS_NUMBER = 0.6022140857
 # Requirements for the material reader
 cur_dir = os.path.dirname(__file__)
-element_dir = os.path.join(cur_dir, '../data/CotN/')
 material_dir = os.path.join(cur_dir, '../data/materials/')
 
 
@@ -64,7 +64,7 @@ class Material(object):
                 enrichedIsotopeDict[isotopes] = self.enrichmentVector[num][isoNum]
             self.enrichmentDict[zaid] = enrichedIsotopeDict
         for num, element in enumerate(self.elements):
-            self.elementDict[self.zaids[num]] = Element(element)
+            self.elementDict[self.zaids[num]] = Element.Element(element)
         self.adjustEnrichments()
         self.getWeightPercent()
         self.atomDensity, self.atomPercent = getAtomPercent(self.weightPercent, self.density,
@@ -111,39 +111,3 @@ def getAtomPercent(weightPercents, density, elementDict):
     for zaid, atomicDensity in atomDensities.items():
         atomPercent[zaid] = atomicDensity / atomDensity
     return atomDensity, atomPercent
-
-
-class Element(object):
-    """Creates an element based on the Chart of the Nuclide Database."""
-    def __init__(self, element):
-        elementFile = glob.glob(os.path.join(element_dir, element + '.yaml'))
-
-        if not elementFile:
-            self.error = "Element {}, not found in Chart of the Nuclide Database. " \
-                                 "Please create element file for {}.".format(element, element)
-            raise AssertionError(self.error)
-
-        with open(elementFile[0], "r") as file:
-            inputs = yaml.safe_load(file)
-            self.name = inputs['Name']
-            self.zaid = inputs['ZAID']
-            self.isotopes = inputs['Isotopes']
-            self.molecularMass = inputs['Mass']
-            self.density = inputs['Density']
-            self.abundance = inputs['Abundance']
-            self.linearCoeffExpansion = inputs['Linear Coefficient of Expansion']
-            self.atomPercentDict = {}
-            self.molecularMassDict = {}
-            self.elementalMolecularMass = 0
-            self.weightPercentDict = {}
-            for num, isotope in enumerate(self.isotopes):
-                self.atomPercentDict[isotope] = self.abundance[num]
-            for num, isotope in enumerate(self.isotopes):
-                self.molecularMassDict[isotope] = self.molecularMass[num]
-
-            for k, v in self.atomPercentDict.items():
-                self.elementalMolecularMass += self.molecularMassDict[k] * v
-
-            if not all(v == 0 for v in self.abundance):
-                for k, v in self.atomPercentDict.items():
-                    self.weightPercentDict[k] = self.molecularMassDict[k] * v / self.elementalMolecularMass

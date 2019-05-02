@@ -14,7 +14,7 @@ import fridge.Constituent.Smear as Smear
 import fridge.Constituent.UpperCoolant as UpperCoolant
 import fridge.Constituent.CoreCoolant as CoreCoolant
 import fridge.Constituent.ReactorVessel as ReactorVessel
-import fridge.utilities.materialReader as mr
+import fridge.Material.Material as mr
 
 constituentInfo = [[0, 1, 2, 'LiquidNa', '.82c', [1, 1, 1], 3], []]
 

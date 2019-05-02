@@ -62,7 +62,7 @@ class Core:
                                                      self.coolantPosition, global_vars.materialNumber],
                                                     [self.coolantRadius, self.coolantHeight, assembly_surface_list]],
                                                    void_percent=global_vars.void_per)
-        global_vars.updateNumbering()
+        global_vars.update_numbering()
         self.vesselRadius = self.coolantRadius + self.vesselThickness
         self.vesselPosition = self.coolantPosition
         self.vesselPosition[2] -= self.vesselThickness
@@ -72,7 +72,7 @@ class Core:
                                                          self.vesselPosition, global_vars.materialNumber],
                                                          [self.vesselRadius, self.vesselHeight,
                                                          self.coreCoolant.surfaceNum]])
-        global_vars.updateNumbering()
+        global_vars.update_numbering()
         self.everythingElse = Everytyhingelse.EveryThingElse([global_vars.cellNumber, self.reactorVessel.surfaceNum])
 
         self.coreCellList = [self.coreCoolant, self.reactorVessel, self.everythingElse]

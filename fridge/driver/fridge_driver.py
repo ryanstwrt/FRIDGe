@@ -1,5 +1,5 @@
 import fridge.driver.global_variables as gb
-import fridge.driver.reactorMaker as rm
+import fridge.driver.reactorMaker as reactorMaker
 
 # TODO implement fuel radial expansion (density/volume change)
 # TODO implement fuel axial expansion
@@ -18,9 +18,9 @@ def main(file_name):
     print(global_vars.input_type)
     if global_vars.input_type == 'Single':
         print('Creating assembly: {}... Please Wait'.format(global_vars.file_name))
-        rm.singleAssemblyMaker(global_vars)
+        reactorMaker.single_assembly_maker(global_vars)
         print('FRIDGe has finished creating your assembly')
     elif global_vars.input_type == 'Core':
         print('Creating core: {}... Please Wait'.format(global_vars.file_name))
-        rm.coreMaker(global_vars)
+        reactorMaker.core_maker(global_vars)
         print('FRIDGe has finished creating your core')

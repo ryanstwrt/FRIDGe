@@ -70,7 +70,6 @@ class GlobalVariables(object):
         self.void_per = float(inputs["Void Percent"]) \
             if "Void Percent" in inputs else 1.0
 
-
         # Set the XC set depending on the temperature
         if self.temperature == 600:
             if self.xc_library == 'ENDFVII.1':
@@ -94,7 +93,7 @@ class GlobalVariables(object):
             elif self.xc_library == 'JEFF3.1':
                 self.xc_set = '.39c'
 
-    def updateNumbering(self):
+    def update_numbering(self):
         self.universe += 20
         self.cellNumber += 20
         self.surfaceNumber += 20

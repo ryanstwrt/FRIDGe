@@ -46,13 +46,13 @@ class BlankAssembly(Assembly.Assembly):
     def build_blank_assembly(self):
         self.assemblyUniverse = self.universe
         excess_coolant_height = (self.assemblyHeight - self.blankRegionHeight) / 2
-        bottom_coolant_position = fridge.utilities.utilities.getPosition(self.assemblyPosition, self.assemblyPitch,
-                                                                         self.zPosition - excess_coolant_height)
-        bottom_blank_position = fridge.utilities.utilities.getPosition(self.assemblyPosition, self.assemblyPitch,
-                                                                       self.zPosition)
-        upper_blank_assembly_position = fridge.utilities.utilities.getPosition(self.assemblyPosition,
-                                                                               self.assemblyPitch,
-                                                                               self.blankRegionHeight + self.zPosition)
+        bottom_coolant_position = fridge.utilities.utilities.get_position_for_hex_lattice(self.assemblyPosition, self.assemblyPitch,
+                                                                                          self.zPosition - excess_coolant_height)
+        bottom_blank_position = fridge.utilities.utilities.get_position_for_hex_lattice(self.assemblyPosition, self.assemblyPitch,
+                                                                                        self.zPosition)
+        upper_blank_assembly_position = fridge.utilities.utilities.get_position_for_hex_lattice(self.assemblyPosition,
+                                                                                                self.assemblyPitch,
+                                                                                                self.blankRegionHeight + self.zPosition)
 
         self.blankRegion = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                            self.blankMaterial, self.xcSet, bottom_blank_position, self.materialNum],

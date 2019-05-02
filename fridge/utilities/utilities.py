@@ -2,34 +2,34 @@ import math
 import yaml
 
 
-def getRHPVolume(pitch, height):
+def get_hexagonal_prism_volume(pitch, height):
     """Returns the volume of a hexagonal prism."""
-    halfPitch = pitch / 2
-    area = math.sqrt(3) * 2 * pow(halfPitch, 2)
+    half_pitch = pitch / 2
+    area = math.sqrt(3) * 2 * pow(half_pitch, 2)
     volume = area * height
     return volume
 
 
-def getRCCVolume(radius, height):
+def get_cylinder_volume(radius, height):
     """Returns the volume of a right circular cylinder"""
     volume = math.pi * pow(radius, 2) * height
     return volume
 
 
-def getToroidalVolume(innerRadius, toroidRadius, axialPitch, height):
+def get_toroidal_volume(inner_radius, toroid_radius, axial_pitch, height):
     """Returns the volume of a toroidal spring"""
-    numberOfWraps = height / axialPitch
-    meanRadius = innerRadius + toroidRadius
-    volume = (math.pi*pow(toroidRadius, 2))*(2*math.pi*numberOfWraps*meanRadius)
+    number_of_wraps = height / axial_pitch
+    mean_radius = inner_radius + toroid_radius
+    volume = (math.pi * pow(toroid_radius, 2)) * (2 * math.pi * number_of_wraps * mean_radius)
     return volume
 
 
-def getPosition(position, pitch, zPosition):
+def get_position_for_hex_lattice(position, pitch, z_position):
     """Get the centroid position of an assembly."""
     ring = int(position[:2]) - 1
     hextant = position[2]
-    assemblyNum = int(position[3:]) - 1
-    sqrtPitch = math.sqrt(pow(pitch, 2) - (pow(pitch/2, 2)))
+    assembly_num = int(position[3:]) - 1
+    sqrt_pitch = math.sqrt(pow(pitch, 2) - (pow(pitch/2, 2)))
     x = 0
     y = 0
 
@@ -37,24 +37,24 @@ def getPosition(position, pitch, zPosition):
         if ring == 0:
             x = 0.0
         else:
-            x = sqrtPitch * (-ring + assemblyNum)
-        y = 1/2 * pitch * (ring + assemblyNum)
+            x = sqrt_pitch * (-ring + assembly_num)
+        y = 1/2 * pitch * (ring + assembly_num)
     elif hextant == 'B':
-        x = sqrtPitch * assemblyNum
-        y = pitch * (ring - 1/2 * assemblyNum)
+        x = sqrt_pitch * assembly_num
+        y = pitch * (ring - 1/2 * assembly_num)
     elif hextant == 'C':
-        x = ring * sqrtPitch
-        y = pitch * (1/2 * ring - assemblyNum)
+        x = ring * sqrt_pitch
+        y = pitch * (1/2 * ring - assembly_num)
     elif hextant == 'D':
-        x = sqrtPitch * (ring - assemblyNum)
-        y = -1/2 * pitch * (ring + assemblyNum)
+        x = sqrt_pitch * (ring - assembly_num)
+        y = -1/2 * pitch * (ring + assembly_num)
     elif hextant == 'E':
-        x = -sqrtPitch * assemblyNum
-        y = -pitch * (ring - 1/2 * assemblyNum)
+        x = -sqrt_pitch * assembly_num
+        y = -pitch * (ring - 1/2 * assembly_num)
     elif hextant == 'F':
-        x = -ring * sqrtPitch
-        y = pitch * (-1/2 * ring + assemblyNum)
-    return [x, y, zPosition]
+        x = -ring * sqrt_pitch
+        y = pitch * (-1/2 * ring + assembly_num)
+    return [x, y, z_position]
 
 
 def yaml_reader(yaml_file_destination, known_directory, file_name):

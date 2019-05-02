@@ -157,9 +157,9 @@ def smear_coolant_wirewrap(info):
     fuel_pitch = info[4]
     coolant_material = info[5]
     clad_material = info[6]
-    fuel_volume = utilities.getRCCVolume(fuel_radius, height)
-    wire_wrap_volume = utilities.getToroidalVolume(fuel_radius, wirewrap_radius, wire_wrap_axial_pitch, height)
-    pin_hexagonal_universe_volume = utilities.getRHPVolume(fuel_pitch, height)
+    fuel_volume = utilities.get_cylinder_volume(fuel_radius, height)
+    wire_wrap_volume = utilities.get_toroidal_volume(fuel_radius, wirewrap_radius, wire_wrap_axial_pitch, height)
+    pin_hexagonal_universe_volume = utilities.get_hexagonal_prism_volume(fuel_pitch, height)
     coolant_volume = pin_hexagonal_universe_volume - fuel_volume - wire_wrap_volume
     total_coolant_wire_wrap_volume = coolant_volume + wire_wrap_volume
     wire_wrap_volume_percent = wire_wrap_volume / total_coolant_wire_wrap_volume

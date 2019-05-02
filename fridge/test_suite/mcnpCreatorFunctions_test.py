@@ -88,112 +88,112 @@ def test_coolantWireWrapSmear():
 
 
 def test_getPosition_02A01():
-    position = fridge.utilities.utilities.getPosition('02A01', 2, 10)
+    position = fridge.utilities.utilities.get_position_for_hex_lattice('02A01', 2, 10)
     knownAPosition = [-1.73205, 1.0, 10]
     for i, pos in enumerate(position):
         assert np.allclose(knownAPosition[i], pos)
 
 
 def test_getPosition_02B01():
-    position = fridge.utilities.utilities.getPosition('02B01', 2, 10)
+    position = fridge.utilities.utilities.get_position_for_hex_lattice('02B01', 2, 10)
     knownAPosition = [0.0, 2.0, 10]
     for i, pos in enumerate(position):
         assert np.allclose(knownAPosition[i], pos)
 
 
 def test_getPosition_02C01():
-    position = fridge.utilities.utilities.getPosition('02C01', 2, 10)
+    position = fridge.utilities.utilities.get_position_for_hex_lattice('02C01', 2, 10)
     knownAPosition = [1.73205, 1.0, 10]
     for i, pos in enumerate(position):
         assert np.allclose(knownAPosition[i], pos)
 
 
 def test_getPosition_02D01():
-    position = fridge.utilities.utilities.getPosition('02D01', 2, 10)
+    position = fridge.utilities.utilities.get_position_for_hex_lattice('02D01', 2, 10)
     knownAPosition = [1.73205, -1.0, 10]
     for i, pos in enumerate(position):
         assert np.allclose(knownAPosition[i], pos)
 
 
 def test_getPosition_02E01():
-    position = fridge.utilities.utilities.getPosition('02E01', 2, 10)
+    position = fridge.utilities.utilities.get_position_for_hex_lattice('02E01', 2, 10)
     knownAPosition = [0.0, -2.0, 10]
     for i, pos in enumerate(position):
         assert np.allclose(knownAPosition[i], pos)
 
 
 def test_getPosition_02F01():
-    position = fridge.utilities.utilities.getPosition('02F01', 2, 10)
+    position = fridge.utilities.utilities.get_position_for_hex_lattice('02F01', 2, 10)
     knownAPosition = [-1.73205, -1.0, 10]
     for i, pos in enumerate(position):
         assert np.allclose(knownAPosition[i], pos)
 
 
 def test_getPosition_01A01():
-    position = fridge.utilities.utilities.getPosition('01A01', 2, 10)
+    position = fridge.utilities.utilities.get_position_for_hex_lattice('01A01', 2, 10)
     knownPosition = [0, 0, 10]
     assert position == knownPosition
 
 
 def test_getPosition_03A02():
-    position = fridge.utilities.utilities.getPosition('03A02', 2, 10)
+    position = fridge.utilities.utilities.get_position_for_hex_lattice('03A02', 2, 10)
     knownAPosition = [-1.73205, 3.0, 10]
     for i, pos in enumerate(position):
         assert np.allclose(knownAPosition[i], pos)
 
 
 def test_getPosition_03B02():
-    position = fridge.utilities.utilities.getPosition('03B02', 2, 10)
+    position = fridge.utilities.utilities.get_position_for_hex_lattice('03B02', 2, 10)
     knownAPosition = [1.73205, 3.0, 10]
     for i, pos in enumerate(position):
         assert np.allclose(knownAPosition[i], pos)
 
 
 def test_getPosition_03C03():
-    position = fridge.utilities.utilities.getPosition('03C02', 2, 10)
+    position = fridge.utilities.utilities.get_position_for_hex_lattice('03C02', 2, 10)
     knownAPosition = [3.46410, 0.0, 10]
     for i, pos in enumerate(position):
         assert np.allclose(knownAPosition[i], pos)
 
 
 def test_getPosition_D03():
-    position = fridge.utilities.utilities.getPosition('03D02', 2, 10)
+    position = fridge.utilities.utilities.get_position_for_hex_lattice('03D02', 2, 10)
     knownAPosition = [1.73205, -3.0, 10]
     for i, pos in enumerate(position):
         assert np.allclose(knownAPosition[i], pos)
 
 
 def test_getPosition_E03():
-    position = fridge.utilities.utilities.getPosition('03E02', 2, 10)
+    position = fridge.utilities.utilities.get_position_for_hex_lattice('03E02', 2, 10)
     knownAPosition = [-1.73205, -3.0, 10]
     for i, pos in enumerate(position):
         assert np.allclose(knownAPosition[i], pos)
 
 
 def test_getPosition_03F03():
-    position = fridge.utilities.utilities.getPosition('03F02', 2, 10)
+    position = fridge.utilities.utilities.get_position_for_hex_lattice('03F02', 2, 10)
     knownAPosition = [-3.46410, 0.0, 10]
     for i, pos in enumerate(position):
         assert np.allclose(knownAPosition[i], pos)
 
 
 def test_getPosition_04B03():
-    position = fridge.utilities.utilities.getPosition('04B03', 2, 10)
+    position = fridge.utilities.utilities.get_position_for_hex_lattice('04B03', 2, 10)
     knownAPosition = [3.4641, 4.0, 10]
     for i, pos in enumerate(position):
         assert np.allclose(knownAPosition[i], pos)
 
 
 def test_getRCCVolume():
-    volume = fridge.utilities.utilities.getRCCVolume(0.2, 10)
+    volume = fridge.utilities.utilities.get_cylinder_volume(0.2, 10)
     assert np.allclose(volume, 1.25664, 5)
 
 
 def test_getRHPVolume():
-    volume = fridge.utilities.utilities.getRCCVolume(5, 10)
+    volume = fridge.utilities.utilities.get_cylinder_volume(5, 10)
     assert np.allclose(volume, 216.506, 5)
 
 
 def test_getToroidalVolume():
-    volume = fridge.utilities.utilities.getToroidalVolume(0.5, 0.05, 5, 10)
+    volume = fridge.utilities.utilities.get_toroidal_volume(0.5, 0.05, 5, 10)
     assert np.allclose(volume, 1.03631, 5)

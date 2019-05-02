@@ -1,6 +1,6 @@
 Name: Phosphorus
-ZAID: 15000
-Isotopes: [15031]
+Elemental ZAID: 15000
+Isotopic ZAID: [15031]
 Abundance: [1.00]
 Mass: [30.973761]
 Density: 1.82

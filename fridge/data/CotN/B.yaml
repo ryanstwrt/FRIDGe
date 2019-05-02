@@ -1,6 +1,6 @@
 Name: Boron
-ZAID: 5000
-Isotopes: [5010, 5011]
+Elemental ZAID: 5000
+Isotopic ZAID: [5010, 5011]
 Abundance: [0.199, 0.801]
 Mass: [10.012936, 11.009305]
 Density: 2.37

@@ -1,6 +1,6 @@
 Name: Neptunium
-ZAID: 93000
-Isotopes: [93237]
+Elemental ZAID: 93000
+Isotopic ZAID: [93237]
 Abundance: [0.0]
 Mass: [237.048171]
 Density: 20.45

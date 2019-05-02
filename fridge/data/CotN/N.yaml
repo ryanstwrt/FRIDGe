@@ -1,6 +1,6 @@
 Name: Nitrogen
-ZAID: 7000
-Isotopes: [7014, 7015]
+Elemental ZAID: 7000
+Isotopic ZAID: [7014, 7015]
 Abundance: [0.99636, 0.00364]
 Mass: [14.003074, 15.000108]
 Density: 0.001251

@@ -19,7 +19,7 @@ def singleAssemblyMaker(global_vars):
 
 def coreMaker(global_vars):
     core = Core.Core()
-    coreDict = core.getCoreData(global_vars.file_name)
+    coreDict = core.read_core_data(global_vars.file_name)
     coreDict.pop('Name')
     coreDict.pop('Vessel Thickness')
     coreDict.pop('Vessel Material')
@@ -36,7 +36,7 @@ def coreMaker(global_vars):
         core.assemblyList.append(assembly)
         global_vars.updateNumbering()
     print('Building reactor core and coolant.')
-    core.getCore(global_vars)
+    core.build_core(global_vars)
     print('Creating MCNP input file.')
     k_card = mcf.make_mcnp_problem(global_vars)
     mcf.mcnp_input_deck_maker_core(core, k_card, global_vars)

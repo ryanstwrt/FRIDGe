@@ -1,12 +1,12 @@
 import fridge.Constituent.CoreCoolant as Corecoolant
 import fridge.Constituent.ReactorVessel as Reactorvessel
 import fridge.Constituent.EveryThingElse as Everytyhingelse
+import fridge.utilities.utilities as utilities
 import glob
-import yaml
 import os
 
 cur_dir = os.path.dirname(__file__)
-geo_dir = os.path.join(cur_dir, "../data/core")
+core_directory = os.path.join(cur_dir, "../data/core")
 
 
 class Core:
@@ -36,32 +36,31 @@ class Core:
         self.coreCoolant = None
         self.reactorVessel = None
 
-    def getCoreData(self, coreFile):
-        coreYamlFile = glob.glob(os.path.join(geo_dir, coreFile + '.yaml'))
-        with open(coreYamlFile[0], 'r') as coreFile:
-            inputs = yaml.safe_load(coreFile)
-            self.name = inputs['Name']
-            self.vesselThickness = inputs['Vessel Thickness']
-            self.vesselMaterialString = inputs['Vessel Material']
-            self.coolantMaterial = inputs['Coolant Material']
+    def read_core_data(self, core_file):
+        core_yaml_file = glob.glob(os.path.join(core_directory, core_file + '.yaml'))
+        inputs = utilities.yaml_reader(core_yaml_file, core_directory, core_file)
+        self.name = inputs['Name']
+        self.vesselThickness = inputs['Vessel Thickness']
+        self.vesselMaterialString = inputs['Vessel Material']
+        self.coolantMaterial = inputs['Coolant Material']
         return inputs
 
-    def getCore(self, global_vars):
-        lastAssembly = self.assemblyList[-1]
-        rings = int(lastAssembly.assemblyPosition[:2])
+    def build_core(self, global_vars):
+        last_assembly = self.assemblyList[-1]
+        rings = int(last_assembly.assemblyPosition[:2])
         assembly = self.assemblyList[0]
         pitch = assembly.assemblyPitch
         self.coolantRadius = rings * pitch - pitch * 0.45
         self.coolantHeight = assembly.assemblyHeight * 1.1
         self.coolantPosition = assembly.assemblyShell.position
         self.coolantPosition[2] -= 10
-        assemblySurfaceList = []
+        assembly_surface_list = []
         for assembly in self.assemblyList:
-            assemblySurfaceList.append(assembly.assemblyShell.surfaceNum)
+            assembly_surface_list.append(assembly.assemblyShell.surfaceNum)
         self.coreCoolant = Corecoolant.CoreCoolant([[0, global_vars.cellNumber, global_vars.surfaceNumber,
                                                      self.coolantMaterial, global_vars.xc_set,
                                                      self.coolantPosition, global_vars.materialNumber],
-                                                    [self.coolantRadius, self.coolantHeight, assemblySurfaceList]],
+                                                    [self.coolantRadius, self.coolantHeight, assembly_surface_list]],
                                                    void_percent=global_vars.void_per)
         global_vars.updateNumbering()
         self.vesselRadius = self.coolantRadius + self.vesselThickness

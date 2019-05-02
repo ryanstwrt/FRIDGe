@@ -32,7 +32,7 @@ def test_baseCore():
 
 def test_getCoreData():
     core = Core.Core()
-    core.getCoreData('Core_Test')
+    core.read_core_data('Core_Test')
     assert core.name == 'Test_Core'
     assert core.vesselThickness == 10
     assert core.vesselMaterialString == 'HT9'

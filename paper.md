@@ -45,8 +45,10 @@ With these files, a user needs to specify what types of assemblies they are maki
 # Full Assembly Example
 
 To use FRIDGe, an yaml input file is created to reference what assembly will be modeled.
-An example was created using the information for an Experimental Breeder Reactor II driver assembly.
+An simplified example was created using the information for an Experimental Breeder Reactor II driver assembly.
 For this example, an assembly YAML file was created using the dimensions specified in [2].
+The two figures below show an axial and plan view of the assembly.
+For each section of the assembly, or component of the fuel region, the materials and geometries can be defined by the user
 Once the model has been created, the user can take the input file and run MCNP to gather any number of reactor physics data available to them.
 
 ![Elevated view of EBRII driver Assembly](docs/EBRII_Assembly.jpg) ![Plan view of EBRII driver assembly fuel region](docs/EBRII_Fuel.jpg)

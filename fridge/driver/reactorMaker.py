@@ -38,5 +38,5 @@ def core_maker(global_vars):
     print('Building reactor core and coolant.')
     core.build_core(global_vars)
     print('Creating MCNP input file.')
-    k_card = mcnpCF.make_mcnp_problem(global_vars)
+    k_card = mcnpCF.make_mcnp_problem(global_vars, core=core)
     mcnpCF.mcnp_input_deck_maker_core(core, k_card, global_vars)

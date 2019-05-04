@@ -81,7 +81,7 @@ c ********************Surface Cards for Fuel Assembly: 01A01*******************
 c **********************************Data Cards*********************************
 c ******************************k-code Information*****************************
 kcode 10000000000 1.0 300 2300
-ksrc 0 -12 40 
+ksrc 0 0 10
 PRDMP 100 10 100 1 
 kopts BLOCKSIZE=10 KINETICS=YES PRECURSOR=Yes 
 DBCN 68J 50000 

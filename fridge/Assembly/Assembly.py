@@ -25,6 +25,7 @@ class Assembly(object):
         self.xcSet = self.globalVars.xc_set
         self.voidPercent = self.globalVars.void_per
         self.assemblyType = ''
+        self.assemblyType = ''
         self.pinsPerAssembly = 0
         self.assemblyPitch = 0.0
         self.ductInnerFlatToFlat = 0.0
@@ -39,6 +40,7 @@ class Assembly(object):
 
     def get_assembly_data(self, inputs):
         """Assign assembly parameters based on yaml Assembly file."""
+        self.assemblyType = inputs['Assembly Type']
         self.pinsPerAssembly = int(inputs['Pins Per Assembly']) if 'Pins Per Assembly' in inputs else 0
         self.assemblyPitch = float(inputs['Assembly Pitch'])
         self.ductInnerFlatToFlat = float(inputs['Duct Inside Flat to Flat']) / 2 if 'Duct Inside Flat to Flat' in \

@@ -8,6 +8,7 @@ class FuelPin(Constituent.Constituent):
         super().__init__(unit_info)
         self.radius = 0
         self.height = 0
+        self.fuel_position = self.position
         self.get_material_card(unit_info[0][3])
         self.make_component(unit_info[1])
 

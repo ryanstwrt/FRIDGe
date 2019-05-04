@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/ryanstwrt/svg?branch=master)](https://travis-ci.org/ryanstwrt/FRIDGe)
+[![Build Status](https://travis-ci.org/ryanstwrt/FRIDGe.svg?branch=master)](https://travis-ci.org/ryanstwrt/FRIDGe)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 # FRIDGe
@@ -9,9 +9,9 @@ The input file gives the user the ability to set the temperature, cross-section 
 
 # Documentation
 
-Documentation can be found in ```/fridge/docs```.
+Documentation can be found in ```/docs```.
 This documentation holds all of the information to build elements, materials, assemblies, cores, and FRIDGe input files.
-FRIDGe comes packaged with 24 elements, 8 materials, 2 assemblies, and 1 FRIDGe input file that are pre-built.
+FRIDGe comes packaged with 24 elements, 8 materials, 2 assemblies, and 1 FRIDGe input file pre-built.
 Along with this there are 3 test assemblies, 1 test core, and 4 test FRIDGe input files that can be used as a template for building these files.
 
 # Install
@@ -34,6 +34,7 @@ python -m pytest
 # Development
 
 As FRIDGe is open source, I encourage anyone who is interested to contribute and add to the code.
+There are multiple phenomena that could be incorporated into FRIDGe to produce a more realistic model.
 
 # Contact
 

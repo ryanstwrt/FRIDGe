@@ -172,15 +172,27 @@ def mcnp_input_deck_maker_core(core, k_card, global_vars):
     file.close()
 
 
-def make_mcnp_problem(global_vars):
+def make_mcnp_problem(global_vars, core=None):
     """Create the MCNP specific kcode options."""
     kopts_output = ''
     if global_vars.kopts:
         kopts_output = 'kopts BLOCKSIZE=10 KINETICS=YES PRECURSOR=Yes \n'
 
+    ksrc_output = 'ksrc '
+    if core is not None:
+        for assembly in core.assemblyList:
+            if assembly.assemblyType == 'Fuel':
+                fuel = assembly.fuel
+                position = fuel.fuel_position
+                position[2] += fuel.height/2
+                position = map(str, position)
+                position_string = ' '.join(position)
+                ksrc_output += '     {}\n'.format(position_string)
+    else:
+        ksrc_output += '0 0 10\n'
+
     kcode_output = 'kcode ' + str(global_vars.number_particles_generation) + " 1.0 " + \
                    str(global_vars.number_skipped_generations) + " " + str(global_vars.number_generations) + '\n'
-    ksrc_output = 'ksrc 0 -12 40 \n'
     prdmp_output = 'PRDMP 100 10 100 1 \n'
     dbcn_output = 'DBCN 68J 50000 \n'
 

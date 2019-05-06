@@ -31,6 +31,28 @@ Open a terminal in the ```/fridge``` directory and run the following:
 python -m pytest
 ```
 
+# Running FRIDGe
+
+FRIDGe has a prebuilt input file which can be used to gain familiarity with running FRIDGe.
+The FRIDGe input file that will be used is title ```EBRII_Driver.yaml```, and is uses the assembly file ```EBRII_MKII.yaml```.
+These two YAML files can be found in ```/fridge/fridge_input_files``` and ```/fridge/data/assembly```.
+
+The first step is to open an interactive python terminal in the ```fridge``` directory.
+From here, import the FRIDGe driver with the following:
+```bash
+import fridge.driver.fridge_driver as fd
+```
+The driver for FRIDGe has now been imported, and the main function can be run via:
+```bash
+fd.main(<fridge_input_file>)
+```
+For this example the following code can be run:
+```bash
+fd.main('EBRII_Driver')
+```
+This will cause FRIDGe to build an MCNP input file in ```/fridge/mcnp_input_files``` titled ```EBRII_Driver.i```.
+This example built a single assembly; the process for running FRIDGe and building a full core model is identical.
+
 # Development
 
 As FRIDGe is open source, I encourage anyone who is interested to contribute and add to the code.

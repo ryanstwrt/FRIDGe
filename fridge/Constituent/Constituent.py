@@ -3,7 +3,8 @@ import fridge.utilities.mcnpCreatorFunctions as mcnpCF
 
 
 class Constituent(object):
-    """Base class for creating an assembly."""
+    """Base class for creating an assembly constituent."""
+
     def __init__(self, unit_info, void_percent=1.0):
         """Initializes the data for creating a constituent."""
         self.universe = unit_info[0][0]

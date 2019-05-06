@@ -3,6 +3,7 @@ import fridge.utilities.mcnpCreatorFunctions as mcnpCF
 
 
 class ReactorVessel(Constituent.Constituent):
+    """Creates a cylinder around the Core Coolant to make the reactor vessel."""
     def __init__(self, unit_info):
         super().__init__(unit_info)
         self.vesselRadius = unit_info[1][0]

@@ -72,18 +72,18 @@ class FuelAssembly(Assembly.Assembly):
         self.reflectorHeight = 0
         self.reflectorMaterial = ''
 
-        self.read_fuel_assembly_data()
+        self.get_fuel_assembly_data()
         self.build_fuel_assembly()
 
-    def read_fuel_assembly_data(self):
-        """ Reads in data from assembly yaml file."""
+    def get_fuel_assembly_data(self):
+        """Assign assembly data for the fuel assembly."""
         self.get_assembly_data(self.inputs)
         self.read_fuel_region_data(self.inputs)
         self.read_plenum_region_data(self.inputs)
         self.read_reflector_region_data(self.inputs)
 
     def build_fuel_assembly(self):
-        """Creates each component of the assembly."""
+        """Create the cell, surface, and material cards for the fuel assembly."""
         self.fuel_height_with_bond = self.fuelHeight + self.bondAboveFuel
         defined_height = 2 * self.reflectorHeight + self.fuel_height_with_bond + self.plenumHeight
         excess_coolant_height = (self.assemblyHeight - defined_height) / 2

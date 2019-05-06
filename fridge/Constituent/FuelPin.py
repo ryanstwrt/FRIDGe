@@ -3,7 +3,7 @@ import fridge.utilities.mcnpCreatorFunctions as mcnpCF
 
 
 class FuelPin(Constituent.Constituent):
-    """Creates a template for the assembly fuel pin."""
+    """Creates a cylindrical fuel pin."""
     def __init__(self, unit_info):
         super().__init__(unit_info)
         self.radius = 0

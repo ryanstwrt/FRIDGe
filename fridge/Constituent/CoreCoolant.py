@@ -3,6 +3,7 @@ import fridge.utilities.mcnpCreatorFunctions as mcnpCF
 
 
 class CoreCoolant(Constituent.Constituent):
+    """Creates a cylinder encompassing the assemblies."""
     def __init__(self, unit_info, void_percent=1.0):
         super().__init__(unit_info, void_percent=void_percent)
         self.coolantRadius = unit_info[1][0]

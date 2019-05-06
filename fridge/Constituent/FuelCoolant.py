@@ -4,6 +4,7 @@ import fridge.utilities.mcnpCreatorFunctions as mcnpCF
 
 class FuelCoolant(Smear.Smear):
     """Creates the coolant surrounding the fuel pin.
+
     This coolant is a homogenized material consisting of the coolant material and the wirewrap."""
     def __init__(self, unit_info, void_material='', void_percent=1.0):
         super().__init__(unit_info, void_material=void_material, void_percent=void_percent)

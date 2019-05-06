@@ -3,8 +3,7 @@ import fridge.utilities.mcnpCreatorFunctions as mcnpCF
 
 
 class FuelBond(Constituent.Constituent):
-    """Creates the bond material between the fuel and the inner cladding.
-    The bond material is set to a default of 1% higher than the fuel."""
+    """Creates the bond material between the fuel and the inner cladding."""
     def __init__(self, unit_info):
         super().__init__(unit_info)
         self.radius = 0

@@ -86,6 +86,7 @@ class Material(object):
             print("Weight percent does not sum to 1.0 for {}. Check the material file.".format(self.name))
 
     def set_void(self, void_percent):
+        """Adjust the atom density/atom percent of a material to account for voiding."""
         self.set_weight_percent(void_percent)
         self.atomDensity, self.atomPercent = set_atom_percent(self.weightPercent, self.density,
                                                               self.elementDict)

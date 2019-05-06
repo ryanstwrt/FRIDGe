@@ -8,9 +8,11 @@ assembly_directory = os.path.join(cur_dir, "../data/assembly")
 
 class Assembly(object):
     """
-    Holds all information required for modeling a basic assembly. Can be inherited to make specific assembly type.
+    Holds all information required for modeling a basic assembly and van be inherited to make specific assembly type.
+
     Current types include:
     Fuel Assembly
+    Blank Assembly
     """
 
     def __init__(self, assembly_information):
@@ -39,7 +41,7 @@ class Assembly(object):
         self.inputs = utilities.yaml_reader(assembly_yaml_file, assembly_directory, self.assembly_file_name)
 
     def get_assembly_data(self, inputs):
-        """Assign assembly parameters based on yaml Assembly file."""
+        """Assign assembly parameters based on the yaml Assembly file."""
         self.assemblyType = inputs['Assembly Type']
         self.pinsPerAssembly = int(inputs['Pins Per Assembly']) if 'Pins Per Assembly' in inputs else 0
         self.assemblyPitch = float(inputs['Assembly Pitch'])
@@ -57,7 +59,7 @@ class Assembly(object):
         self.zPosition = float(inputs['Z Position']) if 'Z Position' in inputs else 0.0
 
     def update_global_identifiers(self, universe_test):
-        """Updates cell, surface, material, and universe number to create uniqueness"""
+        """Updates cell, surface, material, and universe number to create uniqueness."""
         self.cellNum += 1
         self.surfaceNum += 1
         self.materialNum += 1
@@ -66,7 +68,7 @@ class Assembly(object):
 
 
 def read_assembly_type(assembly_file_name):
-    """Reads in the assembly type to determine what type of assembly to build."""
+    """Reads in the assembly type to determine what type of assembly to build and return it."""
     assembly_yaml_file = glob.glob(os.path.join(assembly_directory, assembly_file_name + '.yaml'))
     inputs = utilities.yaml_reader(assembly_yaml_file, assembly_directory, assembly_file_name)
     assembly_type = inputs['Assembly Type']

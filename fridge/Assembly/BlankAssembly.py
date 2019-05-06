@@ -39,11 +39,13 @@ class BlankAssembly(Assembly.Assembly):
         self.build_blank_assembly()
 
     def get_blank_assembly_data(self):
+        """Assign assembly data for the blank assembly."""
         self.get_assembly_data(self.inputs)
         self.blankMaterial = self.inputs['Blank Smear']
         self.blankRegionHeight = self.inputs['Blank Height']
 
     def build_blank_assembly(self):
+        """Build the cell, surface, and material cards for the blank assembly."""
         self.assemblyUniverse = self.universe
         excess_coolant_height = (self.assemblyHeight - self.blankRegionHeight) / 2
         bottom_coolant_position = fridge.utilities.utilities.get_position_for_hex_lattice(self.assemblyPosition, self.assemblyPitch,

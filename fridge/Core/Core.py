@@ -10,7 +10,7 @@ core_directory = os.path.join(cur_dir, "../data/core")
 
 
 class Core:
-    """"core class will hold all of the assemblies present in the core."""
+    """"Core class will hold all of the assemblies present in the core."""
 
     def __init__(self):
         self.name = ''
@@ -37,6 +37,7 @@ class Core:
         self.reactorVessel = None
 
     def read_core_data(self, core_file):
+        """Assigns the variables used for the core."""
         core_yaml_file = glob.glob(os.path.join(core_directory, core_file + '.yaml'))
         inputs = utilities.yaml_reader(core_yaml_file, core_directory, core_file)
         self.name = inputs['Name']
@@ -46,6 +47,7 @@ class Core:
         return inputs
 
     def build_core(self, global_vars):
+        """Builds all component required for a core."""
         last_assembly = self.assemblyList[-1]
         rings = int(last_assembly.assemblyPosition[:2])
         assembly = self.assemblyList[0]

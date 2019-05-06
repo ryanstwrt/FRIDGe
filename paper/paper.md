@@ -79,6 +79,4 @@ The assembly built by FRIDGe closely resembles the typical driver assembly built
 There are slight differences in design preference, for example, the benchmark explicitly models the wire wrap and plenum, whereas FRIDGe homogenizes these regions.
 Despite these differences, FRIDGe can create a simplified model for any fast reactor assembly by creating a minimal number of YAML files to describe their material and geometric configurations.
 
-# Citations
-
-[rMarkdown](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html)
+# References

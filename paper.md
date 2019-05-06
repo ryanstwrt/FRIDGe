@@ -50,7 +50,7 @@ FRIDGe was created to help alleviate the process of learning additional code nom
 The only inputes the user focuses on are directly related to the core design process and create a level of abstraction from the input deck generated.
 This allows the user to focus on what aspects of the design affect the reactor, rather than input file creation and management.
 
-FRIDGe currently houses the capability to create input files for single assembly or full core analysis in the code suite MCNP [1].
+FRIDGe currently houses the capability to create input files for single assembly or full core analysis in the code suite MCNP [@Goo2008].
 This process is done by creating a series of YAML data files for elements, materials, assemblies, and cores.
 The element file allows the user to create elements from the Chart of the Nuclides for use in materials.
 The material file allows the user to create custom materials (fuels, cladding, poisons, etc.) that the model will require.
@@ -70,7 +70,7 @@ Once the model has been created, the user can take the input file and run MCNP t
 FRIDGe builds MCNP models based on a YAML input file that references the assembly/core that will be built.
 As mentioned earlier, each assembly has its own unique YMAL file which describes the materials and geometry being used.
 To illustrate this, FRIDGe was used to build a simplified driver assembly from the Experimental Breeder Reactor II (EBR-II).
-All of the dimensions were taken from the International Handbook of Evaluated Reactor Physics benchmark evaluation of EBR-II [2].
+All of the dimensions were taken from the International Handbook of Evaluated Reactor Physics benchmark evaluation of EBR-II [@Lum2018].
 The two figures below show an axial and plan view of the assembly.
 
 ![Elevated view of EBRII driver Assembly](docs/EBRII_Assembly.jpg) ![Plan view of EBRII driver assembly fuel region](docs/EBRII_Fuel.jpg)
@@ -79,10 +79,6 @@ The assembly built by FRIDGe closely resembles the typical driver assembly built
 There are slight differences in design preference, for example, the benchmark explicitly models the wire wrap and plenum, whereas FRIDGe homogenizes these regions.
 Despite these differences, FRIDGe can create a simplified model for any fast reactor assembly by creating a minimal number of YAML files to describe their material and geometric configurations.
 
-[1] C.J. Werner, et al., "MCNP6.2 Release Notes", Los Alamos National Laboratory, report LA-UR-18-20808 (2018).
+# Citations
 
-[2] E. Lum, C. Pope, R. Stewart, B. Byambadorj,
-Q. Beaulieu, “Evaluation of Run 138B at Experimental
-Breeder Reactor II”, EBR2-LMFR-RESR-001-CRIT
-International Handbook of Evaluated Reactor Physics
-Benchmark Experiments, 2018.
+[rMarkdown](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html)

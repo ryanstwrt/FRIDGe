@@ -71,7 +71,7 @@ FRIDGe builds MCNP models based on a YAML input file that references the assembl
 As mentioned earlier, each assembly has its own unique YMAL file which describes the materials and geometry being used.
 To illustrate this, FRIDGe was used to build a simplified driver assembly from the Experimental Breeder Reactor II (EBR-II).
 All of the dimensions were taken from the International Handbook of Evaluated Reactor Physics benchmark evaluation of EBR-II [@Lum2018].
-The two figures below show an axial and plan view of the assembly.
+The two figures below show an axial and plan view of the assembly, which describes each region of the assembly.
 
 ![Elevated view of EBRII driver Assembly](EBRII_Assembly.jpg) ![Plan view of EBRII driver assembly fuel region](EBRII_Fuel.jpg)
 

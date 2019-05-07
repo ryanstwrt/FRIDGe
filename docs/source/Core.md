@@ -21,7 +21,8 @@ Table 1. Variables for Core YAML file.
 Note: This will overwrite any coolant material assigned to an assembly. 
 `Assembly Position` is used to describe each assembly in the core, and what assembly goes there. 
 The first entry is a five character string which broken into a triplet. 
-The first two number denote the ring, the letter denotes the hextant, and the last two numbers denote the number of assemblies off the hextant axis. 
+The first two number denote the ring, the letter denotes the hextant, and the last two numbers denote the number of assemblies off the hextant axis.
+For example, 05A03 is in ring 5, hextant A, and 3 assemblies off the axis.
 Figure 1, shows the nomenclature used to describe each position.
 
 Figure 1. Description of assembly positions.

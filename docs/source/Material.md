@@ -2,12 +2,13 @@
 
 Materials can be found in the directory `fridge/data/materials`.
 Each material in a problem requires its own YAML file and contains five mandatory variables and three optional variables.
-Where each variable and its associate input can be seen in Table 2.
+Where each variable and its associate input can be seen in Table 1.
 
+Table 1. Variables for Material YAML file.
 |Variable Name   | Variable Type | Unit | Example|
 |----------------|---------------|------|--------|
 |Name  | string | -- | UO2|
-|Elements | list of str | -- | ['U', 'O]|
+|Elements | list of strs | -- | ['U', 'O']|
 |ZAIDs | list of ints | -- | [92000, 8000]|
 |Weight Fractions | list of floats | wt\% | [0.881467, 0.118533]|
 |Enrichment ZAIDs<sup>*</sup> | list of ints | -- | [92000, 8000]|

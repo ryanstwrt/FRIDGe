@@ -34,8 +34,8 @@ class FuelAssembly(Assembly.Assembly):
         self.bond = None
         self.clad = None
         self.coolant = None
-        self.blankUniverse = None
-        self.blankCoolant = None
+        self.smearUniverse = None
+        self.smearCoolant = None
         self.latticeUniverse = None
         self.fuelUniverse = None
         self.innerDuct = None

@@ -4,11 +4,29 @@
 
 # Assemblies
 
-There are two types of assemblies that can be built in FRIDGe; blank and fuel assemblies.
+There are two types of assemblies that can be built in FRIDGe; smear and fuel assemblies.
 Both types of assemblies are created using YAML files and can be found in `fridge/data/assembly`.
-Assembly files for blank and fuel requires a different number of variables; the required variables can be seen in Table 3 and Table 4.
 
-`Assembly Type` is a string used to denote the types of assembly (blank or fuel).
+## Smear Assemblies
+
+Smear assemblies are
+
+Table 1. Variables for Smear Assembly YAML file.
+
+|Variable Name   | Variable Type | Unit | Example|
+|----------------|---------------|------|--------|
+|Assembly Type  | string | -- | Blank|
+|Assembly Pitch | float  | cm | 12.0|
+|Duct Thickness | float | cm | 0.3|
+|Duct Inside Flat to Flat | float | cm | 11.1|
+|Assembly Height | float | cm | 240|
+|Coolant | string | -- LiquidNa|
+|Assembly Material | string | -- | HT9|
+|Blank Height | float | cm | 220|
+|Blank Smear | Dictionary | {str: wt \%} | {LiquidNa: 0.9, HT9: 0.1}|
+|Z Position | float | cm | -60|
+
+`Assembly Type` is a string used to denote the types of assembly (smear or fuel).
 `Assembly Pitch` is a float to denote the distance from the center of one assembly to an adjacent assembly.
 Note: All assemblies in a core should have the same assembly pitch; if they don't errors in geometry may arise.
 `Duct Thickness` is a float do denote the thickness of the assembly duct.
@@ -16,17 +34,15 @@ Note: All assemblies in a core should have the same assembly pitch; if they don'
 `Assembly Height` is a float used to denote the total height of the assembly.
 `Coolant` is a string used to create a material for the coolant.
 `Assembly Material` is a string used to create a material for the assembly.
-`Blank Height` is a float used to denote the height of the blank portion of the assembly.
+`Blank Height` is a float used to denote the height of the smear portion of the assembly.
 Note: If `Blank Height` of the assembly exceeds the `Assembly Height`, the `Assembly Height` will truncate the `Blank Height`, this may lead to geometry errors.
 `Blank Smnear` is a dictionary of strings and weight percents.
 This will create a smeared material where each string in the dictionary will create a material, whose weight fraction is the corresponding float.
-`Z Position` is a float which allows the user to manually adjust where they want the bottom of the blank assembly to be.
+`Z Position` is a float which allows the user to manually adjust where they want the bottom of the smear assembly to be.
 
-| Name | Unit |
-| -----| -----|
-| Name | str  |
+## Fuel Assembly
 
-`Assembly Type` is a string used to denote the types of assembly (blank or fuel).
+`Assembly Type` is a string used to denote the types of assembly (smear or fuel).
 `Assembly Pitch` is a float to denote the distance from the center of one assembly to an adjacent assembly.
 Note: All assemblies in a core should have the same assembly pitch; if they don't errors in geometry may arise.
 `Duct Thickness` is a float do denote the thickness of the assembly duct.

@@ -1,6 +1,6 @@
 import fridge.Assembly.FuelAssembly as FuelAssembly
 import fridge.Assembly.Assembly as Assembly
-import fridge.Assembly.BlankAssembly as BlankAssembly
+import fridge.Assembly.SmearAssembly as BlankAssembly
 import fridge.utilities.mcnpCreatorFunctions as mcnpCF
 import fridge.Core.Core as Core
 

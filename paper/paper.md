@@ -55,8 +55,8 @@ This process is done by creating a series of YAML data files for elements, mater
 The element file allows the user to create elements from the Chart of the Nuclides for use in materials.
 The material file allows the user to create custom materials (fuel, clad, coolant, poisons, etc.) that the model will require.
 The assembly file is used for individual assemblies, where the user can specify the assembly type, geometry, and materials used.
-Currently a user can build fuel or 'blank' assemblies.
-Fuel assemblies encompass two reflector regions, a plenum region, and a spatially heterogeneous fuel region which can describe driver or blanket fuel.
+Currently a user can build fuel or 'smear' assemblies.
+Fuel assemblies encompass two reflector regions, a plenum region, and a spatially heterogeneous fuel region which can describe driver or smearet fuel.
 Blank assemblies are a single region, where the user can specify a smear material to describe an assembly type (such as reflectors, coolant assemblies, etc.).
 The core file is used to determine the assemblies present, their position within the core, and general core data such as the coolant type, and vessel material.
 The culmination of these data files allows the user to create a single FRIDGe input file.

@@ -3,11 +3,12 @@
 To create materials in FRIDGe, the corresponding elements must be present in the directory `fridge/data/CotN`.
 Each element needs is own YAML file and contains seven variables for inputting data; where each variable and its associate input can be seen in Table 1.
 
+Table 1. Variables for Element YAML file.
 |Variable Name  | Variable Type | Unit | Example|
 |---------------|---------------|------|--------|
 |Name  | str | -- | Silicon|
 |ZAID | int | -- | 14000|
-|Isotopes | list of int | --| [14028, 14029, 14030]|
+|Isotopes | list of ints | --| [14028, 14029, 14030]|
 |Abundance | list of floats | wt \% | [0.92223, 0.04685, 0.0392]|
 |Mass | list of floats |  amu | [27.976926, 28.976494, 29.973777]|
 |Density | float | g/cc | 2.33|

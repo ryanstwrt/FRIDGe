@@ -24,7 +24,7 @@ Table 1. Variables for Smear Assembly YAML file.
 |Blank Smear | Dictionary | str: wt \% | {LiquidNa: 0.9, HT9: 0.1}|
 |Z Position | float | cm | -60|
 
-`Assembly Type` is a string used to denote the types of assembly (smear or fuel).
+`Assembly Type` is a string used to denote the types of assembly (Smear or Fuel).
 `Assembly Pitch` is a float to denote the distance from the center of one assembly to an adjacent assembly.
 Note: All assemblies in a core should have the same assembly pitch; if they don't errors in geometry may arise.
 `Duct Thickness` is a float do denote the thickness of the assembly duct.
@@ -48,8 +48,7 @@ Table 2. Variables for Fuel Assembly YAML file.
 
 |Variable Name   | Variable Type | Unit | Example|
 |----------------|---------------|------|--------|
-|Variable Name   | Variable Type | Unit | Example |
-|Assembly Type  | string | -- | Blank|
+|Assembly Type  | string | -- | Fuel|
 |Assembly Pitch | float  | cm | 12.0|
 |Duct Thickness | float | cm | 0.3|
 |Duct Inside Flat to Flat | float | cm | 11.1|
@@ -59,8 +58,8 @@ Table 2. Variables for Fuel Assembly YAML file.
 |Pins Per Assembly | int | -- | 271|
 |Pin Diameter | float | cm | 0.53|
 |Clad Thickness | float | cm | 0.037| 
-|Fuel Smear<sup>&dagger</sup> | float | \% | 0.75|
-|Fuel Diameter<sup>&dagger</sup> | float | cm | 0.5|
+|Fuel Smear<sup>|dagger;</sup> | float | \% | 0.75|
+|Fuel Diameter<sup>|dagger;</sup> | float | cm | 0.5|
 |Pitch | float | cm | 0.661|
 |Wire Wrap Diameter | float | cm | 0.126|
 |Wire Wrap Axial Pitch | float | cm | 2.0|
@@ -68,16 +67,17 @@ Table 2. Variables for Fuel Assembly YAML file.
 |Fuel | str | -- | UO2|
 |Clad | str | -- | HT9|
 |Bond | str | -- | LiquidNa|
-|Bond Above Fuel$^*$ | float | cm | 0.6|
+|Bond Above Fuel<sup>*</sup> | float | cm | 0.6|
 |Plenum Height | float | cm | 220|
-|Plenum Smear | dictionary | {str: wt \%} | {LiquidNa: 0.5, HT9: 0.25, Void: 0.25}|
+|Plenum Smear | dictionary | str: wt \% | {LiquidNa: 0.5, HT9: 0.25, Void: 0.25}|
 |Reflector Height | float | cm | 220|
-|Reflector Smear | dictionary | {str: wt \%} | {LiquidNa: 0.5, HT9: 0.25, Void: 0.25}|
+|Reflector Smear | dictionary | str: wt \% | {LiquidNa: 0.5, HT9: 0.25, Void: 0.25}|
 
 <sup>*</sup> Optional if building full core model.
-<sup>&dagger</sup> Either fuel smear or fuel diameter can be used.
 
-`Assembly Type` is a string used to denote the types of assembly (smear or fuel).
+<sup>|dagger</sup> Either fuel smear or fuel diameter can be used.
+
+`Assembly Type` is a string used to denote the types of assembly (Smear or Fuel).
 `Assembly Pitch` is a float to denote the distance from the center of one assembly to an adjacent assembly.
 Note: All assemblies in a core should have the same assembly pitch; if they don't errors in geometry may arise.
 `Duct Thickness` is a float do denote the thickness of the assembly duct.
@@ -88,10 +88,26 @@ Note: All assemblies in a core should have the same assembly pitch; if they don'
 `Pins Per Assembly` is an integer of the number of pins for the assembly.
 Note: This number should fit an exact number of rings required, Table 5, shows pins are required for a given number of rings.
 
+|Number of Rings | Number of Pins/Assemblies|
+|----------------|--------------------------|
+|One  | 1|
+|Two | 7|
+|Three | 19|
+|Four | 37|
+|Five | 61|
+|Six | 91|
+|Seven | 127|
+|Eight | 169|
+|Nine | 217|
+|Ten | 271|
+|Eleven | 331|
+
 `Pin Diameter` is a float which is the diameter of the fuel pin (outside of the cladding).
 `Clad Thickness` is a float to denote the cladding thickness.
 `Fuel Smear` is a float to denote the percentage of area inside the cladding that the fuel encompasses.
-The relation between the fuel diameter and fuel smear can be seen below, where $R_{IC}$ is the inner cladding radius, and $A_fuel$ is the `Fuel Smear`.
+The relation between the fuel diameter and fuel smear can be seen below, where R<sub>IC</sub> is the inner cladding radius, and A<sub>fuel</sub> is the `Fuel Smear`.
+
+R<sub>fuel</sub> = A<sub>fuel</sub><sup>1/2</sup>R<sub>IC</sub>
 
 `Fuel Diameter` is a float to denote the diameter of the fuel slug.
 `Pitch` is a float to denote the distance from the center of one fuel pin to an adjacent fuel pin.
@@ -110,5 +126,3 @@ This will create a smeared material where each string in the dictionary will cre
 `Reflector Height` is a float used to denote the height of the reflector portions of the assembly.
 `Reflector Smear` is a dictionary of strings and weight percents.
 This will create a smeared material where each string in the dictionary will create a material, whose weight fraction is the corresponding float.
-
-

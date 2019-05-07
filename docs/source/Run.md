@@ -1,7 +1,7 @@
 # Running FRIDGe
 
 Running FRIDGe is best done in an interactive python terminal (such as ipython).
-Once an Ipython terminal is open in the `fridge` directory, import `fridfe_driver` as follows:
+Once an Ipython terminal is open in the `fridge` directory, import `fridge_driver` as follows:
 ```
     import fridge.driver.fridge_driver as fd
 ```

@@ -10,7 +10,7 @@ Table 1. Variables for Element YAML file.
 |Name  | str | -- | Silicon|
 |ZAID | int | -- | 14000|
 |Isotopes | list of ints | --| [14028, 14029, 14030]|
-|Abundance | list of floats | wt \% | [0.92223, 0.04685, 0.0392]|
+|Abundance | list of floats | wt % | [0.92223, 0.04685, 0.0392]|
 |Mass | list of floats |  amu | [27.976926, 28.976494, 29.973777]|
 |Density | float | g/cc | 2.33|
 |Linear Coefficient of Expansion | float | K<sup>-1</sup> | 2.432e<sup>-6</sup>|

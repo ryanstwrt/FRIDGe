@@ -9,10 +9,11 @@ authors:
   - name: Ryan H. Stewart
     affiliation: "1"
     orchid: 0000-0003-4867-6555
-affilitaions:
+affiliations:
   - name: Oregon State University
     index: 1
 date: 25 April 2019
+bibliography: paper.bib
 ---
 
 # Summary

@@ -128,3 +128,14 @@ This will create a smeared material where each string in the dictionary will cre
 `Reflector Height` is a float used to denote the height of the reflector portions of the assembly.
 `Reflector Smear` is a dictionary of strings and weight percents.
 This will create a smeared material where each string in the dictionary will create a material, whose weight fraction is the corresponding float.
+
+Figure 3 shows an example fuel assembly with each axial section defined.
+Figure 4 shows the fuel region and all components which make up the region.
+
+Figure 3. FRIDGe created fuel assembly.
+
+![Assembly](FRIDGEassembly_AllPartsLabeled.PNG)
+
+Figure 4. Heterogeneous fuel region of fuel assembly.
+
+![Fuel Region](FuelRegion.PNG)

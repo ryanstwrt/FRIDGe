@@ -6,6 +6,8 @@ An few example fuel assemblies can be seen in \verb|fridge/data/assembly|.
 This example will look at the \verb|EBRII_MKII| assembly. 
 This assembly has the following attributes, which can be seen in Table \ref{tab:ebrii}.
 
+Table 1. Variables for Fuel Assembly YAML file.
+
 |Variable Name   | EBRII MKII Assembly |
 |----------------|---------------|
 |Assembly Type  | Fuel |
@@ -32,12 +34,13 @@ This assembly has the following attributes, which can be seen in Table \ref{tab:
 |Reflector Height | 61.3537 |
 |Reflector Smear | {LiquidNa: 0.116, 0.884} |
 
-The inputs from \ref{tab:ebrii} create an assembly similar to the MK-II driver assemblies found in EBRII, as referenced in \cite{ebrii}, where Figures \ref{fig: fullAssem} - \ref{fig: fuelRegion} show the MCNP assembly.
+The inputs from Table 1 create an assembly similar to the MK-II driver assemblies found in EBRII, as referenced in \cite{ebrii}, where Figures \ref{fig: fullAssem} - \ref{fig: fuelRegion} show the MCNP assembly.
 In Figure \ref{fig: fullAssem} the regions are, from bottom to top; lower reflector, fuel, plenum and upper reflector.
 In \ref{fig: upperFuel}, we see the impact of including the variable \verb|Bond Above Fuel|, which adds the bond material (blue) above the fuel (purple).
 Figure \ref{fig: fuelRegion} shows the 91 pins in the assembly; there is fuel (purple), bond (blue), clad (yellow), wire wrap + coolant mixture (green), excess coolant (light blue), and the hex duct (maroon).
 
 ![Assembly](EBRII_Assembly.PNG)
+
 ![Fuel Section](EBRII_FuelSection.PNG) ![Upper Fuel](EBRII_UpperFuel.PNG)
 
 ## Full Core

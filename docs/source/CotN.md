@@ -1,7 +1,7 @@
 # Chart of the Nuclides
 
 To create materials in FRIDGe, the corresponding elements must be present in the directory `fridge/data/CotN`.
-Each element needs is own YAML file and contains seven variables for inputting data; where each variable and its associate input can be seen in Table [tab: elements].
+Each element needs is own YAML file and contains seven variables for inputting data; where each variable and its associate input can be seen in Table 1.
 
 ![tab: elements](ElementsTable.PNG)
 
@@ -11,6 +11,9 @@ Each element needs is own YAML file and contains seven variables for inputting d
 `Abundance` is a list of the natural abundances for the isotopes (this is in weight percent and can be found in any Chart of the Nuclide).
 Note: for elements with no natural abundances an entry of zero is allowed. The abundance can be set later in the material card.
 `Mass` is a list of nuclide masses for each isotope listed and is given in amu's.
-All abundances and masses were obtained using IAEA's Live Chart of Nuclides \cite{CotN}.
+All abundances and masses were obtained using IAEA's Live Chart of Nuclides [1].
 `Density` is the density of the natural isotope in g/cc.
-`Linear Coefficient of Expansion` is the coefficient of thermal expansion and is in units of $K^{-1}$.
+`Linear Coefficient of Expansion` is the coefficient of thermal expansion.
+
+[1] "Livechart - Table of Nuclides - Nuclear structure and decay data", www-nds.iaea.org, 2019. Available:
+https://www-nds.iaea.org/relnsd/vcharthtml/VChartHTML.html.

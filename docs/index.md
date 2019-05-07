@@ -1,6 +1,6 @@
-## FRIDGe
+# Fast Reactor Input Deck Generator (FRIDGe)
 
-# Overview
+## Overview
 
 The Fast Reactor Input Deck Generator (FRIDGe) is a tool for designing and building input files for MCNP.
 It grants the user the ability to create elements, materials, assemblies, and full reactor cores.

@@ -35,7 +35,7 @@ python -m pytest
 
 FRIDGe has a prebuilt input file which can be used to gain familiarity with running FRIDGe.
 The FRIDGe input file that will be used is title ```EBRII_Driver.yaml```, and is uses the assembly file ```EBRII_MKII.yaml```.
-These two YAML files can be found in ```/fridge/fridge_input_files``` and ```/fridge/data/assembly```.
+These two YAML files can be found in ```/fridge/fridge_input_files``` and ```/fridge/data/assembly```, respectively.
 
 The first step is to open an interactive python terminal in the ```fridge``` directory.
 From here, import the FRIDGe driver with the following:
@@ -44,7 +44,7 @@ import fridge.driver.fridge_driver as fd
 ```
 The driver for FRIDGe has now been imported, and the main function can be run via:
 ```bash
-fd.main(<fridge_input_file>)
+fd.main(''<fridge_input_file>'')
 ```
 For this example the following code can be run:
 ```bash

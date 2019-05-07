@@ -1,3 +1,3 @@
 # Data
 
-[/fridge/docs/source](CotN.md)
+[Chart of the Nuclides](/fridge/docs/source/CotN.md)

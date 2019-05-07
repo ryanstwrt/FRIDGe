@@ -11,4 +11,4 @@ FRIDGe currently contains 24 elements which are most commonly used in the develo
 Along with this, there are 8 base material for us in FRIDGe.
 here are also examples of both assembly and core files.
 
-[/fridge/docs/source/dat](Data.md)
+[Data](/fridge/docs/source/data/Data.md)

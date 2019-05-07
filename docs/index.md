@@ -12,7 +12,7 @@ Along with this, there are 8 base material for us in FRIDGe.
 here are also examples of both assembly and core files.
 
 # Table of Contents
-1. [Data Test](source/Data.md)
+1. [Data](source/Data.md)
 
 2. [Test Suite](source/Test.md)
 

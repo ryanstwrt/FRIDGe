@@ -22,4 +22,4 @@ For example, in Table 2, Uranium includes 92234 and sets the `Isotopic Weight Pe
 This will overwrite the elemental 'Abundance' value of 0.000054 with 0.0, otherwise the total weight percent for uranium would have been 1.000054.
 The 'Isotopic ZAIDs' of 92233 and 92236 for Uranium are not included because their weight percents are 0.0 in the elements 'Abundance'.
 `Density` is the density of the natural isotope in g/cc.
-`Linear Coefficient of Expansion` is the coefficient of thermal expansion.
+`Linear Coefficient of Expansion` is the coefficient of thermal expansion in {% raw %} $$K^-1 {% endraw %}.

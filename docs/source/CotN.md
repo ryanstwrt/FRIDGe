@@ -11,7 +11,7 @@ Each element needs is own YAML file and contains seven variables for inputting d
 |Abundance | list of floats | wt \% | [0.92223, 0.04685, 0.0392]|
 |Mass | list of floats |  amu | [27.976926, 28.976494, 29.973777]|
 |Density | float | g/cc | 2.33|
-|Linear Coefficient of Expansion | float | $K^{-1}$ | 2.432$e-^6$|
+|Linear Coefficient of Expansion | float | {%raw%}$K^{-1}${%endraw%} | {%raw%}$2.432$e-^6${%endraw%}|
 
 `Name` is a string containing the name of the element.
 `ZAID` is an integer denoted by 1000 * Z (proton or atomic number).
@@ -21,7 +21,7 @@ Note: for elements with no natural abundances an entry of zero is allowed. The a
 `Mass` is a list of nuclide masses for each isotope listed and is given in amu's.
 All abundances and masses were obtained using IAEA's Live Chart of Nuclides [1].
 `Density` is the density of the natural isotope in g/cc.
-`Linear Coefficient of Expansion` is the coefficient of thermal expansion.
+`Linear Coefficient of Expansion` is the coefficient of thermal expansion in {%raw%}$K^{-1}${%endraw%}.
 
 [1] "Livechart - Table of Nuclides - Nuclear structure and decay data", www-nds.iaea.org, 2019. Available:
 https://www-nds.iaea.org/relnsd/vcharthtml/VChartHTML.html.

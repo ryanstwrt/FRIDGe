@@ -14,7 +14,8 @@ Where each variable and its associate input can be seen in Table 2.
 |Enrichment Isotopes<sup>*</sup> | list of list of ints | -- | [[92235, 92238], [8016]]|
 |Enrichment Vector<sup>*</sup> | list of list of floats | wt\% | [[ 0.03, 0.97], [1.0]]|
 |Density | float | g/cc | 2.33|
-|Linear Coefficient of Expansion | float | ![equation](https://latex.codecogs.com/gif.latex?K%5E%7B-1%7D) |0.0|
+|Linear Coefficient of Expansion | float | K<sup>-1</sup> |0.0|
+
 <sup>*</sup> Optional variables if material has specific isotopics.
 
 `Name` is a string containing the name of the element. 
@@ -33,4 +34,4 @@ For example, in Table 2, Uranium includes 92234 and sets the `Isotopic Weight Pe
 This will overwrite the elemental 'Abundance' value of 0.000054 with 0.0, otherwise the total weight percent for uranium would have been 1.000054.
 The 'Isotopic ZAIDs' of 92233 and 92236 for Uranium are not included because their weight percents are 0.0 in the elements 'Abundance'.
 `Density` is the density of the natural isotope in g/cc.
-`Linear Coefficient of Expansion` is the coefficient of thermal expansion in ![equation](https://latex.codecogs.com/gif.latex?K%5E%7B-1%7D).
+`Linear Coefficient of Expansion` is the coefficient of thermal expansion in K<sup>-1</sup>.

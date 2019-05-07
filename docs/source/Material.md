@@ -10,11 +10,12 @@ Where each variable and its associate input can be seen in Table 2.
 |Elements | list of str | -- | ['U', 'O]|
 |ZAIDs | list of ints | -- | [92000, 8000]|
 |Weight Fractions | list of floats | wt\% | [0.881467, 0.118533]|
-|Enrichment ZAIDs$^*$ | list of ints | -- | [92000, 8000]|
-|Enrichment Isotopes$^*$ | list of list of ints | -- | [[92235, 92238], [8016]]|
-|Enrichment Vector$^*$ | list of list of floats | wt\% | [[ 0.03, 0.97], [1.0]]|
+|Enrichment ZAIDs<sup>*<\sup> | list of ints | -- | [92000, 8000]|
+|Enrichment Isotopes<sup>*<\sup> | list of list of ints | -- | [[92235, 92238], [8016]]|
+|Enrichment Vector<sup>*<\sup> | list of list of floats | wt\% | [[ 0.03, 0.97], [1.0]]|
 |Density | float | g/cc | 2.33|
 |Linear Coefficient of Expansion | float | ![equation](https://latex.codecogs.com/gif.latex?K%5E%7B-1%7D) |0.0|
+<sup>*<\sup> Optional variables if material has specific isotopics.
 
 `Name` is a string containing the name of the element. 
 `Elements` is a list of element symbols to be used in the material. 

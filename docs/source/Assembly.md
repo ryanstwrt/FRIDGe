@@ -38,6 +38,12 @@ Note: If `Blank Height` of the assembly exceeds the `Assembly Height`, the `Asse
 This will create a smeared material where each string in the dictionary will create a material, whose weight fraction is the corresponding float.
 `Z Position` is a float which allows the user to manually adjust where they want the bottom of the smear assembly to be.
 
+Figure 1 shows the layout of the blank assembly.
+
+Figure 1. FRIDGe created smear assembly.
+
+![Fuel Region](FRIDGEBlankassembly.PNG)
+
 ## Fuel Assembly
 
 Fuel assemblies are used to create assemblies with a heterogeneous fuel region.
@@ -129,13 +135,13 @@ This will create a smeared material where each string in the dictionary will cre
 `Reflector Smear` is a dictionary of strings and weight percents.
 This will create a smeared material where each string in the dictionary will create a material, whose weight fraction is the corresponding float.
 
-Figure 3 shows an example fuel assembly with each axial section defined.
-Figure 4 shows the fuel region and all components which make up the region.
+Figure 2 shows an example fuel assembly with each axial section defined.
+Figure 3 shows the fuel region and all components which make up the region.
 
-Figure 3. FRIDGe created fuel assembly.
+Figure 2. FRIDGe created fuel assembly.
 
 ![Assembly](FRIDGEassembly_AllPartsLabeled.PNG)
 
-Figure 4. Heterogeneous fuel region of fuel assembly.
+Figure 3. Heterogeneous fuel region of fuel assembly.
 
 ![Fuel Region](FuelRegion.PNG)

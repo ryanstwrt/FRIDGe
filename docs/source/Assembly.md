@@ -58,8 +58,8 @@ Table 2. Variables for Fuel Assembly YAML file.
 |Pins Per Assembly | int | -- | 271|
 |Pin Diameter | float | cm | 0.53|
 |Clad Thickness | float | cm | 0.037| 
-|Fuel Smear<sup>dagger;</sup> | float | \% | 0.75|
-|Fuel Diameter<sup>dagger;</sup> | float | cm | 0.5|
+|Fuel Smear<sup>&dagger;</sup> | float | \% | 0.75|
+|Fuel Diameter<sup>&dagger;</sup> | float | cm | 0.5|
 |Pitch | float | cm | 0.661|
 |Wire Wrap Diameter | float | cm | 0.126|
 |Wire Wrap Axial Pitch | float | cm | 2.0|
@@ -75,7 +75,7 @@ Table 2. Variables for Fuel Assembly YAML file.
 
 <sup>*</sup> Optional if building full core model.
 
-<sup>|dagger;</sup> Either fuel smear or fuel diameter can be used.
+<sup>&dagger;</sup> Either fuel smear or fuel diameter can be used.
 
 `Assembly Type` is a string used to denote the types of assembly (Smear or Fuel).
 `Assembly Pitch` is a float to denote the distance from the center of one assembly to an adjacent assembly.

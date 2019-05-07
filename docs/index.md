@@ -14,8 +14,8 @@ here are also examples of both assembly and core files.
 # Table of Contents
 1. [Data Test](source/Data.md)
 
-2. [Test Suite](fridge/docs/source/Test.md)
+2. [Test Suite](source/Test.md)
 
-3. [Running FRIDGe](FRIDGe/fridge/docs/source/Run.md)
+3. [Running FRIDGe](source/Run.md)
 
-4. [Example](FRIDGe/fridge/docs/source/Example.md)
+4. [Example](source/Example.md)

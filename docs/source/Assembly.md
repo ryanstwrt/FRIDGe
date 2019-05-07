@@ -90,7 +90,6 @@ Note: This number should fit an exact number of rings required, Table 3, shows p
 
 Table 3. Variables for Smear Assembly YAML file.
 
-
 |Number of Rings | Number of Pins/Assemblies|
 |----------------|--------------------------|
 |One  | 1|

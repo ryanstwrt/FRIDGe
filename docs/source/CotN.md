@@ -4,6 +4,7 @@ To create materials in FRIDGe, the corresponding elements must be present in the
 Each element needs is own YAML file and contains seven variables for inputting data; where each variable and its associate input can be seen in Table 1.
 
 Table 1. Variables for Element YAML file.
+
 |Variable Name  | Variable Type | Unit | Example|
 |---------------|---------------|------|--------|
 |Name  | str | -- | Silicon|

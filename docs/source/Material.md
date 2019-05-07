@@ -5,6 +5,7 @@ Each material in a problem requires its own YAML file and contains five mandator
 Where each variable and its associate input can be seen in Table 1.
 
 Table 1. Variables for Material YAML file.
+
 |Variable Name   | Variable Type | Unit | Example|
 |----------------|---------------|------|--------|
 |Name  | string | -- | UO2|

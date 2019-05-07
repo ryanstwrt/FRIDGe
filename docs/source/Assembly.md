@@ -42,7 +42,7 @@ Figure 1 shows the layout of the blank assembly.
 
 Figure 1. FRIDGe created smear assembly.
 
-![Fuel Region](FRIDGEBlankassembly.PNG)
+![Fuel Region](FRIDGEBlankassembly.png)
 
 ## Fuel Assembly
 
@@ -140,8 +140,8 @@ Figure 3 shows the fuel region and all components which make up the region.
 
 Figure 2. FRIDGe created fuel assembly.
 
-![Assembly](FRIDGEassembly_AllPartsLabeled.PNG)
+![Assembly](FRIDGEassembly_AllPartsLabeled.png)
 
 Figure 3. Heterogeneous fuel region of fuel assembly.
 
-![Fuel Region](FuelRegion.PNG)
+![Fuel Region](FuelRegion.png)

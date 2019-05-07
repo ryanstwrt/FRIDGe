@@ -28,3 +28,9 @@ Figure 1, shows the nomenclature used to describe each position.
 Figure 1. Description of assembly positions.
 
 ![Core](FullCore.PNG)
+
+Figure 2 shows an plan and elevated view of a core with two rings, where the center assembly is a smear, and the outer assemblies are all fuel.
+
+Figure 2. Simplified FRIDGe core.
+
+![Core](SimpleCore.png)

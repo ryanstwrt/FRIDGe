@@ -26,4 +26,4 @@ Figure 1, shows the nomenclature used to describe each position.
 
 Figure 1. Description of assembly positions.
 
-![Core](FullCore.png)
+![Core](FullCore.PNG)

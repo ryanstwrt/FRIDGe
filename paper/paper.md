@@ -73,7 +73,7 @@ To illustrate this, FRIDGe was used to build a simplified driver assembly from t
 All of the dimensions were taken from the International Handbook of Evaluated Reactor Physics benchmark evaluation of EBR-II [@Lum2018].
 The two figures below show an axial and plan view of the assembly.
 
-![Elevated view of EBRII driver Assembly](fridge/docs/EBRII_Assembly.jpg) ![Plan view of EBRII driver assembly fuel region](frideg/docs/EBRII_Fuel.jpg)
+![Elevated view of EBRII driver Assembly](/fridge/docs/EBRII_Assembly.jpg) ![Plan view of EBRII driver assembly fuel region](/fridge/docs/EBRII_Fuel.jpg)
 
 The assembly built by FRIDGe closely resembles the typical driver assembly built in the benchmark evaluation.
 There are slight differences in design preference, for example, the benchmark explicitly models the wire wrap and plenum, whereas FRIDGe homogenizes these regions.

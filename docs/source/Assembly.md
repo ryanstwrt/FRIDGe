@@ -1,7 +1,3 @@
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-
 # Assemblies
 
 There are two types of assemblies that can be built in FRIDGe; smear and fuel assemblies.
@@ -9,21 +5,23 @@ Both types of assemblies are created using YAML files and can be found in `fridg
 
 ## Smear Assemblies
 
-Smear assemblies are
+Smear assemblies are used to create an single region homogenous assembly. 
+This type of assembly is ideal for creating pure coolant assemblies, reflectors, or neutron shields.
+The variables for creating a smear assembly can be seen in Table 1.
 
 Table 1. Variables for Smear Assembly YAML file.
 
 |Variable Name   | Variable Type | Unit | Example|
 |----------------|---------------|------|--------|
-|Assembly Type  | string | -- | Blank|
+|Assembly Type  | string | -- | Smear|
 |Assembly Pitch | float  | cm | 12.0|
 |Duct Thickness | float | cm | 0.3|
 |Duct Inside Flat to Flat | float | cm | 11.1|
 |Assembly Height | float | cm | 240|
-|Coolant | string | -- LiquidNa|
+|Coolant | string | -- | LiquidNa|
 |Assembly Material | string | -- | HT9|
 |Blank Height | float | cm | 220|
-|Blank Smear | Dictionary | {str: wt \%} | {LiquidNa: 0.9, HT9: 0.1}|
+|Blank Smear | Dictionary | str: wt \% | {LiquidNa: 0.9, HT9: 0.1}|
 |Z Position | float | cm | -60|
 
 `Assembly Type` is a string used to denote the types of assembly (smear or fuel).
@@ -41,6 +39,43 @@ This will create a smeared material where each string in the dictionary will cre
 `Z Position` is a float which allows the user to manually adjust where they want the bottom of the smear assembly to be.
 
 ## Fuel Assembly
+
+Fuel assemblies are used to create assemblies with a heterogeneous fuel region.
+This is idea for creating driver, blanket and limited experimental assemblies.
+The variables for creating a fuel assembly can be seen in Table 2.
+
+Table 2. Variables for Fuel Assembly YAML file.
+
+|Variable Name   | Variable Type | Unit | Example|
+|----------------|---------------|------|--------|
+|Variable Name   | Variable Type | Unit | Example |
+|Assembly Type  | string | -- | Blank|
+|Assembly Pitch | float  | cm | 12.0|
+|Duct Thickness | float | cm | 0.3|
+|Duct Inside Flat to Flat | float | cm | 11.1|
+|Assembly Height | float | cm | 240|
+|Coolant<sup>*</sup> | string | -- | LiquidNa|
+|Assembly Material | string | -- | HT9|
+|Pins Per Assembly | int | -- | 271|
+|Pin Diameter | float | cm | 0.53|
+|Clad Thickness | float | cm | 0.037| 
+|Fuel Smear<sup>&dagger</sup> | float | \% | 0.75|
+|Fuel Diameter<sup>&dagger</sup> | float | cm | 0.5|
+|Pitch | float | cm | 0.661|
+|Wire Wrap Diameter | float | cm | 0.126|
+|Wire Wrap Axial Pitch | float | cm | 2.0|
+|Fuel Height | float | cm | 60|
+|Fuel | str | -- | UO2|
+|Clad | str | -- | HT9|
+|Bond | str | -- | LiquidNa|
+|Bond Above Fuel$^*$ | float | cm | 0.6|
+|Plenum Height | float | cm | 220|
+|Plenum Smear | dictionary | {str: wt \%} | {LiquidNa: 0.5, HT9: 0.25, Void: 0.25}|
+|Reflector Height | float | cm | 220|
+|Reflector Smear | dictionary | {str: wt \%} | {LiquidNa: 0.5, HT9: 0.25, Void: 0.25}|
+
+<sup>*</sup> Optional if building full core model.
+<sup>&dagger</sup> Either fuel smear or fuel diameter can be used.
 
 `Assembly Type` is a string used to denote the types of assembly (smear or fuel).
 `Assembly Pitch` is a float to denote the distance from the center of one assembly to an adjacent assembly.

@@ -58,8 +58,8 @@ Table 2. Variables for Fuel Assembly YAML file.
 |Pins Per Assembly | int | -- | 271|
 |Pin Diameter | float | cm | 0.53|
 |Clad Thickness | float | cm | 0.037| 
-|Fuel Smear<sup>|dagger;</sup> | float | \% | 0.75|
-|Fuel Diameter<sup>|dagger;</sup> | float | cm | 0.5|
+|Fuel Smear<sup>dagger;</sup> | float | \% | 0.75|
+|Fuel Diameter<sup>dagger;</sup> | float | cm | 0.5|
 |Pitch | float | cm | 0.661|
 |Wire Wrap Diameter | float | cm | 0.126|
 |Wire Wrap Axial Pitch | float | cm | 2.0|
@@ -75,7 +75,7 @@ Table 2. Variables for Fuel Assembly YAML file.
 
 <sup>*</sup> Optional if building full core model.
 
-<sup>|dagger</sup> Either fuel smear or fuel diameter can be used.
+<sup>|dagger;</sup> Either fuel smear or fuel diameter can be used.
 
 `Assembly Type` is a string used to denote the types of assembly (Smear or Fuel).
 `Assembly Pitch` is a float to denote the distance from the center of one assembly to an adjacent assembly.
@@ -86,7 +86,10 @@ Note: All assemblies in a core should have the same assembly pitch; if they don'
 `Coolant` is a string used to create a material for the coolant.
 `Assembly Material` is a string used to create a material for the assembly.
 `Pins Per Assembly` is an integer of the number of pins for the assembly.
-Note: This number should fit an exact number of rings required, Table 5, shows pins are required for a given number of rings.
+Note: This number should fit an exact number of rings required, Table 3, shows pins are required for a given number of rings.
+
+Table 3. Variables for Smear Assembly YAML file.
+
 
 |Number of Rings | Number of Pins/Assemblies|
 |----------------|--------------------------|
@@ -107,7 +110,7 @@ Note: This number should fit an exact number of rings required, Table 5, shows p
 `Fuel Smear` is a float to denote the percentage of area inside the cladding that the fuel encompasses.
 The relation between the fuel diameter and fuel smear can be seen below, where R<sub>IC</sub> is the inner cladding radius, and A<sub>fuel</sub> is the `Fuel Smear`.
 
-R<sub>fuel</sub> = A<sub>fuel</sub><sup>1/2</sup>R<sub>IC</sub>
+R<sub>fuel</sub> = (A<sub>fuel</sub><sup>)1/2</sup>R<sub>IC</sub>
 
 `Fuel Diameter` is a float to denote the diameter of the fuel slug.
 `Pitch` is a float to denote the distance from the center of one fuel pin to an adjacent fuel pin.

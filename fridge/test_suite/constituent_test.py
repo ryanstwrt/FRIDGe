@@ -121,7 +121,7 @@ def test_fuelCoolant():
     assert surfaceCard == c.surfaceCard
 
 
-def test_fuelCoolant():
+def test_fuelCoolant_void():
     fuelCoolantInfo = [[0, 1, 2, {'LiquidNa': 1.0}, '82c', [1.0, 1.0, 1.0], 3], [0.1, 0.2, 4], 'Wirewrap + Coolant']
     c = FuelCoolant.FuelCoolant(fuelCoolantInfo, void_material='LiquidNa', void_percent=0.1)
     cellCard = '1 3 0.00243 4 u=0 imp:n=1 $Pin: Wirewrap + Coolant'
@@ -239,7 +239,7 @@ def test_coreCoolant():
     assert c.surfaceCard == surfaceCard
 
 
-def test_coreCoolant():
+def test_coreCoolant_void():
     coreCoolantInfo = [[0, 10, 11, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [2, 5, [1, 2]]]
     c = CoreCoolant.CoreCoolant(coreCoolantInfo, void_percent=0.1)
     cellCard = '10 3 0.00243  1 2 -11  imp:n=1 $Coolant Surrounding Assemblies'

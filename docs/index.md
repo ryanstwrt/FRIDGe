@@ -18,4 +18,4 @@ here are also examples of both assembly and core files.
 
 3. [Running FRIDGe](source/Run.md)
 
-4. [Example](source/Example.md)
+4. [Example](source/Examples.md)

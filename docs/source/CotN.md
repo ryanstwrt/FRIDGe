@@ -21,7 +21,6 @@ Table 1. Variables for Element YAML file.
 Where N is the mass number (protons + neutrons) of the isotope, and Z is the atomic number.
 `Abundance` is a list of the natural abundances for the isotopes (this is in atom percent and can be found in any Chart of the Nuclide).
 **Note:** for elements with no natural abundances an entry of zero is allowed.
-{: .note}
 The weight percent can be set later in the material card.
 `Mass` is a list of nuclide masses for each isotope listed and is given in amu's.
 All abundances and masses were obtained using IAEA's Live Chart of Nuclides [1].

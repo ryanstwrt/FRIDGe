@@ -5,7 +5,7 @@ Both types of assemblies are created using YAML files and can be found in `fridg
 
 ## Smear Assemblies
 
-Smear assemblies are used to create an single region homogenous assembly. 
+Smear assemblies are used to create an single-region homogenous assembly.
 This type of assembly is ideal for creating pure coolant assemblies, reflectors, or neutron shields.
 The variables for creating a smear assembly can be seen in Table 1.
 
@@ -18,21 +18,24 @@ Table 1. Variables for Smear Assembly YAML file.
 |Duct Thickness | float | cm | 0.3|
 |Duct Inside Flat to Flat | float | cm | 11.1|
 |Assembly Height | float | cm | 240|
-|Coolant | string | -- | LiquidNa|
+|Coolant<sup>*</sup> | string | -- | LiquidNa|
 |Assembly Material | string | -- | HT9|
 |Blank Height | float | cm | 220|
-|Blank Smear | Dictionary | str: wt \% | {LiquidNa: 0.9, HT9: 0.1}|
+|Blank Smear | Dictionary | str: wt % | {LiquidNa: 0.9, HT9: 0.1}|
 |Z Position | float | cm | -60|
+
+<sup>*</sup> Optional if building full core model.
 
 `Assembly Type` is a string used to denote the types of assembly (Smear or Fuel).
 `Assembly Pitch` is a float to denote the distance from the center of one assembly to an adjacent assembly.
 Note: All assemblies in a core should have the same assembly pitch; if they don't errors in geometry may arise.
-`Duct Thickness` is a float do denote the thickness of the assembly duct.
-`Duct Inside Flat to Flat` is a float to denote the distance from one side of a hexagon to the other.
+`Duct Thickness` is a float to denote the thickness of the assembly duct.
+`Duct Inside Flat to Flat` is a float to denote the distance from one flat edge of the inner hexagon to the other.
 `Assembly Height` is a float used to denote the total height of the assembly.
 `Coolant` is a string used to create a material for the coolant.
 `Assembly Material` is a string used to create a material for the assembly.
 `Blank Height` is a float used to denote the height of the smear portion of the assembly.
+Note: If the `Blank Height` is less than the `Assembly Height`, the excess height will be used to create two coolant regions above and below the smear region.
 Note: If `Blank Height` of the assembly exceeds the `Assembly Height`, the `Assembly Height` will truncate the `Blank Height`, this may lead to geometry errors.
 `Blank Smnear` is a dictionary of strings and weight percents.
 This will create a smeared material where each string in the dictionary will create a material, whose weight fraction is the corresponding float.

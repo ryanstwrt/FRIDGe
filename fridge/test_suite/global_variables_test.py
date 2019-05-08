@@ -34,13 +34,13 @@ def test_global_variables_read_assembly():
     global_variables.read_input_file('A271_Assembly_Test')
 
     assert global_variables.assembly_file_name == 'A271_Assembly_Test'
-    assert global_variables.xc_set == '.39c'
-    assert global_variables.xc_library == 'JEFF3.1'
+    assert global_variables.xc_set == '.71c'
+    assert global_variables.xc_library == 'ENDFVII.0'
     assert global_variables.universe == 100
     assert global_variables.cellNumber == 100
     assert global_variables.surfaceNumber == 100
     assert global_variables.materialNumber == 100
-    assert global_variables.temperature == 1200
+    assert global_variables.temperature == 600
     assert global_variables.temp_adjusted_density is True
     assert global_variables.temp_adjusted_volume is True
     assert global_variables.clad_smear is True

@@ -9,7 +9,7 @@ A smear assembly can be used to build vacant assemblies in a reactor (to simulat
 A fuel assembly can be used to build a multiple types of driver assemblies or smearet assemblies.
 FRIDGe currently contains 24 elements which are most commonly used in the development of fast reactors.
 Along with this, there are 8 base material for us in FRIDGe.
-here are also examples of both assembly and core files.
+There are also examples of both assembly and core files.
 
 # Contents
 * [Data](source/Data.md)

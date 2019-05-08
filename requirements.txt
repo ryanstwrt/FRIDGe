@@ -6,5 +6,5 @@ pytest
 numpy
 PyYAML
 coveralls
-pystest-cov
+pytest-cov
 #

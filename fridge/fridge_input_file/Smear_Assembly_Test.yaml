@@ -1,4 +1,4 @@
-Name: Blank_Test
+Name: Smear_Test
 Temperature: 900
 Temperature Adjusted Density: True
 Temperature Adjusted Volume: True
@@ -10,6 +10,6 @@ Number of Skipped Generations: 300
 Number of Particles per Generation: 1e10
 Run Kinetics: True
 ksens: True
-Output File Name: Blank_Assembly_Test
+Output File Name: Smear_Assembly_Test
 Input Type: Single
 Random Variable: True

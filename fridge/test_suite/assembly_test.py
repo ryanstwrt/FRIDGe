@@ -1,5 +1,5 @@
 import fridge.Assembly.FuelAssembly as FuelAssembly
-import fridge.Assembly.SmearAssembly as BlankAssembly
+import fridge.Assembly.SmearAssembly as SmearAssembly
 import fridge.Assembly.Assembly as Assembly
 import fridge.driver.global_variables as gb
 import numpy as np
@@ -164,19 +164,19 @@ def test_fuel_assembly():
 
 
 global_vars = gb.GlobalVariables()
-global_vars.read_input_file('Blank_Assembly_Test')
+global_vars.read_input_file('Smear_Assembly_Test')
 assembly_info2 = [global_vars.file_name, '01A01', global_vars, None]
 
 
 def test_smearAssembly():
-    a = BlankAssembly.BlankAssembly(assembly_info2)
+    a = SmearAssembly.SmearAssembly(assembly_info2)
     assert a.assemblyPitch == 12
     assert a.coolantMaterial == 'LiquidNa'
     assert a.assemblyMaterial == 'HT9'
     assert a.smearMaterial == {'LiquidNa': 0.3, 'HT9': 0.7}
 
-    assert a.smearRegion.cellCard == "100 100 0.06747 -100 u=100 imp:n=1 $Assembly: Blank Region"
-    assert a.smearRegion.surfaceCard == "100 RHP 0.0 0.0 -60.0 0 0 240 0 5.80529 0 $Assembly: Blank Region"
+    assert a.smearRegion.cellCard == "100 100 0.06747 -100 u=100 imp:n=1 $Assembly: Smear Region"
+    assert a.smearRegion.surfaceCard == "100 RHP 0.0 0.0 -60.0 0 0 240 0 5.80529 0 $Assembly: Smear Region"
     assert a.lowerCoolant.cellCard == '101 101 0.02428 -101 u=100 imp:n=1 $Assembly: Lower Coolant'
     assert a.lowerCoolant.surfaceCard == '101 RHP 0.0 0.0 -100.1 0 0 40.1 0 5.80529 0 $Assembly: Lower Coolant'
     assert a.upperCoolant.cellCard == '102 102 0.02428 -102 u=100 imp:n=1 $Assembly: Upper Coolant'

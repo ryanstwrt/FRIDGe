@@ -12,7 +12,7 @@ class Assembly(object):
 
     Current types include:
     Fuel Assembly
-    Blank Assembly
+    .82c Assembly
     """
 
     def __init__(self, assembly_information):

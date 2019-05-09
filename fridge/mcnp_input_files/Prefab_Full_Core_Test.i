@@ -1,11 +1,11 @@
 Input deck created by FRIDGe
 c ********************************Full_Core_Test*******************************
-c ************************Cell Cards for Assembly: 01A01*********************** 
-100 100 0.06747 -100 u=100 imp:n=1 $Assembly: Blank Region
+c *********************Cell Cards for Smear Assembly: 01A01********************
+100 100 0.06747 -100 u=100 imp:n=1 $Assembly: Smear Region
 101 101 0.02428 -101 u=100 imp:n=1 $Assembly: Lower Coolant
 102 102 0.02428 -102 u=100 imp:n=1 $Assembly: Upper Coolant
 103 0 -103 fill=100 imp:n=1 $Assembly
-c ************************Cell Cards for Assembly: 02A01*********************** 
+c *********************Cell Cards for Fuel Assembly: 02A01*********************
 120 120 0.04574 -120 u=121 imp:n=1 $Pin: Fuel
 121 121 0.02428 120 -121 u=121 imp:n=1 $Pin: Bond
 122 122 0.08598 121 -122 u=121 imp:n=1 $Pin: Clad
@@ -66,7 +66,7 @@ c ************************Cell Cards for Assembly: 02A01***********************
 131 131 0.02428 -131 u=120 imp:n=1 $Assembly: Lower Coolant
 132 132 0.02428 -132 u=120 imp:n=1 $Assembly: Upper Coolant
 133 0 -133 fill=120 imp:n=1 $Assembly
-c ************************Cell Cards for Assembly: 02B01*********************** 
+c *********************Cell Cards for Fuel Assembly: 02B01*********************
 140 140 0.04574 -140 u=141 imp:n=1 $Pin: Fuel
 141 141 0.02428 140 -141 u=141 imp:n=1 $Pin: Bond
 142 142 0.08598 141 -142 u=141 imp:n=1 $Pin: Clad
@@ -127,7 +127,7 @@ c ************************Cell Cards for Assembly: 02B01***********************
 151 151 0.02428 -151 u=140 imp:n=1 $Assembly: Lower Coolant
 152 152 0.02428 -152 u=140 imp:n=1 $Assembly: Upper Coolant
 153 0 -153 fill=140 imp:n=1 $Assembly
-c ************************Cell Cards for Assembly: 02C01*********************** 
+c *********************Cell Cards for Fuel Assembly: 02C01*********************
 160 160 0.04574 -160 u=161 imp:n=1 $Pin: Fuel
 161 161 0.02428 160 -161 u=161 imp:n=1 $Pin: Bond
 162 162 0.08598 161 -162 u=161 imp:n=1 $Pin: Clad
@@ -188,7 +188,7 @@ c ************************Cell Cards for Assembly: 02C01***********************
 171 171 0.02428 -171 u=160 imp:n=1 $Assembly: Lower Coolant
 172 172 0.02428 -172 u=160 imp:n=1 $Assembly: Upper Coolant
 173 0 -173 fill=160 imp:n=1 $Assembly
-c ************************Cell Cards for Assembly: 02D01*********************** 
+c *********************Cell Cards for Fuel Assembly: 02D01*********************
 180 180 0.04574 -180 u=181 imp:n=1 $Pin: Fuel
 181 181 0.02428 180 -181 u=181 imp:n=1 $Pin: Bond
 182 182 0.08598 181 -182 u=181 imp:n=1 $Pin: Clad
@@ -249,7 +249,7 @@ c ************************Cell Cards for Assembly: 02D01***********************
 191 191 0.02428 -191 u=180 imp:n=1 $Assembly: Lower Coolant
 192 192 0.02428 -192 u=180 imp:n=1 $Assembly: Upper Coolant
 193 0 -193 fill=180 imp:n=1 $Assembly
-c ************************Cell Cards for Assembly: 02E01*********************** 
+c *********************Cell Cards for Fuel Assembly: 02E01*********************
 200 200 0.04574 -200 u=201 imp:n=1 $Pin: Fuel
 201 201 0.02428 200 -201 u=201 imp:n=1 $Pin: Bond
 202 202 0.08598 201 -202 u=201 imp:n=1 $Pin: Clad
@@ -310,7 +310,7 @@ c ************************Cell Cards for Assembly: 02E01***********************
 211 211 0.02428 -211 u=200 imp:n=1 $Assembly: Lower Coolant
 212 212 0.02428 -212 u=200 imp:n=1 $Assembly: Upper Coolant
 213 0 -213 fill=200 imp:n=1 $Assembly
-c ************************Cell Cards for Assembly: 02F01*********************** 
+c *********************Cell Cards for Fuel Assembly: 02F01*********************
 220 220 0.04574 -220 u=221 imp:n=1 $Pin: Fuel
 221 221 0.02428 220 -221 u=221 imp:n=1 $Pin: Bond
 222 222 0.08598 221 -222 u=221 imp:n=1 $Pin: Clad
@@ -376,8 +376,8 @@ c ************************Cell Cards for Assembly: 02F01***********************
 260 260 0.08598  240 -260  imp:n=1 $Reactor Vessel
 280 0 260 imp:n=0 $Everything Else
 
-c ********************Surface Cards for Fuel Assembly: 01A01*******************
-100 RHP 0.0 0.0 -60.0 0 0 240 0 5.80529 0 $Assembly: Blank Region
+c *******************Surface Cards for Smear Assembly: 01A01*******************
+100 RHP 0.0 0.0 -60.0 0 0 240 0 5.80529 0 $Assembly: Smear Region
 101 RHP 0.0 0.0 -100.1 0 0 40.1 0 5.80529 0 $Assembly: Lower Coolant
 102 RHP 0.0 0.0 180.0 0 0 40.0 0 5.80529 0 $Assembly: Upper Coolant
 103 RHP 0.0 0.0 -100.0 0 0 320.0 0 5.805 0 $Assembly: Full Assembly Surface

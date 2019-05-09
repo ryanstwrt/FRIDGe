@@ -17,11 +17,11 @@ def test_singleAssembly_Fuel():
     assert filecmp.cmp(testFile[0], knownTestFile[0]) is True
 
 
-def test_singleAssembly_Blank():
-    global_vars.read_input_file('Blank_Assembly_Test')
+def test_singleAssembly_Smear():
+    global_vars.read_input_file('Smear_Assembly_Test')
     rM.single_assembly_maker(global_vars)
-    knownTestFile = glob.glob(os.path.join(mcnp_dir, 'Prefab_Blank_Assembly_Test.i'))
-    testFile = glob.glob(os.path.join(mcnp_dir, 'Blank_Assembly_Test.i'))
+    knownTestFile = glob.glob(os.path.join(mcnp_dir, 'Prefab_Smear_Assembly_Test.i'))
+    testFile = glob.glob(os.path.join(mcnp_dir, 'Smear_Assembly_Test.i'))
     assert filecmp.cmp(testFile[0], knownTestFile[0]) is True
 
 
@@ -29,7 +29,7 @@ def test_fullCore():
     global_vars.read_input_file('Full_Core_Test')
     rM.core_maker(global_vars)
     knownTestFile = glob.glob(os.path.join(mcnp_dir, 'Prefab_Full_Core_Test.i'))
-    testFile = glob.glob(os.path.join(mcnp_dir, 'Prefab_Full_Core_Test.i'))
+    testFile = glob.glob(os.path.join(mcnp_dir, 'Full_Core_Test.i'))
     assert filecmp.cmp(testFile[0], knownTestFile[0]) is True
 
 
@@ -37,5 +37,5 @@ def test_fullCore_void():
     global_vars.read_input_file('Full_Core_Void_Test')
     rM.core_maker(global_vars)
     knownTestFile = glob.glob(os.path.join(mcnp_dir, 'Prefab_Full_Core_Void_Test.i'))
-    testFile = glob.glob(os.path.join(mcnp_dir, 'Prefab_Full_Core_Void_Test.i'))
+    testFile = glob.glob(os.path.join(mcnp_dir, 'Full_Core_Void_Test.i'))
     assert filecmp.cmp(testFile[0], knownTestFile[0]) is True

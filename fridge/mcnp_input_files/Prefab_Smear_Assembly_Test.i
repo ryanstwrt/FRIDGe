@@ -1,14 +1,14 @@
 Input deck created by FRIDGe
-c *****************************Blank_Assembly_Test*****************************
+c *****************************Smear_Assembly_Test*****************************
 c ************************Cell Cards for Assembly: 01A01*********************** 
-100 100 0.06747 -100 u=100 imp:n=1 $Assembly: Blank Region
+100 100 0.06747 -100 u=100 imp:n=1 $Assembly: Smear Region
 101 101 0.02428 -101 u=100 imp:n=1 $Assembly: Lower Coolant
 102 102 0.02428 -102 u=100 imp:n=1 $Assembly: Upper Coolant
 103 0 -103 fill=100 imp:n=1 $Assembly
 104 0 103 imp:n=0 $Everything Else
 
 c ********************Surface Cards for Fuel Assembly: 01A01*******************
-100 RHP 0.0 0.0 -60.0 0 0 240 0 5.80529 0 $Assembly: Blank Region
+100 RHP 0.0 0.0 -60.0 0 0 240 0 5.80529 0 $Assembly: Smear Region
 101 RHP 0.0 0.0 -100.1 0 0 40.1 0 5.80529 0 $Assembly: Lower Coolant
 102 RHP 0.0 0.0 180.0 0 0 40.0 0 5.80529 0 $Assembly: Upper Coolant
 103 RHP 0.0 0.0 -100.0 0 0 320.0 0 5.805 0 $Assembly: Full Assembly Surface

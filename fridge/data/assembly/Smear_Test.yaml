@@ -1,5 +1,5 @@
 #Assembly Type
-Assembly Type: Blank
+Assembly Type: Smear
 
 #Assembly Data
 Assembly Pitch: 12
@@ -8,6 +8,6 @@ Duct Inside Flat to Flat: 11.01
 Assembly Height: 320
 Coolant Material: LiquidNa
 Assembly Material: HT9
-Blank Height: 240
-Blank Smear: {LiquidNa: 0.3, HT9: 0.7}
+Smear Height: 240
+Smear Materials: {LiquidNa: 0.3, HT9: 0.7}
 Z Position: -60

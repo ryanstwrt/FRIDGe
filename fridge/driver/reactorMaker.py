@@ -1,6 +1,6 @@
 import fridge.Assembly.FuelAssembly as FuelAssembly
 import fridge.Assembly.Assembly as Assembly
-import fridge.Assembly.SmearAssembly as BlankAssembly
+import fridge.Assembly.SmearAssembly as SmearAssembly
 import fridge.utilities.mcnpCreatorFunctions as mcnpCF
 import fridge.Core.Core as Core
 
@@ -11,8 +11,8 @@ def single_assembly_maker(global_vars):
     assembly = None
     if assembly_type == 'Fuel':
         assembly = FuelAssembly.FuelAssembly(assembly_info)
-    elif assembly_type == 'Blank':
-        assembly = BlankAssembly.BlankAssembly(assembly_info)
+    elif assembly_type == 'Smear':
+        assembly = SmearAssembly.SmearAssembly(assembly_info)
     k_card = mcnpCF.make_mcnp_problem(global_vars)
     mcnpCF.mcnp_input_deck_maker(assembly, k_card, global_vars)
 
@@ -31,8 +31,8 @@ def core_maker(global_vars):
         assembly = None
         if assembly_type == 'Fuel':
             assembly = FuelAssembly.FuelAssembly(assembly_info)
-        elif assembly_type == 'Blank':
-            assembly = BlankAssembly.BlankAssembly(assembly_info)
+        elif assembly_type == 'Smear':
+            assembly = SmearAssembly.SmearAssembly(assembly_info)
         core.assemblyList.append(assembly)
         global_vars.update_numbering()
     print('Building reactor core and coolant.')

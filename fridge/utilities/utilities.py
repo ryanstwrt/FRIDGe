@@ -54,7 +54,7 @@ def get_position_for_hex_lattice(position, pitch, z_position):
     elif hextant == 'F':
         x = -ring * sqrt_pitch
         y = pitch * (-1/2 * ring + assembly_num)
-    return [x, y, z_position]
+    return [round(x, 5), round(y, 5), z_position]
 
 
 def yaml_reader(yaml_file_destination, known_directory, file_name):

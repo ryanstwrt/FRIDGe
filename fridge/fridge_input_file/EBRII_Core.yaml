@@ -1,0 +1,8 @@
+Name: EBRII_Run138B_Core
+Temperature: 900
+XC Library: ENDFVII.1
+Number of Generations: 2300
+Number of Skipped Generations: 300
+Number of Particles per Generation: 1e8
+Output File Name: EBRII_Run138B_Core
+Input Type: Core

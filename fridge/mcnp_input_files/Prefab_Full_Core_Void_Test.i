@@ -382,19 +382,19 @@ c ********************Surface Cards for Fuel Assembly: 01A01*******************
 282 RHP 0.0 0.0 180.0 0 0 40.0 0 5.80529 0 $Assembly: Upper Coolant
 283 RHP 0.0 0.0 -100.0 0 0 320.0 0 5.805 0 $Assembly: Full Assembly Surface
 c ********************Surface Cards for Fuel Assembly: 02A01*******************
-300 RCC -10.392304845413264 6.0 0.0 0 0 60.0 0.19745 $Pin: Fuel
-301 RCC -10.392304845413264 6.0 0.0 0 0 60.6 0.228 $Pin: Bond - 1% higher than fuel
-302 RCC -10.392304845413264 6.0 0.0 0 0 60.6 0.265 $Pin: Clad - 1% higher than fuel
-303 RHP -10.392304845413264 6.0 0.0 0 0 60.6 0.66144 0 0 $Pin: Coolant - 1% higher than fuel
-304 RHP -10.392304845413264 6.0 0.0 0 0 60.6 0.33072 0 0 $Pin: Blank Pin - 1% higher than fuel
-306 RHP -10.392304845413264 6.0 0.0 0 0 60.6 0 5.55 0 $Assembly: Duct Inner Surface
-307 RHP -10.392304845413264 6.0 60.6 0 0 60.0 0 5.55 0 $Assembly: Plenum
-308 RHP -10.392304845413264 6.0 120.6 0 0 60.0 0 5.55 0 $Assembly: Upper Reflector
-309 RHP -10.392304845413264 6.0 -60.0 0 0 60.0 0 5.55 0 $Assembly: Lower Reflector
-310 RHP -10.392304845413264 6.0 -60.0 0 0 240.6 0 5.85029 0 $Assembly: Duct Outer Surface
-311 RHP -10.392304845413264 6.0 -99.8 0 0 39.8 0 5.85029 0 $Assembly: Lower Coolant
-312 RHP -10.392304845413264 6.0 180.6 0 0 39.7 0 5.85029 0 $Assembly: Upper Coolant
-313 RHP -10.392304845413264 6.0 -99.7 0 0 320.0 0 5.85 0 $Assembly: Full Assembly Surface
+300 RCC -10.3923 6.0 0.0 0 0 60.0 0.19745 $Pin: Fuel
+301 RCC -10.3923 6.0 0.0 0 0 60.6 0.228 $Pin: Bond - 1% higher than fuel
+302 RCC -10.3923 6.0 0.0 0 0 60.6 0.265 $Pin: Clad - 1% higher than fuel
+303 RHP -10.3923 6.0 0.0 0 0 60.6 0.66144 0 0 $Pin: Coolant - 1% higher than fuel
+304 RHP -10.3923 6.0 0.0 0 0 60.6 0.33072 0 0 $Pin: Blank Pin - 1% higher than fuel
+306 RHP -10.3923 6.0 0.0 0 0 60.6 0 5.55 0 $Assembly: Duct Inner Surface
+307 RHP -10.3923 6.0 60.6 0 0 60.0 0 5.55 0 $Assembly: Plenum
+308 RHP -10.3923 6.0 120.6 0 0 60.0 0 5.55 0 $Assembly: Upper Reflector
+309 RHP -10.3923 6.0 -60.0 0 0 60.0 0 5.55 0 $Assembly: Lower Reflector
+310 RHP -10.3923 6.0 -60.0 0 0 240.6 0 5.85029 0 $Assembly: Duct Outer Surface
+311 RHP -10.3923 6.0 -99.8 0 0 39.8 0 5.85029 0 $Assembly: Lower Coolant
+312 RHP -10.3923 6.0 180.6 0 0 39.7 0 5.85029 0 $Assembly: Upper Coolant
+313 RHP -10.3923 6.0 -99.7 0 0 320.0 0 5.85 0 $Assembly: Full Assembly Surface
 c ********************Surface Cards for Fuel Assembly: 02B01*******************
 320 RCC 0.0 12.0 0.0 0 0 60.0 0.19745 $Pin: Fuel
 321 RCC 0.0 12.0 0.0 0 0 60.6 0.228 $Pin: Bond - 1% higher than fuel
@@ -410,33 +410,33 @@ c ********************Surface Cards for Fuel Assembly: 02B01*******************
 332 RHP 0.0 12.0 180.6 0 0 39.7 0 5.85029 0 $Assembly: Upper Coolant
 333 RHP 0.0 12.0 -99.7 0 0 320.0 0 5.85 0 $Assembly: Full Assembly Surface
 c ********************Surface Cards for Fuel Assembly: 02C01*******************
-340 RCC 10.392304845413264 6.0 0.0 0 0 60.0 0.19745 $Pin: Fuel
-341 RCC 10.392304845413264 6.0 0.0 0 0 60.6 0.228 $Pin: Bond - 1% higher than fuel
-342 RCC 10.392304845413264 6.0 0.0 0 0 60.6 0.265 $Pin: Clad - 1% higher than fuel
-343 RHP 10.392304845413264 6.0 0.0 0 0 60.6 0.66144 0 0 $Pin: Coolant - 1% higher than fuel
-344 RHP 10.392304845413264 6.0 0.0 0 0 60.6 0.33072 0 0 $Pin: Blank Pin - 1% higher than fuel
-346 RHP 10.392304845413264 6.0 0.0 0 0 60.6 0 5.55 0 $Assembly: Duct Inner Surface
-347 RHP 10.392304845413264 6.0 60.6 0 0 60.0 0 5.55 0 $Assembly: Plenum
-348 RHP 10.392304845413264 6.0 120.6 0 0 60.0 0 5.55 0 $Assembly: Upper Reflector
-349 RHP 10.392304845413264 6.0 -60.0 0 0 60.0 0 5.55 0 $Assembly: Lower Reflector
-350 RHP 10.392304845413264 6.0 -60.0 0 0 240.6 0 5.85029 0 $Assembly: Duct Outer Surface
-351 RHP 10.392304845413264 6.0 -99.8 0 0 39.8 0 5.85029 0 $Assembly: Lower Coolant
-352 RHP 10.392304845413264 6.0 180.6 0 0 39.7 0 5.85029 0 $Assembly: Upper Coolant
-353 RHP 10.392304845413264 6.0 -99.7 0 0 320.0 0 5.85 0 $Assembly: Full Assembly Surface
+340 RCC 10.3923 6.0 0.0 0 0 60.0 0.19745 $Pin: Fuel
+341 RCC 10.3923 6.0 0.0 0 0 60.6 0.228 $Pin: Bond - 1% higher than fuel
+342 RCC 10.3923 6.0 0.0 0 0 60.6 0.265 $Pin: Clad - 1% higher than fuel
+343 RHP 10.3923 6.0 0.0 0 0 60.6 0.66144 0 0 $Pin: Coolant - 1% higher than fuel
+344 RHP 10.3923 6.0 0.0 0 0 60.6 0.33072 0 0 $Pin: Blank Pin - 1% higher than fuel
+346 RHP 10.3923 6.0 0.0 0 0 60.6 0 5.55 0 $Assembly: Duct Inner Surface
+347 RHP 10.3923 6.0 60.6 0 0 60.0 0 5.55 0 $Assembly: Plenum
+348 RHP 10.3923 6.0 120.6 0 0 60.0 0 5.55 0 $Assembly: Upper Reflector
+349 RHP 10.3923 6.0 -60.0 0 0 60.0 0 5.55 0 $Assembly: Lower Reflector
+350 RHP 10.3923 6.0 -60.0 0 0 240.6 0 5.85029 0 $Assembly: Duct Outer Surface
+351 RHP 10.3923 6.0 -99.8 0 0 39.8 0 5.85029 0 $Assembly: Lower Coolant
+352 RHP 10.3923 6.0 180.6 0 0 39.7 0 5.85029 0 $Assembly: Upper Coolant
+353 RHP 10.3923 6.0 -99.7 0 0 320.0 0 5.85 0 $Assembly: Full Assembly Surface
 c ********************Surface Cards for Fuel Assembly: 02D01*******************
-360 RCC 10.392304845413264 -6.0 0.0 0 0 60.0 0.19745 $Pin: Fuel
-361 RCC 10.392304845413264 -6.0 0.0 0 0 60.6 0.228 $Pin: Bond - 1% higher than fuel
-362 RCC 10.392304845413264 -6.0 0.0 0 0 60.6 0.265 $Pin: Clad - 1% higher than fuel
-363 RHP 10.392304845413264 -6.0 0.0 0 0 60.6 0.66144 0 0 $Pin: Coolant - 1% higher than fuel
-364 RHP 10.392304845413264 -6.0 0.0 0 0 60.6 0.33072 0 0 $Pin: Blank Pin - 1% higher than fuel
-366 RHP 10.392304845413264 -6.0 0.0 0 0 60.6 0 5.55 0 $Assembly: Duct Inner Surface
-367 RHP 10.392304845413264 -6.0 60.6 0 0 60.0 0 5.55 0 $Assembly: Plenum
-368 RHP 10.392304845413264 -6.0 120.6 0 0 60.0 0 5.55 0 $Assembly: Upper Reflector
-369 RHP 10.392304845413264 -6.0 -60.0 0 0 60.0 0 5.55 0 $Assembly: Lower Reflector
-370 RHP 10.392304845413264 -6.0 -60.0 0 0 240.6 0 5.85029 0 $Assembly: Duct Outer Surface
-371 RHP 10.392304845413264 -6.0 -99.8 0 0 39.8 0 5.85029 0 $Assembly: Lower Coolant
-372 RHP 10.392304845413264 -6.0 180.6 0 0 39.7 0 5.85029 0 $Assembly: Upper Coolant
-373 RHP 10.392304845413264 -6.0 -99.7 0 0 320.0 0 5.85 0 $Assembly: Full Assembly Surface
+360 RCC 10.3923 -6.0 0.0 0 0 60.0 0.19745 $Pin: Fuel
+361 RCC 10.3923 -6.0 0.0 0 0 60.6 0.228 $Pin: Bond - 1% higher than fuel
+362 RCC 10.3923 -6.0 0.0 0 0 60.6 0.265 $Pin: Clad - 1% higher than fuel
+363 RHP 10.3923 -6.0 0.0 0 0 60.6 0.66144 0 0 $Pin: Coolant - 1% higher than fuel
+364 RHP 10.3923 -6.0 0.0 0 0 60.6 0.33072 0 0 $Pin: Blank Pin - 1% higher than fuel
+366 RHP 10.3923 -6.0 0.0 0 0 60.6 0 5.55 0 $Assembly: Duct Inner Surface
+367 RHP 10.3923 -6.0 60.6 0 0 60.0 0 5.55 0 $Assembly: Plenum
+368 RHP 10.3923 -6.0 120.6 0 0 60.0 0 5.55 0 $Assembly: Upper Reflector
+369 RHP 10.3923 -6.0 -60.0 0 0 60.0 0 5.55 0 $Assembly: Lower Reflector
+370 RHP 10.3923 -6.0 -60.0 0 0 240.6 0 5.85029 0 $Assembly: Duct Outer Surface
+371 RHP 10.3923 -6.0 -99.8 0 0 39.8 0 5.85029 0 $Assembly: Lower Coolant
+372 RHP 10.3923 -6.0 180.6 0 0 39.7 0 5.85029 0 $Assembly: Upper Coolant
+373 RHP 10.3923 -6.0 -99.7 0 0 320.0 0 5.85 0 $Assembly: Full Assembly Surface
 c ********************Surface Cards for Fuel Assembly: 02E01*******************
 380 RCC -0.0 -12.0 0.0 0 0 60.0 0.19745 $Pin: Fuel
 381 RCC -0.0 -12.0 0.0 0 0 60.6 0.228 $Pin: Bond - 1% higher than fuel
@@ -452,31 +452,31 @@ c ********************Surface Cards for Fuel Assembly: 02E01*******************
 392 RHP -0.0 -12.0 180.6 0 0 39.7 0 5.85029 0 $Assembly: Upper Coolant
 393 RHP -0.0 -12.0 -99.7 0 0 320.0 0 5.85 0 $Assembly: Full Assembly Surface
 c ********************Surface Cards for Fuel Assembly: 02F01*******************
-400 RCC -10.392304845413264 -6.0 0.0 0 0 60.0 0.19745 $Pin: Fuel
-401 RCC -10.392304845413264 -6.0 0.0 0 0 60.6 0.228 $Pin: Bond - 1% higher than fuel
-402 RCC -10.392304845413264 -6.0 0.0 0 0 60.6 0.265 $Pin: Clad - 1% higher than fuel
-403 RHP -10.392304845413264 -6.0 0.0 0 0 60.6 0.66144 0 0 $Pin: Coolant - 1% higher than fuel
-404 RHP -10.392304845413264 -6.0 0.0 0 0 60.6 0.33072 0 0 $Pin: Blank Pin - 1% higher than fuel
-406 RHP -10.392304845413264 -6.0 0.0 0 0 60.6 0 5.55 0 $Assembly: Duct Inner Surface
-407 RHP -10.392304845413264 -6.0 60.6 0 0 60.0 0 5.55 0 $Assembly: Plenum
-408 RHP -10.392304845413264 -6.0 120.6 0 0 60.0 0 5.55 0 $Assembly: Upper Reflector
-409 RHP -10.392304845413264 -6.0 -60.0 0 0 60.0 0 5.55 0 $Assembly: Lower Reflector
-410 RHP -10.392304845413264 -6.0 -60.0 0 0 240.6 0 5.85029 0 $Assembly: Duct Outer Surface
-411 RHP -10.392304845413264 -6.0 -99.8 0 0 39.8 0 5.85029 0 $Assembly: Lower Coolant
-412 RHP -10.392304845413264 -6.0 180.6 0 0 39.7 0 5.85029 0 $Assembly: Upper Coolant
-413 RHP -10.392304845413264 -6.0 -99.7 0 0 320.0 0 5.85 0 $Assembly: Full Assembly Surface
+400 RCC -10.3923 -6.0 0.0 0 0 60.0 0.19745 $Pin: Fuel
+401 RCC -10.3923 -6.0 0.0 0 0 60.6 0.228 $Pin: Bond - 1% higher than fuel
+402 RCC -10.3923 -6.0 0.0 0 0 60.6 0.265 $Pin: Clad - 1% higher than fuel
+403 RHP -10.3923 -6.0 0.0 0 0 60.6 0.66144 0 0 $Pin: Coolant - 1% higher than fuel
+404 RHP -10.3923 -6.0 0.0 0 0 60.6 0.33072 0 0 $Pin: Blank Pin - 1% higher than fuel
+406 RHP -10.3923 -6.0 0.0 0 0 60.6 0 5.55 0 $Assembly: Duct Inner Surface
+407 RHP -10.3923 -6.0 60.6 0 0 60.0 0 5.55 0 $Assembly: Plenum
+408 RHP -10.3923 -6.0 120.6 0 0 60.0 0 5.55 0 $Assembly: Upper Reflector
+409 RHP -10.3923 -6.0 -60.0 0 0 60.0 0 5.55 0 $Assembly: Lower Reflector
+410 RHP -10.3923 -6.0 -60.0 0 0 240.6 0 5.85029 0 $Assembly: Duct Outer Surface
+411 RHP -10.3923 -6.0 -99.8 0 0 39.8 0 5.85029 0 $Assembly: Lower Coolant
+412 RHP -10.3923 -6.0 180.6 0 0 39.7 0 5.85029 0 $Assembly: Upper Coolant
+413 RHP -10.3923 -6.0 -99.7 0 0 320.0 0 5.85 0 $Assembly: Full Assembly Surface
 420 RCC 0.0 0.0 -110.0 0 0 352.0 18.6 $Coolant Surrounding Assemblies
 440 RCC 0.0 0.0 -120.0 0 0 372.0 28.6 $Vessel surrounding the core
 
 c **********************************Data Cards*********************************
 c ******************************k-code Information*****************************
 kcode 10000000000 1.0 300 2300
-ksrc      -10.392304845413264 6.0 30.0
+ksrc      -10.3923 6.0 30.0
      0.0 12.0 30.0
-     10.392304845413264 6.0 30.0
-     10.392304845413264 -6.0 30.0
+     10.3923 6.0 30.0
+     10.3923 -6.0 30.0
      -0.0 -12.0 30.0
-     -10.392304845413264 -6.0 30.0
+     -10.3923 -6.0 30.0
 PRDMP 100 10 100 1 
 kopts BLOCKSIZE=10 KINETICS=YES PRECURSOR=Yes 
 DBCN 68J 50000 

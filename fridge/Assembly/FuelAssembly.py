@@ -90,14 +90,14 @@ class FuelAssembly(Assembly.Assembly):
         height_to_upper_coolant = defined_height - self.reflectorHeight
         height_to_upper_reflector = self.fuel_height_with_bond + self.plenumHeight
         upper_coolant_position = utilities.get_position_for_hex_lattice(self.assemblyPosition, self.assemblyPitch,
-                                                                        height_to_upper_coolant)
+                                                                        height_to_upper_coolant + self.zPosition)
         upper_reflector_position = utilities.get_position_for_hex_lattice(self.assemblyPosition, self.assemblyPitch,
-                                                                          height_to_upper_reflector)
+                                                                          height_to_upper_reflector + self.zPosition)
         lower_reflector_position = utilities.get_position_for_hex_lattice(self.assemblyPosition, self.assemblyPitch,
-                                                                          -self.reflectorHeight)
+                                                                          -self.reflectorHeight + self.zPosition)
         bottom_coolant_position = utilities.get_position_for_hex_lattice(self.assemblyPosition, self.assemblyPitch,
                                                                          -(self.reflectorHeight
-                                                          + excess_coolant_height))
+                                                                         + excess_coolant_height) + self.zPosition)
 
         self.assemblyUniverse = self.universe
         self.universe += 1
@@ -206,7 +206,8 @@ class FuelAssembly(Assembly.Assembly):
 
     def read_fuel_region_data(self, inputs):
         """Reads in the fuel region data from the assembly yaml file."""
-        self.position = utilities.get_position_for_hex_lattice(self.assemblyPosition, self.assemblyPitch, 0.0)
+        self.position = utilities.get_position_for_hex_lattice(self.assemblyPosition, self.assemblyPitch,
+                                                               self.zPosition)
         self.cladOD = float(inputs['Pin Diameter'])
         self.cladID = self.cladOD - 2*float(inputs['Clad Thickness'])
         try:
@@ -227,7 +228,8 @@ class FuelAssembly(Assembly.Assembly):
         """Reads in the plenum region data from the assembly yaml file."""
         self.plenumHeight = float(inputs['Plenum Height'])
         self.plenumPosition = utilities.get_position_for_hex_lattice(self.assemblyPosition, self.assemblyPitch,
-                                                                     self.fuelHeight + self.bondAboveFuel)
+                                                                     self.zPosition + self.fuelHeight +
+                                                                     self.bondAboveFuel)
         self.plenumMaterial = inputs['Plenum Smear']
 
     def read_reflector_region_data(self, inputs):

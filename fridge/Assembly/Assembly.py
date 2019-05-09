@@ -37,6 +37,7 @@ class Assembly(object):
         self.zPosition = 0.0
         self.coolantMaterial = ''
         self.assemblyMaterial = ''
+        self.zPosition = 0.0
         assembly_yaml_file = glob.glob(os.path.join(assembly_directory, self.assembly_file_name + '.yaml'))
         self.inputs = utilities.yaml_reader(assembly_yaml_file, assembly_directory, self.assembly_file_name)
 

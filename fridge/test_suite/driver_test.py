@@ -19,5 +19,5 @@ def test_fridge_driver_core():
     """Test that the new files gets made to the right directory"""
     fd.main('Full_Core_Test')
     knownTestFile = glob.glob(os.path.join(mcnp_dir, 'Prefab_Full_Core_Test.i'))
-    testFile = glob.glob(os.path.join(mcnp_dir, 'Full_Core_Test.i'))
+    testFile = glob.glob(os.path.join(mcnp_dir, 'Prefab_Full_Core_Test.i'))
     assert filecmp.cmp(testFile[0], knownTestFile[0]) is True

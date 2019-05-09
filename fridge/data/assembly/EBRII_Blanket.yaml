@@ -2,32 +2,33 @@
 Assembly Type: Fuel
 
 #Fuel Pin Data
-Pin Diameter: 0.4420
-Clad Thickness: 0.0305
-Fuel Diameter: 0.3302
-Pitch: 0.566
+Pin Diameter: 1.2522
+Clad Thickness: 0.0091
+Fuel Diameter: 1.0998
+Pitch: 1.255
 Wire Wrap Diameter: 0.124
 Wire Wrap Axial Pitch: 15.24
-Fuel Height: 34.29
+Fuel Height: 139.701
 Fuel Material: U10Zr
 Clad Material: SS316
 Bond Material: LiquidNa
-Bond Above Fuel: 1.31
+Bond Above Fuel: 3.048
 
 #FuelAssembly Data
-Pins Per Assembly: 91
+Pins Per Assembly: 19
 Assembly Pitch: 5.8877
 Duct Thickness: 0.2032
 Assembly Gap: 0.2
-Duct Inside Flat to Flat: 5.6134
+Duct Inside Flat to Flat: 5.6314
 Assembly Height: 190
 Coolant Material: LiquidNa
 Assembly Material: SS316
+Z Position: -61.357
 
 #Plenum Data
-Plenum Height: 28.3
+Plenum Height: 12.76
 Plenum Smear: {LiquidNa: 0.50, Void: 0.25, SS316: 0.25}
 
 #Fuel Reflector Data
-Reflector Height: 61.3537
+Reflector Height: 1.0
 Reflector Smear: {LiquidNa: 0.116, SS316: 0.884}

@@ -2,8 +2,8 @@
 
 ## Single Assembly
 
-An few example fuel assemblies can be seen in \verb|fridge/data/assembly|. 
-This example will look at the \verb|EBRII_MKII| assembly. 
+An few example fuel assemblies can be seen in `fridge/data/assembly`.
+This example will look at the `EBRII_MKII` assembly.
 This assembly has the following attributes, which can be seen in Table \ref{tab:ebrii}.
 
 Table 1. Variables for Fuel Assembly YAML file.
@@ -36,7 +36,7 @@ Table 1. Variables for Fuel Assembly YAML file.
 
 The inputs from Table 1 create an assembly similar to the MK-II driver assemblies found in EBRII, as referenced in \cite{ebrii}, where Figures \ref{fig: fullAssem} - \ref{fig: fuelRegion} show the MCNP assembly.
 In Figure \ref{fig: fullAssem} the regions are, from bottom to top; lower reflector, fuel, plenum and upper reflector.
-In \ref{fig: upperFuel}, we see the impact of including the variable \verb|Bond Above Fuel|, which adds the bond material (blue) above the fuel (purple).
+In \ref{fig: upperFuel}, we see the impact of including the variable `Bond Above Fuel`, which adds the bond material (blue) above the fuel (purple).
 Figure \ref{fig: fuelRegion} shows the 91 pins in the assembly; there is fuel (purple), bond (blue), clad (yellow), wire wrap + coolant mixture (green), excess coolant (light blue), and the hex duct (maroon).
 
 ![Assembly](EBRII_Assembly.PNG)

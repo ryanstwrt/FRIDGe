@@ -1,0 +1,11 @@
+Name: A271_Shifted_Test
+Temperature: 900
+XC Library: ENDFVII.0
+Number of Generations: 2300
+Number of Skipped Generations: 300
+Number of Particles per Generation: 1e10
+Run Kinetics: True
+ksens: True
+Output File Name: Fuel_Assembly_Test
+Input Type: Single
+Random Variable: True

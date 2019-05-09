@@ -64,6 +64,7 @@ Table 2. Variables for Fuel Assembly YAML file.
 |Coolant Material<sup>*</sup> | string | -- | LiquidNa|
 |Assembly Material | string | -- | HT9|
 |Pins Per Assembly | int | -- | 271|
+|zPosition<sup>*</sup> | float | cm | -30.0 |
 |Pin Diameter | float | cm | 0.53|
 |Clad Thickness | float | cm | 0.037| 
 |Fuel Smear<sup>&dagger;</sup> | float | % | 0.75|
@@ -95,6 +96,8 @@ Table 2. Variables for Fuel Assembly YAML file.
 `Assembly Material` is a string used to create a material for the assembly.
 `Pins Per Assembly` is an integer of the number of pins for the assembly.
 **Note:** This number should fit an exact number of rings required, Table 3, shows pins are required for a given number of rings.
+`Z Position` is a float which allows the user to manually adjust where they want the bottom of the fuel section in the assembly to be.
+**Note:** If no `Z Position` is selected the default value of 0 will be used.
 
 Table 3. Variables for Smear Assembly YAML file.
 

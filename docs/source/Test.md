@@ -1,6 +1,15 @@
 # Testing FRIDGe
 
 FRIDGe has an a test suite built that can be run to ensure all of the packages are operating correctly.
+Before running the test suite, ensure that both `pytest`, `numpy`, and`PyYAML` are all installed.
+This can quickly be done with the following:
+
+```
+pip install pytest
+pip install numpy
+pip install PyYAML
+```
+
 To run the test suite, open a terminal in the fridge directory and perform the following:
 
 ```

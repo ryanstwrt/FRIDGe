@@ -40,10 +40,11 @@ Along with this, a blown up section of the fuel shows how the variable `Bond Abo
 Figure 2 shows the 91 pins in the assembly; there is fuel (purple), bond (blue), clad (yellow), wire wrap + coolant mixture (green), excess coolant (light blue), and the hex duct (maroon).
 
 Figure 1. EBR-II MKII assembly.
+
 ![Assembly](Figures/EBRII_Assembly_FuelRegion_BlowUp.png)
 
-
 Figure 2. Plan view of EBR-II fuel section.
+
 ![Fuel Section](Figures/EBRII_FuelSection.PNG)
 
 ## Full Core

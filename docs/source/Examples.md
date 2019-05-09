@@ -56,3 +56,5 @@ The input files for the core and assemblies can be seen in `data/core` and `data
 
 Figure 3. Simplified EBR-II Core.
 ![Core](Figures/EBRIICore.png)
+
+[1] E. Lum, C. Pope, R. Stewart, B. Byambadorj, Q. Beaulieu, “Evaluation of Run 138B at Experimental Breeder Reactor II”, EBR2-LMFR-RESR-001-CRIT, International Handbook of Evaluated Reactor Physics Benchmark Experiments, 2018.

@@ -24,14 +24,16 @@ setup(
     zip_safe=False,
 
     packages=['fridge', 'frdige.driver', 'fridge.Assembly', 'fridge.Constituent', 'fridge.test_suite',
-              'fridge.utilities', 'fridge.Core'],
+              'fridge.utilities', 'fridge.Core', 'fridge.Material'],
     package_dir={
         'fridge': 'fridge',
         'fridge.driver': 'fridge/driver',
         'fridge.test_suite': 'fridge/test_suite',
         'fridge.utilities':  'fridge/utilities',
         'fridge.Assembly': 'fridge/Assembly',
-        'fridge.Constituent': 'frdige/Constituent'
+        'fridge.Constituent': 'fridge/Constituent',
+        'fridge.Core': 'fridge/Core',
+        'fridge.Material': 'frdige/Material'
         },
 
     include_package_data=True,

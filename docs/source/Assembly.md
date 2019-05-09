@@ -146,8 +146,8 @@ Figure 3 shows the fuel region and all components which make up the region.
 
 Figure 2. FRIDGe created fuel assembly.
 
-![Assembly](FRIDGEassembly_AllPartsLabeled.png)
+![Assembly](Figures/FRIDGEassembly_AllPartsLabeled.png)
 
 Figure 3. Heterogeneous fuel region of fuel assembly.
 
-![Fuel Region](FuelRegion.png)
+![Fuel Region](Figures/FuelRegion.png)

@@ -31,8 +31,8 @@ Figure 2 shows an plan and elevated view of a core with two rings, where the cen
 
 Figure 1. Description of assembly positions.
 
-![Core](FullCore.PNG)
+![Core](Figures/FullCore.PNG)
 
 Figure 2. Simplified FRIDGe core.
 
-![Core](SimpleCore.png)
+![Core](Figures/SimpleCore.png)

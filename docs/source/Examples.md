@@ -4,7 +4,7 @@
 
 An few example fuel assemblies can be seen in `fridge/data/assembly`.
 This example will look at the `EBRII_MKII` assembly.
-This assembly has the following attributes, which can be seen in Table \ref{tab:ebrii}.
+This assembly has the following attributes, which can be seen in Table 1.
 
 Table 1. Variables for Fuel Assembly YAML file.
 
@@ -34,14 +34,24 @@ Table 1. Variables for Fuel Assembly YAML file.
 |Reflector Height | 61.3537 |
 |Reflector Smear | {LiquidNa: 0.116, 0.884} |
 
-The inputs from Table 1 create an assembly similar to the MK-II driver assemblies found in EBRII, as referenced in \cite{ebrii}, where Figures \ref{fig: fullAssem} - \ref{fig: fuelRegion} show the MCNP assembly.
-In Figure \ref{fig: fullAssem} the regions are, from bottom to top; lower reflector, fuel, plenum and upper reflector.
-In \ref{fig: upperFuel}, we see the impact of including the variable `Bond Above Fuel`, which adds the bond material (blue) above the fuel (purple).
-Figure \ref{fig: fuelRegion} shows the 91 pins in the assembly; there is fuel (purple), bond (blue), clad (yellow), wire wrap + coolant mixture (green), excess coolant (light blue), and the hex duct (maroon).
+The inputs from Table 1 create an assembly similar to the MK-II driver assemblies found in EBRII, as referenced in [1], where Figure 1 and Figure 2 show the MCNP assembly.
+In Figure 1 the regions are, from bottom to top; lower reflector, fuel, plenum and upper reflector.
+Along with this, a blown up section of the fuel shows how the variable `Bond Above Fuel` adds addition bond above the fuel.
+Figure 2 shows the 91 pins in the assembly; there is fuel (purple), bond (blue), clad (yellow), wire wrap + coolant mixture (green), excess coolant (light blue), and the hex duct (maroon).
 
-![Assembly](EBRII_Assembly.PNG)
+Figure 1. EBR-II MKII assembly.
+![Assembly](Figures/EBRII_Assembly_FuelRegion_BlowUp.png)
 
-![Fuel Section](EBRII_FuelSection.PNG) ![Upper Fuel](EBRII_UpperFuel.PNG)
+
+Figure 2. Plan view of EBR-II fuel section.
+![Fuel Section](Figures/EBRII_FuelSection.PNG)
 
 ## Full Core
 
+Utilizing the EBR-II MKII assembly from above and creating reflector and blanket assemblies, a simplified full core model of EBR-II was created.
+This model only has three types of assemblies, driver, reflector, and blanket assemblies, but it provides a proof of concept for building full core models with varying assemblies.
+Figure 3 shows the EBR-II full core model, where it should be noted that not all of the blanket assemblies were added to reduce the size of the figure and input file.
+The input files for the core and assemblies can be seen in `data/core` and `data/assembly`, respectively.
+
+Figure 3. Simplified EBR-II Core.
+![Core](Figures/EBRIICore.png)

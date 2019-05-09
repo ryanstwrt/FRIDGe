@@ -32,7 +32,8 @@ Open a terminal in the ```/fridge``` directory and run the following:
 python -m pytest
 ```
 
-Note: pytest, PyYAML, and numpy are ball required to run FRIDGe, and the test suite.
+Note: pytest, numpy, and PyYAML are all required to run FRIDGe, and the test suite.
+See the ![testing](https://ryanstwrt.github.io/FRIDGe/docs/source/Test.md) section of the user pages for more information.
 
 # Running FRIDGe
 

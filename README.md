@@ -33,7 +33,7 @@ python -m pytest
 ```
 
 Note: pytest, numpy, and PyYAML are all required to run FRIDGe, and the test suite.
-See the ![testing](https://ryanstwrt.github.io/FRIDGe/docs/source/Test.md) section of the user pages for more information.
+See the ![testing](docs/source/Test.md) section of the user pages for more information.
 
 # Running FRIDGe
 

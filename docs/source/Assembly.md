@@ -44,7 +44,7 @@ Figure 1 shows the layout of the blank assembly.
 
 Figure 1. FRIDGe created smear assembly.
 
-![Fuel Region](source/FRIDGEBlankassembly.png)
+![Fuel Region](Figures/FRIDGEBlankassembly.png)
 
 ## Fuel Assembly
 

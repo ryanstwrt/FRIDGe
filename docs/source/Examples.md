@@ -34,9 +34,9 @@ Table 1. Variables for Fuel Assembly YAML file.
 |Reflector Height | 61.3537 |
 |Reflector Smear | {LiquidNa: 0.116, 0.884} |
 
-The inputs from Table 1 create an assembly similar to the MK-II driver assemblies found in EBRII, as referenced in [1], where Figure 1 and Figure 2 show the MCNP assembly.
-In Figure 1 the regions are, from bottom to top; lower reflector, fuel, plenum and upper reflector.
-Along with this, a blown up section of the fuel shows how the variable `Bond Above Fuel` adds addition bond above the fuel.
+The inputs from Table 1 create an assembly similar to the MK-II driver assemblies found in EBRII, as referenced in [1], which can be seen in Figure 1.
+In Figure 1 the regions are, from bottom to top; lower reflector, fuel, plenum, and upper reflector.
+Along with this, a blown up section where the fuel meets the plenum region shows how the variable `Bond Above Fuel` adds addition bond above the fuel.
 Figure 2 shows the 91 pins in the assembly; there is fuel (purple), bond (blue), clad (yellow), wire wrap + coolant mixture (green), excess coolant (light blue), and the hex duct (maroon).
 
 Figure 1. EBR-II MKII assembly.
@@ -50,7 +50,7 @@ Figure 2. Plan view of EBR-II fuel section.
 ## Full Core
 
 Utilizing the EBR-II MKII assembly from above and creating reflector and blanket assemblies, a simplified full core model of EBR-II was created.
-This model only has three types of assemblies, driver, reflector, and blanket assemblies, but it provides a proof of concept for building full core models with varying assemblies.
+This model only has three types of assemblies (driver, reflector, and blanket assemblies), but it provides a proof of concept for building full core models with varying assemblies.
 Figure 3 shows the EBR-II full core model, where it should be noted that not all of the blanket assemblies were added to reduce the size of the figure and input file.
 The input files for the core and assemblies can be seen in `data/core` and `data/assembly`, respectively.
 

@@ -5,7 +5,7 @@ except ImportError:
 
 setup(
     name='FRIDGe',
-    version='0.1.1',
+    version='1.0.0',
     description='Fast Reactor Input Deck Generator (FRIDGe) is a general purpose fast reactor MCNP input deck creator. '
                 'It will read in material/geometry files and create a fast reactor subassembly. Future iterations will '
                 'be able to incoporate physical phenomena, smears, and full core creation.',

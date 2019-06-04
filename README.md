@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/ryanstwrt/FRIDGe.svg?branch=master)](https://travis-ci.org/ryanstwrt/FRIDGe)
 [![Coverage Status](https://coveralls.io/repos/github/ryanstwrt/FRIDGe/badge.svg?branch=master)](https://coveralls.io/github/ryanstwrt/FRIDGe?branch=master)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![status](http://joss.theoj.org/papers/adf3c528083f563d4ac04163315ff90c/status.svg)](http://joss.theoj.org/papers/adf3c528083f563d4ac04163315ff90c)
 
 # FRIDGe
 Fast Reactor Input Deck Generator is a general purpose fast reactor MCNP input deck creator.

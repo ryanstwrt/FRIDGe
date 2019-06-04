@@ -10,7 +10,7 @@ authors:
     affiliation: "1"
     orchid: 0000-0003-4867-6555
 affiliations:
-  - name: Oregon State University
+  - name: Oregon State University, 1500 SW Jefferson St. Corvallis, OR 97331
     index: 1
 date: 08 May 2019
 bibliography: paper.bib
@@ -70,7 +70,7 @@ To illustrate the versatility of FRIDGe, it was used to create a simplified driv
 All of the dimensions were taken from the International Handbook of Evaluated Reactor Physics benchmark evaluation of EBR-II [@Lum2018].
 The two figures below show an axial and plan view of the assembly, which describes each region of the assembly.
 
-![Elevated view of EBRII driver Assembly](EBRII_Assembly.jpg)   ![Plan view of EBRII driver assembly fuel region](EBRII_Fuel.jpg)
+![Elevated view of EBRII driver Assembly](EBRII_Assembly.jpg =250x50)   ![Plan view of EBRII driver assembly fuel region](EBRII_Fuel.jpg =150x150)
 
 The assembly built by FRIDGe closely resembles the typical driver assembly built in the benchmark evaluation.
 There are slight differences in design preference, for example, the benchmark explicitly models the wire wrap and plenum, whereas FRIDGe homogenizes these regions.

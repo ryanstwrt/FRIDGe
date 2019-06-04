@@ -33,7 +33,7 @@ setup(
         'fridge.Assembly': 'fridge/Assembly',
         'fridge.Constituent': 'fridge/Constituent',
         'fridge.Core': 'fridge/Core',
-        'fridge.Material': 'frdige/Material'
+        'fridge.Material': 'fridge/Material'
         },
 
     include_package_data=True,

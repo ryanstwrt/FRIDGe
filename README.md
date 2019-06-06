@@ -24,6 +24,14 @@ To download FRIDGe, change into your directory of choice and follow the instruct
 git clone https://github.com/ryanstwrt/FRIDGe
 ```
 
+To install FRIDGe, run the `setup.py` file in the `/FRIDGe` directory as follows:
+
+```bash
+python setup.py install
+```
+
+This should install `fridge` as a python package.
+
 # Testing
 
 It is encouraged to run the test suite built into FRIDGe before creating any models. Testing FRIDGe is relatively simple.
@@ -42,7 +50,7 @@ FRIDGe has a prebuilt input file which can be used to gain familiarity with runn
 The FRIDGe input file that will be used is title ```EBRII_Driver.yaml```, and is uses the assembly file ```EBRII_MKII.yaml```.
 These two YAML files can be found in ```/fridge/fridge_input_files``` and ```/fridge/data/assembly```, respectively.
 
-The first step is to open an interactive python terminal in the ```fridge``` directory.
+The first step is to open an interactive python terminal (somethign like iPython).
 From here, import the FRIDGe driver with the following:
 ```bash
 import fridge.driver.fridge_driver as fd

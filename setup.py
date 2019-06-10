@@ -22,6 +22,7 @@ setup(
     license='BSD-3-Clause',
     python_requires='>=3',
     zip_safe=False,
+    install_requirements=['PyYAML', 'numpy', 'pytest'],
 
     packages=['fridge', 'fridge.driver', 'fridge.Assembly', 'fridge.Constituent', 'fridge.test_suite',
               'fridge.utilities', 'fridge.Core', 'fridge.Material'],

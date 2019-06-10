@@ -24,6 +24,14 @@ To download FRIDGe, change into your directory of choice and follow the instruct
 git clone https://github.com/ryanstwrt/FRIDGe
 ```
 
+Before installing FRIDGe note that `pytest`, `numpy`, and `PyYAML` are all required to run FRIDGe. 
+If these are not yet installed run the following:
+
+```bash
+pip install -r requirements.txt
+```
+
+This will ensure that all the dependencies are properly installed.
 To install FRIDGe, run the `setup.py` file in the `/FRIDGe` directory as follows:
 
 ```bash

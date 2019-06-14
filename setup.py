@@ -38,12 +38,4 @@ setup(
         },
 
     include_package_data=True,
-    package_data={
-        'fridge.data.CotN': ['data/CotN/*.yaml'],
-        'fridge.data.assembly': ['data/assembly/*.yaml'],
-        'fridge.data.materials': ['data/materials/*.yaml'],
-        'fridge.data.materials': ['data/core/*.yaml'],
-        'fridge.fridge_input_file': ['fridge_input_file/*.yaml'],
-        'fridge.mcnp_input_files': ['mcnp_input_files/*.i']
-    },
 )

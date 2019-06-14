@@ -1,0 +1,6 @@
+include fridge/data/CotN/*.yaml
+include fridge/data/assembly/*.yaml
+include fridge/data/materials/*.yaml
+include fridge/data/core/*.yaml
+include fridge/fridge_input_file/*.yaml
+include fridge/mcnp_input_files/*.i

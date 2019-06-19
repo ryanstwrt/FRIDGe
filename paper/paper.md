@@ -25,9 +25,9 @@ Gen IV reactors are designs which epitomize safety, proliferation resistance, an
 There are currently six different Gen IV reactors selected for research and development; two of these designs are are liquid metal fast reactors (LMFR).
 LMFRs utilize liquid metal as the primary coolant (typically sodium, lead, or lead-bismuth) and rely on fast neutrons to drive the chain reaction.
 Often times this is advantageous for reactors to breed fuel for a closed fuel cycle, or burn spent fuel from light water reactors.
-LMFRs have been built in small scales in the past to determine operating characteristics and provide experimental data for reactor safety in accident scenarios.
-In the past reactor designers relied on hand calculations and experimental facilities to build full scale reactors cores.
-Due to the cost of building new experimental facilities, and increase in computational power, simulations are heavily relied on to support the reactor design process.
+LMFRs have been built in reduced scales in the past to determine operating characteristics and provide experimental data for reactor safety in accident scenarios.
+In the past reactor designers relied on hand calculations and experimental facilities to build full scale reactor cores.
+Due to the cost of building new experimental facilities and increase in computational power, simulations are heavily relied on to support the reactor design process.
 
 Reactor core design for nuclear engineers is an extremely complex topic which requires skills in multiple areas of study such as neutronics, thermal hydraulics, and material performance.
 The first step in core design typically starts with examining the neutronic viability.
@@ -37,22 +37,22 @@ The software to perform such complex calculations is often sophisticated and req
 Utilizing software alleviates solving the fundamental physics associated with core design, but comes at the cost of learning the nuances of software suites.
 
 MCNP is a commonly used neutron transport code for radiation shielding, criticality measurements, benchmark measurements, and reactor core design [@Goo2008].
-The code suite is extremely versatile and allows the user to incorporate multiple physical phenomena, given the users ability to navigate it.
+The code suite is extremely versatile and allows the user to incorporate multiple physical phenomena, given the user's ability to navigate it.
 MCNP builds models in a traditional text-based input file, which includes building surfaces, materials, and defining what materials are present inside each surface.
-Building simple geometries is relatively straight forward process, whereas more complex configurations, such as a LMFR assembly or core, requires additional finesse.
+Building simple geometries is a relatively straight forward process, whereas more complex configurations, such as a LMFR assembly or core, requires additional finesse.
 This requires the designer to shift their focus from design to input file management, which takes away their ability to critically think about the core.
 Building input files for MCNP for large systems by hand is both time consuming and error prone.
 This is exemplified when trying to model a heterogeneous core where the input deck can grow exceedingly large (over 10,000 lines).
 At this size, it is unrealistic to perform any type of design iteration by manually adjusting design parameters and expecting a functioning model free of errors.
 
 FRIDGe was created to help alleviate the process of learning additional code nomenclature when designing, modeling, and testing fast reactor concepts.
-The only inputes the user focuses on are directly related to the core design process and create a level of abstraction from the input deck generation.
+The only inputs the user focuses on are directly related to the core design process and create a level of abstraction from the input deck generation.
 This allows the user to focus on what aspects of the design affect the reactor, rather than input file creation and management.
 
 FRIDGe currently houses the capability to create input files, for a single assembly or full core, for the code suite MCNP.
-This process is done by creating a series of YAML data files for elements, materials, assemblies, and cores [YAML].
+This process is done by creating a series of YAML data files for elements, materials, assemblies, and cores [@YAML].
 The element file allows the user to create elements from the Chart of the Nuclides for use in materials.
-The material file allows the user to create custom materials (fuel, clad, coolant, poisons, etc.) that the model will require.
+The material file allows the user to create custom materials (fuel, cladding, coolant, poisons, etc.) that the model will require.
 The assembly file is used for individual assemblies, where the user can specify the assembly type, geometry, and materials used.
 Currently a user can build fuel or smear assemblies.
 Fuel assemblies encompass two reflector regions, a plenum region, and a spatially heterogeneous fuel region which can describe driver or blanket fuel assemblies.
@@ -68,7 +68,7 @@ Once the model has been created, the user can take the input file and run MCNP t
 
 To illustrate the versatility of FRIDGe, it was used to create a simplified driver assembly from the Experimental Breeder Reactor II (EBR-II).
 All of the dimensions were taken from the International Handbook of Evaluated Reactor Physics benchmark evaluation of EBR-II [@Lum2018].
-The two figures below show an axial and plan view of the assembly, which describes each region of the assembly.
+The two figures below show an axial and plane view of the assembly, which describes each region of the assembly.
 
 ![Elevated view of EBRII driver Assembly](EBRII_Assembly.jpg) ![Plan view of EBRII driver assembly fuel region](EBRII_Fuel.jpg)
 

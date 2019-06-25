@@ -20,7 +20,7 @@ setup(
         'Programming Language :: Python :: 3.6',
     ],
     license='BSD-3-Clause',
-    python_requires='>=3',
+    python_requires='>=3.6',
     zip_safe=False,
     install_requirements=['PyYAML', 'numpy', 'pytest'],
 

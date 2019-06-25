@@ -24,6 +24,7 @@ To download FRIDGe, change into your directory of choice and follow the instruct
 git clone https://github.com/ryanstwrt/FRIDGe
 ```
 
+Note that FRIDGe requires at least Python 3.6 to run.
 Before installing FRIDGe note that `pytest`, `numpy`, and `PyYAML` are all required to run FRIDGe. 
 If these are not yet installed run the following:
 

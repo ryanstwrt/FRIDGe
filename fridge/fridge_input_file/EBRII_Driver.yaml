@@ -1,8 +1,8 @@
 Name: EBRII_MKII
 Temperature: 1200
-XC Library: JEFF3.1
-Number of Generations: 2300
-Number of Skipped Generations: 300
-Number of Particles per Generation: 1e10
+XC Library: ENDFVII.1
+Number of Generations: 250
+Number of Skipped Generations: 50
+Number of Particles per Generation: 1e4
 Output File Name: EBRII_Driver
 Input Type: Single

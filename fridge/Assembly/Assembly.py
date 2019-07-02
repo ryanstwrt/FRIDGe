@@ -67,6 +67,12 @@ class Assembly(object):
         if universe_test:
             self.universe += 1
 
+    def update_perturbations(self):
+        """Update the variables for any perturbations in the input file"""
+        for a, perts in self.globalVars.assembly_perturbations.items():
+            if a == self.assembly_file_name:
+                for k, v in perts.items():
+                    self.__setattr__(k, v)
 
 def read_assembly_type(assembly_file_name):
     """Reads in the assembly type to determine what type of assembly to build and return it."""

@@ -27,10 +27,11 @@ class GlobalVariables(object):
         self.number_particles_generation = 0
         self.kopts = False
         self.ksens = False
+        self.assembly_perturbations = {}
         self.output_name = ''
         self.input_type = ''
 
-    def read_input_file(self, assembly_name):
+    def read_input_file(self, assembly_name, kwargs):
         """Reads the yaml file for a FRIDGE input file and assigns any variables found."""
         self.assembly_file_name = assembly_name
 
@@ -69,6 +70,12 @@ class GlobalVariables(object):
             if 'ksens' in inputs else False
         self.void_per = float(inputs["Void Percent"]) \
             if "Void Percent" in inputs else 1.0
+        self.assembly_perturbations = inputs["Assembly Perturbations"] \
+            if "Assembly Perturbations" in inputs else {}
+
+        # Update for perturbations
+        for k, v in kwargs.items():
+            self.__setattr__(k, v)
 
         # Set the XC set depending on the temperature
         if self.temperature == 600:
@@ -92,6 +99,9 @@ class GlobalVariables(object):
                 self.xc_set = '.73c'
             elif self.xc_library == 'JEFF3.1':
                 self.xc_set = '.39c'
+
+
+
 
     def update_numbering(self):
         self.universe += 20

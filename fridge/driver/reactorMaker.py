@@ -38,5 +38,9 @@ def core_maker(global_vars):
     print('Building reactor core and coolant.')
     core.build_core(global_vars)
     print('Creating MCNP input file.')
+    for a, perts in global_vars.assembly_perturbations.items():
+        print('Perturbations For Assembly {}'.format(a))
+        for k, v in perts.items():
+            print('    {}: {}'.format(k, v))
     k_card = mcnpCF.make_mcnp_problem(global_vars, core=core)
     mcnpCF.mcnp_input_deck_maker_core(core, k_card, global_vars)

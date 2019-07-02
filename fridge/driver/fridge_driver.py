@@ -11,10 +11,10 @@ import fridge.driver.reactorMaker as reactorMaker
 # TODO utilize an avogadro's number from somewhere
 
 
-def main(file_name):
+def main(file_name, **kwargs):
     print('Welcome to FRIDGe, the Fast Reactor Input Deck Generator!')
     global_vars = gb.GlobalVariables()
-    global_vars.read_input_file(file_name)
+    global_vars.read_input_file(file_name, kwargs)
     print(global_vars.input_type)
     if global_vars.input_type == 'Single':
         print('Creating assembly: {}... Please Wait'.format(global_vars.file_name))

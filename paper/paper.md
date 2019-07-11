@@ -36,7 +36,7 @@ Software models are used to test the various configurations to determine their a
 The software to perform such complex calculations is often sophisticated and requires detailed user knowledge to create accurate models.
 Utilizing software alleviates solving the fundamental physics associated with core design, but comes at the cost of learning the nuances of software suites.
 
-MCNP is a commonly used neutron transport code for radiation shielding, criticality measurements, benchmark measurements, and reactor core design [@Goo2008].
+MCNP is a commonly used neutron transport code for radiation shielding, criticality measurements, benchmark measurements, and reactor core design [@Goo2012].
 The code suite is extremely versatile and allows the user to incorporate multiple physical phenomena, given the user's ability to navigate it.
 MCNP builds models in a traditional text-based input file, which includes building surfaces, materials, and defining what materials are present inside each surface.
 Building simple geometries is a relatively straight forward process, whereas more complex configurations, such as a LMFR assembly or core, requires additional finesse.

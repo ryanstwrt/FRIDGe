@@ -8,7 +8,6 @@ import fridge.mcnp_output_scraper as scraper
 def create_hdf5_database(database_name, dir=os.getcwd()):
     f = h5py.File(database_name + '.h5', 'w')
     for root, dirs, files in os.walk(dir):
-        print(root)
         for file in files:
             if '.out' in file:
                 try:

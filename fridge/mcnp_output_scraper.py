@@ -8,31 +8,16 @@ def translate_output(directory, hdf_file, reactor_file):
     file_name = reactor_file
     reactor_type = reactor_file[:-4]
 
-    #Check to see if this is base model, or perturbed model
+    # Check to see if this is base model, or perturbed model
+    # This will also create the HDF group for the base model
     if reactor_type[-4:] == '600K':
-        try:
-            hdf_file[reactor_type[:-5]].create_group(reactor_type)
-        except KeyError:
-            hdf_file.create_group(reactor_type[-5:])
-            hdf_file[reactor_type[:-5]].create_group(reactor_type)
+        base_reactor = create_hdf_group(hdf_file, reactor_type, reactor_type[:-5])
     elif reactor_type[-4:] in ['void', 'Void']:
-        try:
-            hdf_file[reactor_type[:-5]].create_group(reactor_type)
-        except KeyError:
-            hdf_file.create_group(reactor_type[-5:])
-            hdf_file[reactor_type[:-5]].create_group(reactor_type)
+        base_reactor = create_hdf_group(hdf_file, reactor_type, reactor_type[:-5])
     else:
-        try:
-            hdf_file[reactor_type].create_group(reactor_type)
-        except KeyError:
-            hdf_file.create_group(reactor_type)
-            hdf_file[reactor_type].create_group(reactor_type)
+        base_reactor = create_hdf_group(hdf_file, reactor_type, reactor_type)
 
-    try:
-        base_reactor = hdf_file[reactor_type]
-    except KeyError:
-        base_reactor = hdf_file[reactor_type[:-5]]
-
+    #Prep the output file name for parsing and assigning
     reactor = base_reactor[reactor_type]
     name_list = file_name.split('_')
     name_list.pop(0)
@@ -42,12 +27,16 @@ def translate_output(directory, hdf_file, reactor_file):
     enrichment = '15Pu12U10Zr'
 
     for parameter in name_list:
+        # Find the fuel smear designated FSxx
         if parameter[0] == 'F':
             fuel_smear = float(parameter[2:])
+        # Find the fuel height designate Hxx
         elif parameter[0] == 'H':
             fuel_height = float(parameter[1:])
+        # Find the enrichment types designated xxUxxPu or xxPuxxU
         elif 'U' in parameter:
             enrichment = parameter
+        # Find the condition of the reactor either 600K or void
         else:
             condition = parameter
 
@@ -111,7 +100,6 @@ def translate_output(directory, hdf_file, reactor_file):
                     val = re.findall(r'[-\s]\d.\d\d\d\d\dE-\d\d', line)
                     attributes['rossi_alpha'] = float(val[0])
                     attributes['rossi_alpha_unc'] = float(val[1])
-
             #add beta-eff and uncertainty
             elif line[0:20] == '            beta-eff':
                 val = re.findall(r'\d.\d\d\d\d\d', line)
@@ -119,5 +107,13 @@ def translate_output(directory, hdf_file, reactor_file):
                 attributes['beta_unc'] = float(val[1])
     for k, v in attributes.items():
         reactor.attrs.create(k, v)
+
+def create_hdf_group(hdf_file, specific, general):
+    try:
+        hdf_file[general].create_group(specific)
+    except KeyError:
+        hdf_file.create_group(general)
+        hdf_file[general].create_group(specific)
+    return hdf_file[general]
 
 #translate_output('FC_FS76_H65.out', 'blank')

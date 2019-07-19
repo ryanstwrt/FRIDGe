@@ -45,6 +45,9 @@ Building input files for MCNP for large systems by hand is both time consuming a
 This is exemplified when trying to model a heterogeneous core where the input deck can grow exceedingly large (over 10,000 lines).
 At this size, it is unrealistic to perform any type of design iteration by manually adjusting design parameters and expecting a functioning model free of errors.
 
+While others have contriubted to reducing the learning curve of MCNP, most of them focus on pre/post-processing tasks associate with MCNP.
+For example, PyNE [@Scopatz2012b] and the MCNPTools Package [@Solomon2017] help users streamline common tasks like scraping MCNP output files.
+While these help users manage data associated with MCNP, a code suite which focuses on reactor design provides a resource for initial model creation.
 FRIDGe was created to help alleviate the process of learning additional code nomenclature when designing, modeling, and testing fast reactor concepts.
 The only inputs the user focuses on are directly related to the core design process and create a level of abstraction from the input deck generation.
 This allows the user to focus on what aspects of the design affect the reactor, rather than input file creation and management.

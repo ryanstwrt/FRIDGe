@@ -106,7 +106,6 @@ class Material(object):
                                                 self.isotopicAtomPercents[zaid] * void_percent
                 elif isotope in self.isotopicAtomPercents:
                     self.atomPercent[isotope] = self.isotopicAtomPercents[isotope] * void_percent
-        print(sum(self.atomPercent.values()), self.density)
         assert np.allclose(sum(self.atomPercent.values()), self.density, 3)
 
 

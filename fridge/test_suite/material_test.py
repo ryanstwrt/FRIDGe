@@ -224,6 +224,36 @@ def test_material_SS316():
         assert np.allclose(m.atomPercent[k], v, 5)
 
 
+def test_material_SS316_AtomPercent():
+    """
+    Test material is from the Compendium of Material Composition Data for Radiation Transport Modeling: Revision 1.
+    """
+    m = materialReader.Material()
+    m.set_material('SS316_AtomDensity')
+    assert m.name == 'Stainless Steel 316'
+    assert m.elements == ['C', 'Si', 'P', 'S', 'Cr', 'Mn', 'Fe', 'Ni', 'Mo']
+    assert m.zaids == [6000, 14000, 15000, 16000, 24000, 25000, 26000, 28000, 42000]
+    assert m.isotopicAtomPercents == {6000: 0.000164, 14000: 0.000870, 15000: 0.000036, 16000: 0.000023,
+                                      24000: 0.015751, 25000: 0.000889, 26000: 0.057714, 28000: 0.009850,
+                                      42000: 0.001255}
+    assert m.enrichmentZaids == []
+    assert m.enrichmentIsotopes == []
+    assert m.enrichmentVector == []
+    assert m.density == 8.6553e-2
+    assert np.allclose(m.atomDensity, 8.6553e-2, 5)
+    atomPercentKnown = {6000: 1.900e-3,
+                        14028: 9.231e-3, 14029: 4.857e-4, 14030: 3.316e-4,
+                        15031: 4.133e-4,
+                        16032: 2.466e-4, 16033: 2.008e-6, 16034: 1.172e-5, 16036: 2.921e-8,
+                        24050: 7.596e-3, 24052: 1.523e-1, 24053: 1.760e-2, 24054: 4.465e-3,
+                        25055: 1.027e-2,
+                        26054: 3.765e-2, 26056: 6.128e-1, 26057: 1.441e-2, 26058: 1.951e-3,
+                        28058: 7.647e-2, 28060: 3.047e-2, 28061: 1.347e-3, 28062: 4.365e-3, 28064: 1.147e-3,
+                        42092: 2.018e-3, 42094: 1.298e-3, 42095: 2.272e-3, 42096: 2.416e-3, 42097: 1.406e-3,
+                        42098: 3.609e-3, 42100: 1.483e-3}
+    for k, v in atomPercentKnown.items():
+        assert np.allclose(m.atomPercent[k], v, 5)
+
 def test_material_FFTF_IF():
     """
     Test material is the inner fuel from the FFTF Benchmark in the
@@ -234,6 +264,11 @@ def test_material_FFTF_IF():
     assert m.name == 'FFTF Inner Fuel'
     assert m.elements == ['U', 'Np', 'Pu', 'Am', 'O']
     assert m.zaids == [92000, 93000, 94000, 95000, 8000]
+    assert m.isotopicAtomPercents == {92234: 9.9319E-7, 92235: 1.1417E-4, 92238: 1.5764E-2,
+                         93237: 1.6063E-5,
+                         94238: 3.1181E-6, 94239: 5.1998E-3, 94240: 7.0298E-4, 94241: 6.9284E-5, 94242: 1.2825E-5,
+                         95241: 1.1744E-5,
+                         8016: 4.2690E-2}
     assert m.enrichmentZaids == []
     assert m.enrichmentIsotopes == []
     assert m.enrichmentVector == []
@@ -246,6 +281,7 @@ def test_material_FFTF_IF():
                          8016: 4.2690E-2}
     for k, v in atomPercentKnown.items():
         assert np.allclose(m.atomPercent[k], v, 5)
+
 
 def test_material_BadWtPer():
     m = materialReader.Material()

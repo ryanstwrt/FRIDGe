@@ -8,7 +8,6 @@ global_vars = gb.GlobalVariables()
 global_vars.read_input_file('A271_Assembly_Test')
 assembly_info = [global_vars.file_name, '01A01', global_vars, None]
 
-
 def test_assembly():
     """Check the base assembly init"""
     baseAssembly = Assembly.Assembly(assembly_info)

@@ -31,14 +31,15 @@ class GlobalVariables(object):
         self.output_name = ''
         self.input_type = ''
 
-    def read_input_file(self, assembly_name, kwargs):
+    def read_input_file(self, assembly_name, **perturbations):
         """Reads the yaml file for a FRIDGE input file and assigns any variables found."""
         self.assembly_file_name = assembly_name
-
         cur_dir = os.path.dirname(__file__)
         input_dir = os.path.join(cur_dir, "../fridge_input_file")
-        assembly_file = glob.glob(os.path.join(input_dir, self.assembly_file_name + '.yaml'))
-
+        assembly_path = os.path.join(input_dir, self.assembly_file_name + '.yaml')
+        assembly_file = glob.glob(assembly_path)
+        print(assembly_name, assembly_file)
+        print(assembly_path)
         with open(assembly_file[0], "r") as file:
             inputs = yaml.safe_load(file)
 
@@ -74,7 +75,7 @@ class GlobalVariables(object):
             if "Assembly Perturbations" in inputs else {}
 
         # Update for perturbations
-        for k, v in kwargs.items():
+        for k, v in perturbations.items():
             self.__setattr__(k, v)
 
         # Set the XC set depending on the temperature
@@ -99,9 +100,6 @@ class GlobalVariables(object):
                 self.xc_set = '.73c'
             elif self.xc_library == 'JEFF3.1':
                 self.xc_set = '.39c'
-
-
-
 
     def update_numbering(self):
         self.universe += 20

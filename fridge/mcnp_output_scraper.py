@@ -7,7 +7,6 @@ def translate_output(directory, hdf_file, reactor_file):
     # Parse output Name
     file_name = reactor_file
     reactor_type = reactor_file[:-4]
-
     # Check to see if this is base model, or perturbed model
     # This will also create the HDF group for the base model
     if reactor_type[-4:] == '600K':
@@ -25,6 +24,7 @@ def translate_output(directory, hdf_file, reactor_file):
 
     condition = '900K'
     enrichment = '15Pu12U10Zr'
+    temperature = 900
 
     for parameter in name_list:
         # Find the fuel smear designated FSxx
@@ -39,13 +39,16 @@ def translate_output(directory, hdf_file, reactor_file):
         # Find the condition of the reactor either 600K or void
         else:
             condition = parameter
+            if 'K' in condition:
+                temperature = float(condition[:-1])
 
-    init_attr = {'smear': fuel_smear, 'height': fuel_height, 'enrichment': np.string_(enrichment), 'condition': np.string_(condition)}
+
+    init_attr = {'smear': fuel_smear, 'height': fuel_height, 'enrichment': np.string_(enrichment),
+                 'condition': np.string_(condition), 'temperature': temperature}
 
     for k, v in init_attr.items():
         reactor.attrs.create(k, v)
 
-    reactor.attrs['condition'] = condition
     attributes = {}
     # Read the file and extract the information
     file_path = directory +'\\' + file_name
@@ -55,8 +58,7 @@ def translate_output(directory, hdf_file, reactor_file):
             #add keff and uncertainty
             if line[0:16] == ' | the final est':
                 val = re.findall(r'\d.\d\d\d\d\d', line)
-                attributes['keff'] = float(val[0])
-                attributes['keff_unc'] = float(val[1])
+                attributes['keff'] = [float(val[0]), float(val[1])]
             #add thermal, epithermal, and fast fractions
             elif line[0:22] == ' |         (<0.625 ev)':
                 val = re.findall(r'[\s\d]\d.\d\d', line)
@@ -69,42 +71,32 @@ def translate_output(directory, hdf_file, reactor_file):
                 attributes['nu-bar'] = float(val[0])
             # add escape, capture, and fission fractions
             elif line[0:20] == '            fraction':
-                val = re.findall(r'\d.\d\d\d\d\dE-\d\d', line)
-                attributes['escape_fraction'] = float(val[0])
-                attributes['capture_fraction'] = float(val[1])
-                attributes['fission_fraction'] = float(val[2])
+                val = line.split('    ')
+                attributes['escape_fraction'] = float(val[4])
+                attributes['capture_fraction'] = float(val[5])
+                attributes['fission_fraction'] = float(val[6])
             #add generation time and uncertainty
             elif line[0:20] == '           gen. time':
                 # Excessively large generation times will be in micro-seconds not nano-seconds
                 # Grab nano-second values
-                try:
-                    val = re.findall(r'[\s\d]\d\d.\d\d\d\d\d', line)
-                    attributes['gen_time'] = float(val[0])
-                    val = re.findall(r'[\s\d]\d.\d\d\d\d\d', line)
-                    attributes['gen_time_unc'] = float(val[0])
-                # Grab mico-second values and convert to nano-seconds
-                except IndexError:
-                    val = re.findall(r'[\s\d]\d.\d\d\d\d\d', line)
-                    attributes['gen_time'] = float(val[0])*1000
-                    val = re.findall(r'[\s\d]\d.\d\d\d\d\d', line)
-                    attributes['gen_time_unc'] = float(val[0])*1000
+                val = line.split('    ')
+                if 'usec' in val[-1]:
+                    attributes['gen_time'] = [float(val[-4])*1000, float(val[-2])*1000]
+                else:
+                    attributes['gen_time'] = [float(val[-4]), float(val[-2])]
             #add rossi-alpha and uncertainty
             elif line[0:20] == '         rossi-alpha':
                 # Excessively large alpha-rossi values will be in micro-seconds not nano-seconds
                 # Grab nano-second values
-                if line[-8:-1] == '(/usec)':
-                    val = re.findall(r'[-\s]\d.\d\d\d\d\dE-\d\d', line)
-                    attributes['rossi_alpha'] = float(val[0])*1000
-                    attributes['rossi_alpha_unc'] = float(val[1])*1000
+                val = line.split('    ')
+                if 'usec' in val[-1]:
+                    attributes['gen_time'] = [float(val[-3])/1000, float(val[-2])/1000]
                 else:
-                    val = re.findall(r'[-\s]\d.\d\d\d\d\dE-\d\d', line)
-                    attributes['rossi_alpha'] = float(val[0])
-                    attributes['rossi_alpha_unc'] = float(val[1])
+                    attributes['gen_time'] = [float(val[-3]), float(val[-2])]
             #add beta-eff and uncertainty
             elif line[0:20] == '            beta-eff':
-                val = re.findall(r'\d.\d\d\d\d\d', line)
-                attributes['beta'] = float(val[0])
-                attributes['beta_unc'] = float(val[1])
+                val = line.split('        ')
+                attributes['beta'] = [float(val[-2]), float(val[-1])]
     for k, v in attributes.items():
         reactor.attrs.create(k, v)
 

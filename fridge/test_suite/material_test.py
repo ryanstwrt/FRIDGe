@@ -224,6 +224,29 @@ def test_material_SS316():
         assert np.allclose(m.atomPercent[k], v, 5)
 
 
+def test_material_FFTF_IF():
+    """
+    Test material is the inner fuel from the FFTF Benchmark in the
+    International Handbook of Evaluated Reactor Experiments.
+    """
+    m = materialReader.Material()
+    m.set_material('FFTF_IF')
+    assert m.name == 'FFTF Inner Fuel'
+    assert m.elements == ['U', 'Np', 'Pu', 'Am', 'O']
+    assert m.zaids == [92000, 93000, 94000, 95000, 8000]
+    assert m.enrichmentZaids == []
+    assert m.enrichmentIsotopes == []
+    assert m.enrichmentVector == []
+    assert m.density == 6.4584E-2
+    assert np.allclose(m.atomDensity, 6.4584E-2, 5)
+    atomPercentKnown = {92234: 9.9319E-7, 92235: 1.1417E-4, 92238: 1.5764E-2,
+                         93237: 1.6063E-5,
+                         94238: 3.1181E-6, 94239: 5.1198E-3, 94240: 7.0298E-4, 94241: 6.9284E-5, 94242: 1.2825E-5,
+                         95241: 1.1744E-5,
+                         8016: 4.2690E-2}
+    for k, v in atomPercentKnown.items():
+        assert np.allclose(m.atomPercent[k], v, 5)
+
 def test_material_BadWtPer():
     m = materialReader.Material()
     m.set_material('BadMaterial')

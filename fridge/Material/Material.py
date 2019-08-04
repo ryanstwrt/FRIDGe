@@ -98,11 +98,12 @@ class Material(object):
         self.atomDensity, self.atomPercent = set_atom_percent(self.weightPercent, self.density, self.elementDict)
 
     def set_atom_fractions(self, void_percent=1.0):
-        """Calculates the weight percent of a material."""
+        """Calculates the atom density of a material given a material with atom densities defined."""
         for zaidNum, zaid in enumerate(self.zaids):
             for isotope, isotopeFraction in self.elementDict[zaid].atomPercentDict.items():
                 if zaid in self.isotopicAtomPercents:
-                    self.atomPercent[isotope] = self.elementDict[zaid].weightPercentDict[isotope] * \
+                    print(self.elementDict[zaid].weightPercentDict[isotope])
+                    self.atomPercent[isotope] = self.elementDict[zaid].atomPercentDict[isotope] * \
                                                 self.isotopicAtomPercents[zaid] * void_percent
                 elif isotope in self.isotopicAtomPercents:
                     self.atomPercent[isotope] = self.isotopicAtomPercents[isotope] * void_percent

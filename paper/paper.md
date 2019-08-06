@@ -73,11 +73,12 @@ To illustrate the versatility of FRIDGe, it was used to create a simplified driv
 All of the dimensions were taken from the International Handbook of Evaluated Reactor Physics benchmark evaluation of EBR-II [@Lum2018].
 The two figures below show an axial and plane view of the assembly, which describes each region of the assembly.
 
-![Elevated view of EBRII driver Assembly](EBRII_Assembly.jpg) ![Plan view of EBRII driver assembly fuel region](EBRII_Fuel.jpg)
-
 The assembly built by FRIDGe closely resembles the typical driver assembly built in the benchmark evaluation.
 There are slight differences in design preference, for example, the benchmark explicitly models the wire wrap and plenum, whereas FRIDGe homogenizes these regions.
 FRIDGe was built as a tool for LMFR core designers who need the ability to model an assembly or full core with relative ease. 
-Where this toodl will allow allows a core designer to rapidly build, run, and iterate on a reactor design without being bogged down by input deck generation.
+Where this tool will allow a core designer to rapidly build, run, and iterate on a reactor design without being bogged down by input deck generation.
+
+![Elevated view of EBRII driver Assembly](EBRII_Assembly.jpg) ![Plan view of EBRII driver assembly fuel region](EBRII_Fuel.jpg)
+
 
 # References

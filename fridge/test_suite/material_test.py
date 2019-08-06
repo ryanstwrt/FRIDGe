@@ -265,20 +265,20 @@ def test_material_FFTF_IF():
     assert m.elements == ['U', 'Np', 'Pu', 'Am', 'O']
     assert m.zaids == [92000, 93000, 94000, 95000, 8000]
     assert m.isotopicAtomPercents == {92234: 9.9319E-7, 92235: 1.1417E-4, 92238: 1.5764E-2,
-                         93237: 1.6063E-5,
-                         94238: 3.1181E-6, 94239: 5.1998E-3, 94240: 7.0298E-4, 94241: 6.9284E-5, 94242: 1.2825E-5,
-                         95241: 1.1744E-5,
-                         8016: 4.2690E-2}
+                                      93237: 1.6063E-5,
+                                      94238: 3.1181E-6, 94239: 5.1998E-3, 94240: 7.0298E-4, 94241: 6.9284E-5, 94242: 1.2825E-5,
+                                      95241: 1.1744E-5,
+                                      8016: 4.2690E-2}
     assert m.enrichmentZaids == []
     assert m.enrichmentIsotopes == []
     assert m.enrichmentVector == []
     assert m.density == 6.4584E-2
     assert np.allclose(m.atomDensity, 6.4584E-2, 5)
     atomPercentKnown = {92234: 9.9319E-7, 92235: 1.1417E-4, 92238: 1.5764E-2,
-                         93237: 1.6063E-5,
-                         94238: 3.1181E-6, 94239: 5.1198E-3, 94240: 7.0298E-4, 94241: 6.9284E-5, 94242: 1.2825E-5,
-                         95241: 1.1744E-5,
-                         8016: 4.2690E-2}
+                        93237: 1.6063E-5,
+                        94238: 3.1181E-6, 94239: 5.1198E-3, 94240: 7.0298E-4, 94241: 6.9284E-5, 94242: 1.2825E-5,
+                        95241: 1.1744E-5,
+                        8016: 4.2690E-2}
     for k, v in atomPercentKnown.items():
         assert np.allclose(m.atomPercent[k], v, 5)
 
@@ -292,8 +292,9 @@ def test_material_FFTF_Inconel600():
     assert m.name == 'FFTF Inconel 600'
     assert m.elements == ['C', 'Si', 'S', 'Cr', 'Mn', 'Fe', 'Co', 'Ni', 'Cu']
     assert m.zaids == [6000, 14000, 16000, 24000, 25000, 26000, 27000, 28000, 29000]
-    assert m.isotopicAtomPercents == {6000: 2.0908E-3, 14000: 4.4707E-4, 16000: 1.1747E-5, 24000: 1.4972E-2, 25000: 1.5998E-3,
-                         26000: 7.1948E-3, 27000: 8.5222E-5, 28000: 6.3016E-2, 29000: 1.9759E-4}
+    assert m.isotopicAtomPercents == {6000: 2.0908E-3, 14000: 4.4707E-4, 16000: 1.1747E-5, 24000: 1.4972E-2,
+                                      25000: 1.5998E-3, 26000: 7.1948E-3, 27000: 8.5222E-5, 28000: 6.3016E-2,
+                                      29000: 1.9759E-4}
     assert m.enrichmentZaids == []
     assert m.enrichmentIsotopes == []
     assert m.enrichmentVector == []
@@ -315,7 +316,6 @@ def test_material_BadWtPer():
     m = materialReader.Material()
     m.set_material('BadMaterial')
     assert m.weightPercent != 1.0
-
 
 def test_material_NoMaterial():
     m = materialReader.Material()

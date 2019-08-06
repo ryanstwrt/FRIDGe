@@ -43,8 +43,9 @@ def create_hdf5_database(database_name, dir=os.getcwd()):
         reactor = f[k]
         print()
         print(k)
-        for k1,v1 in reactor.attrs.items():
-            print(k1,v1)
+        for k1, v1 in reactor.attrs.items():
+            print(k1, v1)
 
 
-create_hdf5_database('test_db', dir=r'C:\Users\ryanstwrt\Documents\OSU\Sodium_Fast_Reactor\PHYSOR2020\Results_Raw')
+create_hdf5_database('height_smear_db',
+                     dir=r'C:\Users\ryanstwrt\Documents\OSU\Sodium_Fast_Reactor\PHYSOR2020\height_smear_results')

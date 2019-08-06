@@ -26,10 +26,10 @@ There are currently six different Gen IV reactors selected for research and deve
 LMFRs utilize liquid metal as the primary coolant (typically sodium, lead, or lead-bismuth) and rely on fast neutrons to drive the chain reaction.
 Often times this is advantageous for reactors to breed fuel for a closed fuel cycle, or burn spent fuel from light water reactors.
 LMFRs have been built in reduced scales in the past to determine operating characteristics and provide experimental data for reactor safety in accident scenarios.
-In the past reactor designers relied on hand calculations and experimental facilities to build full scale reactor cores.
-Due to the cost of building new experimental facilities and increase in computational power, simulations are heavily relied on to support the reactor design process.
+In the past, reactor designers relied on hand calculations and experimental facilities to build full scale reactor cores.
+Due to the cost of building new experimental facilities and an increase in computational power, simulations are heavily relied on to support the reactor design process.
 
-Reactor core design for nuclear engineers is an extremely complex topic which requires skills in multiple areas of study such as neutronics, thermal hydraulics, and material performance.
+Reactor core design for nuclear engineers is an extremely complex topic which requires skills in multiple areas of study such as neutronics, thermal hydraulics, and materials performance.
 The first step in core design typically starts with examining the neutronic viability.
 This process involves finding appropriate materials, geometries, and core configurations which will achieve a critical configuration.
 Software models are used to test the various configurations to determine their applicability to the design problem.
@@ -40,7 +40,7 @@ MCNP is a commonly used neutron transport code for radiation shielding, critical
 The code suite is extremely versatile and allows the user to incorporate multiple physical phenomena, given the user's ability to navigate it.
 MCNP builds models in a traditional text-based input file, which includes building surfaces, materials, and defining what materials are present inside each surface.
 Building simple geometries is a relatively straight forward process, whereas more complex configurations, such as a LMFR assembly or core, requires additional finesse.
-This requires the designer to shift their focus from design to input file management, which takes away their ability to critically think about the core.
+This requires the designer to shift their focus from design to input file management, which takes away from their ability to critically think about the core.
 Building input files for MCNP for large systems by hand is both time consuming and error prone.
 This is exemplified when trying to model a heterogeneous core where the input deck can grow exceedingly large (over 10,000 lines).
 At this size, it is unrealistic to perform any type of design iteration by manually adjusting design parameters and expecting a functioning model free of errors.
@@ -52,7 +52,7 @@ FRIDGe was created to help alleviate the process of learning additional code nom
 The only inputs the user focuses on are directly related to the core design process and create a level of abstraction from the input deck generation.
 This allows the user to focus on what aspects of the design affect the reactor, rather than input file creation and management.
 
-FRIDGe currently houses the capability to create input files, for a single assembly or full core, for the code suite MCNP.
+FRIDGe currently houses the capability to create input files, for a single assembly or full core, for the MCNP.
 This process is done by creating a series of YAML data files for elements, materials, assemblies, and cores [@YAML].
 The element file allows the user to create elements from the Chart of the Nuclides for use in materials.
 The material file allows the user to create custom materials (fuel, cladding, coolant, poisons, etc.) that the model will require.
@@ -77,6 +77,7 @@ The two figures below show an axial and plane view of the assembly, which descri
 
 The assembly built by FRIDGe closely resembles the typical driver assembly built in the benchmark evaluation.
 There are slight differences in design preference, for example, the benchmark explicitly models the wire wrap and plenum, whereas FRIDGe homogenizes these regions.
-FRIDGe allows a core designer to rapidly build, run, and iterate on a reactor design without being bogged down by input deck generation.
+FRIDGe was built as a tool for LMFR core designers who need the ability to model an assembly or full core with relative ease. 
+Where this toodl will allow allows a core designer to rapidly build, run, and iterate on a reactor design without being bogged down by input deck generation.
 
 # References

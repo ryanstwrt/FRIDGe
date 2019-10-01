@@ -4,6 +4,7 @@ import numpy as np
 
 
 def translate_output(directory, hdf_file, reactor_file):
+    dt = h5py.string_dtype(encoding='utf-8')
     # Parse output Name
     file_name = reactor_file
     reactor_type = reactor_file[:-4]
@@ -42,12 +43,15 @@ def translate_output(directory, hdf_file, reactor_file):
             if 'K' in condition:
                 temperature = float(condition[:-1])
 
-
     init_attr = {'smear': fuel_smear, 'height': fuel_height, 'enrichment': np.string_(enrichment),
                  'condition': np.string_(condition), 'temperature': temperature}
 
     for k, v in init_attr.items():
-        reactor.attrs.create(k, v)
+        if type(v) == np.bytes_:
+            ds = reactor.create_dataset(k, (1,), dtype=dt)
+        else:
+            ds = reactor.create_dataset(k, (1,))
+        ds[0] = v
 
     attributes = {}
     # Read the file and extract the information
@@ -62,19 +66,19 @@ def translate_output(directory, hdf_file, reactor_file):
             #add thermal, epithermal, and fast fractions
             elif line[0:22] == ' |         (<0.625 ev)':
                 val = re.findall(r'[\s\d]\d.\d\d', line)
-                attributes['thermal_fraction'] = float(val[0])
-                attributes['epithermal_fraction'] = float(val[1])
-                attributes['fast_fraction'] = float(val[2])
+                attributes['thermal_fraction'] = [float(val[0])]
+                attributes['epithermal_fraction'] = [float(val[1])]
+                attributes['fast_fraction'] = [float(val[2])]
             #add average number of neutrons gen per fission
             elif line[0:21] == ' | the average number':
                 val = re.findall(r'\d.\d\d\d', line)
-                attributes['nu-bar'] = float(val[0])
+                attributes['nu-bar'] = [float(val[0])]
             # add escape, capture, and fission fractions
             elif line[0:20] == '            fraction':
                 val = line.split('    ')
-                attributes['escape_fraction'] = float(val[4])
-                attributes['capture_fraction'] = float(val[5])
-                attributes['fission_fraction'] = float(val[6])
+                attributes['escape_fraction'] = [float(val[4])]
+                attributes['capture_fraction'] = [float(val[5])]
+                attributes['fission_fraction'] = [float(val[6])]
             #add generation time and uncertainty
             elif line[0:20] == '           gen. time':
                 # Excessively large generation times will be in micro-seconds not nano-seconds
@@ -97,8 +101,11 @@ def translate_output(directory, hdf_file, reactor_file):
             elif line[0:20] == '            beta-eff':
                 val = line.split('        ')
                 attributes['beta'] = [float(val[-2]), float(val[-1])]
+
     for k, v in attributes.items():
-        reactor.attrs.create(k, v)
+        ds = reactor.create_dataset(k, (len(v),))
+        for l in range(len(v)):
+            ds[l] = v[l]
 
 def create_hdf_group(hdf_file, specific, general):
     try:
@@ -107,5 +114,3 @@ def create_hdf_group(hdf_file, specific, general):
         hdf_file.create_group(general)
         hdf_file[general].create_group(specific)
     return hdf_file[general]
-
-#translate_output('FC_FS76_H65.out', 'blank')

@@ -8,6 +8,7 @@ global_vars = gb.GlobalVariables()
 global_vars.read_input_file('A271_Assembly_Test')
 assembly_info = [global_vars.file_name, '01A01', global_vars, None]
 
+
 def test_assembly():
     """Check the base assembly init"""
     baseAssembly = Assembly.Assembly(assembly_info)
@@ -160,7 +161,6 @@ def test_fuel_assembly():
     assert a.assemblyShell.cellCard == '113 0 -113 fill=100 imp:n=1 $Assembly'
     assert a.assemblyShell.surfaceCard == '113 RHP 0.0 0.0 -99.7 0 0 320.0 0 5.805 0 $Assembly: Full Assembly Surface'
     assert a.everythingElse.cellCard == '114 0 113 imp:n=0 $Everything Else'
-
 
 global_vars = gb.GlobalVariables()
 global_vars.read_input_file('Smear_Assembly_Test')
@@ -318,3 +318,35 @@ higher than fuel'
     assert a.assemblyShell.cellCard == '113 0 -113 fill=100 imp:n=1 $Assembly'
     assert a.assemblyShell.surfaceCard == '113 RHP 0.0 0.0 -109.7 0 0 320.0 0 5.805 0 $Assembly: Full Assembly Surface'
     assert a.everythingElse.cellCard == '114 0 113 imp:n=0 $Everything Else'
+
+
+global_vars = gb.GlobalVariables()
+core = 'A271_Assembly_Test'
+assem = 'A271_Test'
+global_vars.read_input_file(core, assembly_perturbations={assem: {'fuelMaterial': 'U10Zr', 'fuelDiameter': 0.1,
+                                                                  'cladMaterial': 'SS316'}})
+assembly_info4 = [global_vars.file_name, '01A01', global_vars, None]
+
+
+def test_fueled_perturbation():
+    a = FuelAssembly.FuelAssembly(assembly_info4)
+    assert a.fuelMaterial == 'U10Zr'
+    assert a.fuelDiameter == 0.1
+    assert a.cladMaterial == 'SS316'
+
+
+global_vars = gb.GlobalVariables()
+core = 'Smear_Assembly_Test'
+assem = 'Smear_Test'
+global_vars.read_input_file(core, assembly_perturbations={assem: {'smearMaterial': {'LiquidPb': 1.0},
+                                                                  'zPosition': 50,
+                                                                  'smearRegionHeight': 50}})
+assembly_info5 = [global_vars.file_name, '01A01', global_vars, None]
+
+
+def test_smear_perturbation():
+    a = SmearAssembly.SmearAssembly(assembly_info5)
+    assert a.smearMaterial == {'LiquidPb': 1.0}
+    assert a.zPosition == 50
+    assert a.smearRegionHeight == 50
+    assert a.smearRegion.cellCard == "100 100 0.03103 -100 u=100 imp:n=1 $Assembly: Smear Region"

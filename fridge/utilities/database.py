@@ -41,9 +41,6 @@ def create_hdf5_database(database_name, dir=os.getcwd()):
         reactor_keff = reactor['keff'][0]
         temp_dif = doppler_temp - reactor['temperature'][0]
         reactor['doppler_coeff'] = (doppler_keff - reactor_keff) / (reactor_keff * doppler_keff * temp_dif) * pow(10, 5)
-        print('Doppler: {}  Regular: {}'.format(doppler_keff, reactor_keff))
-        print('Temp: {}  Coeff: {}'.format(temp_dif, reactor['doppler_coeff'][0]))
-        print()
         ds = reactor.create_dataset('void_coeff', (1,))
         ds[0] = (void_keff - reactor_keff) / (reactor_keff * void_keff * 99.9) * pow(10, 5)
 

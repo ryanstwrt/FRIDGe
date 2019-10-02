@@ -6,8 +6,8 @@ import glob
 
 global_vars = gb.GlobalVariables()
 cur_dir = os.path.dirname(__file__)
-mcnp_dir = os.path.join(cur_dir, '../mcnp_input_files/Test_Inputs')
-mcnp_test_dir = os.path.join(cur_dir, '../mcnp_input_files/')
+mcnp_dir = os.path.join(cur_dir, '../mcnp_input_files/')
+mcnp_test_dir = os.path.join(cur_dir, '../mcnp_input_files/Test_Inputs/')
 
 
 def test_singleAssembly_Fuel():

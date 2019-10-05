@@ -1,8 +1,6 @@
 import fridge.Assembly.Assembly as Assembly
 import fridge.Constituent.Smear as Smeared
-import fridge.Constituent.LowerCoolant as Lowercoolant
 import fridge.Constituent.OuterShell as Outershell
-import fridge.Constituent.UpperCoolant as Uppercoolant
 import fridge.Constituent.EveryThingElse as Everythingelse
 import fridge.utilities.utilities as utilities
 
@@ -19,12 +17,7 @@ class SmearAssembly(Assembly.Assembly):
         super().__init__(assembly_information)
         self.assemblyUniverse = 0
         self.smearRegionHeight = 0
-        self.smearRegion = None
-        self.lowerCoolant = None
-        self.upperCoolant = None
-        self.smearMaterial = None
-        self.innerDuct = None
-        self.duct = None
+        self.smearRegions = {}
         self.assemblyShell = None
         self.everythingElse = None
         self.position = []
@@ -38,9 +31,15 @@ class SmearAssembly(Assembly.Assembly):
     def get_smear_assembly_data(self):
         """Assign assembly data for the smear assembly."""
         self.get_assembly_data(self.inputs)
-        self.smearMaterial = self.inputs['Smear Materials']
-        self.smearRegionHeight = self.inputs['Smear Height']
-
+        self.axialRegions = self.inputs['Axial Regions']
+        self.axialRegionDict = {}
+        for region in self.axialRegions:
+            try:
+                self.axialRegionDict[region] = self.inputs['Axial Region {}'.format(region)]
+                self.smearRegionHeight += self.axialRegionDict[region]['Smear Height']
+            except:
+                print("Failed to create axial region {} for assembly {}, "
+                      "ensure this region is defined".format(region, self.assembly_file_name))
         # Update for perturbations
         if bool(self.globalVars.assembly_perturbations):
             self.update_perturbations()
@@ -48,43 +47,37 @@ class SmearAssembly(Assembly.Assembly):
     def build_smear_assembly(self):
         """Build the cell, surface, and material cards for the smear assembly."""
         self.assemblyUniverse = self.universe
-        excess_coolant_height = (self.assemblyHeight - self.smearRegionHeight) / 2
-        bottom_coolant_position = utilities.get_position_for_hex_lattice(self.assemblyPosition, self.assemblyPitch,
-                                                                         self.zPosition - excess_coolant_height)
-        bottom_smear_position = utilities.get_position_for_hex_lattice(self.assemblyPosition, self.assemblyPitch,
-                                                                       self.zPosition)
-        upper_smear_assembly_position = utilities.get_position_for_hex_lattice(self.assemblyPosition,
-                                                                               self.assemblyPitch,
-                                                                               self.smearRegionHeight + self.zPosition)
+        cur_position = utilities.get_position_for_hex_lattice(self.assemblyPosition, self.assemblyPitch, self.zPosition)
+        cur_position[2] -= 0.1
 
-        self.smearRegion = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                           self.smearMaterial, self.xcSet, bottom_smear_position, self.materialNum],
-                                          [self.ductOuterFlatToFlatMCNPEdge, self.smearRegionHeight], 'Smear Region'],
-                                         void_material=self.coolantMaterial, void_percent=self.voidPercent)
-
-        self.update_global_identifiers(False)
-        self.lowerCoolant = Lowercoolant.LowerCoolant([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                                       self.coolantMaterial, self.xcSet, bottom_coolant_position,
-                                                       self.materialNum],
-                                                      [excess_coolant_height, self.ductOuterFlatToFlatMCNPEdge]],
+        for region, region_dict in self.axialRegionDict.items():
+            if region == 1:
+                smear_height = region_dict['Smear Height'] + 0.1
+            else:
+                smear_height = region_dict['Smear Height']
+            self.smearRegions[region] = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
+                                                        region_dict['Smear Materials'], self.xcSet,
+                                                        cur_position, self.materialNum],
+                                                       [self.ductOuterFlatToFlatMCNPEdge, smear_height],
+                                                       region_dict['Smear Name']], void_material=self.coolantMaterial,
                                                       void_percent=self.voidPercent)
+            if region == 1:
+                cur_position[2] += region_dict['Smear Height'] + 0.1
+            else:
+                cur_position[2] += region_dict['Smear Height']
+            self.update_global_identifiers(False)
+            self.assemblyCellList.append(self.smearRegions[region])
+            self.assemblySurfaceList.append(self.smearRegions[region])
+            self.assemblyMaterialList.append(self.smearRegions[region])
 
-        self.update_global_identifiers(False)
-        self.upperCoolant = Uppercoolant.UpperCoolant([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                                       self.coolantMaterial, self.xcSet, upper_smear_assembly_position,
-                                                       self.materialNum],
-                                                      [excess_coolant_height, self.ductOuterFlatToFlatMCNPEdge]],
-                                                      void_percent=self.voidPercent)
-
-        self.update_global_identifiers(False)
+        shell_pos = utilities.get_position_for_hex_lattice(self.assemblyPosition, self.assemblyPitch, self.zPosition)
         self.assemblyShell = Outershell.OuterShell([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
-                                                     self.coolantMaterial, self.xcSet, bottom_coolant_position,
-                                                     self.materialNum],
+                                                     self.coolantMaterial, self.xcSet, shell_pos, self.materialNum],
                                                     [self.assemblyHeight, self.ductOuterFlatToFlat]])
 
-        self.assemblyCellList = [self.smearRegion, self.lowerCoolant, self.upperCoolant, self.assemblyShell]
-        self.assemblySurfaceList = [self.smearRegion, self.lowerCoolant, self.upperCoolant, self.assemblyShell]
-        self.assemblyMaterialList = [self.smearRegion, self.lowerCoolant, self.upperCoolant, self.assemblyShell]
+        self.assemblyCellList.append(self.assemblyShell)
+        self.assemblySurfaceList.append(self.assemblyShell)
+        self.assemblyMaterialList.append(self.assemblyShell)
 
         if 'Single' in self.globalVars.input_type:
             self.update_global_identifiers(False)

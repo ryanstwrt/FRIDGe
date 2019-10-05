@@ -1,5 +1,5 @@
-Name: Axial_Blank
-Temperature: 900
+Name: A271_Five_Axial_Test
+Temperature: 600
 Temperature Adjusted Density: True
 Temperature Adjusted Volume: True
 Smear Clad: True
@@ -10,6 +10,6 @@ Number of Skipped Generations: 300
 Number of Particles per Generation: 1e6
 Run Kinetics: True
 ksens: True
-Output File Name: Smear_Assembly_Test
+Output File Name: Fuel_Assembly_Test
 Input Type: Single
 Random Variable: True

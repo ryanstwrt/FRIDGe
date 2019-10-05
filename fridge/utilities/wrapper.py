@@ -16,7 +16,7 @@ def create_core(core_list, assem_perts={}):
 #        fd.main(core, assembly_perturbations=assem_perts, void_per=0.001, output_name=file)
 
 
-cores = ['FullCore_FS70_H50_15Pu_12U']#, 'FullCore_FS70_H60_15Pu_12U', 'FullCore_FS70_H70_15Pu_12U', 'FullCore_FS70_H80_15Pu_12U']
+cores = ['FullCore_FS70_H50_15Pu_12U']
 fuel = '7Pu20U10Zr'
 assembly = 'A271_FS70_H50'
 reflector = 'Reflector_H50'

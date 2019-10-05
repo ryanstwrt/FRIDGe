@@ -1,0 +1,28 @@
+#Assembly Type
+Assembly Type: Smear
+
+#Assembly Data
+Assembly Pitch: 12
+Duct Thickness: 0.3
+Assembly Gap: 0.3
+Duct Inside Flat to Flat: 11.1
+Assembly Height: 270
+Coolant Material: LiquidNa
+Assembly Material: HT9
+Z Position: -50
+Axial Regions: [1,2,3]
+
+Axial Region 1:
+    Smear Materials: {LiquidNa: 0.9, HT9: 0.1}
+    Smear Height: 110
+    Smear Name: Test_Region
+
+Axial Region 2:
+    Smear Materials: {LiquidNa: 0.5, HT9: 0.5}
+    Smear Height: 110
+    Smear Name: Test_Region2
+
+Axial Region 3:
+    Smear Materials: {LiquidNa: 0.6, HT9: 0.4}
+    Smear Height: 50
+    Smear Name: Test_Region3

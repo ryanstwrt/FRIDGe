@@ -1,15 +1,16 @@
-Name: Axial_Blank
+Name: A271_Three_Axial_Test
 Temperature: 900
 Temperature Adjusted Density: True
 Temperature Adjusted Volume: True
 Smear Clad: True
 Smear Bond: True
-XC Library: ENDFVII.1
+XC Library: JEFF3.1
 Number of Generations: 2300
 Number of Skipped Generations: 300
 Number of Particles per Generation: 1e6
 Run Kinetics: True
 ksens: True
-Output File Name: Smear_Assembly_Test
+Output File Name: Bot_Fuel_Assembly_Test
 Input Type: Single
 Random Variable: True
+

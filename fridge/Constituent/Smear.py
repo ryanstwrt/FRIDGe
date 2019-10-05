@@ -10,14 +10,15 @@ class Smear(Constituent.Constituent):
         self.cellNum = unit_info[0][1]
         self.surfaceNum = unit_info[0][2]
         self.materialXCLibrary = unit_info[0][4]
-        self.material = unit_info[0][3]
+        self.materialSmear = unit_info[0][3]
         self.position = unit_info[0][5]
         self.materialNum = unit_info[0][6]
         self.componentName = unit_info[2]
+        self.material = None
         if void_percent == 1.0:
-            self.material = fridge.Material.Material.get_smeared_material(self.material)
+            self.material = fridge.Material.Material.get_smeared_material(self.materialSmear)
         else:
-            self.material = fridge.Material.Material.get_smeared_material(self.material,
+            self.material = fridge.Material.Material.get_smeared_material(self.materialSmear,
                                                                           void_material=void_material,
                                                                           void_percent=void_percent)
         self.make_component(unit_info[1])

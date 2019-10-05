@@ -70,9 +70,16 @@ class Assembly(object):
     def update_perturbations(self):
         """Update the variables for any perturbations in the input file"""
         for a, perts in self.globalVars.assembly_perturbations.items():
+            print(perts)
             if a == self.assembly_file_name:
                 for k, v in perts.items():
-                    self.__setattr__(k, v)
+                    print(k, v)
+                    if type(v) is dict:
+                        for k1, v1 in v.items():
+                            region = int(k[-1])
+                            self.axialRegionDict[region][k1] = v1
+                    else:
+                        self.__setattr__(k, v)
 
 def read_assembly_type(assembly_file_name):
     """Reads in the assembly type to determine what type of assembly to build and return it."""

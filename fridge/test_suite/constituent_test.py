@@ -8,10 +8,8 @@ import fridge.Constituent.FuelCoolant as FuelCoolant
 import fridge.Constituent.FuelPin as FuelPin
 import fridge.Constituent.FuelUniverse as FuelUniverse
 import fridge.Constituent.InnerDuct as InnerDuct
-import fridge.Constituent.LowerCoolant as LowerCoolant
 import fridge.Constituent.OuterShell as OuterShell
 import fridge.Constituent.Smear as Smear
-import fridge.Constituent.UpperCoolant as UpperCoolant
 import fridge.Constituent.CoreCoolant as CoreCoolant
 import fridge.Constituent.ReactorVessel as ReactorVessel
 import fridge.Material.Material as mr
@@ -166,23 +164,6 @@ def test_innerDuct():
     assert c.surfaceCard == surfaceCard
 
 
-def test_lowerCoolant():
-    lowerCoolantInfo = [[0, 1, 2, 'LiquidNa', '82c', [0.0, 0.0, -20.0], 3], [10.0, 0.2]]
-    c = LowerCoolant.LowerCoolant(lowerCoolantInfo)
-    cellCard = '1 3 0.02428 -2 u=0 imp:n=1 $Assembly: Lower Coolant'
-    surfaceCard = '2 RHP 0.0 0.0 -20.1 0 0 10.1 0 0.2 0 $Assembly: Lower Coolant'
-    assert c.cellCard == cellCard
-    assert c.surfaceCard == surfaceCard
-
-def test_lowerCoolant_void():
-    lowerCoolantInfo = [[0, 1, 2, 'LiquidNa', '82c', [0.0, 0.0, -20.0], 3], [10.0, 0.2]]
-    c = LowerCoolant.LowerCoolant(lowerCoolantInfo, void_percent=0.1)
-    cellCard = '1 3 0.00243 -2 u=0 imp:n=1 $Assembly: Lower Coolant'
-    surfaceCard = '2 RHP 0.0 0.0 -20.1 0 0 10.1 0 0.2 0 $Assembly: Lower Coolant'
-    assert c.cellCard == cellCard
-    assert c.surfaceCard == surfaceCard
-
-
 def test_outershell():
     outerShellInfo = [[0, 1, 2, 'LiquidNa', '82c', [0.0, 0.0, -20.0], 3], [50, 0.2]]
     c = OuterShell.OuterShell(outerShellInfo)
@@ -206,24 +187,6 @@ def test_smear_void():
     c = Smear.Smear(smearInfo, void_material='LiquidNa', void_percent=0.1)
     cellCard = '1 3 0.04421 -2 u=0 imp:n=1 $Assembly: Plenum'
     surfaceCard = '2 RHP 1.0 1.0 1.0 0 0 10 0 0.2 0 $Assembly: Plenum'
-    assert c.cellCard == cellCard
-    assert c.surfaceCard == surfaceCard
-
-
-def test_upperCoolant():
-    upperCoolantInfo = [[0, 1, 2, 'LiquidNa', '82c', [0.0, 0.0, 20], 3], [10.0, 0.2]]
-    c = UpperCoolant.UpperCoolant(upperCoolantInfo)
-    cellCard = '1 3 0.02428 -2 u=0 imp:n=1 $Assembly: Upper Coolant'
-    surfaceCard = '2 RHP 0.0 0.0 20 0 0 10.0 0 0.2 0 $Assembly: Upper Coolant'
-    assert c.cellCard == cellCard
-    assert c.surfaceCard == surfaceCard
-
-
-def test_upperCoolant_void():
-    upperCoolantInfo = [[0, 1, 2, 'LiquidNa', '82c', [0.0, 0.0, 20], 3], [10.0, 0.2]]
-    c = UpperCoolant.UpperCoolant(upperCoolantInfo, void_percent=0.1)
-    cellCard = '1 3 0.00243 -2 u=0 imp:n=1 $Assembly: Upper Coolant'
-    surfaceCard = '2 RHP 0.0 0.0 20 0 0 10.0 0 0.2 0 $Assembly: Upper Coolant'
     assert c.cellCard == cellCard
     assert c.surfaceCard == surfaceCard
 

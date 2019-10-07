@@ -2,10 +2,10 @@ Name: Test_Core
 Vessel Thickness: 10
 Vessel Material: HT9
 Coolant Material: LiquidNa
-01A01: Smear_Test
-02A01: A271_Test2
-02B01: A271_Test2
-02C01: A271_Test2
-02D01: A271_Test2
-02E01: A271_Test2
-02F01: A271_Test2
+01A01: Axial_Blank_Full_Core
+02A01: A271_Six_Axial_Test
+02B01: A271_Six_Axial_Test
+02C01: A271_Six_Axial_Test
+02D01: A271_Six_Axial_Test
+02E01: A271_Six_Axial_Test
+02F01: A271_Six_Axial_Test

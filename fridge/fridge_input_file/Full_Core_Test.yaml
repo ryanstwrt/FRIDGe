@@ -5,9 +5,9 @@ Temperature Adjusted Volume: True
 Smear Clad: True
 Smear Bond: True
 XC Library: JEFF3.1
-Number of Generations: 2300
-Number of Skipped Generations: 300
-Number of Particles per Generation: 1e10
+Number of Generations: 230
+Number of Skipped Generations: 30
+Number of Particles per Generation: 1e3
 Run Kinetics: True
 ksens: True
 Output File Name: Full_Core_Test

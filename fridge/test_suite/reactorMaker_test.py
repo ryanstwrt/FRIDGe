@@ -30,7 +30,7 @@ def test_fullCore():
     global_vars.read_input_file('Full_Core_Test')
     rM.core_maker(global_vars)
     knownTestFile = glob.glob(os.path.join(mcnp_test_dir, 'Prefab_Full_Core_Test.i'))
-    testFile = glob.glob(os.path.join(mcnp_dir, 'Full_Core_Test.i'))
+    testFile = glob.glob(os.path.join(mcnp_dir, 'Prefab_Full_Core_Test.i'))
     assert filecmp.cmp(testFile[0], knownTestFile[0]) is True
 
 

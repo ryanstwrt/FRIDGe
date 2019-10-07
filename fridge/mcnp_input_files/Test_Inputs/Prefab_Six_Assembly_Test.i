@@ -1,6 +1,6 @@
 Input deck created by FRIDGe
 c *************************Six_Axial_Fuel_Assembly_Test************************
-c ************************Cell Cards for Assembly: 01A01***********************
+c ************************Cell Cards for Assembly: 01A01*********************** 
 100 100 0.02428 -100 u=100 imp:n=1 $Assembly: Lower Sodium
 101 101 0.07364 -101 u=100 imp:n=1 $Assembly: Lower Reflector
 102 102 0.04574 -102 u=101 imp:n=1 $Pin: Fuel
@@ -82,13 +82,13 @@ c **********************************Data Cards*********************************
 c ******************************k-code Information*****************************
 kcode 1000000 1.0 300 2300
 ksrc 0 0 10
-PRDMP 100 10 100 1
-kopts BLOCKSIZE=10 KINETICS=YES PRECURSOR=Yes
-DBCN 68J 50000
+PRDMP 100 10 100 1 
+kopts BLOCKSIZE=10 KINETICS=YES PRECURSOR=Yes 
+DBCN 68J 50000 
 c *****************************Material Information****************************
-c Material: ['LiquidNa']; Density: 0.02428 atoms/bn*cm
+c Material: ['LiquidNa']; Density: 0.02428 atoms/bn*cm 
 m100 11023.81c 1.0000E+0
-c Material: ['LiquidNa', 'HT9']; Density: 0.07364 atoms/bn*cm
+c Material: ['LiquidNa', 'HT9']; Density: 0.07364 atoms/bn*cm 
 m101 11023.81c 6.5947E-2 6000.81c 8.5776E-3 14028.81c 6.7658E-3
      14029.81c 3.4371E-4 14030.81c 2.2684E-4 15031.81c 4.9892E-4
      16032.81c 3.0522E-4 16033.81c 2.4098E-6 16034.81c 1.3656E-5
@@ -102,13 +102,13 @@ m101 11023.81c 6.5947E-2 6000.81c 8.5776E-3 14028.81c 6.7658E-3
      42097.81c 5.1533E-4 42098.81c 1.3093E-3 42100.81c 5.2714E-4
      74180.81c 1.6812E-6 74182.81c 3.7126E-4 74183.81c 2.0048E-4
      74184.81c 4.2926E-4 74186.81c 3.9830E-4
-c Material: 5Pu22U10Zr; Density: 0.04574 atoms/bn*cm
+c Material: 5Pu22U10Zr; Density: 0.04574 atoms/bn*cm 
 m102 92235.81c 1.9148E-1 92238.81c 5.4147E-1 94239.81c 4.0225E-2
      94240.81c 2.5568E-3 40090.81c 1.1539E-1 40091.81c 2.5164E-2
      40092.81c 3.8463E-2 40094.81c 3.8979E-2 40096.81c 6.2797E-3
-c Material: Liquid Sodium; Density: 0.02428 atoms/bn*cm
+c Material: Liquid Sodium; Density: 0.02428 atoms/bn*cm 
 m103 11023.81c 1.0000E+0
-c Material: HT9; Density: 0.08598 atoms/bn*cm
+c Material: HT9; Density: 0.08598 atoms/bn*cm 
 m104 6000.81c 9.1832E-3 14028.81c 7.2435E-3 14029.81c 3.6798E-4
      14030.81c 2.4286E-4 15031.81c 5.3414E-4 16032.81c 3.2676E-4
      16033.81c 2.5800E-6 16034.81c 1.4620E-5 16036.81c 3.4400E-8
@@ -122,7 +122,7 @@ m104 6000.81c 9.1832E-3 14028.81c 7.2435E-3 14029.81c 3.6798E-4
      42098.81c 1.4017E-3 42100.81c 5.6436E-4 74180.81c 1.7999E-6
      74182.81c 3.9747E-4 74183.81c 2.1463E-4 74184.81c 4.5956E-4
      74186.81c 4.2642E-4
-c Material: ['HT9', 'LiquidNa']; Density: 0.02929 atoms/bn*cm
+c Material: ['HT9', 'LiquidNa']; Density: 0.02929 atoms/bn*cm 
 m105 6000.81c 2.1884E-3 14028.81c 1.7261E-3 14029.81c 8.7689E-5
      14030.81c 5.7873E-5 15031.81c 1.2729E-4 16032.81c 7.7869E-5
      16033.81c 6.1482E-7 16034.81c 3.4840E-6 16036.81c 8.1976E-9
@@ -136,9 +136,9 @@ m105 6000.81c 2.1884E-3 14028.81c 1.7261E-3 14029.81c 8.7689E-5
      42098.81c 3.3403E-4 42100.81c 1.3449E-4 74180.81c 4.2891E-7
      74182.81c 9.4718E-5 74183.81c 5.1147E-5 74184.81c 1.0951E-4
      74186.81c 1.0162E-4 11023.81c 7.6170E-1
-c Material: Liquid Sodium; Density: 0.02428 atoms/bn*cm
+c Material: Liquid Sodium; Density: 0.02428 atoms/bn*cm 
 m106 11023.81c 1.0000E+0
-c Material: HT9; Density: 0.08598 atoms/bn*cm
+c Material: HT9; Density: 0.08598 atoms/bn*cm 
 m109 6000.81c 9.1832E-3 14028.81c 7.2435E-3 14029.81c 3.6798E-4
      14030.81c 2.4286E-4 15031.81c 5.3414E-4 16032.81c 3.2676E-4
      16033.81c 2.5800E-6 16034.81c 1.4620E-5 16036.81c 3.4400E-8
@@ -152,7 +152,7 @@ m109 6000.81c 9.1832E-3 14028.81c 7.2435E-3 14029.81c 3.6798E-4
      42098.81c 1.4017E-3 42100.81c 5.6436E-4 74180.81c 1.7999E-6
      74182.81c 3.9747E-4 74183.81c 2.1463E-4 74184.81c 4.5956E-4
      74186.81c 4.2642E-4
-c Material: ['LiquidNa', 'Void', 'HT9']; Density: 0.03364 atoms/bn*cm
+c Material: ['LiquidNa', 'Void', 'HT9']; Density: 0.03364 atoms/bn*cm 
 m110 11023.81c 3.6095E-1 6000.81c 5.8685E-3 14028.81c 4.6290E-3
      14029.81c 2.3515E-4 14030.81c 1.5520E-4 15031.81c 3.4135E-4
      16032.81c 2.0882E-4 16033.81c 1.6487E-6 16034.81c 9.3429E-6
@@ -166,7 +166,7 @@ m110 11023.81c 3.6095E-1 6000.81c 5.8685E-3 14028.81c 4.6290E-3
      42097.81c 3.5257E-4 42098.81c 8.9575E-4 42100.81c 3.6065E-4
      74180.81c 1.1502E-6 74182.81c 2.5400E-4 74183.81c 1.3716E-4
      74184.81c 2.9368E-4 74186.81c 2.7250E-4
-c Material: ['LiquidNa', 'HT9']; Density: 0.07364 atoms/bn*cm
+c Material: ['LiquidNa', 'HT9']; Density: 0.07364 atoms/bn*cm 
 m111 11023.81c 6.5947E-2 6000.81c 8.5776E-3 14028.81c 6.7658E-3
      14029.81c 3.4371E-4 14030.81c 2.2684E-4 15031.81c 4.9892E-4
      16032.81c 3.0522E-4 16033.81c 2.4098E-6 16034.81c 1.3656E-5
@@ -180,7 +180,7 @@ m111 11023.81c 6.5947E-2 6000.81c 8.5776E-3 14028.81c 6.7658E-3
      42097.81c 5.1533E-4 42098.81c 1.3093E-3 42100.81c 5.2714E-4
      74180.81c 1.6812E-6 74182.81c 3.7126E-4 74183.81c 2.0048E-4
      74184.81c 4.2926E-4 74186.81c 3.9830E-4
-c Material: ['LiquidNa']; Density: 0.02428 atoms/bn*cm
+c Material: ['LiquidNa']; Density: 0.02428 atoms/bn*cm 
 m112 11023.81c 1.0000E+0
-c Material: Liquid Sodium; Density: 0.02428 atoms/bn*cm
+c Material: Liquid Sodium; Density: 0.02428 atoms/bn*cm 
 m113 11023.81c 1.0000E+0

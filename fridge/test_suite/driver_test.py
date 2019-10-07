@@ -8,12 +8,11 @@ mcnp_dir = os.path.join(cur_dir, '../mcnp_input_files/')
 mcnp_test_dir = os.path.join(cur_dir, '../mcnp_input_files/Test_Inputs/')
 
 
-
 def test_fridge_driver_singleAssembly():
     """Test that the new files gets made to the right directory"""
-    fd.main('A271_Assembly_Test')
-    knownTestFile = glob.glob(os.path.join(mcnp_test_dir, 'Prefab_Fuel_Assembly_Test.i'))
-    testFile = glob.glob(os.path.join(mcnp_dir, 'Fuel_Assembly_Test.i'))
+    fd.main('Six_Axial_Fuel_Assembly_Test')
+    knownTestFile = glob.glob(os.path.join(mcnp_test_dir, 'Prefab_Six_Assembly_Test.i'))
+    testFile = glob.glob(os.path.join(mcnp_dir, 'Six_Assembly_Test.i'))
     assert filecmp.cmp(testFile[0], knownTestFile[0]) is True
 
 

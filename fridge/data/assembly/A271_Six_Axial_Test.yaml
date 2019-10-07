@@ -1,0 +1,62 @@
+#Assembly Type
+Assembly Type: Fuel
+
+#Assembly Data
+Pins Per Assembly: 271
+Assembly Pitch: 12
+Duct Thickness: 0.3
+Assembly Gap: 0.3
+Duct Inside Flat to Flat: 11.01
+Assembly Height: 320
+Coolant Material: LiquidNa
+Assembly Material: HT9
+Axial Regions: [1,2,3,4,5,6]
+
+#Fuel Pin Data
+Pin Diameter: 0.53
+Clad Thickness: 0.037
+Fuel Smear: 0.75
+Pitch: 0.66144
+Wire Wrap Diameter: 0.126
+Wire Wrap Axial Pitch: 2
+Fuel Height: 60
+Fuel Material: 5Pu22U10Zr
+Clad Material: HT9
+Bond Material: LiquidNa
+Bond Above Fuel: 0.6
+
+
+#Lower Sodium Data
+Axial Region 1:
+    Smear Materials: {LiquidNa: 1.0}
+    Smear Height: 40
+    Smear Name: Lower Sodium
+
+#Lower Reflector Data
+Axial Region 2:
+    Smear Materials: {LiquidNa: 0.2, HT9: 0.8}
+    Smear Height: 60
+    Smear Name: Lower Reflector
+
+#FuelAssembly Data
+Axial Region 3:
+    Fuel Height: 60
+    Fuel Name: Fuel
+
+#Plenum Data
+Axial Region 4:
+    Smear Materials: {LiquidNa: 0.50, Void: 0.25, HT9: 0.25}
+    Smear Height: 60
+    Smear Name: Plenum
+
+#Upper Reflector Data
+Axial Region 5:
+    Smear Materials: {LiquidNa: 0.2, HT9: 0.8}
+    Smear Height: 60
+    Smear Name: Upper Reflector
+
+#Upper Sodium Data
+Axial Region 6:
+    Smear Materials: {LiquidNa: 1.0}
+    Smear Height: 40
+    Smear Name: Upper Sodium

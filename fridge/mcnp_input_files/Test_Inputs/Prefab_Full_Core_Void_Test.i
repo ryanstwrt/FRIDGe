@@ -1,17 +1,17 @@
 Input deck created by FRIDGe
 c *****************************Full_Core_Void_Test*****************************
 c *********************Cell Cards for Smear Assembly: 01A01********************
-280 280 0.06092 -280 u=280 imp:n=1 $Assembly: Smear Region
-281 281 0.00243 -281 u=280 imp:n=1 $Assembly: Lower Coolant
-282 282 0.00243 -282 u=280 imp:n=1 $Assembly: Upper Coolant
-283 0 -283 fill=280 imp:n=1 $Assembly
+280 280 0.01078 -280 u=280 imp:n=1 $Assembly: Test_Region
+281 0 -281 fill=280 imp:n=1 $Assembly
 c *********************Cell Cards for Fuel Assembly: 02A01*********************
-300 300 0.04574 -300 u=301 imp:n=1 $Pin: Fuel
-301 301 0.02428 300 -301 u=301 imp:n=1 $Pin: Bond
-302 302 0.08598 301 -302 u=301 imp:n=1 $Pin: Clad
-303 303 0.00921 302 u=301 imp:n=1 $Pin: Wirewrap + Coolant
-304 304 0.00243 -303 u=302 imp:n=1 $Pin: Blank Pin Coolant
-305 0 -304 lat=2 u=303 imp:n=1
+300 300 0.00243 -300 u=300 imp:n=1 $Assembly: Lower Sodium
+301 301 0.06927 -301 u=300 imp:n=1 $Assembly: Lower Reflector
+302 302 0.04574 -302 u=301 imp:n=1 $Pin: Fuel
+303 303 0.02428 302 -303 u=301 imp:n=1 $Pin: Bond
+304 304 0.08598 303 -304 u=301 imp:n=1 $Pin: Clad
+305 305 0.00921 304 u=301 imp:n=1 $Pin: Wirewrap + Coolant
+306 306 0.00243 -305 u=302 imp:n=1 $Pin: Blank Pin Coolant
+307 0 -306 lat=2 u=303 imp:n=1
      fill=-10:10 -10:10 0:0
       302 302 302 302 302 302 302 302 302 302
       302 302 302 302 302 302 302 302 302 302
@@ -58,21 +58,21 @@ c *********************Cell Cards for Fuel Assembly: 02A01*********************
       302 302 302 302 302 302 302 302 302 302
       302 302 302 302 302 302 302 302 302 302
       302
-306 0 -306 u=300 fill=303 imp:n=1 $Assembly: Inner Portion of Assembly
-307 307 0.02271 -307 u=300 imp:n=1 $Assembly: Plenum
-308 308 0.06927 -308 u=300 imp:n=1 $Assembly: Upper Reflector
-309 309 0.06927 -309 u=300 imp:n=1 $Assembly: Lower Reflector
-310 310 0.08598  306 309 308 307 -310 u=300 imp:n=1 $Assembly: Assembly Duct
-311 311 0.00243 -311 u=300 imp:n=1 $Assembly: Lower Coolant
-312 312 0.00243 -312 u=300 imp:n=1 $Assembly: Upper Coolant
+308 0 -308 u=300 fill=303 imp:n=1 $Assembly: Inner Portion of Assembly
+309 309 0.08598 308 -309 u=300 imp:n=1 $Assembly: Assembly Duct
+310 310 0.02271 -310 u=300 imp:n=1 $Assembly: Plenum
+311 311 0.06927 -311 u=300 imp:n=1 $Assembly: Upper Reflector
+312 312 0.00243 -312 u=300 imp:n=1 $Assembly: Upper Sodium
 313 0 -313 fill=300 imp:n=1 $Assembly
 c *********************Cell Cards for Fuel Assembly: 02B01*********************
-320 320 0.04574 -320 u=321 imp:n=1 $Pin: Fuel
-321 321 0.02428 320 -321 u=321 imp:n=1 $Pin: Bond
-322 322 0.08598 321 -322 u=321 imp:n=1 $Pin: Clad
-323 323 0.00921 322 u=321 imp:n=1 $Pin: Wirewrap + Coolant
-324 324 0.00243 -323 u=322 imp:n=1 $Pin: Blank Pin Coolant
-325 0 -324 lat=2 u=323 imp:n=1
+320 320 0.00243 -320 u=320 imp:n=1 $Assembly: Lower Sodium
+321 321 0.06927 -321 u=320 imp:n=1 $Assembly: Lower Reflector
+322 322 0.04574 -322 u=321 imp:n=1 $Pin: Fuel
+323 323 0.02428 322 -323 u=321 imp:n=1 $Pin: Bond
+324 324 0.08598 323 -324 u=321 imp:n=1 $Pin: Clad
+325 325 0.00921 324 u=321 imp:n=1 $Pin: Wirewrap + Coolant
+326 326 0.00243 -325 u=322 imp:n=1 $Pin: Blank Pin Coolant
+327 0 -326 lat=2 u=323 imp:n=1
      fill=-10:10 -10:10 0:0
       322 322 322 322 322 322 322 322 322 322
       322 322 322 322 322 322 322 322 322 322
@@ -119,21 +119,21 @@ c *********************Cell Cards for Fuel Assembly: 02B01*********************
       322 322 322 322 322 322 322 322 322 322
       322 322 322 322 322 322 322 322 322 322
       322
-326 0 -326 u=320 fill=323 imp:n=1 $Assembly: Inner Portion of Assembly
-327 327 0.02271 -327 u=320 imp:n=1 $Assembly: Plenum
-328 328 0.06927 -328 u=320 imp:n=1 $Assembly: Upper Reflector
-329 329 0.06927 -329 u=320 imp:n=1 $Assembly: Lower Reflector
-330 330 0.08598  326 329 328 327 -330 u=320 imp:n=1 $Assembly: Assembly Duct
-331 331 0.00243 -331 u=320 imp:n=1 $Assembly: Lower Coolant
-332 332 0.00243 -332 u=320 imp:n=1 $Assembly: Upper Coolant
+328 0 -328 u=320 fill=323 imp:n=1 $Assembly: Inner Portion of Assembly
+329 329 0.08598 328 -329 u=320 imp:n=1 $Assembly: Assembly Duct
+330 330 0.02271 -330 u=320 imp:n=1 $Assembly: Plenum
+331 331 0.06927 -331 u=320 imp:n=1 $Assembly: Upper Reflector
+332 332 0.00243 -332 u=320 imp:n=1 $Assembly: Upper Sodium
 333 0 -333 fill=320 imp:n=1 $Assembly
 c *********************Cell Cards for Fuel Assembly: 02C01*********************
-340 340 0.04574 -340 u=341 imp:n=1 $Pin: Fuel
-341 341 0.02428 340 -341 u=341 imp:n=1 $Pin: Bond
-342 342 0.08598 341 -342 u=341 imp:n=1 $Pin: Clad
-343 343 0.00921 342 u=341 imp:n=1 $Pin: Wirewrap + Coolant
-344 344 0.00243 -343 u=342 imp:n=1 $Pin: Blank Pin Coolant
-345 0 -344 lat=2 u=343 imp:n=1
+340 340 0.00243 -340 u=340 imp:n=1 $Assembly: Lower Sodium
+341 341 0.06927 -341 u=340 imp:n=1 $Assembly: Lower Reflector
+342 342 0.04574 -342 u=341 imp:n=1 $Pin: Fuel
+343 343 0.02428 342 -343 u=341 imp:n=1 $Pin: Bond
+344 344 0.08598 343 -344 u=341 imp:n=1 $Pin: Clad
+345 345 0.00921 344 u=341 imp:n=1 $Pin: Wirewrap + Coolant
+346 346 0.00243 -345 u=342 imp:n=1 $Pin: Blank Pin Coolant
+347 0 -346 lat=2 u=343 imp:n=1
      fill=-10:10 -10:10 0:0
       342 342 342 342 342 342 342 342 342 342
       342 342 342 342 342 342 342 342 342 342
@@ -180,21 +180,21 @@ c *********************Cell Cards for Fuel Assembly: 02C01*********************
       342 342 342 342 342 342 342 342 342 342
       342 342 342 342 342 342 342 342 342 342
       342
-346 0 -346 u=340 fill=343 imp:n=1 $Assembly: Inner Portion of Assembly
-347 347 0.02271 -347 u=340 imp:n=1 $Assembly: Plenum
-348 348 0.06927 -348 u=340 imp:n=1 $Assembly: Upper Reflector
-349 349 0.06927 -349 u=340 imp:n=1 $Assembly: Lower Reflector
-350 350 0.08598  346 349 348 347 -350 u=340 imp:n=1 $Assembly: Assembly Duct
-351 351 0.00243 -351 u=340 imp:n=1 $Assembly: Lower Coolant
-352 352 0.00243 -352 u=340 imp:n=1 $Assembly: Upper Coolant
+348 0 -348 u=340 fill=343 imp:n=1 $Assembly: Inner Portion of Assembly
+349 349 0.08598 348 -349 u=340 imp:n=1 $Assembly: Assembly Duct
+350 350 0.02271 -350 u=340 imp:n=1 $Assembly: Plenum
+351 351 0.06927 -351 u=340 imp:n=1 $Assembly: Upper Reflector
+352 352 0.00243 -352 u=340 imp:n=1 $Assembly: Upper Sodium
 353 0 -353 fill=340 imp:n=1 $Assembly
 c *********************Cell Cards for Fuel Assembly: 02D01*********************
-360 360 0.04574 -360 u=361 imp:n=1 $Pin: Fuel
-361 361 0.02428 360 -361 u=361 imp:n=1 $Pin: Bond
-362 362 0.08598 361 -362 u=361 imp:n=1 $Pin: Clad
-363 363 0.00921 362 u=361 imp:n=1 $Pin: Wirewrap + Coolant
-364 364 0.00243 -363 u=362 imp:n=1 $Pin: Blank Pin Coolant
-365 0 -364 lat=2 u=363 imp:n=1
+360 360 0.00243 -360 u=360 imp:n=1 $Assembly: Lower Sodium
+361 361 0.06927 -361 u=360 imp:n=1 $Assembly: Lower Reflector
+362 362 0.04574 -362 u=361 imp:n=1 $Pin: Fuel
+363 363 0.02428 362 -363 u=361 imp:n=1 $Pin: Bond
+364 364 0.08598 363 -364 u=361 imp:n=1 $Pin: Clad
+365 365 0.00921 364 u=361 imp:n=1 $Pin: Wirewrap + Coolant
+366 366 0.00243 -365 u=362 imp:n=1 $Pin: Blank Pin Coolant
+367 0 -366 lat=2 u=363 imp:n=1
      fill=-10:10 -10:10 0:0
       362 362 362 362 362 362 362 362 362 362
       362 362 362 362 362 362 362 362 362 362
@@ -241,21 +241,21 @@ c *********************Cell Cards for Fuel Assembly: 02D01*********************
       362 362 362 362 362 362 362 362 362 362
       362 362 362 362 362 362 362 362 362 362
       362
-366 0 -366 u=360 fill=363 imp:n=1 $Assembly: Inner Portion of Assembly
-367 367 0.02271 -367 u=360 imp:n=1 $Assembly: Plenum
-368 368 0.06927 -368 u=360 imp:n=1 $Assembly: Upper Reflector
-369 369 0.06927 -369 u=360 imp:n=1 $Assembly: Lower Reflector
-370 370 0.08598  366 369 368 367 -370 u=360 imp:n=1 $Assembly: Assembly Duct
-371 371 0.00243 -371 u=360 imp:n=1 $Assembly: Lower Coolant
-372 372 0.00243 -372 u=360 imp:n=1 $Assembly: Upper Coolant
+368 0 -368 u=360 fill=363 imp:n=1 $Assembly: Inner Portion of Assembly
+369 369 0.08598 368 -369 u=360 imp:n=1 $Assembly: Assembly Duct
+370 370 0.02271 -370 u=360 imp:n=1 $Assembly: Plenum
+371 371 0.06927 -371 u=360 imp:n=1 $Assembly: Upper Reflector
+372 372 0.00243 -372 u=360 imp:n=1 $Assembly: Upper Sodium
 373 0 -373 fill=360 imp:n=1 $Assembly
 c *********************Cell Cards for Fuel Assembly: 02E01*********************
-380 380 0.04574 -380 u=381 imp:n=1 $Pin: Fuel
-381 381 0.02428 380 -381 u=381 imp:n=1 $Pin: Bond
-382 382 0.08598 381 -382 u=381 imp:n=1 $Pin: Clad
-383 383 0.00921 382 u=381 imp:n=1 $Pin: Wirewrap + Coolant
-384 384 0.00243 -383 u=382 imp:n=1 $Pin: Blank Pin Coolant
-385 0 -384 lat=2 u=383 imp:n=1
+380 380 0.00243 -380 u=380 imp:n=1 $Assembly: Lower Sodium
+381 381 0.06927 -381 u=380 imp:n=1 $Assembly: Lower Reflector
+382 382 0.04574 -382 u=381 imp:n=1 $Pin: Fuel
+383 383 0.02428 382 -383 u=381 imp:n=1 $Pin: Bond
+384 384 0.08598 383 -384 u=381 imp:n=1 $Pin: Clad
+385 385 0.00921 384 u=381 imp:n=1 $Pin: Wirewrap + Coolant
+386 386 0.00243 -385 u=382 imp:n=1 $Pin: Blank Pin Coolant
+387 0 -386 lat=2 u=383 imp:n=1
      fill=-10:10 -10:10 0:0
       382 382 382 382 382 382 382 382 382 382
       382 382 382 382 382 382 382 382 382 382
@@ -302,21 +302,21 @@ c *********************Cell Cards for Fuel Assembly: 02E01*********************
       382 382 382 382 382 382 382 382 382 382
       382 382 382 382 382 382 382 382 382 382
       382
-386 0 -386 u=380 fill=383 imp:n=1 $Assembly: Inner Portion of Assembly
-387 387 0.02271 -387 u=380 imp:n=1 $Assembly: Plenum
-388 388 0.06927 -388 u=380 imp:n=1 $Assembly: Upper Reflector
-389 389 0.06927 -389 u=380 imp:n=1 $Assembly: Lower Reflector
-390 390 0.08598  386 389 388 387 -390 u=380 imp:n=1 $Assembly: Assembly Duct
-391 391 0.00243 -391 u=380 imp:n=1 $Assembly: Lower Coolant
-392 392 0.00243 -392 u=380 imp:n=1 $Assembly: Upper Coolant
+388 0 -388 u=380 fill=383 imp:n=1 $Assembly: Inner Portion of Assembly
+389 389 0.08598 388 -389 u=380 imp:n=1 $Assembly: Assembly Duct
+390 390 0.02271 -390 u=380 imp:n=1 $Assembly: Plenum
+391 391 0.06927 -391 u=380 imp:n=1 $Assembly: Upper Reflector
+392 392 0.00243 -392 u=380 imp:n=1 $Assembly: Upper Sodium
 393 0 -393 fill=380 imp:n=1 $Assembly
 c *********************Cell Cards for Fuel Assembly: 02F01*********************
-400 400 0.04574 -400 u=401 imp:n=1 $Pin: Fuel
-401 401 0.02428 400 -401 u=401 imp:n=1 $Pin: Bond
-402 402 0.08598 401 -402 u=401 imp:n=1 $Pin: Clad
-403 403 0.00921 402 u=401 imp:n=1 $Pin: Wirewrap + Coolant
-404 404 0.00243 -403 u=402 imp:n=1 $Pin: Blank Pin Coolant
-405 0 -404 lat=2 u=403 imp:n=1
+400 400 0.00243 -400 u=400 imp:n=1 $Assembly: Lower Sodium
+401 401 0.06927 -401 u=400 imp:n=1 $Assembly: Lower Reflector
+402 402 0.04574 -402 u=401 imp:n=1 $Pin: Fuel
+403 403 0.02428 402 -403 u=401 imp:n=1 $Pin: Bond
+404 404 0.08598 403 -404 u=401 imp:n=1 $Pin: Clad
+405 405 0.00921 404 u=401 imp:n=1 $Pin: Wirewrap + Coolant
+406 406 0.00243 -405 u=402 imp:n=1 $Pin: Blank Pin Coolant
+407 0 -406 lat=2 u=403 imp:n=1
      fill=-10:10 -10:10 0:0
       402 402 402 402 402 402 402 402 402 402
       402 402 402 402 402 402 402 402 402 402
@@ -363,152 +363,160 @@ c *********************Cell Cards for Fuel Assembly: 02F01*********************
       402 402 402 402 402 402 402 402 402 402
       402 402 402 402 402 402 402 402 402 402
       402
-406 0 -406 u=400 fill=403 imp:n=1 $Assembly: Inner Portion of Assembly
-407 407 0.02271 -407 u=400 imp:n=1 $Assembly: Plenum
-408 408 0.06927 -408 u=400 imp:n=1 $Assembly: Upper Reflector
-409 409 0.06927 -409 u=400 imp:n=1 $Assembly: Lower Reflector
-410 410 0.08598  406 409 408 407 -410 u=400 imp:n=1 $Assembly: Assembly Duct
-411 411 0.00243 -411 u=400 imp:n=1 $Assembly: Lower Coolant
-412 412 0.00243 -412 u=400 imp:n=1 $Assembly: Upper Coolant
+408 0 -408 u=400 fill=403 imp:n=1 $Assembly: Inner Portion of Assembly
+409 409 0.08598 408 -409 u=400 imp:n=1 $Assembly: Assembly Duct
+410 410 0.02271 -410 u=400 imp:n=1 $Assembly: Plenum
+411 411 0.06927 -411 u=400 imp:n=1 $Assembly: Upper Reflector
+412 412 0.00243 -412 u=400 imp:n=1 $Assembly: Upper Sodium
 413 0 -413 fill=400 imp:n=1 $Assembly
-420 420 0.00243  283 313 333 353 373
+420 420 0.00243  281 313 333 353 373
       393 413 -420  imp:n=1 $Coolant Surrounding Assemblies
 440 440 0.08598  420 -440  imp:n=1 $Reactor Vessel
 460 0 440 imp:n=0 $Everything Else
 
 c *******************Surface Cards for Smear Assembly: 01A01*******************
-280 RHP 0.0 0.0 -60.0 0 0 240 0 5.80529 0 $Assembly: Smear Region
-281 RHP 0.0 0.0 -100.1 0 0 40.1 0 5.80529 0 $Assembly: Lower Coolant
-282 RHP 0.0 0.0 180.0 0 0 40.0 0 5.80529 0 $Assembly: Upper Coolant
-283 RHP 0.0 0.0 -100.0 0 0 320.0 0 5.805 0 $Assembly: Full Assembly Surface
+280 RHP 0.0 0.0 -100.1 0 0 320.1 0 5.85029 0 $Assembly: Test_Region
+281 RHP 0.0 0.0 -100.0 0 0 320.0 0 5.85 0 $Assembly: Full Assembly Surface
 c ********************Surface Cards for Fuel Assembly: 02A01*******************
-300 RCC -10.3923 6.0 0.0 0 0 60.0 0.19745 $Pin: Fuel
-301 RCC -10.3923 6.0 0.0 0 0 60.6 0.228 $Pin: Bond - 1% higher than fuel
-302 RCC -10.3923 6.0 0.0 0 0 60.6 0.265 $Pin: Clad - 1% higher than fuel
-303 RHP -10.3923 6.0 0.0 0 0 60.6 0.66144 0 0 $Pin: Coolant - 1% higher than fuel
-304 RHP -10.3923 6.0 0.0 0 0 60.6 0.33072 0 0 $Pin: Blank Pin - 1% higher than fuel
-306 RHP -10.3923 6.0 0.0 0 0 60.6 0 5.55 0 $Assembly: Duct Inner Surface
-307 RHP -10.3923 6.0 60.6 0 0 60.0 0 5.55 0 $Assembly: Plenum
-308 RHP -10.3923 6.0 120.6 0 0 60.0 0 5.55 0 $Assembly: Upper Reflector
-309 RHP -10.3923 6.0 -60.0 0 0 60.0 0 5.55 0 $Assembly: Lower Reflector
-310 RHP -10.3923 6.0 -60.0 0 0 240.6 0 5.85029 0 $Assembly: Duct Outer Surface
-311 RHP -10.3923 6.0 -99.8 0 0 39.8 0 5.85029 0 $Assembly: Lower Coolant
-312 RHP -10.3923 6.0 180.6 0 0 39.7 0 5.85029 0 $Assembly: Upper Coolant
-313 RHP -10.3923 6.0 -99.7 0 0 320.0 0 5.85 0 $Assembly: Full Assembly Surface
+300 RHP -10.3923 6.0 -100.1 0 0 40.1 0 5.80529 0 $Assembly: Lower Sodium
+301 RHP -10.3923 6.0 -60.0 0 0 60 0 5.80529 0 $Assembly: Lower Reflector
+302 RCC -10.3923 6.0 0.0 0 0 60.0 0.19745 $Pin: Fuel
+303 RCC -10.3923 6.0 0.0 0 0 60.6 0.228 $Pin: Bond - 1% higher than fuel
+304 RCC -10.3923 6.0 0.0 0 0 60.6 0.265 $Pin: Clad - 1% higher than fuel
+305 RHP -10.3923 6.0 0.0 0 0 60.6 0.66144 0 0 $Pin: Coolant - 1% higher than fuel
+306 RHP -10.3923 6.0 0.0 0 0 60.6 0.33072 0 0 $Pin: Blank Pin - 1% higher than fuel
+308 RHP -10.3923 6.0 0.0 0 0 60.6 0 5.505 0 $Assembly: Duct Inner Surface
+309 RHP -10.3923 6.0 0.0 0 0 60.6 0 5.80529 0 $Assembly: Duct Outer Surface
+310 RHP -10.3923 6.0 60.6 0 0 60 0 5.80529 0 $Assembly: Plenum
+311 RHP -10.3923 6.0 120.6 0 0 60 0 5.80529 0 $Assembly: Upper Reflector
+312 RHP -10.3923 6.0 180.6 0 0 40 0 5.80529 0 $Assembly: Upper Sodium
+313 RHP -10.3923 6.0 -100 0 0 320.0 0 5.805 0 $Assembly: Full Assembly Surface
 c ********************Surface Cards for Fuel Assembly: 02B01*******************
-320 RCC 0.0 12.0 0.0 0 0 60.0 0.19745 $Pin: Fuel
-321 RCC 0.0 12.0 0.0 0 0 60.6 0.228 $Pin: Bond - 1% higher than fuel
-322 RCC 0.0 12.0 0.0 0 0 60.6 0.265 $Pin: Clad - 1% higher than fuel
-323 RHP 0.0 12.0 0.0 0 0 60.6 0.66144 0 0 $Pin: Coolant - 1% higher than fuel
-324 RHP 0.0 12.0 0.0 0 0 60.6 0.33072 0 0 $Pin: Blank Pin - 1% higher than fuel
-326 RHP 0.0 12.0 0.0 0 0 60.6 0 5.55 0 $Assembly: Duct Inner Surface
-327 RHP 0.0 12.0 60.6 0 0 60.0 0 5.55 0 $Assembly: Plenum
-328 RHP 0.0 12.0 120.6 0 0 60.0 0 5.55 0 $Assembly: Upper Reflector
-329 RHP 0.0 12.0 -60.0 0 0 60.0 0 5.55 0 $Assembly: Lower Reflector
-330 RHP 0.0 12.0 -60.0 0 0 240.6 0 5.85029 0 $Assembly: Duct Outer Surface
-331 RHP 0.0 12.0 -99.8 0 0 39.8 0 5.85029 0 $Assembly: Lower Coolant
-332 RHP 0.0 12.0 180.6 0 0 39.7 0 5.85029 0 $Assembly: Upper Coolant
-333 RHP 0.0 12.0 -99.7 0 0 320.0 0 5.85 0 $Assembly: Full Assembly Surface
+320 RHP 0.0 12.0 -100.1 0 0 40.1 0 5.80529 0 $Assembly: Lower Sodium
+321 RHP 0.0 12.0 -60.0 0 0 60 0 5.80529 0 $Assembly: Lower Reflector
+322 RCC 0.0 12.0 0.0 0 0 60.0 0.19745 $Pin: Fuel
+323 RCC 0.0 12.0 0.0 0 0 60.6 0.228 $Pin: Bond - 1% higher than fuel
+324 RCC 0.0 12.0 0.0 0 0 60.6 0.265 $Pin: Clad - 1% higher than fuel
+325 RHP 0.0 12.0 0.0 0 0 60.6 0.66144 0 0 $Pin: Coolant - 1% higher than fuel
+326 RHP 0.0 12.0 0.0 0 0 60.6 0.33072 0 0 $Pin: Blank Pin - 1% higher than fuel
+328 RHP 0.0 12.0 0.0 0 0 60.6 0 5.505 0 $Assembly: Duct Inner Surface
+329 RHP 0.0 12.0 0.0 0 0 60.6 0 5.80529 0 $Assembly: Duct Outer Surface
+330 RHP 0.0 12.0 60.6 0 0 60 0 5.80529 0 $Assembly: Plenum
+331 RHP 0.0 12.0 120.6 0 0 60 0 5.80529 0 $Assembly: Upper Reflector
+332 RHP 0.0 12.0 180.6 0 0 40 0 5.80529 0 $Assembly: Upper Sodium
+333 RHP 0.0 12.0 -100 0 0 320.0 0 5.805 0 $Assembly: Full Assembly Surface
 c ********************Surface Cards for Fuel Assembly: 02C01*******************
-340 RCC 10.3923 6.0 0.0 0 0 60.0 0.19745 $Pin: Fuel
-341 RCC 10.3923 6.0 0.0 0 0 60.6 0.228 $Pin: Bond - 1% higher than fuel
-342 RCC 10.3923 6.0 0.0 0 0 60.6 0.265 $Pin: Clad - 1% higher than fuel
-343 RHP 10.3923 6.0 0.0 0 0 60.6 0.66144 0 0 $Pin: Coolant - 1% higher than fuel
-344 RHP 10.3923 6.0 0.0 0 0 60.6 0.33072 0 0 $Pin: Blank Pin - 1% higher than fuel
-346 RHP 10.3923 6.0 0.0 0 0 60.6 0 5.55 0 $Assembly: Duct Inner Surface
-347 RHP 10.3923 6.0 60.6 0 0 60.0 0 5.55 0 $Assembly: Plenum
-348 RHP 10.3923 6.0 120.6 0 0 60.0 0 5.55 0 $Assembly: Upper Reflector
-349 RHP 10.3923 6.0 -60.0 0 0 60.0 0 5.55 0 $Assembly: Lower Reflector
-350 RHP 10.3923 6.0 -60.0 0 0 240.6 0 5.85029 0 $Assembly: Duct Outer Surface
-351 RHP 10.3923 6.0 -99.8 0 0 39.8 0 5.85029 0 $Assembly: Lower Coolant
-352 RHP 10.3923 6.0 180.6 0 0 39.7 0 5.85029 0 $Assembly: Upper Coolant
-353 RHP 10.3923 6.0 -99.7 0 0 320.0 0 5.85 0 $Assembly: Full Assembly Surface
+340 RHP 10.3923 6.0 -100.1 0 0 40.1 0 5.80529 0 $Assembly: Lower Sodium
+341 RHP 10.3923 6.0 -60.0 0 0 60 0 5.80529 0 $Assembly: Lower Reflector
+342 RCC 10.3923 6.0 0.0 0 0 60.0 0.19745 $Pin: Fuel
+343 RCC 10.3923 6.0 0.0 0 0 60.6 0.228 $Pin: Bond - 1% higher than fuel
+344 RCC 10.3923 6.0 0.0 0 0 60.6 0.265 $Pin: Clad - 1% higher than fuel
+345 RHP 10.3923 6.0 0.0 0 0 60.6 0.66144 0 0 $Pin: Coolant - 1% higher than fuel
+346 RHP 10.3923 6.0 0.0 0 0 60.6 0.33072 0 0 $Pin: Blank Pin - 1% higher than fuel
+348 RHP 10.3923 6.0 0.0 0 0 60.6 0 5.505 0 $Assembly: Duct Inner Surface
+349 RHP 10.3923 6.0 0.0 0 0 60.6 0 5.80529 0 $Assembly: Duct Outer Surface
+350 RHP 10.3923 6.0 60.6 0 0 60 0 5.80529 0 $Assembly: Plenum
+351 RHP 10.3923 6.0 120.6 0 0 60 0 5.80529 0 $Assembly: Upper Reflector
+352 RHP 10.3923 6.0 180.6 0 0 40 0 5.80529 0 $Assembly: Upper Sodium
+353 RHP 10.3923 6.0 -100 0 0 320.0 0 5.805 0 $Assembly: Full Assembly Surface
 c ********************Surface Cards for Fuel Assembly: 02D01*******************
-360 RCC 10.3923 -6.0 0.0 0 0 60.0 0.19745 $Pin: Fuel
-361 RCC 10.3923 -6.0 0.0 0 0 60.6 0.228 $Pin: Bond - 1% higher than fuel
-362 RCC 10.3923 -6.0 0.0 0 0 60.6 0.265 $Pin: Clad - 1% higher than fuel
-363 RHP 10.3923 -6.0 0.0 0 0 60.6 0.66144 0 0 $Pin: Coolant - 1% higher than fuel
-364 RHP 10.3923 -6.0 0.0 0 0 60.6 0.33072 0 0 $Pin: Blank Pin - 1% higher than fuel
-366 RHP 10.3923 -6.0 0.0 0 0 60.6 0 5.55 0 $Assembly: Duct Inner Surface
-367 RHP 10.3923 -6.0 60.6 0 0 60.0 0 5.55 0 $Assembly: Plenum
-368 RHP 10.3923 -6.0 120.6 0 0 60.0 0 5.55 0 $Assembly: Upper Reflector
-369 RHP 10.3923 -6.0 -60.0 0 0 60.0 0 5.55 0 $Assembly: Lower Reflector
-370 RHP 10.3923 -6.0 -60.0 0 0 240.6 0 5.85029 0 $Assembly: Duct Outer Surface
-371 RHP 10.3923 -6.0 -99.8 0 0 39.8 0 5.85029 0 $Assembly: Lower Coolant
-372 RHP 10.3923 -6.0 180.6 0 0 39.7 0 5.85029 0 $Assembly: Upper Coolant
-373 RHP 10.3923 -6.0 -99.7 0 0 320.0 0 5.85 0 $Assembly: Full Assembly Surface
+360 RHP 10.3923 -6.0 -100.1 0 0 40.1 0 5.80529 0 $Assembly: Lower Sodium
+361 RHP 10.3923 -6.0 -60.0 0 0 60 0 5.80529 0 $Assembly: Lower Reflector
+362 RCC 10.3923 -6.0 0.0 0 0 60.0 0.19745 $Pin: Fuel
+363 RCC 10.3923 -6.0 0.0 0 0 60.6 0.228 $Pin: Bond - 1% higher than fuel
+364 RCC 10.3923 -6.0 0.0 0 0 60.6 0.265 $Pin: Clad - 1% higher than fuel
+365 RHP 10.3923 -6.0 0.0 0 0 60.6 0.66144 0 0 $Pin: Coolant - 1% higher than fuel
+366 RHP 10.3923 -6.0 0.0 0 0 60.6 0.33072 0 0 $Pin: Blank Pin - 1% higher than fuel
+368 RHP 10.3923 -6.0 0.0 0 0 60.6 0 5.505 0 $Assembly: Duct Inner Surface
+369 RHP 10.3923 -6.0 0.0 0 0 60.6 0 5.80529 0 $Assembly: Duct Outer Surface
+370 RHP 10.3923 -6.0 60.6 0 0 60 0 5.80529 0 $Assembly: Plenum
+371 RHP 10.3923 -6.0 120.6 0 0 60 0 5.80529 0 $Assembly: Upper Reflector
+372 RHP 10.3923 -6.0 180.6 0 0 40 0 5.80529 0 $Assembly: Upper Sodium
+373 RHP 10.3923 -6.0 -100 0 0 320.0 0 5.805 0 $Assembly: Full Assembly Surface
 c ********************Surface Cards for Fuel Assembly: 02E01*******************
-380 RCC -0.0 -12.0 0.0 0 0 60.0 0.19745 $Pin: Fuel
-381 RCC -0.0 -12.0 0.0 0 0 60.6 0.228 $Pin: Bond - 1% higher than fuel
-382 RCC -0.0 -12.0 0.0 0 0 60.6 0.265 $Pin: Clad - 1% higher than fuel
-383 RHP -0.0 -12.0 0.0 0 0 60.6 0.66144 0 0 $Pin: Coolant - 1% higher than fuel
-384 RHP -0.0 -12.0 0.0 0 0 60.6 0.33072 0 0 $Pin: Blank Pin - 1% higher than fuel
-386 RHP -0.0 -12.0 0.0 0 0 60.6 0 5.55 0 $Assembly: Duct Inner Surface
-387 RHP -0.0 -12.0 60.6 0 0 60.0 0 5.55 0 $Assembly: Plenum
-388 RHP -0.0 -12.0 120.6 0 0 60.0 0 5.55 0 $Assembly: Upper Reflector
-389 RHP -0.0 -12.0 -60.0 0 0 60.0 0 5.55 0 $Assembly: Lower Reflector
-390 RHP -0.0 -12.0 -60.0 0 0 240.6 0 5.85029 0 $Assembly: Duct Outer Surface
-391 RHP -0.0 -12.0 -99.8 0 0 39.8 0 5.85029 0 $Assembly: Lower Coolant
-392 RHP -0.0 -12.0 180.6 0 0 39.7 0 5.85029 0 $Assembly: Upper Coolant
-393 RHP -0.0 -12.0 -99.7 0 0 320.0 0 5.85 0 $Assembly: Full Assembly Surface
+380 RHP -0.0 -12.0 -100.1 0 0 40.1 0 5.80529 0 $Assembly: Lower Sodium
+381 RHP -0.0 -12.0 -60.0 0 0 60 0 5.80529 0 $Assembly: Lower Reflector
+382 RCC -0.0 -12.0 0.0 0 0 60.0 0.19745 $Pin: Fuel
+383 RCC -0.0 -12.0 0.0 0 0 60.6 0.228 $Pin: Bond - 1% higher than fuel
+384 RCC -0.0 -12.0 0.0 0 0 60.6 0.265 $Pin: Clad - 1% higher than fuel
+385 RHP -0.0 -12.0 0.0 0 0 60.6 0.66144 0 0 $Pin: Coolant - 1% higher than fuel
+386 RHP -0.0 -12.0 0.0 0 0 60.6 0.33072 0 0 $Pin: Blank Pin - 1% higher than fuel
+388 RHP -0.0 -12.0 0.0 0 0 60.6 0 5.505 0 $Assembly: Duct Inner Surface
+389 RHP -0.0 -12.0 0.0 0 0 60.6 0 5.80529 0 $Assembly: Duct Outer Surface
+390 RHP -0.0 -12.0 60.6 0 0 60 0 5.80529 0 $Assembly: Plenum
+391 RHP -0.0 -12.0 120.6 0 0 60 0 5.80529 0 $Assembly: Upper Reflector
+392 RHP -0.0 -12.0 180.6 0 0 40 0 5.80529 0 $Assembly: Upper Sodium
+393 RHP -0.0 -12.0 -100 0 0 320.0 0 5.805 0 $Assembly: Full Assembly Surface
 c ********************Surface Cards for Fuel Assembly: 02F01*******************
-400 RCC -10.3923 -6.0 0.0 0 0 60.0 0.19745 $Pin: Fuel
-401 RCC -10.3923 -6.0 0.0 0 0 60.6 0.228 $Pin: Bond - 1% higher than fuel
-402 RCC -10.3923 -6.0 0.0 0 0 60.6 0.265 $Pin: Clad - 1% higher than fuel
-403 RHP -10.3923 -6.0 0.0 0 0 60.6 0.66144 0 0 $Pin: Coolant - 1% higher than fuel
-404 RHP -10.3923 -6.0 0.0 0 0 60.6 0.33072 0 0 $Pin: Blank Pin - 1% higher than fuel
-406 RHP -10.3923 -6.0 0.0 0 0 60.6 0 5.55 0 $Assembly: Duct Inner Surface
-407 RHP -10.3923 -6.0 60.6 0 0 60.0 0 5.55 0 $Assembly: Plenum
-408 RHP -10.3923 -6.0 120.6 0 0 60.0 0 5.55 0 $Assembly: Upper Reflector
-409 RHP -10.3923 -6.0 -60.0 0 0 60.0 0 5.55 0 $Assembly: Lower Reflector
-410 RHP -10.3923 -6.0 -60.0 0 0 240.6 0 5.85029 0 $Assembly: Duct Outer Surface
-411 RHP -10.3923 -6.0 -99.8 0 0 39.8 0 5.85029 0 $Assembly: Lower Coolant
-412 RHP -10.3923 -6.0 180.6 0 0 39.7 0 5.85029 0 $Assembly: Upper Coolant
-413 RHP -10.3923 -6.0 -99.7 0 0 320.0 0 5.85 0 $Assembly: Full Assembly Surface
+400 RHP -10.3923 -6.0 -100.1 0 0 40.1 0 5.80529 0 $Assembly: Lower Sodium
+401 RHP -10.3923 -6.0 -60.0 0 0 60 0 5.80529 0 $Assembly: Lower Reflector
+402 RCC -10.3923 -6.0 0.0 0 0 60.0 0.19745 $Pin: Fuel
+403 RCC -10.3923 -6.0 0.0 0 0 60.6 0.228 $Pin: Bond - 1% higher than fuel
+404 RCC -10.3923 -6.0 0.0 0 0 60.6 0.265 $Pin: Clad - 1% higher than fuel
+405 RHP -10.3923 -6.0 0.0 0 0 60.6 0.66144 0 0 $Pin: Coolant - 1% higher than fuel
+406 RHP -10.3923 -6.0 0.0 0 0 60.6 0.33072 0 0 $Pin: Blank Pin - 1% higher than fuel
+408 RHP -10.3923 -6.0 0.0 0 0 60.6 0 5.505 0 $Assembly: Duct Inner Surface
+409 RHP -10.3923 -6.0 0.0 0 0 60.6 0 5.80529 0 $Assembly: Duct Outer Surface
+410 RHP -10.3923 -6.0 60.6 0 0 60 0 5.80529 0 $Assembly: Plenum
+411 RHP -10.3923 -6.0 120.6 0 0 60 0 5.80529 0 $Assembly: Upper Reflector
+412 RHP -10.3923 -6.0 180.6 0 0 40 0 5.80529 0 $Assembly: Upper Sodium
+413 RHP -10.3923 -6.0 -100 0 0 320.0 0 5.805 0 $Assembly: Full Assembly Surface
 420 RCC 0.0 0.0 -110.0 0 0 352.0 18.6 $Coolant Surrounding Assemblies
 440 RCC 0.0 0.0 -120.0 0 0 372.0 28.6 $Vessel surrounding the core
 
 c **********************************Data Cards*********************************
 c ******************************k-code Information*****************************
 kcode 10000000000 1.0 300 2300
-ksrc      -10.3923 6.0 30.0
-     0.0 12.0 30.0
-     10.3923 6.0 30.0
-     10.3923 -6.0 30.0
-     -0.0 -12.0 30.0
-     -10.3923 -6.0 30.0
+ksrc      -10.3923 6.0 30.000000000000007
+     0.0 12.0 30.000000000000007
+     10.3923 6.0 30.000000000000007
+     10.3923 -6.0 30.000000000000007
+     -0.0 -12.0 30.000000000000007
+     -10.3923 -6.0 30.000000000000007
 PRDMP 100 10 100 1 
 kopts BLOCKSIZE=10 KINETICS=YES PRECURSOR=Yes 
 DBCN 68J 50000 
 c *****************************Material Information****************************
-c Material: ['LiquidNa', 'HT9']; Density: 0.06092 atoms/bn*cm 
-m280 11023.83c 1.1959E-2 6000.83c 9.0734E-3 14028.83c 7.1569E-3
-     14029.83c 3.6357E-4 14030.83c 2.3995E-4 15031.83c 5.2776E-4
-     16032.83c 3.2286E-4 16033.83c 2.5491E-6 16034.83c 1.4445E-5
-     16036.83c 3.3988E-8 23050.83c 8.0222E-6 23051.83c 3.2009E-3
-     24050.83c 5.2363E-3 24052.83c 1.0098E-1 24053.83c 1.1450E-2
-     24054.83c 2.8501E-3 25055.83c 5.9509E-3 26054.83c 4.8447E-2
-     26056.83c 7.6052E-1 26057.83c 1.7564E-2 26058.83c 2.3374E-3
-     28058.83c 3.1600E-3 28060.83c 1.2172E-3 28061.83c 5.2917E-5
-     28062.83c 1.6873E-4 28064.83c 4.2937E-5 42092.83c 8.2505E-4
-     42094.83c 5.1956E-4 42095.83c 8.9944E-4 42096.83c 9.4657E-4
-     42097.83c 5.4511E-4 42098.83c 1.3849E-3 42100.83c 5.5761E-4
-     74180.83c 1.7783E-6 74182.83c 3.9272E-4 74183.83c 2.1207E-4
-     74184.83c 4.5407E-4 74186.83c 4.2132E-4
-c Material: Liquid Sodium; Density: 0.00243 atoms/bn*cm 
+c Material: ['LiquidNa', 'HT9']; Density: 0.01078 atoms/bn*cm 
+m280 11023.83c 2.0266E-1 6000.83c 7.3221E-3 14028.83c 5.7755E-3
+     14029.83c 2.9340E-4 14030.83c 1.9364E-4 15031.83c 4.2589E-4
+     16032.83c 2.6054E-4 16033.83c 2.0571E-6 16034.83c 1.1657E-5
+     16036.83c 2.7428E-8 23050.83c 6.4739E-6 23051.83c 2.5831E-3
+     24050.83c 4.2256E-3 24052.83c 8.1487E-2 24053.83c 9.2400E-3
+     24054.83c 2.3000E-3 25055.83c 4.8023E-3 26054.83c 3.9096E-2
+     26056.83c 6.1373E-1 26057.83c 1.4174E-2 26058.83c 1.8863E-3
+     28058.83c 2.5501E-3 28060.83c 9.8229E-4 28061.83c 4.2703E-5
+     28062.83c 1.3616E-4 28064.83c 3.4650E-5 42092.83c 6.6581E-4
+     42094.83c 4.1928E-4 42095.83c 7.2584E-4 42096.83c 7.6387E-4
+     42097.83c 4.3990E-4 42098.83c 1.1176E-3 42100.83c 4.4998E-4
+     74180.83c 1.4351E-6 74182.83c 3.1692E-4 74183.83c 1.7114E-4
+     74184.83c 3.6643E-4 74186.83c 3.4000E-4
+c Material: Liquid Sodium; Density: 0.02428 atoms/bn*cm 
 m281 11023.83c 1.0000E+0
-c Material: Liquid Sodium; Density: 0.00243 atoms/bn*cm 
-m282 11023.83c 1.0000E+0
-c Material: Liquid Sodium; Density: 0.02428 atoms/bn*cm 
-m283 11023.83c 1.0000E+0
+c Material: ['LiquidNa']; Density: 0.00243 atoms/bn*cm 
+m300 11023.83c 1.0000E+0
+c Material: ['LiquidNa', 'HT9']; Density: 0.06927 atoms/bn*cm 
+m301 11023.83c 7.0108E-3 6000.83c 9.1188E-3 14028.83c 7.1927E-3
+     14029.83c 3.6540E-4 14030.83c 2.4115E-4 15031.83c 5.3040E-4
+     16032.83c 3.2447E-4 16033.83c 2.5619E-6 16034.83c 1.4517E-5
+     16036.83c 3.4159E-8 23050.83c 8.0624E-6 23051.83c 3.2169E-3
+     24050.83c 5.2625E-3 24052.83c 1.0148E-1 24053.83c 1.1507E-2
+     24054.83c 2.8644E-3 25055.83c 5.9807E-3 26054.83c 4.8690E-2
+     26056.83c 7.6433E-1 26057.83c 1.7652E-2 26058.83c 2.3491E-3
+     28058.83c 3.1758E-3 28060.83c 1.2233E-3 28061.83c 5.3182E-5
+     28062.83c 1.6957E-4 28064.83c 4.3152E-5 42092.83c 8.2919E-4
+     42094.83c 5.2216E-4 42095.83c 9.0394E-4 42096.83c 9.5131E-4
+     42097.83c 5.4784E-4 42098.83c 1.3919E-3 42100.83c 5.6040E-4
+     74180.83c 1.7872E-6 74182.83c 3.9468E-4 74183.83c 2.1313E-4
+     74184.83c 4.5634E-4 74186.83c 4.2343E-4
 c Material: 5Pu22U10Zr; Density: 0.04574 atoms/bn*cm 
-m300 92235.83c 1.9148E-1 92238.83c 5.4147E-1 94239.83c 4.0225E-2
+m302 92235.83c 1.9148E-1 92238.83c 5.4147E-1 94239.83c 4.0225E-2
      94240.83c 2.5568E-3 40090.83c 1.1539E-1 40091.83c 2.5164E-2
      40092.83c 3.8463E-2 40094.83c 3.8979E-2 40096.83c 6.2797E-3
 c Material: Liquid Sodium; Density: 0.02428 atoms/bn*cm 
-m301 11023.83c 1.0000E+0
+m303 11023.83c 1.0000E+0
 c Material: HT9; Density: 0.08598 atoms/bn*cm 
-m302 6000.83c 9.1832E-3 14028.83c 7.2435E-3 14029.83c 3.6798E-4
+m304 6000.83c 9.1832E-3 14028.83c 7.2435E-3 14029.83c 3.6798E-4
      14030.83c 2.4286E-4 15031.83c 5.3414E-4 16032.83c 3.2676E-4
      16033.83c 2.5800E-6 16034.83c 1.4620E-5 16036.83c 3.4400E-8
      23050.83c 8.1193E-6 23051.83c 3.2396E-3 24050.83c 5.2997E-3
@@ -522,7 +530,7 @@ m302 6000.83c 9.1832E-3 14028.83c 7.2435E-3 14029.83c 3.6798E-4
      74182.83c 3.9747E-4 74183.83c 2.1463E-4 74184.83c 4.5956E-4
      74186.83c 4.2642E-4
 c Material: ['HT9', 'LiquidNa']; Density: 0.00921 atoms/bn*cm 
-m303 6000.83c 6.9589E-3 14028.83c 5.4890E-3 14029.83c 2.7885E-4
+m305 6000.83c 6.9589E-3 14028.83c 5.4890E-3 14029.83c 2.7885E-4
      14030.83c 1.8403E-4 15031.83c 4.0477E-4 16032.83c 2.4762E-4
      16033.83c 1.9551E-6 16034.83c 1.1079E-5 16036.83c 2.6068E-8
      23050.83c 6.1527E-6 23051.83c 2.4549E-3 24050.83c 4.0160E-3
@@ -536,9 +544,23 @@ m303 6000.83c 6.9589E-3 14028.83c 5.4890E-3 14029.83c 2.7885E-4
      74182.83c 3.0120E-4 74183.83c 1.6265E-4 74184.83c 3.4825E-4
      74186.83c 3.2313E-4 11023.83c 2.4222E-1
 c Material: Liquid Sodium; Density: 0.00243 atoms/bn*cm 
-m304 11023.83c 1.0000E+0
+m306 11023.83c 1.0000E+0
+c Material: HT9; Density: 0.08598 atoms/bn*cm 
+m309 6000.83c 9.1832E-3 14028.83c 7.2435E-3 14029.83c 3.6798E-4
+     14030.83c 2.4286E-4 15031.83c 5.3414E-4 16032.83c 3.2676E-4
+     16033.83c 2.5800E-6 16034.83c 1.4620E-5 16036.83c 3.4400E-8
+     23050.83c 8.1193E-6 23051.83c 3.2396E-3 24050.83c 5.2997E-3
+     24052.83c 1.0220E-1 24053.83c 1.1588E-2 24054.83c 2.8846E-3
+     25055.83c 6.0229E-3 26054.83c 4.9034E-2 26056.83c 7.6972E-1
+     26057.83c 1.7776E-2 26058.83c 2.3657E-3 28058.83c 3.1983E-3
+     28060.83c 1.2320E-3 28061.83c 5.3557E-5 28062.83c 1.7077E-4
+     28064.83c 4.3456E-5 42092.83c 8.3504E-4 42094.83c 5.2585E-4
+     42095.83c 9.1033E-4 42096.83c 9.5803E-4 42097.83c 5.5171E-4
+     42098.83c 1.4017E-3 42100.83c 5.6436E-4 74180.83c 1.7999E-6
+     74182.83c 3.9747E-4 74183.83c 2.1463E-4 74184.83c 4.5956E-4
+     74186.83c 4.2642E-4
 c Material: ['LiquidNa', 'Void', 'HT9']; Density: 0.02271 atoms/bn*cm 
-m307 11023.83c 5.3462E-2 6000.83c 8.6922E-3 14028.83c 6.8562E-3
+m310 11023.83c 5.3462E-2 6000.83c 8.6922E-3 14028.83c 6.8562E-3
      14029.83c 3.4830E-4 14030.83c 2.2987E-4 15031.83c 5.0559E-4
      16032.83c 3.0929E-4 16033.83c 2.4421E-6 16034.83c 1.3838E-5
      16036.83c 3.2561E-8 23050.83c 7.6853E-6 23051.83c 3.0664E-3
@@ -552,7 +574,7 @@ m307 11023.83c 5.3462E-2 6000.83c 8.6922E-3 14028.83c 6.8562E-3
      74180.83c 1.7036E-6 74182.83c 3.7622E-4 74183.83c 2.0316E-4
      74184.83c 4.3499E-4 74186.83c 4.0362E-4
 c Material: ['LiquidNa', 'HT9']; Density: 0.06927 atoms/bn*cm 
-m308 11023.83c 7.0108E-3 6000.83c 9.1188E-3 14028.83c 7.1927E-3
+m311 11023.83c 7.0108E-3 6000.83c 9.1188E-3 14028.83c 7.1927E-3
      14029.83c 3.6540E-4 14030.83c 2.4115E-4 15031.83c 5.3040E-4
      16032.83c 3.2447E-4 16033.83c 2.5619E-6 16034.83c 1.4517E-5
      16036.83c 3.4159E-8 23050.83c 8.0624E-6 23051.83c 3.2169E-3
@@ -565,46 +587,34 @@ m308 11023.83c 7.0108E-3 6000.83c 9.1188E-3 14028.83c 7.1927E-3
      42097.83c 5.4784E-4 42098.83c 1.3919E-3 42100.83c 5.6040E-4
      74180.83c 1.7872E-6 74182.83c 3.9468E-4 74183.83c 2.1313E-4
      74184.83c 4.5634E-4 74186.83c 4.2343E-4
-c Material: ['LiquidNa', 'HT9']; Density: 0.06927 atoms/bn*cm 
-m309 11023.83c 7.0108E-3 6000.83c 9.1188E-3 14028.83c 7.1927E-3
-     14029.83c 3.6540E-4 14030.83c 2.4115E-4 15031.83c 5.3040E-4
-     16032.83c 3.2447E-4 16033.83c 2.5619E-6 16034.83c 1.4517E-5
-     16036.83c 3.4159E-8 23050.83c 8.0624E-6 23051.83c 3.2169E-3
-     24050.83c 5.2625E-3 24052.83c 1.0148E-1 24053.83c 1.1507E-2
-     24054.83c 2.8644E-3 25055.83c 5.9807E-3 26054.83c 4.8690E-2
-     26056.83c 7.6433E-1 26057.83c 1.7652E-2 26058.83c 2.3491E-3
-     28058.83c 3.1758E-3 28060.83c 1.2233E-3 28061.83c 5.3182E-5
-     28062.83c 1.6957E-4 28064.83c 4.3152E-5 42092.83c 8.2919E-4
-     42094.83c 5.2216E-4 42095.83c 9.0394E-4 42096.83c 9.5131E-4
-     42097.83c 5.4784E-4 42098.83c 1.3919E-3 42100.83c 5.6040E-4
-     74180.83c 1.7872E-6 74182.83c 3.9468E-4 74183.83c 2.1313E-4
-     74184.83c 4.5634E-4 74186.83c 4.2343E-4
-c Material: HT9; Density: 0.08598 atoms/bn*cm 
-m310 6000.83c 9.1832E-3 14028.83c 7.2435E-3 14029.83c 3.6798E-4
-     14030.83c 2.4286E-4 15031.83c 5.3414E-4 16032.83c 3.2676E-4
-     16033.83c 2.5800E-6 16034.83c 1.4620E-5 16036.83c 3.4400E-8
-     23050.83c 8.1193E-6 23051.83c 3.2396E-3 24050.83c 5.2997E-3
-     24052.83c 1.0220E-1 24053.83c 1.1588E-2 24054.83c 2.8846E-3
-     25055.83c 6.0229E-3 26054.83c 4.9034E-2 26056.83c 7.6972E-1
-     26057.83c 1.7776E-2 26058.83c 2.3657E-3 28058.83c 3.1983E-3
-     28060.83c 1.2320E-3 28061.83c 5.3557E-5 28062.83c 1.7077E-4
-     28064.83c 4.3456E-5 42092.83c 8.3504E-4 42094.83c 5.2585E-4
-     42095.83c 9.1033E-4 42096.83c 9.5803E-4 42097.83c 5.5171E-4
-     42098.83c 1.4017E-3 42100.83c 5.6436E-4 74180.83c 1.7999E-6
-     74182.83c 3.9747E-4 74183.83c 2.1463E-4 74184.83c 4.5956E-4
-     74186.83c 4.2642E-4
-c Material: Liquid Sodium; Density: 0.00243 atoms/bn*cm 
-m311 11023.83c 1.0000E+0
-c Material: Liquid Sodium; Density: 0.00243 atoms/bn*cm 
+c Material: ['LiquidNa']; Density: 0.00243 atoms/bn*cm 
 m312 11023.83c 1.0000E+0
+c Material: Liquid Sodium; Density: 0.02428 atoms/bn*cm 
+m313 11023.83c 1.0000E+0
+c Material: ['LiquidNa']; Density: 0.00243 atoms/bn*cm 
+m320 11023.83c 1.0000E+0
+c Material: ['LiquidNa', 'HT9']; Density: 0.06927 atoms/bn*cm 
+m321 11023.83c 7.0108E-3 6000.83c 9.1188E-3 14028.83c 7.1927E-3
+     14029.83c 3.6540E-4 14030.83c 2.4115E-4 15031.83c 5.3040E-4
+     16032.83c 3.2447E-4 16033.83c 2.5619E-6 16034.83c 1.4517E-5
+     16036.83c 3.4159E-8 23050.83c 8.0624E-6 23051.83c 3.2169E-3
+     24050.83c 5.2625E-3 24052.83c 1.0148E-1 24053.83c 1.1507E-2
+     24054.83c 2.8644E-3 25055.83c 5.9807E-3 26054.83c 4.8690E-2
+     26056.83c 7.6433E-1 26057.83c 1.7652E-2 26058.83c 2.3491E-3
+     28058.83c 3.1758E-3 28060.83c 1.2233E-3 28061.83c 5.3182E-5
+     28062.83c 1.6957E-4 28064.83c 4.3152E-5 42092.83c 8.2919E-4
+     42094.83c 5.2216E-4 42095.83c 9.0394E-4 42096.83c 9.5131E-4
+     42097.83c 5.4784E-4 42098.83c 1.3919E-3 42100.83c 5.6040E-4
+     74180.83c 1.7872E-6 74182.83c 3.9468E-4 74183.83c 2.1313E-4
+     74184.83c 4.5634E-4 74186.83c 4.2343E-4
 c Material: 5Pu22U10Zr; Density: 0.04574 atoms/bn*cm 
-m320 92235.83c 1.9148E-1 92238.83c 5.4147E-1 94239.83c 4.0225E-2
+m322 92235.83c 1.9148E-1 92238.83c 5.4147E-1 94239.83c 4.0225E-2
      94240.83c 2.5568E-3 40090.83c 1.1539E-1 40091.83c 2.5164E-2
      40092.83c 3.8463E-2 40094.83c 3.8979E-2 40096.83c 6.2797E-3
 c Material: Liquid Sodium; Density: 0.02428 atoms/bn*cm 
-m321 11023.83c 1.0000E+0
+m323 11023.83c 1.0000E+0
 c Material: HT9; Density: 0.08598 atoms/bn*cm 
-m322 6000.83c 9.1832E-3 14028.83c 7.2435E-3 14029.83c 3.6798E-4
+m324 6000.83c 9.1832E-3 14028.83c 7.2435E-3 14029.83c 3.6798E-4
      14030.83c 2.4286E-4 15031.83c 5.3414E-4 16032.83c 3.2676E-4
      16033.83c 2.5800E-6 16034.83c 1.4620E-5 16036.83c 3.4400E-8
      23050.83c 8.1193E-6 23051.83c 3.2396E-3 24050.83c 5.2997E-3
@@ -618,7 +628,7 @@ m322 6000.83c 9.1832E-3 14028.83c 7.2435E-3 14029.83c 3.6798E-4
      74182.83c 3.9747E-4 74183.83c 2.1463E-4 74184.83c 4.5956E-4
      74186.83c 4.2642E-4
 c Material: ['HT9', 'LiquidNa']; Density: 0.00921 atoms/bn*cm 
-m323 6000.83c 6.9589E-3 14028.83c 5.4890E-3 14029.83c 2.7885E-4
+m325 6000.83c 6.9589E-3 14028.83c 5.4890E-3 14029.83c 2.7885E-4
      14030.83c 1.8403E-4 15031.83c 4.0477E-4 16032.83c 2.4762E-4
      16033.83c 1.9551E-6 16034.83c 1.1079E-5 16036.83c 2.6068E-8
      23050.83c 6.1527E-6 23051.83c 2.4549E-3 24050.83c 4.0160E-3
@@ -632,9 +642,23 @@ m323 6000.83c 6.9589E-3 14028.83c 5.4890E-3 14029.83c 2.7885E-4
      74182.83c 3.0120E-4 74183.83c 1.6265E-4 74184.83c 3.4825E-4
      74186.83c 3.2313E-4 11023.83c 2.4222E-1
 c Material: Liquid Sodium; Density: 0.00243 atoms/bn*cm 
-m324 11023.83c 1.0000E+0
+m326 11023.83c 1.0000E+0
+c Material: HT9; Density: 0.08598 atoms/bn*cm 
+m329 6000.83c 9.1832E-3 14028.83c 7.2435E-3 14029.83c 3.6798E-4
+     14030.83c 2.4286E-4 15031.83c 5.3414E-4 16032.83c 3.2676E-4
+     16033.83c 2.5800E-6 16034.83c 1.4620E-5 16036.83c 3.4400E-8
+     23050.83c 8.1193E-6 23051.83c 3.2396E-3 24050.83c 5.2997E-3
+     24052.83c 1.0220E-1 24053.83c 1.1588E-2 24054.83c 2.8846E-3
+     25055.83c 6.0229E-3 26054.83c 4.9034E-2 26056.83c 7.6972E-1
+     26057.83c 1.7776E-2 26058.83c 2.3657E-3 28058.83c 3.1983E-3
+     28060.83c 1.2320E-3 28061.83c 5.3557E-5 28062.83c 1.7077E-4
+     28064.83c 4.3456E-5 42092.83c 8.3504E-4 42094.83c 5.2585E-4
+     42095.83c 9.1033E-4 42096.83c 9.5803E-4 42097.83c 5.5171E-4
+     42098.83c 1.4017E-3 42100.83c 5.6436E-4 74180.83c 1.7999E-6
+     74182.83c 3.9747E-4 74183.83c 2.1463E-4 74184.83c 4.5956E-4
+     74186.83c 4.2642E-4
 c Material: ['LiquidNa', 'Void', 'HT9']; Density: 0.02271 atoms/bn*cm 
-m327 11023.83c 5.3462E-2 6000.83c 8.6922E-3 14028.83c 6.8562E-3
+m330 11023.83c 5.3462E-2 6000.83c 8.6922E-3 14028.83c 6.8562E-3
      14029.83c 3.4830E-4 14030.83c 2.2987E-4 15031.83c 5.0559E-4
      16032.83c 3.0929E-4 16033.83c 2.4421E-6 16034.83c 1.3838E-5
      16036.83c 3.2561E-8 23050.83c 7.6853E-6 23051.83c 3.0664E-3
@@ -648,7 +672,7 @@ m327 11023.83c 5.3462E-2 6000.83c 8.6922E-3 14028.83c 6.8562E-3
      74180.83c 1.7036E-6 74182.83c 3.7622E-4 74183.83c 2.0316E-4
      74184.83c 4.3499E-4 74186.83c 4.0362E-4
 c Material: ['LiquidNa', 'HT9']; Density: 0.06927 atoms/bn*cm 
-m328 11023.83c 7.0108E-3 6000.83c 9.1188E-3 14028.83c 7.1927E-3
+m331 11023.83c 7.0108E-3 6000.83c 9.1188E-3 14028.83c 7.1927E-3
      14029.83c 3.6540E-4 14030.83c 2.4115E-4 15031.83c 5.3040E-4
      16032.83c 3.2447E-4 16033.83c 2.5619E-6 16034.83c 1.4517E-5
      16036.83c 3.4159E-8 23050.83c 8.0624E-6 23051.83c 3.2169E-3
@@ -661,46 +685,34 @@ m328 11023.83c 7.0108E-3 6000.83c 9.1188E-3 14028.83c 7.1927E-3
      42097.83c 5.4784E-4 42098.83c 1.3919E-3 42100.83c 5.6040E-4
      74180.83c 1.7872E-6 74182.83c 3.9468E-4 74183.83c 2.1313E-4
      74184.83c 4.5634E-4 74186.83c 4.2343E-4
-c Material: ['LiquidNa', 'HT9']; Density: 0.06927 atoms/bn*cm 
-m329 11023.83c 7.0108E-3 6000.83c 9.1188E-3 14028.83c 7.1927E-3
-     14029.83c 3.6540E-4 14030.83c 2.4115E-4 15031.83c 5.3040E-4
-     16032.83c 3.2447E-4 16033.83c 2.5619E-6 16034.83c 1.4517E-5
-     16036.83c 3.4159E-8 23050.83c 8.0624E-6 23051.83c 3.2169E-3
-     24050.83c 5.2625E-3 24052.83c 1.0148E-1 24053.83c 1.1507E-2
-     24054.83c 2.8644E-3 25055.83c 5.9807E-3 26054.83c 4.8690E-2
-     26056.83c 7.6433E-1 26057.83c 1.7652E-2 26058.83c 2.3491E-3
-     28058.83c 3.1758E-3 28060.83c 1.2233E-3 28061.83c 5.3182E-5
-     28062.83c 1.6957E-4 28064.83c 4.3152E-5 42092.83c 8.2919E-4
-     42094.83c 5.2216E-4 42095.83c 9.0394E-4 42096.83c 9.5131E-4
-     42097.83c 5.4784E-4 42098.83c 1.3919E-3 42100.83c 5.6040E-4
-     74180.83c 1.7872E-6 74182.83c 3.9468E-4 74183.83c 2.1313E-4
-     74184.83c 4.5634E-4 74186.83c 4.2343E-4
-c Material: HT9; Density: 0.08598 atoms/bn*cm 
-m330 6000.83c 9.1832E-3 14028.83c 7.2435E-3 14029.83c 3.6798E-4
-     14030.83c 2.4286E-4 15031.83c 5.3414E-4 16032.83c 3.2676E-4
-     16033.83c 2.5800E-6 16034.83c 1.4620E-5 16036.83c 3.4400E-8
-     23050.83c 8.1193E-6 23051.83c 3.2396E-3 24050.83c 5.2997E-3
-     24052.83c 1.0220E-1 24053.83c 1.1588E-2 24054.83c 2.8846E-3
-     25055.83c 6.0229E-3 26054.83c 4.9034E-2 26056.83c 7.6972E-1
-     26057.83c 1.7776E-2 26058.83c 2.3657E-3 28058.83c 3.1983E-3
-     28060.83c 1.2320E-3 28061.83c 5.3557E-5 28062.83c 1.7077E-4
-     28064.83c 4.3456E-5 42092.83c 8.3504E-4 42094.83c 5.2585E-4
-     42095.83c 9.1033E-4 42096.83c 9.5803E-4 42097.83c 5.5171E-4
-     42098.83c 1.4017E-3 42100.83c 5.6436E-4 74180.83c 1.7999E-6
-     74182.83c 3.9747E-4 74183.83c 2.1463E-4 74184.83c 4.5956E-4
-     74186.83c 4.2642E-4
-c Material: Liquid Sodium; Density: 0.00243 atoms/bn*cm 
-m331 11023.83c 1.0000E+0
-c Material: Liquid Sodium; Density: 0.00243 atoms/bn*cm 
+c Material: ['LiquidNa']; Density: 0.00243 atoms/bn*cm 
 m332 11023.83c 1.0000E+0
+c Material: Liquid Sodium; Density: 0.02428 atoms/bn*cm 
+m333 11023.83c 1.0000E+0
+c Material: ['LiquidNa']; Density: 0.00243 atoms/bn*cm 
+m340 11023.83c 1.0000E+0
+c Material: ['LiquidNa', 'HT9']; Density: 0.06927 atoms/bn*cm 
+m341 11023.83c 7.0108E-3 6000.83c 9.1188E-3 14028.83c 7.1927E-3
+     14029.83c 3.6540E-4 14030.83c 2.4115E-4 15031.83c 5.3040E-4
+     16032.83c 3.2447E-4 16033.83c 2.5619E-6 16034.83c 1.4517E-5
+     16036.83c 3.4159E-8 23050.83c 8.0624E-6 23051.83c 3.2169E-3
+     24050.83c 5.2625E-3 24052.83c 1.0148E-1 24053.83c 1.1507E-2
+     24054.83c 2.8644E-3 25055.83c 5.9807E-3 26054.83c 4.8690E-2
+     26056.83c 7.6433E-1 26057.83c 1.7652E-2 26058.83c 2.3491E-3
+     28058.83c 3.1758E-3 28060.83c 1.2233E-3 28061.83c 5.3182E-5
+     28062.83c 1.6957E-4 28064.83c 4.3152E-5 42092.83c 8.2919E-4
+     42094.83c 5.2216E-4 42095.83c 9.0394E-4 42096.83c 9.5131E-4
+     42097.83c 5.4784E-4 42098.83c 1.3919E-3 42100.83c 5.6040E-4
+     74180.83c 1.7872E-6 74182.83c 3.9468E-4 74183.83c 2.1313E-4
+     74184.83c 4.5634E-4 74186.83c 4.2343E-4
 c Material: 5Pu22U10Zr; Density: 0.04574 atoms/bn*cm 
-m340 92235.83c 1.9148E-1 92238.83c 5.4147E-1 94239.83c 4.0225E-2
+m342 92235.83c 1.9148E-1 92238.83c 5.4147E-1 94239.83c 4.0225E-2
      94240.83c 2.5568E-3 40090.83c 1.1539E-1 40091.83c 2.5164E-2
      40092.83c 3.8463E-2 40094.83c 3.8979E-2 40096.83c 6.2797E-3
 c Material: Liquid Sodium; Density: 0.02428 atoms/bn*cm 
-m341 11023.83c 1.0000E+0
+m343 11023.83c 1.0000E+0
 c Material: HT9; Density: 0.08598 atoms/bn*cm 
-m342 6000.83c 9.1832E-3 14028.83c 7.2435E-3 14029.83c 3.6798E-4
+m344 6000.83c 9.1832E-3 14028.83c 7.2435E-3 14029.83c 3.6798E-4
      14030.83c 2.4286E-4 15031.83c 5.3414E-4 16032.83c 3.2676E-4
      16033.83c 2.5800E-6 16034.83c 1.4620E-5 16036.83c 3.4400E-8
      23050.83c 8.1193E-6 23051.83c 3.2396E-3 24050.83c 5.2997E-3
@@ -714,7 +726,7 @@ m342 6000.83c 9.1832E-3 14028.83c 7.2435E-3 14029.83c 3.6798E-4
      74182.83c 3.9747E-4 74183.83c 2.1463E-4 74184.83c 4.5956E-4
      74186.83c 4.2642E-4
 c Material: ['HT9', 'LiquidNa']; Density: 0.00921 atoms/bn*cm 
-m343 6000.83c 6.9589E-3 14028.83c 5.4890E-3 14029.83c 2.7885E-4
+m345 6000.83c 6.9589E-3 14028.83c 5.4890E-3 14029.83c 2.7885E-4
      14030.83c 1.8403E-4 15031.83c 4.0477E-4 16032.83c 2.4762E-4
      16033.83c 1.9551E-6 16034.83c 1.1079E-5 16036.83c 2.6068E-8
      23050.83c 6.1527E-6 23051.83c 2.4549E-3 24050.83c 4.0160E-3
@@ -728,9 +740,23 @@ m343 6000.83c 6.9589E-3 14028.83c 5.4890E-3 14029.83c 2.7885E-4
      74182.83c 3.0120E-4 74183.83c 1.6265E-4 74184.83c 3.4825E-4
      74186.83c 3.2313E-4 11023.83c 2.4222E-1
 c Material: Liquid Sodium; Density: 0.00243 atoms/bn*cm 
-m344 11023.83c 1.0000E+0
+m346 11023.83c 1.0000E+0
+c Material: HT9; Density: 0.08598 atoms/bn*cm 
+m349 6000.83c 9.1832E-3 14028.83c 7.2435E-3 14029.83c 3.6798E-4
+     14030.83c 2.4286E-4 15031.83c 5.3414E-4 16032.83c 3.2676E-4
+     16033.83c 2.5800E-6 16034.83c 1.4620E-5 16036.83c 3.4400E-8
+     23050.83c 8.1193E-6 23051.83c 3.2396E-3 24050.83c 5.2997E-3
+     24052.83c 1.0220E-1 24053.83c 1.1588E-2 24054.83c 2.8846E-3
+     25055.83c 6.0229E-3 26054.83c 4.9034E-2 26056.83c 7.6972E-1
+     26057.83c 1.7776E-2 26058.83c 2.3657E-3 28058.83c 3.1983E-3
+     28060.83c 1.2320E-3 28061.83c 5.3557E-5 28062.83c 1.7077E-4
+     28064.83c 4.3456E-5 42092.83c 8.3504E-4 42094.83c 5.2585E-4
+     42095.83c 9.1033E-4 42096.83c 9.5803E-4 42097.83c 5.5171E-4
+     42098.83c 1.4017E-3 42100.83c 5.6436E-4 74180.83c 1.7999E-6
+     74182.83c 3.9747E-4 74183.83c 2.1463E-4 74184.83c 4.5956E-4
+     74186.83c 4.2642E-4
 c Material: ['LiquidNa', 'Void', 'HT9']; Density: 0.02271 atoms/bn*cm 
-m347 11023.83c 5.3462E-2 6000.83c 8.6922E-3 14028.83c 6.8562E-3
+m350 11023.83c 5.3462E-2 6000.83c 8.6922E-3 14028.83c 6.8562E-3
      14029.83c 3.4830E-4 14030.83c 2.2987E-4 15031.83c 5.0559E-4
      16032.83c 3.0929E-4 16033.83c 2.4421E-6 16034.83c 1.3838E-5
      16036.83c 3.2561E-8 23050.83c 7.6853E-6 23051.83c 3.0664E-3
@@ -744,7 +770,7 @@ m347 11023.83c 5.3462E-2 6000.83c 8.6922E-3 14028.83c 6.8562E-3
      74180.83c 1.7036E-6 74182.83c 3.7622E-4 74183.83c 2.0316E-4
      74184.83c 4.3499E-4 74186.83c 4.0362E-4
 c Material: ['LiquidNa', 'HT9']; Density: 0.06927 atoms/bn*cm 
-m348 11023.83c 7.0108E-3 6000.83c 9.1188E-3 14028.83c 7.1927E-3
+m351 11023.83c 7.0108E-3 6000.83c 9.1188E-3 14028.83c 7.1927E-3
      14029.83c 3.6540E-4 14030.83c 2.4115E-4 15031.83c 5.3040E-4
      16032.83c 3.2447E-4 16033.83c 2.5619E-6 16034.83c 1.4517E-5
      16036.83c 3.4159E-8 23050.83c 8.0624E-6 23051.83c 3.2169E-3
@@ -757,46 +783,34 @@ m348 11023.83c 7.0108E-3 6000.83c 9.1188E-3 14028.83c 7.1927E-3
      42097.83c 5.4784E-4 42098.83c 1.3919E-3 42100.83c 5.6040E-4
      74180.83c 1.7872E-6 74182.83c 3.9468E-4 74183.83c 2.1313E-4
      74184.83c 4.5634E-4 74186.83c 4.2343E-4
-c Material: ['LiquidNa', 'HT9']; Density: 0.06927 atoms/bn*cm 
-m349 11023.83c 7.0108E-3 6000.83c 9.1188E-3 14028.83c 7.1927E-3
-     14029.83c 3.6540E-4 14030.83c 2.4115E-4 15031.83c 5.3040E-4
-     16032.83c 3.2447E-4 16033.83c 2.5619E-6 16034.83c 1.4517E-5
-     16036.83c 3.4159E-8 23050.83c 8.0624E-6 23051.83c 3.2169E-3
-     24050.83c 5.2625E-3 24052.83c 1.0148E-1 24053.83c 1.1507E-2
-     24054.83c 2.8644E-3 25055.83c 5.9807E-3 26054.83c 4.8690E-2
-     26056.83c 7.6433E-1 26057.83c 1.7652E-2 26058.83c 2.3491E-3
-     28058.83c 3.1758E-3 28060.83c 1.2233E-3 28061.83c 5.3182E-5
-     28062.83c 1.6957E-4 28064.83c 4.3152E-5 42092.83c 8.2919E-4
-     42094.83c 5.2216E-4 42095.83c 9.0394E-4 42096.83c 9.5131E-4
-     42097.83c 5.4784E-4 42098.83c 1.3919E-3 42100.83c 5.6040E-4
-     74180.83c 1.7872E-6 74182.83c 3.9468E-4 74183.83c 2.1313E-4
-     74184.83c 4.5634E-4 74186.83c 4.2343E-4
-c Material: HT9; Density: 0.08598 atoms/bn*cm 
-m350 6000.83c 9.1832E-3 14028.83c 7.2435E-3 14029.83c 3.6798E-4
-     14030.83c 2.4286E-4 15031.83c 5.3414E-4 16032.83c 3.2676E-4
-     16033.83c 2.5800E-6 16034.83c 1.4620E-5 16036.83c 3.4400E-8
-     23050.83c 8.1193E-6 23051.83c 3.2396E-3 24050.83c 5.2997E-3
-     24052.83c 1.0220E-1 24053.83c 1.1588E-2 24054.83c 2.8846E-3
-     25055.83c 6.0229E-3 26054.83c 4.9034E-2 26056.83c 7.6972E-1
-     26057.83c 1.7776E-2 26058.83c 2.3657E-3 28058.83c 3.1983E-3
-     28060.83c 1.2320E-3 28061.83c 5.3557E-5 28062.83c 1.7077E-4
-     28064.83c 4.3456E-5 42092.83c 8.3504E-4 42094.83c 5.2585E-4
-     42095.83c 9.1033E-4 42096.83c 9.5803E-4 42097.83c 5.5171E-4
-     42098.83c 1.4017E-3 42100.83c 5.6436E-4 74180.83c 1.7999E-6
-     74182.83c 3.9747E-4 74183.83c 2.1463E-4 74184.83c 4.5956E-4
-     74186.83c 4.2642E-4
-c Material: Liquid Sodium; Density: 0.00243 atoms/bn*cm 
-m351 11023.83c 1.0000E+0
-c Material: Liquid Sodium; Density: 0.00243 atoms/bn*cm 
+c Material: ['LiquidNa']; Density: 0.00243 atoms/bn*cm 
 m352 11023.83c 1.0000E+0
+c Material: Liquid Sodium; Density: 0.02428 atoms/bn*cm 
+m353 11023.83c 1.0000E+0
+c Material: ['LiquidNa']; Density: 0.00243 atoms/bn*cm 
+m360 11023.83c 1.0000E+0
+c Material: ['LiquidNa', 'HT9']; Density: 0.06927 atoms/bn*cm 
+m361 11023.83c 7.0108E-3 6000.83c 9.1188E-3 14028.83c 7.1927E-3
+     14029.83c 3.6540E-4 14030.83c 2.4115E-4 15031.83c 5.3040E-4
+     16032.83c 3.2447E-4 16033.83c 2.5619E-6 16034.83c 1.4517E-5
+     16036.83c 3.4159E-8 23050.83c 8.0624E-6 23051.83c 3.2169E-3
+     24050.83c 5.2625E-3 24052.83c 1.0148E-1 24053.83c 1.1507E-2
+     24054.83c 2.8644E-3 25055.83c 5.9807E-3 26054.83c 4.8690E-2
+     26056.83c 7.6433E-1 26057.83c 1.7652E-2 26058.83c 2.3491E-3
+     28058.83c 3.1758E-3 28060.83c 1.2233E-3 28061.83c 5.3182E-5
+     28062.83c 1.6957E-4 28064.83c 4.3152E-5 42092.83c 8.2919E-4
+     42094.83c 5.2216E-4 42095.83c 9.0394E-4 42096.83c 9.5131E-4
+     42097.83c 5.4784E-4 42098.83c 1.3919E-3 42100.83c 5.6040E-4
+     74180.83c 1.7872E-6 74182.83c 3.9468E-4 74183.83c 2.1313E-4
+     74184.83c 4.5634E-4 74186.83c 4.2343E-4
 c Material: 5Pu22U10Zr; Density: 0.04574 atoms/bn*cm 
-m360 92235.83c 1.9148E-1 92238.83c 5.4147E-1 94239.83c 4.0225E-2
+m362 92235.83c 1.9148E-1 92238.83c 5.4147E-1 94239.83c 4.0225E-2
      94240.83c 2.5568E-3 40090.83c 1.1539E-1 40091.83c 2.5164E-2
      40092.83c 3.8463E-2 40094.83c 3.8979E-2 40096.83c 6.2797E-3
 c Material: Liquid Sodium; Density: 0.02428 atoms/bn*cm 
-m361 11023.83c 1.0000E+0
+m363 11023.83c 1.0000E+0
 c Material: HT9; Density: 0.08598 atoms/bn*cm 
-m362 6000.83c 9.1832E-3 14028.83c 7.2435E-3 14029.83c 3.6798E-4
+m364 6000.83c 9.1832E-3 14028.83c 7.2435E-3 14029.83c 3.6798E-4
      14030.83c 2.4286E-4 15031.83c 5.3414E-4 16032.83c 3.2676E-4
      16033.83c 2.5800E-6 16034.83c 1.4620E-5 16036.83c 3.4400E-8
      23050.83c 8.1193E-6 23051.83c 3.2396E-3 24050.83c 5.2997E-3
@@ -810,7 +824,7 @@ m362 6000.83c 9.1832E-3 14028.83c 7.2435E-3 14029.83c 3.6798E-4
      74182.83c 3.9747E-4 74183.83c 2.1463E-4 74184.83c 4.5956E-4
      74186.83c 4.2642E-4
 c Material: ['HT9', 'LiquidNa']; Density: 0.00921 atoms/bn*cm 
-m363 6000.83c 6.9589E-3 14028.83c 5.4890E-3 14029.83c 2.7885E-4
+m365 6000.83c 6.9589E-3 14028.83c 5.4890E-3 14029.83c 2.7885E-4
      14030.83c 1.8403E-4 15031.83c 4.0477E-4 16032.83c 2.4762E-4
      16033.83c 1.9551E-6 16034.83c 1.1079E-5 16036.83c 2.6068E-8
      23050.83c 6.1527E-6 23051.83c 2.4549E-3 24050.83c 4.0160E-3
@@ -824,9 +838,23 @@ m363 6000.83c 6.9589E-3 14028.83c 5.4890E-3 14029.83c 2.7885E-4
      74182.83c 3.0120E-4 74183.83c 1.6265E-4 74184.83c 3.4825E-4
      74186.83c 3.2313E-4 11023.83c 2.4222E-1
 c Material: Liquid Sodium; Density: 0.00243 atoms/bn*cm 
-m364 11023.83c 1.0000E+0
+m366 11023.83c 1.0000E+0
+c Material: HT9; Density: 0.08598 atoms/bn*cm 
+m369 6000.83c 9.1832E-3 14028.83c 7.2435E-3 14029.83c 3.6798E-4
+     14030.83c 2.4286E-4 15031.83c 5.3414E-4 16032.83c 3.2676E-4
+     16033.83c 2.5800E-6 16034.83c 1.4620E-5 16036.83c 3.4400E-8
+     23050.83c 8.1193E-6 23051.83c 3.2396E-3 24050.83c 5.2997E-3
+     24052.83c 1.0220E-1 24053.83c 1.1588E-2 24054.83c 2.8846E-3
+     25055.83c 6.0229E-3 26054.83c 4.9034E-2 26056.83c 7.6972E-1
+     26057.83c 1.7776E-2 26058.83c 2.3657E-3 28058.83c 3.1983E-3
+     28060.83c 1.2320E-3 28061.83c 5.3557E-5 28062.83c 1.7077E-4
+     28064.83c 4.3456E-5 42092.83c 8.3504E-4 42094.83c 5.2585E-4
+     42095.83c 9.1033E-4 42096.83c 9.5803E-4 42097.83c 5.5171E-4
+     42098.83c 1.4017E-3 42100.83c 5.6436E-4 74180.83c 1.7999E-6
+     74182.83c 3.9747E-4 74183.83c 2.1463E-4 74184.83c 4.5956E-4
+     74186.83c 4.2642E-4
 c Material: ['LiquidNa', 'Void', 'HT9']; Density: 0.02271 atoms/bn*cm 
-m367 11023.83c 5.3462E-2 6000.83c 8.6922E-3 14028.83c 6.8562E-3
+m370 11023.83c 5.3462E-2 6000.83c 8.6922E-3 14028.83c 6.8562E-3
      14029.83c 3.4830E-4 14030.83c 2.2987E-4 15031.83c 5.0559E-4
      16032.83c 3.0929E-4 16033.83c 2.4421E-6 16034.83c 1.3838E-5
      16036.83c 3.2561E-8 23050.83c 7.6853E-6 23051.83c 3.0664E-3
@@ -840,7 +868,7 @@ m367 11023.83c 5.3462E-2 6000.83c 8.6922E-3 14028.83c 6.8562E-3
      74180.83c 1.7036E-6 74182.83c 3.7622E-4 74183.83c 2.0316E-4
      74184.83c 4.3499E-4 74186.83c 4.0362E-4
 c Material: ['LiquidNa', 'HT9']; Density: 0.06927 atoms/bn*cm 
-m368 11023.83c 7.0108E-3 6000.83c 9.1188E-3 14028.83c 7.1927E-3
+m371 11023.83c 7.0108E-3 6000.83c 9.1188E-3 14028.83c 7.1927E-3
      14029.83c 3.6540E-4 14030.83c 2.4115E-4 15031.83c 5.3040E-4
      16032.83c 3.2447E-4 16033.83c 2.5619E-6 16034.83c 1.4517E-5
      16036.83c 3.4159E-8 23050.83c 8.0624E-6 23051.83c 3.2169E-3
@@ -853,46 +881,34 @@ m368 11023.83c 7.0108E-3 6000.83c 9.1188E-3 14028.83c 7.1927E-3
      42097.83c 5.4784E-4 42098.83c 1.3919E-3 42100.83c 5.6040E-4
      74180.83c 1.7872E-6 74182.83c 3.9468E-4 74183.83c 2.1313E-4
      74184.83c 4.5634E-4 74186.83c 4.2343E-4
-c Material: ['LiquidNa', 'HT9']; Density: 0.06927 atoms/bn*cm 
-m369 11023.83c 7.0108E-3 6000.83c 9.1188E-3 14028.83c 7.1927E-3
-     14029.83c 3.6540E-4 14030.83c 2.4115E-4 15031.83c 5.3040E-4
-     16032.83c 3.2447E-4 16033.83c 2.5619E-6 16034.83c 1.4517E-5
-     16036.83c 3.4159E-8 23050.83c 8.0624E-6 23051.83c 3.2169E-3
-     24050.83c 5.2625E-3 24052.83c 1.0148E-1 24053.83c 1.1507E-2
-     24054.83c 2.8644E-3 25055.83c 5.9807E-3 26054.83c 4.8690E-2
-     26056.83c 7.6433E-1 26057.83c 1.7652E-2 26058.83c 2.3491E-3
-     28058.83c 3.1758E-3 28060.83c 1.2233E-3 28061.83c 5.3182E-5
-     28062.83c 1.6957E-4 28064.83c 4.3152E-5 42092.83c 8.2919E-4
-     42094.83c 5.2216E-4 42095.83c 9.0394E-4 42096.83c 9.5131E-4
-     42097.83c 5.4784E-4 42098.83c 1.3919E-3 42100.83c 5.6040E-4
-     74180.83c 1.7872E-6 74182.83c 3.9468E-4 74183.83c 2.1313E-4
-     74184.83c 4.5634E-4 74186.83c 4.2343E-4
-c Material: HT9; Density: 0.08598 atoms/bn*cm 
-m370 6000.83c 9.1832E-3 14028.83c 7.2435E-3 14029.83c 3.6798E-4
-     14030.83c 2.4286E-4 15031.83c 5.3414E-4 16032.83c 3.2676E-4
-     16033.83c 2.5800E-6 16034.83c 1.4620E-5 16036.83c 3.4400E-8
-     23050.83c 8.1193E-6 23051.83c 3.2396E-3 24050.83c 5.2997E-3
-     24052.83c 1.0220E-1 24053.83c 1.1588E-2 24054.83c 2.8846E-3
-     25055.83c 6.0229E-3 26054.83c 4.9034E-2 26056.83c 7.6972E-1
-     26057.83c 1.7776E-2 26058.83c 2.3657E-3 28058.83c 3.1983E-3
-     28060.83c 1.2320E-3 28061.83c 5.3557E-5 28062.83c 1.7077E-4
-     28064.83c 4.3456E-5 42092.83c 8.3504E-4 42094.83c 5.2585E-4
-     42095.83c 9.1033E-4 42096.83c 9.5803E-4 42097.83c 5.5171E-4
-     42098.83c 1.4017E-3 42100.83c 5.6436E-4 74180.83c 1.7999E-6
-     74182.83c 3.9747E-4 74183.83c 2.1463E-4 74184.83c 4.5956E-4
-     74186.83c 4.2642E-4
-c Material: Liquid Sodium; Density: 0.00243 atoms/bn*cm 
-m371 11023.83c 1.0000E+0
-c Material: Liquid Sodium; Density: 0.00243 atoms/bn*cm 
+c Material: ['LiquidNa']; Density: 0.00243 atoms/bn*cm 
 m372 11023.83c 1.0000E+0
+c Material: Liquid Sodium; Density: 0.02428 atoms/bn*cm 
+m373 11023.83c 1.0000E+0
+c Material: ['LiquidNa']; Density: 0.00243 atoms/bn*cm 
+m380 11023.83c 1.0000E+0
+c Material: ['LiquidNa', 'HT9']; Density: 0.06927 atoms/bn*cm 
+m381 11023.83c 7.0108E-3 6000.83c 9.1188E-3 14028.83c 7.1927E-3
+     14029.83c 3.6540E-4 14030.83c 2.4115E-4 15031.83c 5.3040E-4
+     16032.83c 3.2447E-4 16033.83c 2.5619E-6 16034.83c 1.4517E-5
+     16036.83c 3.4159E-8 23050.83c 8.0624E-6 23051.83c 3.2169E-3
+     24050.83c 5.2625E-3 24052.83c 1.0148E-1 24053.83c 1.1507E-2
+     24054.83c 2.8644E-3 25055.83c 5.9807E-3 26054.83c 4.8690E-2
+     26056.83c 7.6433E-1 26057.83c 1.7652E-2 26058.83c 2.3491E-3
+     28058.83c 3.1758E-3 28060.83c 1.2233E-3 28061.83c 5.3182E-5
+     28062.83c 1.6957E-4 28064.83c 4.3152E-5 42092.83c 8.2919E-4
+     42094.83c 5.2216E-4 42095.83c 9.0394E-4 42096.83c 9.5131E-4
+     42097.83c 5.4784E-4 42098.83c 1.3919E-3 42100.83c 5.6040E-4
+     74180.83c 1.7872E-6 74182.83c 3.9468E-4 74183.83c 2.1313E-4
+     74184.83c 4.5634E-4 74186.83c 4.2343E-4
 c Material: 5Pu22U10Zr; Density: 0.04574 atoms/bn*cm 
-m380 92235.83c 1.9148E-1 92238.83c 5.4147E-1 94239.83c 4.0225E-2
+m382 92235.83c 1.9148E-1 92238.83c 5.4147E-1 94239.83c 4.0225E-2
      94240.83c 2.5568E-3 40090.83c 1.1539E-1 40091.83c 2.5164E-2
      40092.83c 3.8463E-2 40094.83c 3.8979E-2 40096.83c 6.2797E-3
 c Material: Liquid Sodium; Density: 0.02428 atoms/bn*cm 
-m381 11023.83c 1.0000E+0
+m383 11023.83c 1.0000E+0
 c Material: HT9; Density: 0.08598 atoms/bn*cm 
-m382 6000.83c 9.1832E-3 14028.83c 7.2435E-3 14029.83c 3.6798E-4
+m384 6000.83c 9.1832E-3 14028.83c 7.2435E-3 14029.83c 3.6798E-4
      14030.83c 2.4286E-4 15031.83c 5.3414E-4 16032.83c 3.2676E-4
      16033.83c 2.5800E-6 16034.83c 1.4620E-5 16036.83c 3.4400E-8
      23050.83c 8.1193E-6 23051.83c 3.2396E-3 24050.83c 5.2997E-3
@@ -906,7 +922,7 @@ m382 6000.83c 9.1832E-3 14028.83c 7.2435E-3 14029.83c 3.6798E-4
      74182.83c 3.9747E-4 74183.83c 2.1463E-4 74184.83c 4.5956E-4
      74186.83c 4.2642E-4
 c Material: ['HT9', 'LiquidNa']; Density: 0.00921 atoms/bn*cm 
-m383 6000.83c 6.9589E-3 14028.83c 5.4890E-3 14029.83c 2.7885E-4
+m385 6000.83c 6.9589E-3 14028.83c 5.4890E-3 14029.83c 2.7885E-4
      14030.83c 1.8403E-4 15031.83c 4.0477E-4 16032.83c 2.4762E-4
      16033.83c 1.9551E-6 16034.83c 1.1079E-5 16036.83c 2.6068E-8
      23050.83c 6.1527E-6 23051.83c 2.4549E-3 24050.83c 4.0160E-3
@@ -920,9 +936,23 @@ m383 6000.83c 6.9589E-3 14028.83c 5.4890E-3 14029.83c 2.7885E-4
      74182.83c 3.0120E-4 74183.83c 1.6265E-4 74184.83c 3.4825E-4
      74186.83c 3.2313E-4 11023.83c 2.4222E-1
 c Material: Liquid Sodium; Density: 0.00243 atoms/bn*cm 
-m384 11023.83c 1.0000E+0
+m386 11023.83c 1.0000E+0
+c Material: HT9; Density: 0.08598 atoms/bn*cm 
+m389 6000.83c 9.1832E-3 14028.83c 7.2435E-3 14029.83c 3.6798E-4
+     14030.83c 2.4286E-4 15031.83c 5.3414E-4 16032.83c 3.2676E-4
+     16033.83c 2.5800E-6 16034.83c 1.4620E-5 16036.83c 3.4400E-8
+     23050.83c 8.1193E-6 23051.83c 3.2396E-3 24050.83c 5.2997E-3
+     24052.83c 1.0220E-1 24053.83c 1.1588E-2 24054.83c 2.8846E-3
+     25055.83c 6.0229E-3 26054.83c 4.9034E-2 26056.83c 7.6972E-1
+     26057.83c 1.7776E-2 26058.83c 2.3657E-3 28058.83c 3.1983E-3
+     28060.83c 1.2320E-3 28061.83c 5.3557E-5 28062.83c 1.7077E-4
+     28064.83c 4.3456E-5 42092.83c 8.3504E-4 42094.83c 5.2585E-4
+     42095.83c 9.1033E-4 42096.83c 9.5803E-4 42097.83c 5.5171E-4
+     42098.83c 1.4017E-3 42100.83c 5.6436E-4 74180.83c 1.7999E-6
+     74182.83c 3.9747E-4 74183.83c 2.1463E-4 74184.83c 4.5956E-4
+     74186.83c 4.2642E-4
 c Material: ['LiquidNa', 'Void', 'HT9']; Density: 0.02271 atoms/bn*cm 
-m387 11023.83c 5.3462E-2 6000.83c 8.6922E-3 14028.83c 6.8562E-3
+m390 11023.83c 5.3462E-2 6000.83c 8.6922E-3 14028.83c 6.8562E-3
      14029.83c 3.4830E-4 14030.83c 2.2987E-4 15031.83c 5.0559E-4
      16032.83c 3.0929E-4 16033.83c 2.4421E-6 16034.83c 1.3838E-5
      16036.83c 3.2561E-8 23050.83c 7.6853E-6 23051.83c 3.0664E-3
@@ -936,7 +966,7 @@ m387 11023.83c 5.3462E-2 6000.83c 8.6922E-3 14028.83c 6.8562E-3
      74180.83c 1.7036E-6 74182.83c 3.7622E-4 74183.83c 2.0316E-4
      74184.83c 4.3499E-4 74186.83c 4.0362E-4
 c Material: ['LiquidNa', 'HT9']; Density: 0.06927 atoms/bn*cm 
-m388 11023.83c 7.0108E-3 6000.83c 9.1188E-3 14028.83c 7.1927E-3
+m391 11023.83c 7.0108E-3 6000.83c 9.1188E-3 14028.83c 7.1927E-3
      14029.83c 3.6540E-4 14030.83c 2.4115E-4 15031.83c 5.3040E-4
      16032.83c 3.2447E-4 16033.83c 2.5619E-6 16034.83c 1.4517E-5
      16036.83c 3.4159E-8 23050.83c 8.0624E-6 23051.83c 3.2169E-3
@@ -949,46 +979,34 @@ m388 11023.83c 7.0108E-3 6000.83c 9.1188E-3 14028.83c 7.1927E-3
      42097.83c 5.4784E-4 42098.83c 1.3919E-3 42100.83c 5.6040E-4
      74180.83c 1.7872E-6 74182.83c 3.9468E-4 74183.83c 2.1313E-4
      74184.83c 4.5634E-4 74186.83c 4.2343E-4
-c Material: ['LiquidNa', 'HT9']; Density: 0.06927 atoms/bn*cm 
-m389 11023.83c 7.0108E-3 6000.83c 9.1188E-3 14028.83c 7.1927E-3
-     14029.83c 3.6540E-4 14030.83c 2.4115E-4 15031.83c 5.3040E-4
-     16032.83c 3.2447E-4 16033.83c 2.5619E-6 16034.83c 1.4517E-5
-     16036.83c 3.4159E-8 23050.83c 8.0624E-6 23051.83c 3.2169E-3
-     24050.83c 5.2625E-3 24052.83c 1.0148E-1 24053.83c 1.1507E-2
-     24054.83c 2.8644E-3 25055.83c 5.9807E-3 26054.83c 4.8690E-2
-     26056.83c 7.6433E-1 26057.83c 1.7652E-2 26058.83c 2.3491E-3
-     28058.83c 3.1758E-3 28060.83c 1.2233E-3 28061.83c 5.3182E-5
-     28062.83c 1.6957E-4 28064.83c 4.3152E-5 42092.83c 8.2919E-4
-     42094.83c 5.2216E-4 42095.83c 9.0394E-4 42096.83c 9.5131E-4
-     42097.83c 5.4784E-4 42098.83c 1.3919E-3 42100.83c 5.6040E-4
-     74180.83c 1.7872E-6 74182.83c 3.9468E-4 74183.83c 2.1313E-4
-     74184.83c 4.5634E-4 74186.83c 4.2343E-4
-c Material: HT9; Density: 0.08598 atoms/bn*cm 
-m390 6000.83c 9.1832E-3 14028.83c 7.2435E-3 14029.83c 3.6798E-4
-     14030.83c 2.4286E-4 15031.83c 5.3414E-4 16032.83c 3.2676E-4
-     16033.83c 2.5800E-6 16034.83c 1.4620E-5 16036.83c 3.4400E-8
-     23050.83c 8.1193E-6 23051.83c 3.2396E-3 24050.83c 5.2997E-3
-     24052.83c 1.0220E-1 24053.83c 1.1588E-2 24054.83c 2.8846E-3
-     25055.83c 6.0229E-3 26054.83c 4.9034E-2 26056.83c 7.6972E-1
-     26057.83c 1.7776E-2 26058.83c 2.3657E-3 28058.83c 3.1983E-3
-     28060.83c 1.2320E-3 28061.83c 5.3557E-5 28062.83c 1.7077E-4
-     28064.83c 4.3456E-5 42092.83c 8.3504E-4 42094.83c 5.2585E-4
-     42095.83c 9.1033E-4 42096.83c 9.5803E-4 42097.83c 5.5171E-4
-     42098.83c 1.4017E-3 42100.83c 5.6436E-4 74180.83c 1.7999E-6
-     74182.83c 3.9747E-4 74183.83c 2.1463E-4 74184.83c 4.5956E-4
-     74186.83c 4.2642E-4
-c Material: Liquid Sodium; Density: 0.00243 atoms/bn*cm 
-m391 11023.83c 1.0000E+0
-c Material: Liquid Sodium; Density: 0.00243 atoms/bn*cm 
+c Material: ['LiquidNa']; Density: 0.00243 atoms/bn*cm 
 m392 11023.83c 1.0000E+0
+c Material: Liquid Sodium; Density: 0.02428 atoms/bn*cm 
+m393 11023.83c 1.0000E+0
+c Material: ['LiquidNa']; Density: 0.00243 atoms/bn*cm 
+m400 11023.83c 1.0000E+0
+c Material: ['LiquidNa', 'HT9']; Density: 0.06927 atoms/bn*cm 
+m401 11023.83c 7.0108E-3 6000.83c 9.1188E-3 14028.83c 7.1927E-3
+     14029.83c 3.6540E-4 14030.83c 2.4115E-4 15031.83c 5.3040E-4
+     16032.83c 3.2447E-4 16033.83c 2.5619E-6 16034.83c 1.4517E-5
+     16036.83c 3.4159E-8 23050.83c 8.0624E-6 23051.83c 3.2169E-3
+     24050.83c 5.2625E-3 24052.83c 1.0148E-1 24053.83c 1.1507E-2
+     24054.83c 2.8644E-3 25055.83c 5.9807E-3 26054.83c 4.8690E-2
+     26056.83c 7.6433E-1 26057.83c 1.7652E-2 26058.83c 2.3491E-3
+     28058.83c 3.1758E-3 28060.83c 1.2233E-3 28061.83c 5.3182E-5
+     28062.83c 1.6957E-4 28064.83c 4.3152E-5 42092.83c 8.2919E-4
+     42094.83c 5.2216E-4 42095.83c 9.0394E-4 42096.83c 9.5131E-4
+     42097.83c 5.4784E-4 42098.83c 1.3919E-3 42100.83c 5.6040E-4
+     74180.83c 1.7872E-6 74182.83c 3.9468E-4 74183.83c 2.1313E-4
+     74184.83c 4.5634E-4 74186.83c 4.2343E-4
 c Material: 5Pu22U10Zr; Density: 0.04574 atoms/bn*cm 
-m400 92235.83c 1.9148E-1 92238.83c 5.4147E-1 94239.83c 4.0225E-2
+m402 92235.83c 1.9148E-1 92238.83c 5.4147E-1 94239.83c 4.0225E-2
      94240.83c 2.5568E-3 40090.83c 1.1539E-1 40091.83c 2.5164E-2
      40092.83c 3.8463E-2 40094.83c 3.8979E-2 40096.83c 6.2797E-3
 c Material: Liquid Sodium; Density: 0.02428 atoms/bn*cm 
-m401 11023.83c 1.0000E+0
+m403 11023.83c 1.0000E+0
 c Material: HT9; Density: 0.08598 atoms/bn*cm 
-m402 6000.83c 9.1832E-3 14028.83c 7.2435E-3 14029.83c 3.6798E-4
+m404 6000.83c 9.1832E-3 14028.83c 7.2435E-3 14029.83c 3.6798E-4
      14030.83c 2.4286E-4 15031.83c 5.3414E-4 16032.83c 3.2676E-4
      16033.83c 2.5800E-6 16034.83c 1.4620E-5 16036.83c 3.4400E-8
      23050.83c 8.1193E-6 23051.83c 3.2396E-3 24050.83c 5.2997E-3
@@ -1002,7 +1020,7 @@ m402 6000.83c 9.1832E-3 14028.83c 7.2435E-3 14029.83c 3.6798E-4
      74182.83c 3.9747E-4 74183.83c 2.1463E-4 74184.83c 4.5956E-4
      74186.83c 4.2642E-4
 c Material: ['HT9', 'LiquidNa']; Density: 0.00921 atoms/bn*cm 
-m403 6000.83c 6.9589E-3 14028.83c 5.4890E-3 14029.83c 2.7885E-4
+m405 6000.83c 6.9589E-3 14028.83c 5.4890E-3 14029.83c 2.7885E-4
      14030.83c 1.8403E-4 15031.83c 4.0477E-4 16032.83c 2.4762E-4
      16033.83c 1.9551E-6 16034.83c 1.1079E-5 16036.83c 2.6068E-8
      23050.83c 6.1527E-6 23051.83c 2.4549E-3 24050.83c 4.0160E-3
@@ -1016,9 +1034,23 @@ m403 6000.83c 6.9589E-3 14028.83c 5.4890E-3 14029.83c 2.7885E-4
      74182.83c 3.0120E-4 74183.83c 1.6265E-4 74184.83c 3.4825E-4
      74186.83c 3.2313E-4 11023.83c 2.4222E-1
 c Material: Liquid Sodium; Density: 0.00243 atoms/bn*cm 
-m404 11023.83c 1.0000E+0
+m406 11023.83c 1.0000E+0
+c Material: HT9; Density: 0.08598 atoms/bn*cm 
+m409 6000.83c 9.1832E-3 14028.83c 7.2435E-3 14029.83c 3.6798E-4
+     14030.83c 2.4286E-4 15031.83c 5.3414E-4 16032.83c 3.2676E-4
+     16033.83c 2.5800E-6 16034.83c 1.4620E-5 16036.83c 3.4400E-8
+     23050.83c 8.1193E-6 23051.83c 3.2396E-3 24050.83c 5.2997E-3
+     24052.83c 1.0220E-1 24053.83c 1.1588E-2 24054.83c 2.8846E-3
+     25055.83c 6.0229E-3 26054.83c 4.9034E-2 26056.83c 7.6972E-1
+     26057.83c 1.7776E-2 26058.83c 2.3657E-3 28058.83c 3.1983E-3
+     28060.83c 1.2320E-3 28061.83c 5.3557E-5 28062.83c 1.7077E-4
+     28064.83c 4.3456E-5 42092.83c 8.3504E-4 42094.83c 5.2585E-4
+     42095.83c 9.1033E-4 42096.83c 9.5803E-4 42097.83c 5.5171E-4
+     42098.83c 1.4017E-3 42100.83c 5.6436E-4 74180.83c 1.7999E-6
+     74182.83c 3.9747E-4 74183.83c 2.1463E-4 74184.83c 4.5956E-4
+     74186.83c 4.2642E-4
 c Material: ['LiquidNa', 'Void', 'HT9']; Density: 0.02271 atoms/bn*cm 
-m407 11023.83c 5.3462E-2 6000.83c 8.6922E-3 14028.83c 6.8562E-3
+m410 11023.83c 5.3462E-2 6000.83c 8.6922E-3 14028.83c 6.8562E-3
      14029.83c 3.4830E-4 14030.83c 2.2987E-4 15031.83c 5.0559E-4
      16032.83c 3.0929E-4 16033.83c 2.4421E-6 16034.83c 1.3838E-5
      16036.83c 3.2561E-8 23050.83c 7.6853E-6 23051.83c 3.0664E-3
@@ -1032,7 +1064,7 @@ m407 11023.83c 5.3462E-2 6000.83c 8.6922E-3 14028.83c 6.8562E-3
      74180.83c 1.7036E-6 74182.83c 3.7622E-4 74183.83c 2.0316E-4
      74184.83c 4.3499E-4 74186.83c 4.0362E-4
 c Material: ['LiquidNa', 'HT9']; Density: 0.06927 atoms/bn*cm 
-m408 11023.83c 7.0108E-3 6000.83c 9.1188E-3 14028.83c 7.1927E-3
+m411 11023.83c 7.0108E-3 6000.83c 9.1188E-3 14028.83c 7.1927E-3
      14029.83c 3.6540E-4 14030.83c 2.4115E-4 15031.83c 5.3040E-4
      16032.83c 3.2447E-4 16033.83c 2.5619E-6 16034.83c 1.4517E-5
      16036.83c 3.4159E-8 23050.83c 8.0624E-6 23051.83c 3.2169E-3
@@ -1045,38 +1077,10 @@ m408 11023.83c 7.0108E-3 6000.83c 9.1188E-3 14028.83c 7.1927E-3
      42097.83c 5.4784E-4 42098.83c 1.3919E-3 42100.83c 5.6040E-4
      74180.83c 1.7872E-6 74182.83c 3.9468E-4 74183.83c 2.1313E-4
      74184.83c 4.5634E-4 74186.83c 4.2343E-4
-c Material: ['LiquidNa', 'HT9']; Density: 0.06927 atoms/bn*cm 
-m409 11023.83c 7.0108E-3 6000.83c 9.1188E-3 14028.83c 7.1927E-3
-     14029.83c 3.6540E-4 14030.83c 2.4115E-4 15031.83c 5.3040E-4
-     16032.83c 3.2447E-4 16033.83c 2.5619E-6 16034.83c 1.4517E-5
-     16036.83c 3.4159E-8 23050.83c 8.0624E-6 23051.83c 3.2169E-3
-     24050.83c 5.2625E-3 24052.83c 1.0148E-1 24053.83c 1.1507E-2
-     24054.83c 2.8644E-3 25055.83c 5.9807E-3 26054.83c 4.8690E-2
-     26056.83c 7.6433E-1 26057.83c 1.7652E-2 26058.83c 2.3491E-3
-     28058.83c 3.1758E-3 28060.83c 1.2233E-3 28061.83c 5.3182E-5
-     28062.83c 1.6957E-4 28064.83c 4.3152E-5 42092.83c 8.2919E-4
-     42094.83c 5.2216E-4 42095.83c 9.0394E-4 42096.83c 9.5131E-4
-     42097.83c 5.4784E-4 42098.83c 1.3919E-3 42100.83c 5.6040E-4
-     74180.83c 1.7872E-6 74182.83c 3.9468E-4 74183.83c 2.1313E-4
-     74184.83c 4.5634E-4 74186.83c 4.2343E-4
-c Material: HT9; Density: 0.08598 atoms/bn*cm 
-m410 6000.83c 9.1832E-3 14028.83c 7.2435E-3 14029.83c 3.6798E-4
-     14030.83c 2.4286E-4 15031.83c 5.3414E-4 16032.83c 3.2676E-4
-     16033.83c 2.5800E-6 16034.83c 1.4620E-5 16036.83c 3.4400E-8
-     23050.83c 8.1193E-6 23051.83c 3.2396E-3 24050.83c 5.2997E-3
-     24052.83c 1.0220E-1 24053.83c 1.1588E-2 24054.83c 2.8846E-3
-     25055.83c 6.0229E-3 26054.83c 4.9034E-2 26056.83c 7.6972E-1
-     26057.83c 1.7776E-2 26058.83c 2.3657E-3 28058.83c 3.1983E-3
-     28060.83c 1.2320E-3 28061.83c 5.3557E-5 28062.83c 1.7077E-4
-     28064.83c 4.3456E-5 42092.83c 8.3504E-4 42094.83c 5.2585E-4
-     42095.83c 9.1033E-4 42096.83c 9.5803E-4 42097.83c 5.5171E-4
-     42098.83c 1.4017E-3 42100.83c 5.6436E-4 74180.83c 1.7999E-6
-     74182.83c 3.9747E-4 74183.83c 2.1463E-4 74184.83c 4.5956E-4
-     74186.83c 4.2642E-4
-c Material: Liquid Sodium; Density: 0.00243 atoms/bn*cm 
-m411 11023.83c 1.0000E+0
-c Material: Liquid Sodium; Density: 0.00243 atoms/bn*cm 
+c Material: ['LiquidNa']; Density: 0.00243 atoms/bn*cm 
 m412 11023.83c 1.0000E+0
+c Material: Liquid Sodium; Density: 0.02428 atoms/bn*cm 
+m413 11023.83c 1.0000E+0
 c Material: Liquid Sodium; Density: 0.00243 atoms/bn*cm 
 m420 11023.83c 1.0000E+0
 c Material: HT9; Density: 0.08598 atoms/bn*cm 

@@ -80,7 +80,7 @@ c ********************Surface Cards for Fuel Assembly: 01A01*******************
 
 c **********************************Data Cards*********************************
 c ******************************k-code Information*****************************
-kcode 1000000 1.0 300 2300
+kcode 1000 1.0 30 230
 ksrc 0 0 10
 PRDMP 100 10 100 1 
 kopts BLOCKSIZE=10 KINETICS=YES PRECURSOR=Yes 

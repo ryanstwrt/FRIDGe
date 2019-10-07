@@ -5,9 +5,9 @@ Temperature Adjusted Volume: True
 Smear Clad: True
 Smear Bond: True
 XC Library: ENDFVII.1
-Number of Generations: 2300
-Number of Skipped Generations: 300
-Number of Particles per Generation: 1e6
+Number of Generations: 230
+Number of Skipped Generations: 30
+Number of Particles per Generation: 1e3
 Run Kinetics: True
 ksens: True
 Output File Name: Six_Assembly_Test

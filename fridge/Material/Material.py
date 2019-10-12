@@ -70,7 +70,12 @@ class Material(object):
 
         if self.isotopicAtomPercents:
             self.atom_density_to_atom_percent()
-            self.atom_density_to_weight_percent()
+            if self.density != 0.0:
+                self.atom_density_to_weight_percent_density()
+            elif self.molecularMass != 0.0:
+                self.atom_density_to_weight_percent()
+            else:
+                print("Warning: Material {} does not have a molecular mass or mass density. This material cannot be smeared".format(self.name))
         else:
             self.set_elemental_enrichment()
             self.set_weight_percent()
@@ -123,12 +128,32 @@ class Material(object):
             else:
                 current_element = int(element[:2] + '000')
             try:
-                self.weightPercent[zaid] = atom_per * self.elementDict[current_element].molecularMassDict[zaid] / self.molecularMass
+                self.weightPercent[zaid] = atom_per * self.elementDict[current_element].molecularMassDict[zaid] / \
+                                           self.molecularMass
                 summedWeightPercent += self.weightPercent[zaid]
             except ZeroDivisionError:
                 pass
         for zaid, wp in self.weightPercent.items():
             self.weightPercent[zaid] = wp/summedWeightPercent
+
+    def atom_density_to_weight_percent_density(self, void_percent=1.0):
+        molecular_mass = 0
+        for zaid, atom_per in self.atomPercent.items():
+            element = str(zaid)
+            if len(element) < 5:
+                current_element = int(element[:1] + '000')
+            else:
+                current_element = int(element[:2] + '000')
+            try:
+                self.weightPercent[zaid] = self.atomDensities[zaid] * \
+                                           self.elementDict[current_element].molecularMassDict[zaid] / \
+                                           (self.density * AVOGADROS_NUMBER)
+                molecular_mass += self.weightPercent[zaid]
+            except AssertionError:
+                pass
+        for zaid, wp in self.weightPercent.items():
+            self.weightPercent[zaid] = wp/molecular_mass
+        print(molecular_mass)
 
 
 def set_atom_percent(weight_percents, density, element_dict):

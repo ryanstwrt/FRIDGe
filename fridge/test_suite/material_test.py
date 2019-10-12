@@ -11,10 +11,6 @@ def test_element_Unknown():
         assert e == 1.0
 
 
-def test_material_ImproperSum():
-    pass
-
-
 def test_element_C():
     e = fridge.Material.Element.Element('C')
     assert e.name == 'Carbon'
@@ -166,7 +162,21 @@ def test_material_UO2():
 
 def test_material_UO2_Atom_Density():
     m = materialReader.Material()
-    m.set_material('UO2_Atom_Per')
+    m.set_material('UO2_1')
+    assert m.name == 'Uranium Dioxide'
+    assert m.elements == ['U', 'O']
+    assert m.zaids == [92000, 8000]
+    weightPercentKnown = {92234: 0.000235, 92235: 0.02644, 92236: 0.000122, 92238: 0.854666, 8016: 0.118533}
+    atomPercentsKnown = {92234: 0.000090, 92235: 0.010124, 92236: 0.000046, 92238: 0.323072, 8016: 0.666667}
+    for k, v in atomPercentsKnown.items():
+        assert np.allclose(m.atomPercent[k], v, atol=1e-5)
+    for k, v in weightPercentKnown.items():
+        assert np.allclose(m.weightPercent[k], v, atol=1e-4)
+
+
+def test_material_UO2_Atom_Density_2():
+    m = materialReader.Material()
+    m.set_material('UO2_2')
     assert m.name == 'Uranium Dioxide'
     assert m.elements == ['U', 'O']
     assert m.zaids == [92000, 8000]

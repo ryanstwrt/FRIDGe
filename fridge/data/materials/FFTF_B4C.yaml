@@ -1,6 +1,7 @@
 Name: FFTF Stainless Steel 316
 Elements: [B, C]
 Elemental ZAIDs: [5000, 6000]
-IsIsotopic Atom Densities: {5010: 2.0297E-2, 5011: 8.1700E-2, 6000: 2.3699E-2}
-Density: 1.2570E-1
+Isotopic Atom Densities: {5010: 2.0297E-2, 5011: 8.1700E-2, 6000: 2.3699E-2}
+Atom Density: 1.2570E-1
+Molecular Mass: 55.2547
 Linear Coefficient of Expansion: 0.0

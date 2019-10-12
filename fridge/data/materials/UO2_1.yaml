@@ -1,0 +1,8 @@
+Name: Uranium Dioxide
+Elements: [U, O]
+Elemental ZAIDs: [92000, 8000]
+Isotopic ZAIDs: [[92234, 92235, 92236, 92238], [8016, 8017, 8018]]
+Isotopic Atom Densities: {92234: 0.000007, 92235: 0.000743, 92236: 0.000003, 92238: 0.023697, 8016: 0.048899, 8017: 0.0, 8018: 0.0}
+Molecular Mass: 269.9568909
+Atom Density: 0.073348
+Linear Coefficient of Expansion: 0.0

@@ -1,7 +1,7 @@
 Name: Stainless Steel 316
 Elements: [C, Si, P, S, Cr, Mn, Fe, Ni, Mo]
 Elemental ZAIDs: [6000, 14000, 15000, 16000, 24000, 25000, 26000, 28000, 42000]
-Isotopic Atom Percents: {6000: 0.000164, 14000: 0.000870, 15000: 0.000036, 16000: 0.000023, 24000: 0.015751,
+Isotopic Atom Densities: {6000: 0.000164, 14000: 0.000870, 15000: 0.000036, 16000: 0.000023, 24000: 0.015751,
                         25000: 0.000889, 26000: 0.057714, 28000: 0.009850, 42000: 0.001255}
-Density: 0.086553
+Atom Density: 0.086553
 Linear Coefficient of Expansion: 0.0

@@ -15,11 +15,13 @@ class Material(object):
         self.atomDensity = 0.0
         self.density = 0.0
         self.linearCoeffExpansion = 0.0
+        self.molecularMass = 0.0
 
         self.name = ''
         self.materialName = ''
 
         self.atomPercent = {}
+        self.atomDensities = {}
         self.enrichmentDict = {}
         self.weightPercent = {}
         self.elementDict = {}
@@ -50,8 +52,10 @@ class Material(object):
         self.enrichmentZaids = inputs['Elemental Adjustment ZAIDs'] if 'Elemental Adjustment ZAIDs' in inputs else []
         self.enrichmentIsotopes = inputs['Isotopic Adjustment ZAIDs'] if 'Isotopic Adjustment ZAIDs' in inputs else []
         self.enrichmentVector = inputs['Isotopic Weight Percents'] if 'Isotopic Weight Percents' in inputs else []
-        self.isotopicAtomPercents = inputs['Isotopic Atom Percents'] if 'Isotopic Atom Percents' in inputs else []
-        self.density = inputs['Density']
+        self.isotopicAtomPercents = inputs['Isotopic Atom Densities'] if 'Isotopic Atom Densities' in inputs else []
+        self.atomDensity = inputs['Atom Density'] if 'Atom Density' in inputs else 0.0
+        self.density = inputs['Density'] if 'Density' in inputs else 0.0
+        self.molecularMass = inputs['Molecular Mass'] if 'Molecular Mass' in inputs else 0.0
         self.linearCoeffExpansion = inputs['Linear Coefficient of Expansion']
 
     def create_material_data(self):
@@ -65,13 +69,13 @@ class Material(object):
             self.elementDict[self.zaids[num]] = Element.Element(element)
 
         if self.isotopicAtomPercents:
-            self.atomDensity = self.density
-            self.set_atom_fractions()
+            self.atom_density_to_atom_percent()
+            self.atom_density_to_weight_percent()
         else:
             self.set_elemental_enrichment()
             self.set_weight_percent()
             self.atomDensity, self.atomPercent = set_atom_percent(self.weightPercent, self.density,
-                                                              self.elementDict)
+                                                                  self.elementDict)
 
     def set_elemental_enrichment(self):
         """Adjust the element's natural abundance to compensate for enrichment."""
@@ -97,17 +101,34 @@ class Material(object):
         self.set_weight_percent(void_percent)
         self.atomDensity, self.atomPercent = set_atom_percent(self.weightPercent, self.density, self.elementDict)
 
-    def set_atom_fractions(self, void_percent=1.0):
-        """Calculates the atom density of a material given a material with atom densities defined."""
+    def atom_density_to_atom_percent(self, void_percent=1.0):
+        """Calculates the atom percents of a material given a material with atom densities defined."""
         for zaidNum, zaid in enumerate(self.zaids):
             for isotope, isotopeFraction in self.elementDict[zaid].atomPercentDict.items():
                 if zaid in self.isotopicAtomPercents:
-                    print(self.elementDict[zaid].weightPercentDict[isotope])
-                    self.atomPercent[isotope] = self.elementDict[zaid].atomPercentDict[isotope] * \
-                                                self.isotopicAtomPercents[zaid] * void_percent
+                    self.atomDensities[isotope] = self.elementDict[zaid].atomPercentDict[isotope] * \
+                                                  self.isotopicAtomPercents[zaid] * void_percent
+                    self.atomPercent[isotope] = self.atomDensities[isotope] / self.atomDensity
                 elif isotope in self.isotopicAtomPercents:
-                    self.atomPercent[isotope] = self.isotopicAtomPercents[isotope] * void_percent
-        assert np.allclose(sum(self.atomPercent.values()), self.density, 3)
+                    self.atomDensities[isotope] = self.isotopicAtomPercents[isotope] * void_percent
+                    self.atomPercent[isotope] = self.atomDensities[isotope] / self.atomDensity
+        assert np.allclose(sum(self.atomDensities.values()), self.atomDensity, 3)
+
+    def atom_density_to_weight_percent(self, void_percent=1.0):
+        summedWeightPercent = 0
+        for zaid, atom_per in self.atomPercent.items():
+            element = str(zaid)
+            if len(element) < 5:
+                current_element = int(element[:1] + '000')
+            else:
+                current_element = int(element[:2] + '000')
+            try:
+                self.weightPercent[zaid] = atom_per * self.elementDict[current_element].molecularMassDict[zaid] / self.molecularMass
+                summedWeightPercent += self.weightPercent[zaid]
+            except ZeroDivisionError:
+                pass
+        for zaid, wp in self.weightPercent.items():
+            self.weightPercent[zaid] = wp/summedWeightPercent
 
 
 def set_atom_percent(weight_percents, density, element_dict):

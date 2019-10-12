@@ -1,0 +1,74 @@
+#Assembly Type
+Assembly Type: Fuel
+
+#Assembly Data
+Pins Per Assembly: 217
+Assembly Pitch: 12.051
+Duct Thickness: 0.3048
+Assembly Gap: 0.4305
+Duct Inside Flat to Flat: 11.0109
+Assembly Height: 298.45
+Coolant Material: FFTF_LiquidNa
+Assembly Material: FFTF_SS316
+Axial Regions: [1,2,3,4,5,6,7,8]
+
+#Fuel Pin Data
+Pin Diameter: 0.5842
+Clad Thickness: 0.0762
+Fuel Diameter: 0.49403
+Pitch: 0.72644
+Wire Wrap Diameter: 0.14224
+Wire Wrap Axial Pitch: 30.48
+Fuel Height: 91.44
+Fuel Material: FFTF_IF
+Clad Material: FFTF_SS316
+Bond Material: Void
+Bond Above Fuel: 0.0
+
+#Lower Axial Shield Region
+Axial Region 1:
+    Smear Materials: {FFTF_LowerAxialShieldMat: 1.0}
+    Smear Height: 54.61
+    Smear Name: Lower Axial Shield
+
+#Fuel Pin Attachment Region
+Axial Region 2:
+    Smear Materials: {FFTF_IP_Attachment: 1.0}
+    Smear Height: 10.16
+    Smear Name: Fuel Pin Attachment
+
+#Lower Inconnel 600 Reflection Region
+Axial Region 3:
+    Smear Materials: {FFTF_Inconel600: 0.25, FFTF_LiquidNa: 0.25, FFTF_SS316: 0.5}
+    Smear Height: 14.478
+    Smear Name: Lower Inconnel Reflector
+
+#Lower UO2 Reflection Region
+Axial Region 4:
+    Smear Materials: {FFTF_IP: 0.25, FFTF_SS316: 0.25, FFTF_LiquidNa: 0.5}
+    Smear Height: 2.032
+    Smear Name: Lower UO2 Reflector
+
+#Fuel Region
+Axial Region 5:
+    Fuel Height: 91.44
+    Fuel Name: FFTF Inner Fuel
+
+#Upper UO2 Reflection Region
+Axial Region 6:
+    Smear Materials: {FFTF_IP: 0.25, FFTF_SS316: 0.25, FFTF_LiquidNa: 0.5}
+    Smear Height: 2.032
+    Smear Name: Upper UO2 Reflector
+
+#Upper Inconnel 600 Reflection Region
+Axial Region 7:
+    Smear Materials: {FFTF_Inconel600: 0.25, FFTF_LiquidNa: 0.25, FFTF_SS316: 0.5}
+    Smear Height: 14.478
+    Smear Name: Upper Inconnel Reflector
+
+#Plenum Data
+Axial Region 8:
+    Smear Materials: {FFTF_PlenumMat: 1.0}
+    Smear Height: 109.22
+    Smear Name: Plenum
+

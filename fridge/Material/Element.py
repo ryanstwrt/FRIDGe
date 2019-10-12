@@ -30,6 +30,7 @@ class Element(object):
         self.weightPercentDict = {}
         for num, isotope in enumerate(self.isotopes):
             self.atomPercentDict[isotope] = self.abundance[num]
+
         for num, isotope in enumerate(self.isotopes):
             self.molecularMassDict[isotope] = self.molecularMass[num]
 

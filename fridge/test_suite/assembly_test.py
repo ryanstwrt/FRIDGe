@@ -5,14 +5,14 @@ import fridge.driver.global_variables as gb
 import numpy as np
 
 global_vars = gb.GlobalVariables()
-global_vars.read_input_file('A271_Assembly_Test')
+global_vars.read_input_file('A271_Assembly_Shifted_Test')
 assembly_info = [global_vars.file_name, '01A01', global_vars, None]
 
 
 def test_assembly():
     """Check the base assembly init"""
     baseAssembly = Assembly.Assembly(assembly_info)
-    assert baseAssembly.assembly_file_name == 'A271_Test'
+    assert baseAssembly.assembly_file_name == 'A271_Shifted_Test'
     assert baseAssembly.assemblyPosition == '01A01'
     assert baseAssembly.universe == 100
     assert baseAssembly.cellNum == 100

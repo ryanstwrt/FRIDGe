@@ -1,5 +1,5 @@
 Name: Uranium Dioxide
-Elements: ['U', 'O']
+Elements: [U, O]
 Elemental ZAIDs: [92000, 8000]
 Elemental Weight Fractions: [0.881467, 0.118533]
 Elemental Adjustment ZAIDs: [92000, 8000]

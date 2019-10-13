@@ -14,7 +14,7 @@ Axial Regions: [1,2,3,4,5,6,7,8]
 
 #Fuel Pin Data
 Pin Diameter: 0.5842
-Clad Thickness: 0.0762
+Clad Thickness: 0.0381
 Fuel Diameter: 0.49403
 Pitch: 0.72644
 Wire Wrap Diameter: 0.14224
@@ -22,7 +22,7 @@ Wire Wrap Axial Pitch: 30.48
 Fuel Height: 91.44
 Fuel Material: FFTF_IF
 Clad Material: FFTF_SS316
-Bond Material: Void
+Bond Material: Helium
 Bond Above Fuel: 0.0
 
 #Lower Axial Shield Region

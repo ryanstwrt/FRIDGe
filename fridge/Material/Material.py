@@ -153,7 +153,6 @@ class Material(object):
                 pass
         for zaid, wp in self.weightPercent.items():
             self.weightPercent[zaid] = wp/molecular_mass
-        print(molecular_mass)
 
 
 def set_atom_percent(weight_percents, density, element_dict):

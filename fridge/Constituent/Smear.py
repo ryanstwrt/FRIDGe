@@ -21,10 +21,17 @@ class Smear(Constituent.Constituent):
             self.material = fridge.Material.Material.get_smeared_material(self.materialSmear,
                                                                           void_material=void_material,
                                                                           void_percent=void_percent)
+        # This is a catch for the smear materials which are 100% one material, but don't have a molecular weight/density
+        if self.material.weightPercent == {} and self.material.atomPercent == {}:
+            name = [x for x in self.materialSmear.keys()]
+            self.material = fridge.Material.Material.Material()
+            self.material.set_material(name[0])
+
         self.make_component(unit_info[1])
         self.get_material_card(self.material)
         self.flat2flat = unit_info[1][0]
         self.height = unit_info[1][1]
+
 
     def make_component(self, unit_info):
         self.flat2flat = unit_info[0]

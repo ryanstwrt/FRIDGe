@@ -440,3 +440,10 @@ def test_smear_perturbation():
     assert axial_region.materialSmear == {'LiquidPb': 1.0}
     assert a.zPosition == 50
     assert axial_region.height == 50.1
+
+global_vars = gb.GlobalVariables()
+global_vars.read_input_file('FFTF_Driver')
+assembly_info9 = [global_vars.file_name, '01A01', global_vars, None]
+
+def test_fftf_driver():
+    a = SmearAssembly.SmearAssembly(assembly_info9)

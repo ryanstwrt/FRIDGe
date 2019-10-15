@@ -41,6 +41,10 @@ class SmearAssembly(Assembly.Assembly):
         self.smearMaterial = self.inputs['Smear Materials']
         self.smearRegionHeight = self.inputs['Smear Height']
 
+        # Update for perturbations
+        if bool(self.globalVars.assembly_perturbations):
+            self.update_perturbations()
+
     def build_smear_assembly(self):
         """Build the cell, surface, and material cards for the smear assembly."""
         self.assemblyUniverse = self.universe

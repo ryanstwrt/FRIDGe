@@ -36,3 +36,15 @@ def test_getCoreData():
     assert core.name == 'Test_Core'
     assert core.vesselThickness == 10
     assert core.vesselMaterialString == 'HT9'
+
+
+global_vars = gb.GlobalVariables()
+global_vars.read_input_file('Full_Core_Test', output_name='test', temperature=1200, void_per=0.001)
+
+
+def test_perturbedCoreData():
+    core = Core.Core()
+    core.read_core_data('Core_Test')
+    assert global_vars.output_name == 'test'
+    assert global_vars.temperature == 1200
+    assert global_vars.void_per == 0.001

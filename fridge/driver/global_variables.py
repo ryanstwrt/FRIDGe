@@ -27,17 +27,19 @@ class GlobalVariables(object):
         self.number_particles_generation = 0
         self.kopts = False
         self.ksens = False
+        self.assembly_perturbations = {}
         self.output_name = ''
         self.input_type = ''
 
-    def read_input_file(self, assembly_name):
+    def read_input_file(self, assembly_name, **perturbations):
         """Reads the yaml file for a FRIDGE input file and assigns any variables found."""
         self.assembly_file_name = assembly_name
-
         cur_dir = os.path.dirname(__file__)
         input_dir = os.path.join(cur_dir, "../fridge_input_file")
-        assembly_file = glob.glob(os.path.join(input_dir, self.assembly_file_name + '.yaml'))
-
+        assembly_path = os.path.join(input_dir, self.assembly_file_name + '.yaml')
+        assembly_file = glob.glob(assembly_path)
+        print(assembly_name, assembly_file)
+        print(assembly_path)
         with open(assembly_file[0], "r") as file:
             inputs = yaml.safe_load(file)
 
@@ -69,6 +71,12 @@ class GlobalVariables(object):
             if 'ksens' in inputs else False
         self.void_per = float(inputs["Void Percent"]) \
             if "Void Percent" in inputs else 1.0
+        self.assembly_perturbations = inputs["Assembly Perturbations"] \
+            if "Assembly Perturbations" in inputs else {}
+
+        # Update for perturbations
+        for k, v in perturbations.items():
+            self.__setattr__(k, v)
 
         # Set the XC set depending on the temperature
         if self.temperature == 600:

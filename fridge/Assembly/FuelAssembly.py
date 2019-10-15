@@ -82,6 +82,10 @@ class FuelAssembly(Assembly.Assembly):
         self.read_plenum_region_data(self.inputs)
         self.read_reflector_region_data(self.inputs)
 
+        # Update for perturbations
+        if bool(self.globalVars.assembly_perturbations):
+            self.update_perturbations()
+
     def build_fuel_assembly(self):
         """Create the cell, surface, and material cards for the fuel assembly."""
         self.fuel_height_with_bond = self.fuelHeight + self.bondAboveFuel

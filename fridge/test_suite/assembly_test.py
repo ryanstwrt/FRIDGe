@@ -446,4 +446,8 @@ global_vars.read_input_file('FFTF_Driver')
 assembly_info9 = [global_vars.file_name, '01A01', global_vars, None]
 
 def test_fftf_driver():
-    a = SmearAssembly.SmearAssembly(assembly_info9)
+    a = FuelAssembly.FuelAssembly(assembly_info9)
+    for k, v in a.coolant.material.atomDensities.items():
+        print(k, v)
+    print(a.coolant.material.atomDensity)
+    end()

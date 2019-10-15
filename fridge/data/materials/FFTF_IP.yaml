@@ -1,7 +1,6 @@
 Name: FFTF UO2 Insulator
 Elements: ['U', 'O']
 Elemental ZAIDs: [92000,  8000]
-
 Isotopic Atom Densities: {92234: 1.2746E-6, 92235: 1.6686E-4, 92238: 2.3007E-2,
                           8016: 4.6351E-2}
 Atom Density: 6.9526E-2

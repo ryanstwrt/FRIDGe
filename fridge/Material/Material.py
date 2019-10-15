@@ -176,6 +176,7 @@ def set_atom_percent(weight_percents, density, element_dict):
 def get_smeared_material(materials, void_material='', void_percent=1.0):
     """Create the material data card for a smeared material."""
     smear_material = {}
+    smeared_material = Material()
     for material, materialWeightPercent in materials.items():
         void_multiplier = 1.0
         if material == 'Void':
@@ -198,11 +199,13 @@ def get_smeared_material(materials, void_material='', void_percent=1.0):
                     smear_material[isotope] += isotopeWeightPercent * materialWeightPercent * base_material.density \
                                               * AVOGADROS_NUMBER * void_multiplier / \
                                               base_material.elementDict[current_element].molecularMassDict[isotope]
+                    smeared_material.atomDensities[isotope] = smear_material[isotope]
                 except KeyError:
                     smear_material[isotope] = isotopeWeightPercent * materialWeightPercent * base_material.density \
                                              * AVOGADROS_NUMBER * void_multiplier / \
                                              base_material.elementDict[current_element].molecularMassDict[isotope]
-    smeared_material = Material()
+                    smeared_material.atomDensities[isotope] = smear_material[isotope]
+
     smeared_material.name = "{}".format([val for val in materials])
     smeared_material.atomDensity = sum(smear_material.values())
     smeared_atom_percent = {}

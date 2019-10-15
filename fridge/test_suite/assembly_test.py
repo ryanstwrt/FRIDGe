@@ -450,4 +450,3 @@ def test_fftf_driver():
     for k, v in a.coolant.material.atomDensities.items():
         print(k, v)
     print(a.coolant.material.atomDensity)
-    end()

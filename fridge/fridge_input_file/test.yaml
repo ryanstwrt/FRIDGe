@@ -1,0 +1,9 @@
+Name: Core_Test
+Temperature: 1200
+XC Library: JEFF3.1
+Number of Generations: 2300
+Number of Skipped Generations: 300
+Number of Particles per Generation: 1e6
+Run Kinetics: True
+Output File Name: Full_Core_Test
+Input Type: Core

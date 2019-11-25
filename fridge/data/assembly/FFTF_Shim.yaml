@@ -1,0 +1,30 @@
+#Assembly Type
+Assembly Type: Smear
+
+#Assembly Data
+Assembly Pitch: 12.051
+Duct Thickness: 0.3048
+Duct Inside Flat to Flat: 11.0109
+Assembly Height: 298.45
+Coolant Material: FFTF_LiquidNa
+Assembly Material: FFTF_SS316
+Z Position: -81.28
+Axial Regions: [1,2,3]
+
+#Shield Region
+Axial Region 1:
+    Smear Materials: {FFTF_LowerAxialShieldMat: 1.0}
+    Smear Height: 51.61
+    Smear Name: Shield/Orifice Region
+
+#Pin Attachment Region
+Axial Region 2:
+    Smear Materials: {FFTF_LowerAxialShieldMat: 1.0}
+    Smear Height: 10.16
+    Smear Name: Pin Attachment Region
+
+#Simulated Fuel Bundle Region
+Axial Region 3:
+    Smear Materials: {FFTF_LowerAxialShieldMat: 1.0}
+    Smear Height: 233.38
+    Smear Name: Simulated Fuel Bundle Region

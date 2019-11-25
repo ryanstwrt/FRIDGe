@@ -13,6 +13,7 @@ import fridge.Constituent.Smear as Smear
 import fridge.Constituent.CoreCoolant as CoreCoolant
 import fridge.Constituent.ReactorVessel as ReactorVessel
 import fridge.Material.Material as mr
+import numpy as np
 
 constituentInfo = [[0, 1, 2, 'LiquidNa', '.82c', [1, 1, 1], 3], []]
 
@@ -131,12 +132,13 @@ def test_fuelCoolant_void():
 
 
 def test_fuelPin():
-    fuelPinInfo = [[0, 1, 2, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [0.1, 0.2]]
+    fuelPinInfo = [[0, 1, 2, 'LiquidNa', '82c', [1.0, 1.0, 1.0], 3], [0.1, 0.2, 1]]
     c = FuelPin.FuelPin(fuelPinInfo)
-    cellCard = '1 3 0.02428 -2 u=0 imp:n=1 $Pin: Fuel'
+    cellCard = '1 3 0.02428 -2 u=0 vol=0.002 imp:n=1 $Pin: Fuel'
     surfaceCard = '2 RCC 1.0 1.0 1.0 0 0 0.2 0.05 $Pin: Fuel'
     assert c.radius == 0.1 / 2
     assert c.height == 0.2
+    assert np.allclose(c.volume, 0.0015707963)
     assert cellCard == c.cellCard
     assert surfaceCard == c.surfaceCard
 

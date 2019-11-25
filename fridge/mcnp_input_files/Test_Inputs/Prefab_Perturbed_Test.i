@@ -6,7 +6,7 @@ c *********************Cell Cards for Smear Assembly: 01A01********************
 c *********************Cell Cards for Fuel Assembly: 02A01*********************
 480 480 2e-05 -480 u=480 imp:n=1 $Assembly: Lower Sodium
 481 481 0.06879 -481 u=480 imp:n=1 $Assembly: Lower Reflector
-482 482 0.04574 -482 u=481 imp:n=1 $Pin: Fuel
+482 482 0.04574 -482 u=481 vol=1991.597 imp:n=1 $Pin: Fuel
 483 483 0.02428 482 -483 u=481 imp:n=1 $Pin: Bond
 484 484 0.08598 483 -484 u=481 imp:n=1 $Pin: Clad
 485 485 0.007 484 u=481 imp:n=1 $Pin: Wirewrap + Coolant
@@ -67,7 +67,7 @@ c *********************Cell Cards for Fuel Assembly: 02A01*********************
 c *********************Cell Cards for Fuel Assembly: 02B01*********************
 500 500 2e-05 -500 u=500 imp:n=1 $Assembly: Lower Sodium
 501 501 0.06879 -501 u=500 imp:n=1 $Assembly: Lower Reflector
-502 502 0.04574 -502 u=501 imp:n=1 $Pin: Fuel
+502 502 0.04574 -502 u=501 vol=1991.597 imp:n=1 $Pin: Fuel
 503 503 0.02428 502 -503 u=501 imp:n=1 $Pin: Bond
 504 504 0.08598 503 -504 u=501 imp:n=1 $Pin: Clad
 505 505 0.007 504 u=501 imp:n=1 $Pin: Wirewrap + Coolant
@@ -128,7 +128,7 @@ c *********************Cell Cards for Fuel Assembly: 02B01*********************
 c *********************Cell Cards for Fuel Assembly: 02C01*********************
 520 520 2e-05 -520 u=520 imp:n=1 $Assembly: Lower Sodium
 521 521 0.06879 -521 u=520 imp:n=1 $Assembly: Lower Reflector
-522 522 0.04574 -522 u=521 imp:n=1 $Pin: Fuel
+522 522 0.04574 -522 u=521 vol=1991.597 imp:n=1 $Pin: Fuel
 523 523 0.02428 522 -523 u=521 imp:n=1 $Pin: Bond
 524 524 0.08598 523 -524 u=521 imp:n=1 $Pin: Clad
 525 525 0.007 524 u=521 imp:n=1 $Pin: Wirewrap + Coolant
@@ -189,7 +189,7 @@ c *********************Cell Cards for Fuel Assembly: 02C01*********************
 c *********************Cell Cards for Fuel Assembly: 02D01*********************
 540 540 2e-05 -540 u=540 imp:n=1 $Assembly: Lower Sodium
 541 541 0.06879 -541 u=540 imp:n=1 $Assembly: Lower Reflector
-542 542 0.04574 -542 u=541 imp:n=1 $Pin: Fuel
+542 542 0.04574 -542 u=541 vol=1991.597 imp:n=1 $Pin: Fuel
 543 543 0.02428 542 -543 u=541 imp:n=1 $Pin: Bond
 544 544 0.08598 543 -544 u=541 imp:n=1 $Pin: Clad
 545 545 0.007 544 u=541 imp:n=1 $Pin: Wirewrap + Coolant
@@ -250,7 +250,7 @@ c *********************Cell Cards for Fuel Assembly: 02D01*********************
 c *********************Cell Cards for Fuel Assembly: 02E01*********************
 560 560 2e-05 -560 u=560 imp:n=1 $Assembly: Lower Sodium
 561 561 0.06879 -561 u=560 imp:n=1 $Assembly: Lower Reflector
-562 562 0.04574 -562 u=561 imp:n=1 $Pin: Fuel
+562 562 0.04574 -562 u=561 vol=1991.597 imp:n=1 $Pin: Fuel
 563 563 0.02428 562 -563 u=561 imp:n=1 $Pin: Bond
 564 564 0.08598 563 -564 u=561 imp:n=1 $Pin: Clad
 565 565 0.007 564 u=561 imp:n=1 $Pin: Wirewrap + Coolant
@@ -311,7 +311,7 @@ c *********************Cell Cards for Fuel Assembly: 02E01*********************
 c *********************Cell Cards for Fuel Assembly: 02F01*********************
 580 580 2e-05 -580 u=580 imp:n=1 $Assembly: Lower Sodium
 581 581 0.06879 -581 u=580 imp:n=1 $Assembly: Lower Reflector
-582 582 0.04574 -582 u=581 imp:n=1 $Pin: Fuel
+582 582 0.04574 -582 u=581 vol=1991.597 imp:n=1 $Pin: Fuel
 583 583 0.02428 582 -583 u=581 imp:n=1 $Pin: Bond
 584 584 0.08598 583 -584 u=581 imp:n=1 $Pin: Clad
 585 585 0.007 584 u=581 imp:n=1 $Pin: Wirewrap + Coolant

@@ -56,6 +56,7 @@ global_vars = gb.GlobalVariables()
 global_vars.read_input_file('Five_Axial_Fuel_Assembly_Test')
 assembly_info2 = [global_vars.file_name, '01A01', global_vars, None]
 
+
 def test_fiveAxialFuelAssembly():
     a = FuelAssembly.FuelAssembly(assembly_info2)
     assert a.assemblyPitch == 12
@@ -70,6 +71,8 @@ def test_fiveAxialFuelAssembly():
     assert a.fuelPitch == 0.66144
     assert a.wireWrapDiameter == 0.126
     assert a.fuelHeight == 60
+    assert a.pinsPerAssembly == 271
+    assert np.allclose(a.fuel_volume, 1991.597)
     assert a.fuelMaterial == '5Pu22U10Zr'
     assert a.cladMaterial == 'HT9'
     assert a.bondMaterial == 'LiquidNa'
@@ -88,7 +91,7 @@ def test_fiveAxialFuelAssembly():
         assert v.surfaceCard == known_surf[k-1]
 
     #Check fuel section
-    assert a.fuel.cellCard == '101 101 0.04574 -101 u=101 imp:n=1 $Pin: Fuel'
+    assert a.fuel.cellCard == '101 101 0.04574 -101 u=101 vol=1991.597 imp:n=1 $Pin: Fuel'
     assert a.fuel.surfaceCard == '101 RCC 0.0 0.0 0.0 0 0 60.0 0.19745 $Pin: Fuel'
     assert a.bond.cellCard == '102 102 0.02428 101 -102 u=101 imp:n=1 $Pin: Bond'
     assert a.bond.surfaceCard == '102 RCC 0.0 0.0 0.0 0 0 60.6 0.228 $Pin: Bond - 1% higher than fuel'
@@ -173,6 +176,8 @@ def test_threeAxialFuelAssembly():
     assert a.fuelPitch == 0.66144
     assert a.wireWrapDiameter == 0.126
     assert a.fuelHeight == 60
+    assert a.pinsPerAssembly == 271
+    assert np.allclose(a.fuel.volume, 1994.916)
     assert a.fuelMaterial == '5Pu22U10Zr'
     assert a.cladMaterial == 'HT9'
     assert a.bondMaterial == 'LiquidNa'
@@ -192,7 +197,7 @@ def test_threeAxialFuelAssembly():
         assert v.surfaceCard == known_surf[k-1]
 
     #Check fuel section
-    assert a.fuel.cellCard == '100 100 0.04574 -100 u=101 imp:n=1 $Pin: Fuel'
+    assert a.fuel.cellCard == '100 100 0.04574 -100 u=101 vol=1994.916 imp:n=1 $Pin: Fuel'
     assert a.fuel.surfaceCard == '100 RCC 0.0 0.0 -0.1 0 0 60.1 0.19745 $Pin: Fuel'
     assert a.bond.cellCard == '101 101 0.02428 100 -101 u=101 imp:n=1 $Pin: Bond'
     assert a.bond.surfaceCard == '101 RCC 0.0 0.0 -0.1 0 0 60.7 0.228 $Pin: Bond - 1% higher than fuel'
@@ -277,6 +282,8 @@ def test_shifted_fuel_assembly():
     assert a.fuelPitch == 0.66144
     assert a.wireWrapDiameter == 0.126
     assert a.fuelHeight == 60
+    assert a.pinsPerAssembly == 271
+    assert np.allclose(a.fuel.volume, 1994.916)
     assert a.fuelMaterial == '5Pu22U10Zr'
     assert a.cladMaterial == 'HT9'
     assert a.bondMaterial == 'LiquidNa'
@@ -296,7 +303,7 @@ def test_shifted_fuel_assembly():
         assert v.surfaceCard == known_surf[k - 1]
 
     # Check fuel section
-    assert a.fuel.cellCard == '100 100 0.04574 -100 u=101 imp:n=1 $Pin: Fuel'
+    assert a.fuel.cellCard == '100 100 0.04574 -100 u=101 vol=1994.916 imp:n=1 $Pin: Fuel'
     assert a.fuel.surfaceCard == '100 RCC 0.0 0.0 -0.1 0 0 60.1 0.19745 $Pin: Fuel'
     assert a.bond.cellCard == '101 101 0.02428 100 -101 u=101 imp:n=1 $Pin: Bond'
     assert a.bond.surfaceCard == '101 RCC 0.0 0.0 -0.1 0 0 60.7 0.228 $Pin: Bond - 1% higher than fuel'
@@ -424,15 +431,13 @@ def test_smearAssemblyMultiAxial():
     assert a.assemblyShell.cellCard == '103 0 -103 fill=100 imp:n=1 $Assembly'
     assert a.assemblyShell.surfaceCard == '103 RHP 0.0 0.0 -50.0 0 0 270.0 0 5.85 0 $Assembly: Full Assembly Surface'
 
-
 global_vars = gb.GlobalVariables()
 core = 'Smear_Assembly_Test'
 assem = 'Axial_Blank'
 global_vars.read_input_file(core, assembly_perturbations={assem: {'Axial Region 1':
-                                                                    {'Smear Materials': {'LiquidPb': 1.0},
-                                                                     'Smear Height': 50}, 'zPosition': 50}})
+                                                                 {'Smear Materials': {'LiquidPb': 1.0},
+                                                                  'Smear Height': 50}, 'zPosition': 50}})
 assembly_info8 = [global_vars.file_name, '01A01', global_vars, None]
-
 
 def test_smear_perturbation():
     a = SmearAssembly.SmearAssembly(assembly_info8)

@@ -3,7 +3,7 @@ c *************************Six_Axial_Fuel_Assembly_Test************************
 c ************************Cell Cards for Assembly: 01A01*********************** 
 100 100 0.02428 -100 u=100 imp:n=1 $Assembly: Lower Sodium
 101 101 0.07364 -101 u=100 imp:n=1 $Assembly: Lower Reflector
-102 102 0.04574 -102 u=101 imp:n=1 $Pin: Fuel
+102 102 0.04574 -102 u=101 vol=1991.597 imp:n=1 $Pin: Fuel
 103 103 0.02428 102 -103 u=101 imp:n=1 $Pin: Bond
 104 104 0.08598 103 -104 u=101 imp:n=1 $Pin: Clad
 105 105 0.02929 104 u=101 imp:n=1 $Pin: Wirewrap + Coolant

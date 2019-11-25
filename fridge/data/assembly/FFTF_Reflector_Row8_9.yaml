@@ -1,0 +1,42 @@
+#Assembly Type
+Assembly Type: Smear
+
+#Assembly Data
+Assembly Pitch: 12.051
+Duct Thickness: 0.3048
+Duct Inside Flat to Flat: 11.0109
+Assembly Height: 298.45
+Coolant Material: FFTF_LiquidNa
+Assembly Material: FFTF_SS316
+Z Position: -81.28
+Axial Regions: [1,2,3,4,5]
+
+#Orifice Region
+Axial Region 1:
+    Smear Materials: {FFTF_LowerAxialShieldMat: 1.0}
+    Smear Height: 58.1025
+    Smear Name: Orifice Region
+
+#Lower Adapter Region
+Axial Region 2:
+    Smear Materials: {FFTF_LowerAxialShieldMat: 1.0}
+    Smear Height: 7.62
+    Smear Name: Lower Adapter Region
+
+#Reflector Block Region
+Axial Region 3:
+    Smear Materials: {FFTF_LowerAxialShieldMat: 1.0}
+    Smear Height: 121.92
+    Smear Name: Reflector Block Region
+
+#Lower Pad Region
+Axial Region 4:
+    Smear Materials: {FFTF_LowerAxialShieldMat: 1.0}
+    Smear Height: 10.16
+    Smear Name: Lower Pad Region
+
+#Upper Shield Region
+Axial Region 5:
+    Smear Materials: {FFTF_LowerAxialShieldMat: 1.0}
+    Smear Height: 100.6475
+    Smear Name: Upper Shield Region

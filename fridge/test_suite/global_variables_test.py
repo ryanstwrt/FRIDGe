@@ -53,3 +53,23 @@ def test_global_variables_read_assembly():
     assert global_variables.ksens is True
     assert global_variables.output_name == 'Fuel_Assembly_Test'
     assert global_variables.input_type == 'Single'
+
+def test_global_variables_read_core_burnup():
+    """Check the read_assembly function"""
+    global_variables = gb.GlobalVariables()
+    global_variables.read_input_file('Full_Core_Test_Burnup')
+
+    assert global_variables.assembly_file_name == 'Full_Core_Test_Burnup'
+    assert global_variables.xc_set == '.37c'
+    assert global_variables.xc_library == 'JEFF3.1'
+    assert global_variables.temperature == 900
+    assert global_variables.file_name == 'BU_Test'
+    assert global_variables.number_generations == 230
+    assert global_variables.number_skipped_generations == 30
+    assert global_variables.number_particles_generation == 1e3
+    assert global_variables.kopts is True
+    assert global_variables.output_name == 'BU_Test'
+    assert global_variables.input_type == 'Core'
+    assert global_variables.burnup is True
+    assert global_variables.power == 100
+    assert global_variables.burnup_time == [50,100,150]

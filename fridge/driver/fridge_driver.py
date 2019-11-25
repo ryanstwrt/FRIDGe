@@ -1,15 +1,10 @@
 import fridge.driver.global_variables as gb
 import fridge.driver.reactorMaker as reactorMaker
 
-# TODO implement fuel radial expansion (density/volume change)
-# TODO implement fuel axial expansion
-# TODO implement coolant expansion
-# TODO implement clad expansion
 # TODO implement homogenization
 # TODO add sensitivity parameter's to input
 # TODO split XC to fuel, coolant, structure
 # TODO utilize an avogadro's number from somewhere
-
 
 def main(file_name, **kwargs):
     print('Welcome to FRIDGe, the Fast Reactor Input Deck Generator!')

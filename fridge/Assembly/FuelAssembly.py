@@ -55,6 +55,7 @@ class FuelAssembly(Assembly.Assembly):
         self.fuelHeight = 0
         self.fuel_height_with_bond = 0
         self.fuel_region = 0
+        self.fuel_volume = 0
         self.region_height = 0
         self.z_below_fuel = 0
         self.z_below_fuel_pos = []
@@ -101,6 +102,8 @@ class FuelAssembly(Assembly.Assembly):
         zPosition = 0
         for region, region_dict in self.axialRegionDict.items():
             self.region_height = region_dict['Smear Height'] if 'Smear Height' in region_dict.keys() else self.fuelHeight
+
+            # TODO create a way to ensure we don't accidentally add height to fuel if it is region 1
             if region == 1:
                 self.region_height += 0.1
                 zPosition = -(self.z_below_fuel+0.1)
@@ -168,7 +171,9 @@ class FuelAssembly(Assembly.Assembly):
         self.pinUniverse = self.universe
         fuelCoolantHeight = self.region_height + self.bondAboveFuel
         self.fuel = Fuelpin.FuelPin([[self.universe, self.cellNum, self.surfaceNum, self.fuelMaterial, self.xcSet,
-                                      cur_position, self.materialNum], [self.fuelDiameter, self.region_height]])
+                                      cur_position, self.materialNum], [self.fuelDiameter, self.region_height,
+                                                                        self.pinsPerAssembly]])
+        self.fuel_volume = self.fuel.volume
 
         self.update_global_identifiers(False)
         self.bond = Fuelbond.FuelBond([[self.universe, self.cellNum, self.surfaceNum, self.bondMaterial, self.xcSet,

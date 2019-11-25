@@ -1,0 +1,8 @@
+Name: FFTF_Critical_Core
+Temperature: 900
+XC Library: ENDFVII.1
+Number of Generations: 220
+Number of Skipped Generations: 20
+Number of Particles per Generation: 1e3
+Output File Name: FFTF_CR_Out
+Input Type: Core

@@ -1,0 +1,55 @@
+#Assembly Type
+Assembly Type: Fuel
+
+#Assembly Data
+Pins Per Assembly: 61
+Assembly Pitch: 12.051
+Duct Thickness: 0.3048
+Duct Inside Flat to Flat: 11.0109
+Assembly Height: 298.45
+Coolant Material: FFTF_LiquidNa
+Assembly Material: FFTF_SS316
+Axial Regions: [1,2,3,4,5]
+
+#Fuel Pin Data
+Pin Diameter: 1.20396
+Clad Thickness: 0.12954
+Fuel Diameter: 0.91948
+Pitch: 1.26492
+Wire Wrap Diameter: 0.14224
+Wire Wrap Axial Pitch: 30.48
+Fuel Height: 91.44
+Fuel Material: FFTF_B4C
+Clad Material: FFTF_SS316
+Bond Material: Helium
+Bond Above Fuel: 0.0
+Z Position: 126.6
+
+# Lower Shield Region
+Axial Region 1:
+    Smear Materials: {FFTF_LowerAxialShieldMat: 1.0}
+    Smear Height: 61.92774
+    Smear Name: Lower Shield
+
+# Below Poison Region
+Axial Region 2:
+    Smear Materials: {FFTF_IP_Attachment: 1.0}
+    Smear Height: 19.35226
+    Smear Name: Absorber_Pin
+
+# Absorber Pin Region
+Axial Region 3:
+    Fuel Height: 91.44
+    Fuel Name: Absorber_Pin
+
+# Above Poison Region
+Axial Region 4:
+    Smear Materials: {FFTF_IP_Attachment: 1.0}
+    Smear Height: 19.35226
+    Smear Name: Above Poison
+
+# Driveline Region
+Axial Region 5:
+    Smear Materials: {FFTF_LowerAxialShieldMat: 1.0}
+    Smear Height: 79.5528
+    Smear Name: Driveline

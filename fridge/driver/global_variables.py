@@ -30,6 +30,8 @@ class GlobalVariables(object):
         self.assembly_perturbations = {}
         self.output_name = ''
         self.input_type = ''
+        self.burnup = False
+        self.burnup_time = []
 
     def read_input_file(self, assembly_name, **perturbations):
         """Reads the yaml file for a FRIDGE input file and assigns any variables found."""
@@ -73,6 +75,15 @@ class GlobalVariables(object):
             if "Void Percent" in inputs else 1.0
         self.assembly_perturbations = inputs["Assembly Perturbations"] \
             if "Assembly Perturbations" in inputs else {}
+        self.burnup = bool(inputs["Burnup"]) \
+            if 'Burnup' in inputs else False
+
+        if self.burnup:
+            try:
+                self.burnup_time = inputs["Burnup Lengths"]
+                self.power = inputs["Reactor Power"]
+            except KeyError:
+                print("Error: `Burnup` indicated but etiher `Reactor Power` or `Burnup Lengths` is missing.")
 
         # Update for perturbations
         for k, v in perturbations.items():

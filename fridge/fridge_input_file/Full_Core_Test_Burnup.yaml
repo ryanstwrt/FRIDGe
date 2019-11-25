@@ -1,0 +1,12 @@
+Name: BU_Test
+Temperature: 900
+XC Library: JEFF3.1
+Number of Generations: 230
+Number of Skipped Generations: 30
+Number of Particles per Generation: 1e3
+Run Kinetics: True
+Output File Name: BU_Test
+Input Type: Core
+Burnup: True
+Burnup Lengths: [50, 100, 150]
+Reactor Power: 100

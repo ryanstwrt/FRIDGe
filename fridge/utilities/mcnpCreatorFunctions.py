@@ -30,13 +30,17 @@ def build_rotated_right_hexagonal_prism_surface(pitch, height, position, surface
     return surface_card
 
 
-def build_single_cell(cell_num, mat_num, density, surface_num, universe, comment):
+def build_single_cell(cell_num, mat_num, density, surface_num, universe, comment, volume=0):
     """Create a cell with one component"""
     universe_card = ''
     if type(universe) is int:
         universe_card = 'u=' + str(universe)
-    cell_card = "{} {} {} -{} {} imp:n=1 {}".format(cell_num, mat_num, round(density, 5), surface_num, universe_card,
-                                                    comment)
+    if volume == 0:
+        cell_card = "{} {} {} -{} {} imp:n=1 {}".format(cell_num, mat_num, round(density, 5), surface_num,
+                                                        universe_card, comment)
+    else:
+        cell_card = "{} {} {} -{} {} vol={} imp:n=1 {}".format(cell_num, mat_num, round(density, 5), surface_num,
+                                                           universe_card, round(volume, 3), comment)
     assert (len(cell_card) - len(comment)) < 80
     return cell_card
 

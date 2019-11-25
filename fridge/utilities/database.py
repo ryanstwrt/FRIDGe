@@ -45,5 +45,5 @@ def create_hdf5_database(database_name, dir=os.getcwd()):
         ds[0] = (void_keff - reactor_keff) / (reactor_keff * void_keff * 99.9) * pow(10, 5)
 
 
-create_hdf5_database('sfr_db_test',
+create_hdf5_database('sfr_db_new',
                      dir=r'C:\Users\ryanstwrt\Documents\OSU\Sodium_Fast_Reactor\PHYSOR2020\Results_Raw')

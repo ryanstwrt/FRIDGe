@@ -1,0 +1,24 @@
+#Assembly Type
+Assembly Type: Smear
+
+#Assembly Data
+Assembly Pitch: 12.051
+Duct Thickness: 0.3048
+Duct Inside Flat to Flat: 11.0109
+Assembly Height: 298.45
+Coolant Material: FFTF_LiquidNa
+Assembly Material: FFTF_SS316
+Z Position: -81.28
+Axial Regions: [1]
+
+#Shield Region
+Axial Region 1:
+    Smear Materials: {FFTF_LowerAxialShieldMat: 1.0}
+    Smear Height: 298.45
+    Smear Name: Shield Region
+
+#Instrument Region
+Axial Region 1:
+    Smear Materials: {FFTF_LowerAxialShieldMat: 1.0}
+    Smear Height: 298.45
+    Smear Name: Instrument Region

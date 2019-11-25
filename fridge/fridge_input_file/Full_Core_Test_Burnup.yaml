@@ -1,4 +1,4 @@
-Name: BU_Test
+Name: Core_Test
 Temperature: 900
 XC Library: JEFF3.1
 Number of Generations: 230
@@ -10,3 +10,4 @@ Input Type: Core
 Burnup: True
 Burnup Lengths: [50, 100, 150]
 Reactor Power: 100
+Power Fractions: [1.0, 1.0, 1.0]

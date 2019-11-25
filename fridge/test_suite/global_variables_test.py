@@ -63,7 +63,7 @@ def test_global_variables_read_core_burnup():
     assert global_variables.xc_set == '.37c'
     assert global_variables.xc_library == 'JEFF3.1'
     assert global_variables.temperature == 900
-    assert global_variables.file_name == 'BU_Test'
+    assert global_variables.file_name == 'Core_Test'
     assert global_variables.number_generations == 230
     assert global_variables.number_skipped_generations == 30
     assert global_variables.number_particles_generation == 1e3
@@ -73,3 +73,4 @@ def test_global_variables_read_core_burnup():
     assert global_variables.burnup is True
     assert global_variables.power == 100
     assert global_variables.burnup_time == [50,100,150]
+    assert global_variables.power_fraction == [1.0,1.0,1.0]

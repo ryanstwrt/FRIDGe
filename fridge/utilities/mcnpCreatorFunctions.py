@@ -180,8 +180,12 @@ def mcnp_input_deck_maker_core(core, k_card, global_vars):
 def make_mcnp_problem(global_vars, core=None):
     """Create the MCNP specific kcode options."""
     kopts_output = ''
+    burnup_output = ''
     if global_vars.kopts:
         kopts_output = 'kopts BLOCKSIZE=10 KINETICS=YES PRECURSOR=Yes \n'
+
+    if global_vars.burnup:
+        burnup_output = make_mcnp_burnup(global_vars, core)
 
     ksrc_output = 'ksrc '
     if core is not None:
@@ -201,5 +205,41 @@ def make_mcnp_problem(global_vars, core=None):
     prdmp_output = 'PRDMP 100 10 100 1 \n'
     dbcn_output = 'DBCN 68J 50000 \n'
 
-    mcnp_output = kcode_output + ksrc_output + prdmp_output + kopts_output + dbcn_output
+    mcnp_output = kcode_output + burnup_output + ksrc_output + prdmp_output + kopts_output + dbcn_output
+    return mcnp_output
+
+
+def make_mcnp_burnup(global_vars, core):
+    power_frac = ''
+    burnup_time = ''
+    mat_list = []
+    mat_vol_list = []
+    for time in global_vars.burnup_time:
+        burnup_time += str(time) + ','
+    for p_frac in global_vars.power_fraction:
+        power_frac += str(p_frac) + ','
+    burnup_time =  'burn time=' + burnup_time + '\n'
+    power = '     power='+str(global_vars.power)+'\n'
+    power_frac = '     pfrac=' + power_frac + '\n'
+    bopt  = '     bopt=1.0 4 1\n'
+    for a in core.assemblyList:
+        if a.assemblyType in ['Fuel', 'fuel']:
+            mat_list.append(a.fuel.materialNum)
+            mat_vol_list.append(a.fuel.volume)
+
+    mat_temp = ',13,39087,39092,39093,40089,40097,41091,41092,41096,\n      41097,41098,41099,42091,42093,\n'
+
+    omit_section = '     omit='
+    mat_section =  '     mat='
+    for mat in mat_list:
+        mat_section  += str(mat) + ',\n     '
+        omit_section += '     ' + str(mat) + mat_temp
+
+    mat_vol_section = '     matvol='
+
+    for mat_vol in mat_vol_list:
+        mat_vol_section += '     ' + str(mat_vol) + ',\n'
+
+    mcnp_output = burnup_time + power + bopt + power_frac + mat_section + omit_section + mat_vol_section
+
     return mcnp_output

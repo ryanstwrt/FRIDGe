@@ -1,0 +1,8 @@
+Name: FFTF_Absorber_Out
+Temperature: 900
+XC Library: ENDFVII.1
+Number of Generations: 230
+Number of Skipped Generations: 30
+Number of Particles per Generation: 1e6
+Output File Name: FFTF_Absorber_Out
+Input Type: Single

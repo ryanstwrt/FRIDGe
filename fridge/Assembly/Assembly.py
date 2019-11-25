@@ -27,7 +27,6 @@ class Assembly(object):
         self.xcSet = self.globalVars.xc_set
         self.voidPercent = self.globalVars.void_per
         self.assemblyType = ''
-        self.assemblyType = ''
         self.pinsPerAssembly = 0
         self.assemblyPitch = 0.0
         self.ductInnerFlatToFlat = 0.0

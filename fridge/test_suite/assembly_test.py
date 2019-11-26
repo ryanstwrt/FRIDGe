@@ -4,14 +4,14 @@ import fridge.Assembly.Assembly as Assembly
 import fridge.driver.global_variables as gb
 import numpy as np
 
-global_vars = gb.GlobalVariables()
-global_vars.read_input_file('A271_Assembly_Shifted_Test')
-assembly_info = [global_vars.file_name, '01A01', global_vars, None]
+global_var = gb.GlobalVariables()
+global_var.read_input_file('A271_Assembly_Shifted_Test')
+assembly = [global_var.file_name, '01A01', global_var, None]
 
 
 def test_assembly():
     """Check the base assembly init"""
-    baseAssembly = Assembly.Assembly(assembly_info)
+    baseAssembly = Assembly.Assembly(assembly)
     assert baseAssembly.assembly_file_name == 'A271_Shifted_Test'
     assert baseAssembly.assemblyPosition == '01A01'
     assert baseAssembly.universe == 100
@@ -29,9 +29,9 @@ def test_assembly():
     assert baseAssembly.assemblyMaterial == ''
 
 
-def test_updateIdentifiers():
+def test_update_identifiers():
     """Check the updateIdentifiers function"""
-    baseAssembly = Assembly.Assembly(assembly_info)
+    baseAssembly = Assembly.Assembly(assembly)
     assert baseAssembly.universe == 100
     assert baseAssembly.cellNum == 100
     assert baseAssembly.surfaceNum == 100
@@ -43,8 +43,8 @@ def test_updateIdentifiers():
     assert baseAssembly.materialNum == 101
 
 
-def test_getAssemblyLocation():
-    assembly_info1 = ['Nonsense', '01A01', global_vars, None]
+def test_get_assembly_aocation():
+    assembly_info1 = ['Nonsense', '01A01', global_var, None]
     a = None
     try:
         a = Assembly.Assembly(assembly_info1)
@@ -52,13 +52,12 @@ def test_getAssemblyLocation():
         assert a is None
 
 
-global_vars = gb.GlobalVariables()
-global_vars.read_input_file('Five_Axial_Fuel_Assembly_Test')
-assembly_info2 = [global_vars.file_name, '01A01', global_vars, None]
+def test_five_axial_fuel_assembly():
 
-
-def test_fiveAxialFuelAssembly():
-    a = FuelAssembly.FuelAssembly(assembly_info2)
+    global_vars = gb.GlobalVariables()
+    global_vars.read_input_file('Five_Axial_Fuel_Assembly_Test')
+    assembly_info = [global_vars.file_name, '01A01', global_vars, None]
+    a = FuelAssembly.FuelAssembly(assembly_info)
     assert a.assemblyPitch == 12
     assert a.coolantMaterial == 'LiquidNa'
     assert a.assemblyMaterial == 'HT9'
@@ -158,12 +157,13 @@ def test_fiveAxialFuelAssembly():
     assert a.everythingElse.cellCard == '112 0 111 imp:n=0 $Everything Else'
 
 
-global_vars = gb.GlobalVariables()
-global_vars.read_input_file('Three_Axial_Fuel_Assembly_Test')
-assembly_info3 = [global_vars.file_name, '01A01', global_vars, None]
+def test_three_axial_fuel_assembly():
 
-def test_threeAxialFuelAssembly():
-    a = FuelAssembly.FuelAssembly(assembly_info3)
+    global_vars = gb.GlobalVariables()
+    global_vars.read_input_file('Three_Axial_Fuel_Assembly_Test')
+    assembly_info = [global_vars.file_name, '01A01', global_vars, None]
+
+    a = FuelAssembly.FuelAssembly(assembly_info)
     assert a.assemblyPitch == 12
     assert a.coolantMaterial == 'LiquidNa'
     assert a.assemblyMaterial == 'HT9'
@@ -264,12 +264,13 @@ def test_threeAxialFuelAssembly():
     assert a.everythingElse.cellCard == '111 0 110 imp:n=0 $Everything Else'
 
 
-global_vars = gb.GlobalVariables()
-global_vars.read_input_file('A271_Assembly_Shifted_Test')
-assembly_info4 = [global_vars.file_name, '01A01', global_vars, None]
-
 def test_shifted_fuel_assembly():
-    a = FuelAssembly.FuelAssembly(assembly_info4)
+
+    global_vars = gb.GlobalVariables()
+    global_vars.read_input_file('A271_Assembly_Shifted_Test')
+    assembly_info = [global_vars.file_name, '01A01', global_vars, None]
+
+    a = FuelAssembly.FuelAssembly(assembly_info)
     assert a.assemblyPitch == 12
     assert a.coolantMaterial == 'LiquidNa'
     assert a.assemblyMaterial == 'HT9'
@@ -369,28 +370,28 @@ def test_shifted_fuel_assembly():
     assert a.everythingElse.cellCard == '111 0 110 imp:n=0 $Everything Else'
 
 
-global_vars = gb.GlobalVariables()
-core = 'Three_Axial_Fuel_Assembly_Test'
-assem = 'A271_Three_Axial_Test'
-global_vars.read_input_file(core, assembly_perturbations={assem: {'fuelMaterial': 'U10Zr', 'fuelDiameter': 0.1,
-                                                                  'cladMaterial': 'SS316'}})
-assembly_info5 = [global_vars.file_name, '01A01', global_vars, None]
-
-
 def test_fueled_perturbation():
-    a = FuelAssembly.FuelAssembly(assembly_info5)
+
+    global_vars = gb.GlobalVariables()
+    core = 'Three_Axial_Fuel_Assembly_Test'
+    assem = 'A271_Three_Axial_Test'
+    global_vars.read_input_file(core, assembly_perturbations={assem: {'fuelMaterial': 'U10Zr', 'fuelDiameter': 0.1,
+                                                                      'cladMaterial': 'SS316'}})
+    assembly_info = [global_vars.file_name, '01A01', global_vars, None]
+
+    a = FuelAssembly.FuelAssembly(assembly_info)
     assert a.fuelMaterial == 'U10Zr'
     assert a.fuelDiameter == 0.1
     assert a.cladMaterial == 'SS316'
 
 
-global_vars = gb.GlobalVariables()
-global_vars.read_input_file('Smear_Assembly_Test')
-assembly_inf6 = [global_vars.file_name, '01A01', global_vars, None]
+def test_smear_assembly_singluar_axial():
 
+    global_vars = gb.GlobalVariables()
+    global_vars.read_input_file('Smear_Assembly_Test')
+    assembly_inf = [global_vars.file_name, '01A01', global_vars, None]
 
-def test_smearAssemblyUniAxial():
-    a = SmearAssembly.SmearAssembly(assembly_inf6)
+    a = SmearAssembly.SmearAssembly(assembly_inf)
     assert a.assemblyPitch == 12
     assert a.coolantMaterial == 'LiquidNa'
     assert a.assemblyMaterial == 'HT9'
@@ -406,13 +407,12 @@ def test_smearAssemblyUniAxial():
     assert a.assemblyShell.surfaceCard == '101 RHP 0.0 0.0 -50.0 0 0 110.0 0 5.85 0 $Assembly: Full Assembly Surface'
 
 
-global_vars = gb.GlobalVariables()
-global_vars.read_input_file('Axial_Smear_Assembly_Test')
-assembly_info7 = [global_vars.file_name, '01A01', global_vars, None]
+def test_smear_assembly_multi_axial():
+    global_vars = gb.GlobalVariables()
+    global_vars.read_input_file('Axial_Smear_Assembly_Test')
+    assembly_info = [global_vars.file_name, '01A01', global_vars, None]
 
-
-def test_smearAssemblyMultiAxial():
-    a = SmearAssembly.SmearAssembly(assembly_info7)
+    a = SmearAssembly.SmearAssembly(assembly_info)
     assert a.assemblyPitch == 12
     assert a.coolantMaterial == 'LiquidNa'
     assert a.assemblyMaterial == 'HT9'
@@ -431,27 +431,53 @@ def test_smearAssemblyMultiAxial():
     assert a.assemblyShell.cellCard == '103 0 -103 fill=100 imp:n=1 $Assembly'
     assert a.assemblyShell.surfaceCard == '103 RHP 0.0 0.0 -50.0 0 0 270.0 0 5.85 0 $Assembly: Full Assembly Surface'
 
-global_vars = gb.GlobalVariables()
-core = 'Smear_Assembly_Test'
-assem = 'Axial_Blank'
-global_vars.read_input_file(core, assembly_perturbations={assem: {'Axial Region 1':
-                                                                 {'Smear Materials': {'LiquidPb': 1.0},
-                                                                  'Smear Height': 50}, 'zPosition': 50}})
-assembly_info8 = [global_vars.file_name, '01A01', global_vars, None]
+
+def test_smear_assembly_singluar_axial_bad():
+    global_vars = gb.GlobalVariables()
+    global_vars.read_input_file('Bad_Smear_Assembly_Test')
+    assembly_inf = [global_vars.file_name, '01A01', global_vars, None]
+
+    try:
+        SmearAssembly.SmearAssembly(assembly_inf)
+    except SystemExit:
+        pass
+
+
+def test_three_axial_fuel_assembly_bad():
+
+    global_vars = gb.GlobalVariables()
+    global_vars.read_input_file('Bad_Three_Axial_Fuel_Assembly_Test')
+    assembly_info = [global_vars.file_name, '01A01', global_vars, None]
+
+    try:
+        FuelAssembly.FuelAssembly(assembly_info)
+    except SystemExit:
+        pass
+
 
 def test_smear_perturbation():
-    a = SmearAssembly.SmearAssembly(assembly_info8)
+
+    global_vars = gb.GlobalVariables()
+    core = 'Smear_Assembly_Test'
+    assem = 'Axial_Blank'
+    global_vars.read_input_file(core, assembly_perturbations={assem: {'Axial Region 1':
+                                                              {'Smear Materials': {'LiquidPb': 1.0},
+                                                               'Smear Height': 50}, 'zPosition': 50}})
+    assembly_info = [global_vars.file_name, '01A01', global_vars, None]
+
+    a = SmearAssembly.SmearAssembly(assembly_info)
     axial_region = a.smearRegions[1]
     assert axial_region.materialSmear == {'LiquidPb': 1.0}
     assert a.zPosition == 50
     assert axial_region.height == 50.1
 
-global_vars = gb.GlobalVariables()
-global_vars.read_input_file('FFTF_Driver')
-assembly_info9 = [global_vars.file_name, '01A01', global_vars, None]
 
 def test_fftf_driver():
-    a = FuelAssembly.FuelAssembly(assembly_info9)
+    global_vars = gb.GlobalVariables()
+    global_vars.read_input_file('FFTF_Driver')
+    assembly_info = [global_vars.file_name, '01A01', global_vars, None]
+
+    a = FuelAssembly.FuelAssembly(assembly_info)
     for k, v in a.coolant.material.atomDensities.items():
         print(k, v)
     print(a.coolant.material.atomDensity)

@@ -86,7 +86,9 @@ class GlobalVariables(object):
                 self.power = inputs["Reactor Power"]
                 self.power_fraction = inputs["Power Fractions"]
             except KeyError:
-                print("Error: `Burnup` indicated but etiher `Reactor Power`, `Burnup Lengths`, or `Power Fractions` is missing.")
+                print("Error: `Burnup` indicated but etiher `Reactor Power`, `Burnup Lengths`, "
+                      "or `Power Fractions` is missing.")
+                exit()
 
         # Update for perturbations
         for k, v in perturbations.items():

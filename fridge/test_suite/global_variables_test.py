@@ -79,20 +79,7 @@ def test_global_variables_read_core_burnup():
 def test_global_variables_read_core_bad_burnup():
     """Check the read_assembly function"""
     global_variables = gb.GlobalVariables()
-    global_variables.read_input_file('Full_Core_Test_Bad_Burnup')
-
-    assert global_variables.assembly_file_name == 'Full_Core_Test_Bad_Burnup'
-    assert global_variables.xc_set == '.73c'
-    assert global_variables.xc_library == 'ENDFVII.0'
-    assert global_variables.temperature == 1200
-    assert global_variables.file_name == 'Core_Test'
-    assert global_variables.number_generations == 230
-    assert global_variables.number_skipped_generations == 30
-    assert global_variables.number_particles_generation == 1e3
-    assert global_variables.kopts is True
-    assert global_variables.output_name == 'Full_Core_Test_Bad_Burnup'
-    assert global_variables.input_type == 'Core'
-    assert global_variables.burnup is True
-    assert global_variables.power == 100
-    assert global_variables.burnup_time == [50,100,150]
-    assert global_variables.power_fraction == []
+    try:
+        global_variables.read_input_file('Full_Core_Test_Bad_Burnup')
+    except SystemExit:
+        pass

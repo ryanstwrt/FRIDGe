@@ -82,6 +82,7 @@ class FuelAssembly(Assembly.Assembly):
             except:
                 print("Failed to create axial region {} for assembly {}, "
                       "ensure this region is defined".format(region, self.assembly_file_name))
+                exit()
         self.read_fuel_region_data(self.inputs)
 
         # Update for perturbations

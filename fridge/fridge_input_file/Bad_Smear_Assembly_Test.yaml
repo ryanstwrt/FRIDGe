@@ -1,0 +1,11 @@
+Name: Axial_Blank_Bad
+Temperature: 900
+XC Library: ENDFVII.1
+Number of Generations: 2300
+Number of Skipped Generations: 300
+Number of Particles per Generation: 1e6
+Run Kinetics: True
+ksens: True
+Output File Name: Smear_Assembly_Test
+Input Type: Single
+Random Variable: True

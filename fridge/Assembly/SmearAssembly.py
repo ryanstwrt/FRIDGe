@@ -40,6 +40,7 @@ class SmearAssembly(Assembly.Assembly):
             except:
                 print("Failed to create axial region {} for assembly {}, "
                       "ensure this region is defined".format(region, self.assembly_file_name))
+                exit()
         # Update for perturbations
         if bool(self.globalVars.assembly_perturbations):
             self.update_perturbations()

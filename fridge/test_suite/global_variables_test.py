@@ -68,7 +68,7 @@ def test_global_variables_read_core_burnup():
     assert global_variables.number_skipped_generations == 30
     assert global_variables.number_particles_generation == 1e3
     assert global_variables.kopts is True
-    assert global_variables.output_name == 'BU_Test'
+    assert global_variables.output_name == 'Full_Core_Test_Burnup'
     assert global_variables.input_type == 'Core'
     assert global_variables.burnup is True
     assert global_variables.power == 100

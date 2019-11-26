@@ -5,7 +5,7 @@ Number of Generations: 230
 Number of Skipped Generations: 30
 Number of Particles per Generation: 1e3
 Run Kinetics: True
-Output File Name: BU_Test
+Output File Name: Full_Core_Test_Burnup
 Input Type: Core
 Burnup: True
 Burnup Lengths: [50, 100, 150]

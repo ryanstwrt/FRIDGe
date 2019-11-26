@@ -69,8 +69,6 @@ class FuelAssembly(Assembly.Assembly):
         self.get_fuel_assembly_data()
         self.build_fuel_assembly()
 
-
-
     def get_fuel_assembly_data(self):
         """Assign assembly data for the fuel assembly."""
         self.get_assembly_data(self.inputs)

@@ -1,0 +1,12 @@
+Name: Core_Test
+Temperature: 1200
+XC Library: ENDFVII.0
+Number of Generations: 230
+Number of Skipped Generations: 30
+Number of Particles per Generation: 1e3
+Run Kinetics: True
+Output File Name: Full_Core_Test_Bad_Burnup
+Input Type: Core
+Burnup: True
+Burnup Lengths: [50, 100, 150]
+Reactor Power: 100

@@ -32,6 +32,8 @@ class GlobalVariables(object):
         self.input_type = ''
         self.burnup = False
         self.burnup_time = []
+        self.power_fraction = []
+        self.power = 0.0
 
     def read_input_file(self, assembly_name, **perturbations):
         """Reads the yaml file for a FRIDGE input file and assigns any variables found."""

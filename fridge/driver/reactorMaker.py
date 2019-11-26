@@ -14,7 +14,7 @@ def single_assembly_maker(global_vars):
     elif assembly_type == 'Smear':
         assembly = SmearAssembly.SmearAssembly(assembly_info)
     k_card = mcnpCF.make_mcnp_problem(global_vars)
-    mcnpCF.mcnp_input_deck_maker(assembly, k_card, global_vars)
+    mcnpCF.mcnp_single_asasembly_input_maker(assembly, k_card, global_vars)
 
 
 def core_maker(global_vars):
@@ -43,4 +43,4 @@ def core_maker(global_vars):
         for k, v in perts.items():
             print('    {}: {}'.format(k, v))
     k_card = mcnpCF.make_mcnp_problem(global_vars, core=core)
-    mcnpCF.mcnp_input_deck_maker_core(core, k_card, global_vars)
+    mcnpCF.mcnp_core_input_maker(core, k_card, global_vars)

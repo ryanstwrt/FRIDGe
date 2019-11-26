@@ -336,14 +336,36 @@ def test_material_FFTF_Inconel600():
     for k, v in atomPercentKnown.items():
         assert np.allclose(m.atomDensities[k], v)
 
+
 def test_material_BadWtPer():
     m = materialReader.Material()
     m.set_material('BadMaterial')
     assert m.weightPercent != 1.0
+
+
+def test_atom_density_to_weight_percent_molecular_weight():
+    m = materialReader.Material()
+    m.set_material('UO2_2')
+    m.weightPercent = []
+    assert m.molecularMass == 0.0
+    try:
+        m.atom_density_to_weight_percent()
+    except AttributeError:
+        assert m.weightPercent == []
+
+def test_atom_density_to_weight_percent_mass_density():
+    m = materialReader.Material()
+    m.set_material('UO2_1')
+    m.weightPercent = []
+    assert m.density == 0.0
+    try:
+        m.atom_density_to_weight_percent_density()
+    except ZeroDivisionError:
+        assert m.weightPercent == []
 
 def test_material_NoMaterial():
     m = materialReader.Material()
     try:
         m.set_material('NoMaterial')
     except IndexError:
-        m.density = 0.0
+        assert m.density == 0.0

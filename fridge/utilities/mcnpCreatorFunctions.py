@@ -40,7 +40,7 @@ def build_single_cell(cell_num, mat_num, density, surface_num, universe, comment
                                                         universe_card, comment)
     else:
         cell_card = "{} {} {} -{} {} vol={} imp:n=1 {}".format(cell_num, mat_num, round(density, 5), surface_num,
-                                                           universe_card, round(volume, 3), comment)
+                                                               universe_card, round(volume, 3), comment)
     assert (len(cell_card) - len(comment)) < 80
     return cell_card
 
@@ -111,7 +111,7 @@ def build_material_card(material, xc, mat_num):
     return material_card
 
 
-def mcnp_input_deck_maker(assembly, k_card, global_vars):
+def mcnp_single_asasembly_input_maker(assembly, k_card, global_vars):
     """Create the MCNP input deck based on the assembly/core data."""
     file = open(mcnp_dir + global_vars.output_name + ".i", "w")
     file.write("Input deck created by FRIDGe\n")
@@ -139,7 +139,7 @@ def mcnp_input_deck_maker(assembly, k_card, global_vars):
     file.close()
 
 
-def mcnp_input_deck_maker_core(core, k_card, global_vars):
+def mcnp_core_input_maker(core, k_card, global_vars):
     """Create the MCNP input deck based on the assembly/core data."""
     file = open(mcnp_dir + global_vars.output_name + ".i", "w")
     file.write("Input deck created by FRIDGe\n")
@@ -218,10 +218,10 @@ def make_mcnp_burnup(global_vars, core):
         burnup_time += str(time) + ','
     for p_frac in global_vars.power_fraction:
         power_frac += str(p_frac) + ','
-    burnup_time =  'burn time=' + burnup_time + '\n'
+    burnup_time = 'burn time=' + burnup_time + '\n'
     power = '     power='+str(global_vars.power)+'\n'
     power_frac = '     pfrac=' + power_frac + '\n'
-    bopt  = '     bopt=1.0 4 1\n'
+    bopt = '     bopt=1.0 4 1\n'
     for a in core.assemblyList:
         if a.assemblyType in ['Fuel', 'fuel']:
             mat_list.append(a.fuel.materialNum)
@@ -230,9 +230,9 @@ def make_mcnp_burnup(global_vars, core):
     mat_temp = ',13,39087,39092,39093,40089,40097,41091,41092,41096,\n      41097,41098,41099,42091,42093,\n'
 
     omit_section = '     omit='
-    mat_section =  '     mat='
+    mat_section = '     mat='
     for mat in mat_list:
-        mat_section  += str(mat) + ',\n     '
+        mat_section += str(mat) + ',\n     '
         omit_section += '     ' + str(mat) + mat_temp
 
     mat_vol_section = '     matvol='

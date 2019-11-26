@@ -206,3 +206,5 @@ def test_get_rhp__volume():
 def test_get_toroidal_volume():
     volume = fridge.utilities.utilities.get_toroidal_volume(0.5, 0.05, 5, 10)
     assert np.allclose(volume, 1.03631, 5)
+
+# TODO Add test functinos for make_mcnp_burnup, make_mcnp_problem, mcnp_input_deck_maker_core, mcnp_input_deck_maker

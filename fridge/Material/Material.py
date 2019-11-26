@@ -8,6 +8,7 @@ AVOGADROS_NUMBER = 0.6022140857
 cur_dir = os.path.dirname(__file__)
 material_dir = os.path.join(cur_dir, '../data/materials/')
 
+# TODO Update the weight percent materials to the same format as the others
 
 class Material(object):
     """Creates a material consisting of elements based on the Material database."""

@@ -1,4 +1,5 @@
 from decimal import Decimal
+import numpy as np
 import os
 cur_dir = os.path.dirname(__file__)
 mcnp_dir = os.path.join(cur_dir, "../mcnp_input_files/")
@@ -80,6 +81,37 @@ def build_fuel_lattice_cell(cell_num, surface_num, assembly_universe, lattice_un
     cell_card = "{} 0 -{} u={} fill={} imp:n=1 {}".format(cell_num, surface_num, assembly_universe, lattice_universe,
                                                           comment)
     assert (len(cell_card) - len(comment)) < 80
+    return cell_card
+
+
+def build_hexagonal_lattice_cell(cell_num, blank_cell_num, lattice_universe, num_pins, blank_universe, fuel_universe):
+    cell_card = "{} 0 -{} lat=2 u={} imp:n=1\n".format(cell_num, blank_cell_num, lattice_universe)
+    rings = int(max(np.roots([1, -1, -2*(num_pins-1)/6])))
+    lattice_array = np.zeros((rings * 2 + 1, rings * 2 + 1))
+    for x in range(rings * 2 + 1):
+        for y in range(rings * 2 + 1):
+            if x == 0 or x == 2 * rings:
+                lattice_array[x][y] = blank_universe
+            elif x < (rings + 1):
+                if y < (rings + 1 - x) or y == (2 * rings):
+                    lattice_array[x][y] = blank_universe
+                else:
+                    lattice_array[x][y] = fuel_universe
+            else:
+                if y > (2 * rings - (x - rings + 1)) or y == 0:
+                    lattice_array[x][y] = blank_universe
+                else:
+                    lattice_array[x][y] = fuel_universe
+
+    cell_card += "     fill=-{}:{} -{}:{} 0:0\n     ".format(rings, rings, rings, rings)
+    row_jump = 0
+    for row in lattice_array:
+        for lat_iter, element in enumerate(row):
+            if (row_jump+1) % 10 == 0:
+                cell_card += " {}\n     ".format(int(element))
+            else:
+                cell_card += " {}".format(int(element))
+            row_jump += 1
     return cell_card
 
 

@@ -32,7 +32,6 @@ class Smear(Constituent.Constituent):
         self.flat2flat = unit_info[1][0]
         self.height = unit_info[1][1]
 
-
     def make_component(self, unit_info):
         self.flat2flat = unit_info[0]
         self.height = unit_info[1]

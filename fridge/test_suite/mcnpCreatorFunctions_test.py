@@ -59,6 +59,17 @@ def test_get_fuel_lattice_cell():
     assert cell_card == test_cell_card
 
 
+def test_get_hexagonal_lattice_cell():
+    [1, 2, 7, 3, 4, 5]
+    cell_card = MCF.build_hexagonal_lattice_cell(3, 4, 5, 7, 2, 1)
+    test_cell_card = '3 0 -4 lat=2 u=5 imp:n=1\n     fill=-2:2 -2:2 0:0\n' \
+                     '      2 2 2 2 2 2 2 1 1 2\n' \
+                     '      2 1 1 1 2 2 1 1 2 2\n' \
+                     '      2 2 2 2 2'
+    assert cell_card == test_cell_card
+
+
+
 def test_get_assembly_universe_cell():
     cell_card = MCF.build_assembly_universe_cell(1, 2, 10, '$ Comment')
     test_cell_card = '1 0 -2 fill=10 imp:n=1 $ Comment'

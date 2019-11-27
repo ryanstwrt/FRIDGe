@@ -12,10 +12,7 @@ def test_baseCore():
     assert core.coreCoolant is None
     assert core.reactorVessel is None
     assert core.vesselThickness == 0
-    assert core.coolantSurfaceCard == ''
-    assert core.coolantCellCard == ''
     assert core.materialCard == ''
-    assert core.vesselMaterial is None
     assert core.vesselMaterialString == ''
     assert core.coolantRadius == 0
     assert core.coolantHeight == 0
@@ -23,7 +20,6 @@ def test_baseCore():
     assert core.coolantMaterial is None
     assert core.vesselRadius == 0
     assert core.vesselPosition == []
-    assert core.vesselSurfaceCard == ''
     assert core.coreCellList == []
     assert core.coreSurfaceList == []
     assert core.coreMaterialList == []

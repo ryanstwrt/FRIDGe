@@ -16,10 +16,7 @@ class Core:
         self.name = ''
         self.assemblyList = []
         self.vesselThickness = 0
-        self.coolantSurfaceCard = ''
-        self.coolantCellCard = ''
         self.materialCard = ''
-        self.vesselMaterial = None
         self.vesselMaterialString = ''
         self.coolantRadius = 0
         self.coolantHeight = 0
@@ -28,7 +25,6 @@ class Core:
         self.vesselRadius = 0
         self.vesselHeight = 0
         self.vesselPosition = []
-        self.vesselSurfaceCard = ''
         self.coreCellList = []
         self.coreSurfaceList = []
         self.coreMaterialList = []

@@ -80,6 +80,7 @@ class Assembly(object):
                     else:
                         self.__setattr__(k, v)
 
+
 def read_assembly_type(assembly_file_name):
     """Reads in the assembly type to determine what type of assembly to build and return it."""
     assembly_yaml_file = glob.glob(os.path.join(assembly_directory, assembly_file_name + '.yaml'))

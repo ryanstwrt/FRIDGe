@@ -18,9 +18,10 @@ class SmearAssembly(Assembly.Assembly):
         self.assemblyUniverse = 0
         self.smearRegionHeight = 0
         self.smearRegions = {}
+        self.axialRegionDict = {}
+        self.axialRegions = None
         self.assemblyShell = None
         self.everythingElse = None
-        self.position = []
         self.assemblyCellList = []
         self.assemblySurfaceList = []
         self.assemblyMaterialList = []
@@ -32,12 +33,11 @@ class SmearAssembly(Assembly.Assembly):
         """Assign assembly data for the smear assembly."""
         self.get_assembly_data(self.inputs)
         self.axialRegions = self.inputs['Axial Regions']
-        self.axialRegionDict = {}
         for region in self.axialRegions:
             try:
                 self.axialRegionDict[region] = self.inputs['Axial Region {}'.format(region)]
                 self.smearRegionHeight += self.axialRegionDict[region]['Smear Height']
-            except:
+            except KeyError:
                 print("Failed to create axial region {} for assembly {}, "
                       "ensure this region is defined".format(region, self.assembly_file_name))
                 exit()

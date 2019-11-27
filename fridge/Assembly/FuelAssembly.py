@@ -33,18 +33,18 @@ class FuelAssembly(Assembly.Assembly):
         self.clad = None
         self.coolant = None
         self.smearUniverse = None
-        self.smearCoolant = None
         self.latticeUniverse = None
         self.fuelUniverse = None
+        self.blankUniverse = None
         self.innerDuct = None
         self.duct = None
+        self.blankCoolant = None
         self.assemblyShell = None
         self.assemblyCellList = []
         self.assemblySurfaceList = []
         self.assemblyMaterialList = []
         self.everythingElse = None
 
-        self.position = []
         self.cladOD = 0
         self.cladID = 0
         self.fuelDiameter = 0
@@ -79,7 +79,7 @@ class FuelAssembly(Assembly.Assembly):
                 self.axialRegionDict[region] = self.inputs['Axial Region {}'.format(region)]
                 if 'Fuel Height' in self.axialRegionDict[region]:
                     self.fuel_region = region
-            except:
+            except KeyError:
                 print("Failed to create axial region {} for assembly {}, "
                       "ensure this region is defined".format(region, self.assembly_file_name))
                 exit()
@@ -93,22 +93,23 @@ class FuelAssembly(Assembly.Assembly):
         """Create the cell, surface, and material cards for the fuel assembly."""
         self.assemblyUniverse = self.universe
 
-        #The fuel is always at z=0, so we need to find the start of the first axial position
+        # The fuel is always at z=0, so we need to find the start of the first axial position
         self.z_below_fuel = sum(region_dict['Smear Height'] for region, region_dict in self.axialRegionDict.items()
                                 if region < self.fuel_region)
         self.z_below_fuel_pos = utilities.get_position_for_hex_lattice(self.assemblyPosition, self.assemblyPitch,
                                                                        -self.z_below_fuel)
-        zPosition = 0
+        z_position = 0
         for region, region_dict in self.axialRegionDict.items():
-            self.region_height = region_dict['Smear Height'] if 'Smear Height' in region_dict.keys() else self.fuelHeight
+            self.region_height = region_dict['Smear Height'] \
+                if 'Smear Height' in region_dict.keys() else self.fuelHeight
 
             # TODO create a way to ensure we don't accidentally add height to fuel if it is region 1
             if region == 1:
                 self.region_height += 0.1
-                zPosition = -(self.z_below_fuel+0.1)
+                z_position = -(self.z_below_fuel+0.1)
 
             cur_position = utilities.get_position_for_hex_lattice(self.assemblyPosition, self.assemblyPitch,
-                                                                  zPosition)
+                                                                  z_position)
             try:
                 self.axialRegions[region] = Smeared.Smear([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                                           region_dict['Smear Materials'], self.xcSet,
@@ -128,7 +129,7 @@ class FuelAssembly(Assembly.Assembly):
                 self.assemblySurfaceList.extend(fuel_lists[1])
                 self.assemblyMaterialList.extend(fuel_lists[2])
 
-            zPosition += self.region_height
+            z_position += self.region_height
 
         self.assemblyShell = Outershell.OuterShell([[self.assemblyUniverse, self.cellNum, self.surfaceNum,
                                                      self.coolantMaterial, self.xcSet, self.z_below_fuel_pos,
@@ -146,8 +147,6 @@ class FuelAssembly(Assembly.Assembly):
 
     def read_fuel_region_data(self, inputs):
         """Reads in the fuel region data from the assembly yaml file."""
-        self.position = utilities.get_position_for_hex_lattice(self.assemblyPosition, self.assemblyPitch,
-                                                               self.zPosition)
         self.cladOD = float(inputs['Pin Diameter'])
         self.cladID = self.cladOD - 2*float(inputs['Clad Thickness'])
         try:
@@ -168,7 +167,7 @@ class FuelAssembly(Assembly.Assembly):
     def create_fuel_cell(self, cur_position):
         self.universe += 1
         self.pinUniverse = self.universe
-        fuelCoolantHeight = self.region_height + self.bondAboveFuel
+        fuel_coolant_height = self.region_height + self.bondAboveFuel
         self.fuel = Fuelpin.FuelPin([[self.universe, self.cellNum, self.surfaceNum, self.fuelMaterial, self.xcSet,
                                       cur_position, self.materialNum], [self.fuelDiameter, self.region_height,
                                                                         self.pinsPerAssembly]])
@@ -177,12 +176,12 @@ class FuelAssembly(Assembly.Assembly):
         self.update_global_identifiers(False)
         self.bond = Fuelbond.FuelBond([[self.universe, self.cellNum, self.surfaceNum, self.bondMaterial, self.xcSet,
                                         cur_position, self.materialNum],
-                                       [self.cladID, fuelCoolantHeight, self.fuel.surfaceNum]])
+                                       [self.cladID, fuel_coolant_height, self.fuel.surfaceNum]])
 
         self.update_global_identifiers(False)
         self.clad = Fuelclad.FuelClad([[self.universe, self.cellNum, self.surfaceNum, self.cladMaterial, self.xcSet,
                                         cur_position, self.materialNum],
-                                       [self.cladOD, fuelCoolantHeight, self.bond.surfaceNum]])
+                                       [self.cladOD, fuel_coolant_height, self.bond.surfaceNum]])
 
         self.update_global_identifiers(False)
         smeared_coolant_info = [self.fuel_height_with_bond, self.cladOD, self.wireWrapDiameter,
@@ -191,7 +190,7 @@ class FuelAssembly(Assembly.Assembly):
         smeared_coolant_material = Material.smear_coolant_wirewrap(smeared_coolant_info)
         self.coolant = Fuelcoolant.FuelCoolant([[self.universe, self.cellNum, self.surfaceNum, smeared_coolant_material,
                                                  self.xcSet, cur_position, self.materialNum],
-                                                [self.fuelPitch, fuelCoolantHeight, self.clad.surfaceNum],
+                                                [self.fuelPitch, fuel_coolant_height, self.clad.surfaceNum],
                                                 'Wire Wrap + Coolant'], void_material=self.coolantMaterial,
                                                void_percent=self.voidPercent)
         self.update_global_identifiers(True)
@@ -199,7 +198,7 @@ class FuelAssembly(Assembly.Assembly):
         self.blankCoolant = Blankcoolant.BlankCoolant([[self.universe, self.cellNum, self.surfaceNum,
                                                         self.coolantMaterial, self.xcSet, cur_position,
                                                         self.materialNum],
-                                                       [self.fuelPitch, fuelCoolantHeight,
+                                                       [self.fuelPitch, fuel_coolant_height,
                                                         self.coolant.surfaceNum]], void_percent=self.voidPercent)
         self.update_global_identifiers(True)
         self.latticeUniverse = self.universe
@@ -210,15 +209,16 @@ class FuelAssembly(Assembly.Assembly):
         self.innerDuct = Innerduct.InnerDuct([[self.universe, self.cellNum, self.surfaceNum, '', self.xcSet,
                                                cur_position, self.materialNum],
                                               [self.assemblyUniverse, self.latticeUniverse, self.ductInnerFlatToFlat,
-                                               fuelCoolantHeight]])
+                                               fuel_coolant_height]])
 
         self.update_global_identifiers(False)
         self.duct = Outerduct.Duct([[self.assemblyUniverse, self.cellNum, self.surfaceNum, self.assemblyMaterial,
                                      self.xcSet, cur_position, self.materialNum],
-                                    [self.ductOuterFlatToFlatMCNPEdge, fuelCoolantHeight, self.innerDuct.surfaceNum]])
+                                    [self.ductOuterFlatToFlatMCNPEdge, fuel_coolant_height, self.innerDuct.surfaceNum]])
         self.update_global_identifiers(False)
 
-        cell_list = [self.fuel, self.bond, self.clad, self.coolant, self.blankCoolant, self.fuelUniverse, self.innerDuct, self.duct]
+        cell_list = [self.fuel, self.bond, self.clad, self.coolant, self.blankCoolant, self.fuelUniverse,
+                     self.innerDuct, self.duct]
         surface_list = [self.fuel, self.bond, self.clad, self.coolant, self.blankCoolant, self.innerDuct, self.duct]
         mat_list = [self.fuel, self.bond, self.clad, self.coolant, self.blankCoolant, self.innerDuct, self.duct]
         return [cell_list, surface_list, mat_list]

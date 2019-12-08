@@ -23,7 +23,7 @@ setup(
     python_requires='>=3',
     zip_safe=False,
 
-    packages=['fridge', 'frdige.driver', 'fridge.Assembly', 'fridge.Constituent', 'fridge.test_suite',
+    packages=['fridge', 'fridge.driver', 'fridge.Assembly', 'fridge.Constituent', 'fridge.test_suite',
               'fridge.utilities', 'fridge.Core', 'fridge.Material'],
     package_dir={
         'fridge': 'fridge',
@@ -33,7 +33,7 @@ setup(
         'fridge.Assembly': 'fridge/Assembly',
         'fridge.Constituent': 'fridge/Constituent',
         'fridge.Core': 'fridge/Core',
-        'fridge.Material': 'frdige/Material'
+        'fridge.Material': 'fridge/Material'
         },
 
     include_package_data=True,

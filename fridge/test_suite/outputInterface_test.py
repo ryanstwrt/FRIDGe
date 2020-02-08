@@ -1,5 +1,6 @@
 import fridge.utilities.outputInterface as OI
 import os
+from collections import OrderedDict
 
 def test_init():
     interface = OI.OutputReader(r'fridge/test_suite/test_interface.txt')
@@ -85,3 +86,19 @@ def test_scrap_rx_params():
                                     4: {'beta-eff': 0.00134, 'beta-eff_unc': 0.00010, 'energy': 0.53274, 'energy_unc': 0.00073, 'energy_units': 'MeV', 'lambda-i': 0.30523, 'lambda-i_unc': 0.00002,  'lambda-i_units': '(/sec)', 'half-life': 2.27088, 'half-life_units': '(sec)'},
                                     5: {'beta-eff': 0.00060, 'beta-eff_unc': 0.00006, 'energy': 0.49371, 'energy_unc': 0.00101, 'energy_units': 'MeV', 'lambda-i': 0.87600, 'lambda-i_unc': 0.00006,  'lambda-i_units': '(/sec)', 'half-life': 0.79126, 'half-life_units': '(sec)'},
                                     6: {'beta-eff': 0.00020, 'beta-eff_unc': 0.00004, 'energy': 0.53827, 'energy_unc': 0.00194, 'energy_units': 'MeV', 'lambda-i': 2.90154, 'lambda-i_unc': 0.00056,  'lambda-i_units': '(/sec)', 'half-life': 0.23889, 'half-life_units': '(sec)'}}
+
+def test_scrap_assembly_power():
+    interface = OI.OutputReader(r'fridge/test_suite/FC_FS65_H75_23Pu4U10Zr_BU.out')
+    interface.cycles = 7
+    for x in range(interface.cycles):
+        interface.cycle_dict['step_{}'.format(x)] = {}
+        interface.cycle_dict['step_{}'.format(x)]['assemblies'] = {}
+    interface.scrap_assembly_power(interface.output[269920:269920+4+7])
+    assert interface.cycle_dict['step_0']['assemblies'] == {1902: {'duration': 0.0,
+                                                       'time': 0.0,
+                                                       'power fraction': 9.960E-3,
+                                                       'burnup': 0.0}}
+    assert interface.cycle_dict['step_6']['assemblies'] == {1902: {'duration': 50.0,
+                                                       'time': 300.0,
+                                                       'power fraction': 1.027E-2,
+                                                       'burnup': 2.961E+1}}    

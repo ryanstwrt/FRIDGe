@@ -1,6 +1,7 @@
 import re
 import numpy as np
 import pandas as pd
+from collections import OrderedDict
 
 class OutputReader(object):
     """
@@ -23,6 +24,7 @@ class OutputReader(object):
         self.burnup = False
         self.cycles = 0
         self.cycle_dict = {}
+        self.assemblies_dict = OrderedDict()
         
         
     def get_global_parameters(self, cycle):
@@ -35,7 +37,33 @@ class OutputReader(object):
                 current_cycle += 1
         self.convert_rx_params()
 
-
+    def get_assembly_paramters(self):
+        """Get the assembly specific parametsr (burnup, power fraction)"""
+        self.cycles = len(self.cycle_dict)
+        self.cycle_dict['assemblies'] = self.assemblies_dict
+        for line_num, line in enumerate(self.output):
+            if 'Individual Material Burnup' in line:
+                if 'Material #: ' in line:
+                    self.scrap_assembly_powers(self.output[line_num:line_num+4+self.cycles])
+                    
+    def scrap_assembly_power(self, line_list):
+        temp_dict = {}
+        material = int(line_list[0].split(' ')[3])
+        temp_dict['material'] = material
+        power_dict = {}
+        print(material)
+        for time_step in range(self.cycles):
+            print(line_list[4+time_step].split('  '))
+            power = {'duration': float(line_list[4+time_step].split('  ')[2]),
+                     'time': float(line_list[4+time_step].split('  ')[3]),
+                     'power fraction': float(line_list[4+time_step].split('  ')[5]),
+                     'burnup': float(line_list[4+time_step].split('  ')[8]),}
+            self.cycle_dict['step_{}'.format(time_step)]['assemblies'][material] = power
+        print(self.cycle_dict)
+        
+        
+        
+        
     def convert_rx_params(self):
         """Convert reactor parameters from dictionary to pandas dataframe"""
         
@@ -132,4 +160,5 @@ class OutputReader(object):
         self.cycle_dict['step_{}'.format(time_step)]['rx_parameters'] = time_dict
                 
         
+
         

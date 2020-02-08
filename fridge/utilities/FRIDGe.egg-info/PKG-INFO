@@ -1,0 +1,16 @@
+Metadata-Version: 1.2
+Name: FRIDGe
+Version: 1.0.0
+Summary: Fast Reactor Input Deck Generator (FRIDGe) is a general purpose fast reactor MCNP input deck creator. It will read in material/geometry files and create a fast reactor subassembly. Future iterations will be able to incoporate physical phenomena, smears, and full core creation.
+Home-page: https://github.com/ryanstwrt/FRIDGe
+Author: Ryan Stewart
+Author-email: stewryan@oregonstat.edu
+License: BSD-3-Clause
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Intended Audience :: Reactor Designer
+Classifier: Intended Audience :: Science/Research
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3.6
+Requires-Python: >=3

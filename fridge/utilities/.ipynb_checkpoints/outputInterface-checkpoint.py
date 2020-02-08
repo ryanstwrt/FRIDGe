@@ -27,42 +27,43 @@ class OutputReader(object):
         self.assemblies_dict = OrderedDict()
         
         
-    def get_global_parameters(self, cycle):
+    def get_global_parameters(self):
         "Get the global parameters for a specific cycle"
         current_cycle = 0
+        correct_area = True
         for line_num, line in enumerate(self.output):
-            if 'keff = ' in line:
+            if 'Correcter' in line:
+                correct_area = True
+            elif 'Predictor' in line:
+                correct_area = False
+            if 'keff = ' in line and correct_area:
                 self.cycle_dict['step_{}'.format(current_cycle)] = {}
                 self.scrap_rx_params(self.output[line_num:line_num+83], current_cycle)
                 current_cycle += 1
         self.convert_rx_params()
 
-    def get_assembly_paramters(self):
+    def get_assembly_parameters(self):
         """Get the assembly specific parametsr (burnup, power fraction)"""
         self.cycles = len(self.cycle_dict)
         self.cycle_dict['assemblies'] = self.assemblies_dict
+        correct_area = False
         for line_num, line in enumerate(self.output):
             if 'Individual Material Burnup' in line:
-                if 'Material #: ' in line:
-                    self.scrap_assembly_powers(self.output[line_num:line_num+4+self.cycles])
+                correct_area = True
+            if 'Material #: ' in line and correct_area:
+                    self.scrap_assembly_power(self.output[line_num:line_num+4+self.cycles])
                     
     def scrap_assembly_power(self, line_list):
         temp_dict = {}
         material = int(line_list[0].split(' ')[3])
         temp_dict['material'] = material
         power_dict = {}
-        print(material)
         for time_step in range(self.cycles):
-            print(line_list[4+time_step].split('  '))
             power = {'duration': float(line_list[4+time_step].split('  ')[2]),
                      'time': float(line_list[4+time_step].split('  ')[3]),
                      'power fraction': float(line_list[4+time_step].split('  ')[5]),
                      'burnup': float(line_list[4+time_step].split('  ')[8]),}
-            self.cycle_dict['step_{}'.format(time_step)]['assemblies'][material] = power
-        print(self.cycle_dict)
-        
-        
-        
+            self.cycle_dict['step_{}'.format(time_step)]['assemblies'][material] = power           
         
     def convert_rx_params(self):
         """Convert reactor parameters from dictionary to pandas dataframe"""

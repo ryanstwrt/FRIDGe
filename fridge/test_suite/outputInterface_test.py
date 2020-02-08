@@ -87,6 +87,19 @@ def test_scrap_rx_params():
                                     5: {'beta-eff': 0.00060, 'beta-eff_unc': 0.00006, 'energy': 0.49371, 'energy_unc': 0.00101, 'energy_units': 'MeV', 'lambda-i': 0.87600, 'lambda-i_unc': 0.00006,  'lambda-i_units': '(/sec)', 'half-life': 0.79126, 'half-life_units': '(sec)'},
                                     6: {'beta-eff': 0.00020, 'beta-eff_unc': 0.00004, 'energy': 0.53827, 'energy_unc': 0.00194, 'energy_units': 'MeV', 'lambda-i': 2.90154, 'lambda-i_unc': 0.00056,  'lambda-i_units': '(/sec)', 'half-life': 0.23889, 'half-life_units': '(sec)'}}
 
+def test_get_global_parameters():
+    interface = OI.OutputReader(r'fridge/test_suite/FC_FS65_H75_23Pu4U10Zr_BU.out')
+    assert interface.core_name == 'FC_FS65_H75_23Pu4U10Zr_BU'
+    interface.get_global_parameters()
+    assert interface.cycle_dict['step_0']['rx_parameters']['keff'][0] == 1.20837
+    assert interface.cycle_dict['step_1']['rx_parameters']['keff'][0] == 1.19608
+    assert interface.cycle_dict['step_2']['rx_parameters']['keff'][0] == 1.18370
+    assert interface.cycle_dict['step_3']['rx_parameters']['keff'][0] == 1.17161
+    assert interface.cycle_dict['step_4']['rx_parameters']['keff'][0] == 1.15918
+    assert interface.cycle_dict['step_5']['rx_parameters']['keff'][0] == 1.14671
+    assert interface.cycle_dict['step_6']['rx_parameters']['keff'][0] == 1.13466
+    
+    
 def test_scrap_assembly_power():
     interface = OI.OutputReader(r'fridge/test_suite/FC_FS65_H75_23Pu4U10Zr_BU.out')
     interface.cycles = 7
@@ -101,4 +114,25 @@ def test_scrap_assembly_power():
     assert interface.cycle_dict['step_6']['assemblies'] == {1902: {'duration': 50.0,
                                                        'time': 300.0,
                                                        'power fraction': 1.027E-2,
-                                                       'burnup': 2.961E+1}}    
+                                                       'burnup': 2.961E+1}}
+
+def test_get_assembly_parameters():
+    interface = OI.OutputReader(r'fridge/test_suite/FC_FS65_H75_23Pu4U10Zr_BU.out')
+    interface.cycles = 7
+    for x in range(interface.cycles):
+        interface.cycle_dict['step_{}'.format(x)] = {}
+        interface.cycle_dict['step_{}'.format(x)]['assemblies'] = {}
+    interface.get_assembly_parameters()
+    assert interface.cycle_dict['step_0']['assemblies'][122] == {'duration': 0.0,
+                                                       'time': 0.0,
+                                                       'power fraction': 1.765E-2,
+                                                       'burnup': 0.0}
+    assert interface.cycle_dict['step_0']['assemblies'][1902] == {'duration': 0.0,
+                                                       'time': 0.0,
+                                                       'power fraction': 9.960E-3,
+                                                       'burnup': 0.0}
+
+    assert interface.cycle_dict['step_6']['assemblies'][1902] == {'duration': 50.0,
+                                                       'time': 300.0,
+                                                       'power fraction': 1.027E-2,
+                                                       'burnup': 2.961E+1}

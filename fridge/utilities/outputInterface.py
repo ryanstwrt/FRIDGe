@@ -43,7 +43,7 @@ class OutputReader(object):
         self.convert_rx_params()
 
     def get_assembly_parameters(self):
-        """Get the assembly specific parametsr (burnup, power fraction)"""
+        """Get the assembly specific parametsr (burnup, power fraction, actinide inventory)"""
         self.cycles = len(self.cycle_dict)
         self.cycle_dict['assemblies'] = self.assemblies_dict
         correct_area = False
@@ -51,7 +51,11 @@ class OutputReader(object):
             if 'Individual Material Burnup' in line:
                 correct_area = True
             if 'Material #: ' in line and correct_area:
-                    self.scrap_assembly_power(self.output[line_num:line_num+4+self.cycles])
+                self.scrap_assembly_power(self.output[line_num:line_num+4+self.cycles])
+            elif 'print table 220' in line:
+                break
+            elif 'nuclide data' in line:
+                self.scrap_assembly_nuclide_data(self.output[line_num:line_num+self.cycles*60])
                     
     def scrap_assembly_power(self, line_list):
         temp_dict = {}
@@ -67,15 +71,19 @@ class OutputReader(object):
 
     def scrap_assembly_nuclide_data(self, line_list):
         temp_dict = {}
+        actinides = False
         for line_num, line in enumerate(line_list):
             if 'nuclide data' in line:
                 material = int(line.split(' ')[10])
-            elif 'actinide inventory' in line:
+            if 'actinide inventory' in line:
+                actinides = True
                 zaid_dict = {}
                 if int(line.split(' ')[5]) != material:
-                    print('Warning: Material in nuclide inventory ({}) does not match mterial from nuclide data ({}). Check to ensure the output file has not been altered in any way.'.format(int(line.split(' ')[5]), material))
+                    print('Warning: Material in nuclide inventory ({}) does not match material from nuclide data ({}). Check to ensure the output file has not been altered in any way.'.format(int(line.split(' ')[5]), material))
                 time_step = int(line.split(' ')[11][:-1]) #-1 drops the comma after step #,
-            else:
+            if 'nonactinide inventory' in line:
+                actinides = False
+            if actinides:
                 try:
                     zaid = int(line.split('  ')[2])
                     mass = float(line.split('  ')[3])
@@ -86,10 +94,9 @@ class OutputReader(object):
                                            'atom density': float(line.split('  ')[6]),
                                            'atom fraction': float(line.split('  ')[7]),
                                            'mass fraction': float(line.split('  ')[8])}
+                        self.cycle_dict['step_{}'.format(time_step)]['assemblies'][material]['actinide inventory'] = zaid_dict
                 except:
                     pass
-        self.cycle_dict['step_{}'.format(time_step)]['assemblies'][material]['actinide inventory'] = zaid_dict
-                
         
     def convert_rx_params(self):
         """Convert reactor parameters from dictionary to pandas dataframe"""

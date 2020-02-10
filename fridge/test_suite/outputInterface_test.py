@@ -17,7 +17,6 @@ def test_convert_rx_params():
     interface.scrap_rx_params(interface.output[268454:268454+83], 12)
     interface.convert_rx_params()
     step_0 = interface.cycle_dict['step_12']['rx_parameters']
-    print(step_0['keff'])
     assert step_0['keff'][0] == 1.13466
     assert step_0['keff_unc'][0] == 0.00014
     assert step_0['prompt_removal_lifetime'][0] == (4.1290E-06, 1.6569E-09, 'seconds')
@@ -123,19 +122,25 @@ def test_get_assembly_parameters():
         interface.cycle_dict['step_{}'.format(x)] = {}
         interface.cycle_dict['step_{}'.format(x)]['assemblies'] = {}
     interface.get_assembly_parameters()
-    assert interface.cycle_dict['step_0']['assemblies'][122] == {'duration': 0.0,
-                                                       'time': 0.0,
-                                                       'power fraction': 1.765E-2,
-                                                       'burnup': 0.0}
-    assert interface.cycle_dict['step_0']['assemblies'][1902] == {'duration': 0.0,
-                                                       'time': 0.0,
-                                                       'power fraction': 9.960E-3,
-                                                       'burnup': 0.0}
+    assert interface.cycle_dict['step_0']['assemblies'][122]['power fraction'] == 1.765E-2
+    assert interface.cycle_dict['step_0']['assemblies'][122]['actinide inventory'][92235] == {'mass': 1204, 
+                                                                                              'activity': 0.0,
+                                                                                              'specific activity': 0.0,
+                                                                                              'atom density': 1.429E-3,
+                                                                                              'atom fraction': 3.077E-2,
+                                                                                              'mass fraction': 3.526E-2}
 
-    assert interface.cycle_dict['step_6']['assemblies'][1902] == {'duration': 50.0,
-                                                       'time': 300.0,
-                                                       'power fraction': 1.027E-2,
-                                                       'burnup': 2.961E+1}
+    assert interface.cycle_dict['step_0']['assemblies'][1902]['power fraction']== 9.960E-3    
+    assert interface.cycle_dict['step_6']['assemblies'][1902]['duration'] == 50.0
+    assert interface.cycle_dict['step_6']['assemblies'][1902]['time'] == 300.0
+    assert interface.cycle_dict['step_6']['assemblies'][1902]['power fraction'] ==1.027E-2
+    assert interface.cycle_dict['step_6']['assemblies'][1902]['burnup'] == 2.961E+1
+    assert interface.cycle_dict['step_6']['assemblies'][1902]['actinide inventory'][92235] == {'mass': 1.059E3,
+                                                                                               'activity': 2.290E-3,
+                                                                                               'specific activity': 2.161E-6,
+                                                                                               'atom density': 1.258E-3,
+                                                                                               'atom fraction': 2.709E-2,
+                                                                                               'mass fraction': 3.148E-2}
 
 def test_scrap_assembly_nuclide_data():
     interface = OI.OutputReader(r'fridge/test_suite/FC_FS65_H75_23Pu4U10Zr_BU.out')
@@ -143,10 +148,22 @@ def test_scrap_assembly_nuclide_data():
     for x in range(interface.cycles):
         interface.cycle_dict['step_{}'.format(x)] = {}
         interface.cycle_dict['step_{}'.format(x)]['assemblies'] = {122: {}}
-    interface.scrap_assembly_nuclide_data(interface.output[269933:269973])
+    interface.scrap_assembly_nuclide_data(interface.output[269933:269933+interface.cycles*40])
     assert interface.cycle_dict['step_0']['assemblies'][122]['actinide inventory'][92235] == {'mass': 1204, 
                                                                                               'activity': 0.0,
                                                                                               'specific activity': 0.0,
                                                                                               'atom density': 1.429E-3,
                                                                                               'atom fraction': 3.077E-2,
                                                                                               'mass fraction': 3.526E-2}
+    assert interface.cycle_dict['step_1']['assemblies'][122]['actinide inventory'][92235] == {'mass': 1.163E3, 
+                                                                                              'activity': 2.514E-3,
+                                                                                              'specific activity': 2.161E-6,
+                                                                                              'atom density': 1.381E-3,
+                                                                                              'atom fraction': 2.976E-2,
+                                                                                              'mass fraction': 3.423E-2}
+    assert interface.cycle_dict['step_6']['assemblies'][122]['actinide inventory'][92235] == {'mass': 9.713E2, 
+                                                                                              'activity': 2.099E-3,
+                                                                                              'specific activity': 2.161E-6,
+                                                                                              'atom density': 1.153E-3,
+                                                                                              'atom fraction': 2.484E-2,
+                                                                                              'mass fraction': 2.917E-2}

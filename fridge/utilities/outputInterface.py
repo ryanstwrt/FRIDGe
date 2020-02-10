@@ -52,10 +52,10 @@ class OutputReader(object):
                 correct_area = True
             if 'Material #: ' in line and correct_area:
                 self.scrap_assembly_power(self.output[line_num:line_num+4+self.cycles])
-            elif 'print table 220' in line:
+            elif 'print table 220' in line: #Break before we get to summed materials
                 break
             elif 'nuclide data' in line:
-                self.scrap_assembly_nuclide_data(self.output[line_num:line_num+self.cycles*60])
+                self.scrap_assembly_nuclide_data(self.output[line_num:line_num+self.cycles*60]) #This is a bit sloppy as it will run into the nonactide inventory data, a better method could be implemented later.
                     
     def scrap_assembly_power(self, line_list):
         temp_dict = {}

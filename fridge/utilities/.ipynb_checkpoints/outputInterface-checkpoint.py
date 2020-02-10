@@ -25,8 +25,7 @@ class OutputReader(object):
         self.cycles = 0
         self.cycle_dict = {}
         self.assemblies_dict = OrderedDict()
-        
-        
+         
     def get_global_parameters(self):
         "Get the global parameters for a specific cycle"
         current_cycle = 0
@@ -45,8 +44,10 @@ class OutputReader(object):
     def get_assembly_parameters(self):
         """Get the assembly specific parametsr (burnup, power fraction, actinide inventory)"""
         self.cycles = len(self.cycle_dict)
-        self.cycle_dict['assemblies'] = self.assemblies_dict
+        for cycle in range(self.cycles):
+            self.cycle_dict['step_{}'.format(cycle)]['assemblies'] = {}
         correct_area = False
+        
         for line_num, line in enumerate(self.output):
             if 'Individual Material Burnup' in line:
                 correct_area = True
@@ -54,8 +55,10 @@ class OutputReader(object):
                 self.scrap_assembly_power(self.output[line_num:line_num+4+self.cycles])
             elif 'print table 220' in line: #Break before we get to summed materials
                 break
-            elif 'nuclide data' in line:
-                self.scrap_assembly_nuclide_data(self.output[line_num:line_num+self.cycles*60]) #This is a bit sloppy as it will run into the nonactide inventory data, a better method could be implemented later.
+            elif 'nuclide data are sorted by increasing zaid for material' in line:
+                material = int(self.output[line_num].split(' ')[10])
+                self.scrap_assembly_nuclide_data(self.output[line_num:line_num+self.cycles*60], material) #This is a bit sloppy as it will run into the nonactide inventory data, a better method could be implemented later.
+        self.convert_assembly_params()
                     
     def scrap_assembly_power(self, line_list):
         temp_dict = {}
@@ -69,44 +72,47 @@ class OutputReader(object):
                      'burnup': float(line_list[4+time_step].split('  ')[8]),}
             self.cycle_dict['step_{}'.format(time_step)]['assemblies'][material] = power           
 
-    def scrap_assembly_nuclide_data(self, line_list):
-        temp_dict = {}
-        actinides = False
+    def scrap_assembly_nuclide_data(self, line_list, material):
+        """Scrap the actinide materials data"""
         for line_num, line in enumerate(line_list):
-            if 'nuclide data' in line:
-                material = int(line.split(' ')[10])
             if 'actinide inventory' in line:
                 actinides = True
-                zaid_dict = {}
-                if int(line.split(' ')[5]) != material:
-                    print('Warning: Material in nuclide inventory ({}) does not match material from nuclide data ({}). Check to ensure the output file has not been altered in any way.'.format(int(line.split(' ')[5]), material))
                 time_step = int(line.split(' ')[11][:-1]) #-1 drops the comma after step #,
-            if 'nonactinide inventory' in line:
-                actinides = False
-            if actinides:
-                try:
+                zaid_dict = {}
+            try:
+                mass = float(line.split('  ')[3])
+                if mass > 0.0:
                     zaid = int(line.split('  ')[2])
-                    mass = float(line.split('  ')[3])
-                    if mass > 0.0:
-                        zaid_dict[zaid] = {'mass': mass,
-                                           'activity': float(line.split('  ')[4]),
-                                           'specific activity': float(line.split('  ')[5]),
-                                           'atom density': float(line.split('  ')[6]),
-                                           'atom fraction': float(line.split('  ')[7]),
-                                           'mass fraction': float(line.split('  ')[8])}
-                        self.cycle_dict['step_{}'.format(time_step)]['assemblies'][material]['actinide inventory'] = zaid_dict
-                except:
-                    pass
-        
+                    zaid_dict[zaid] = {'mass': mass,
+                                       'activity': float(line.split('  ')[4]),
+                                       'specific activity': float(line.split('  ')[5]),
+                                       'atom density': float(line.split('  ')[6]),
+                                       'atom fraction': float(line.split('  ')[7]),
+                                       'mass fraction': float(line.split('  ')[8])}
+            except:
+                pass
+            if 'totals' in line:
+                self.cycle_dict['step_{}'.format(time_step)]['assemblies'][material]['actinide inventory'] = zaid_dict
+            elif 'nonactinide' in line:
+                break
+
+    
     def convert_rx_params(self):
         """Convert reactor parameters from dictionary to pandas dataframe"""
         
-        df = pd.DataFrame()
         for cycle, rx_params in self.cycle_dict.items():
             params = rx_params['rx_parameters'] 
             temp_db = pd.DataFrame.from_dict(params, orient='index')
             temp_db.T
             self.cycle_dict[cycle]['rx_parameters'] = temp_db.T
+
+    def convert_assembly_params(self):
+        """Convert assembly parameters from a dictionary to a pandas dataframe"""
+        df = pd.DataFrame
+        for cycle in self.cycle_dict.keys():
+            for material in self.cycle_dict[cycle]['assemblies']:
+                temp_db = pd.DataFrame(self.cycle_dict[cycle]['assemblies'][material]['actinide inventory'])
+                self.cycle_dict[cycle]['assemblies'][material]['actinide inventory'] = temp_db.T       
         
         
     def scrap_rx_params(self, line_list, time_step):

@@ -105,6 +105,7 @@ def test_scrap_assembly_power():
     for x in range(interface.cycles):
         interface.cycle_dict['step_{}'.format(x)] = {}
         interface.cycle_dict['step_{}'.format(x)]['assemblies'] = {}
+        
     interface.scrap_assembly_power(interface.output[269920:269920+4+7])
     assert interface.cycle_dict['step_0']['assemblies'] == {1902: {'duration': 0.0,
                                                        'time': 0.0,
@@ -122,34 +123,25 @@ def test_get_assembly_parameters():
         interface.cycle_dict['step_{}'.format(x)] = {}
         interface.cycle_dict['step_{}'.format(x)]['assemblies'] = {}
     interface.get_assembly_parameters()
+    assem = interface.cycle_dict['step_0']['assemblies'][122]
     assert interface.cycle_dict['step_0']['assemblies'][122]['power fraction'] == 1.765E-2
-    assert interface.cycle_dict['step_0']['assemblies'][122]['actinide inventory'][92235] == {'mass': 1204, 
-                                                                                              'activity': 0.0,
-                                                                                              'specific activity': 0.0,
-                                                                                              'atom density': 1.429E-3,
-                                                                                              'atom fraction': 3.077E-2,
-                                                                                              'mass fraction': 3.526E-2}
-
+    assert interface.cycle_dict['step_0']['assemblies'][122]['actinide inventory']['mass'][92235] == 1204
     assert interface.cycle_dict['step_0']['assemblies'][1902]['power fraction']== 9.960E-3    
     assert interface.cycle_dict['step_6']['assemblies'][1902]['duration'] == 50.0
     assert interface.cycle_dict['step_6']['assemblies'][1902]['time'] == 300.0
     assert interface.cycle_dict['step_6']['assemblies'][1902]['power fraction'] ==1.027E-2
     assert interface.cycle_dict['step_6']['assemblies'][1902]['burnup'] == 2.961E+1
-    assert interface.cycle_dict['step_6']['assemblies'][1902]['actinide inventory'][92235] == {'mass': 1.059E3,
-                                                                                               'activity': 2.290E-3,
-                                                                                               'specific activity': 2.161E-6,
-                                                                                               'atom density': 1.258E-3,
-                                                                                               'atom fraction': 2.709E-2,
-                                                                                               'mass fraction': 3.148E-2}
-
+    assert interface.cycle_dict['step_6']['assemblies'][1902]['actinide inventory']['mass'][92235] == 1.059E3
+    assert interface.cycle_dict['step_6']['assemblies'][1902]['actinide inventory']['mass fraction'][96244] == 7.470E-10
 def test_scrap_assembly_nuclide_data():
     interface = OI.OutputReader(r'fridge/test_suite/FC_FS65_H75_23Pu4U10Zr_BU.out')
     interface.cycles = 7
     for x in range(interface.cycles):
         interface.cycle_dict['step_{}'.format(x)] = {}
-        interface.cycle_dict['step_{}'.format(x)]['assemblies'] = {122: {}}
-    interface.scrap_assembly_nuclide_data(interface.output[269933:269933+interface.cycles*40])
-    assert interface.cycle_dict['step_0']['assemblies'][122]['actinide inventory'][92235] == {'mass': 1204, 
+        interface.cycle_dict['step_{}'.format(x)]['assemblies'] = {}
+        interface.cycle_dict['step_{}'.format(x)]['assemblies'][122] = {}
+    interface.scrap_assembly_nuclide_data(interface.output[269933:269933+interface.cycles*33], 122)
+    assert interface.cycle_dict['step_0']['assemblies'][122]['actinide inventory'][92235] == {'mass': 1.204E3, 
                                                                                               'activity': 0.0,
                                                                                               'specific activity': 0.0,
                                                                                               'atom density': 1.429E-3,
@@ -167,3 +159,17 @@ def test_scrap_assembly_nuclide_data():
                                                                                               'atom density': 1.153E-3,
                                                                                               'atom fraction': 2.484E-2,
                                                                                               'mass fraction': 2.917E-2}
+
+def test_convert_assembly_params():
+    interface = OI.OutputReader(r'fridge/test_suite/FC_FS65_H75_23Pu4U10Zr_BU.out')
+    interface.cycles = 7
+    for x in range(interface.cycles):
+        interface.cycle_dict['step_{}'.format(x)] = {}
+        interface.cycle_dict['step_{}'.format(x)]['assemblies'] = {}
+        interface.cycle_dict['step_{}'.format(x)]['assemblies'][122] = {}
+
+    interface.scrap_assembly_nuclide_data(interface.output[269933:269933+interface.cycles*33], 122)
+    interface.convert_assembly_params()
+    assert interface.cycle_dict['step_0']['assemblies'][122]['actinide inventory']['mass'][92235] == 1204
+    assert interface.cycle_dict['step_6']['assemblies'][122]['actinide inventory']['mass fraction'][92235] == 2.917E-02
+    print(interface.cycle_dict)

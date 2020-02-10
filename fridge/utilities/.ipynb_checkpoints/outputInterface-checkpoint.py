@@ -64,6 +64,32 @@ class OutputReader(object):
                      'power fraction': float(line_list[4+time_step].split('  ')[5]),
                      'burnup': float(line_list[4+time_step].split('  ')[8]),}
             self.cycle_dict['step_{}'.format(time_step)]['assemblies'][material] = power           
+
+    def scrap_assembly_nuclide_data(self, line_list):
+        temp_dict = {}
+        for line_num, line in enumerate(line_list):
+            if 'nuclide data' in line:
+                material = int(line.split(' ')[10])
+            elif 'actinide inventory' in line:
+                zaid_dict = {}
+                if int(line.split(' ')[5]) != material:
+                    print('Warning: Material in nuclide inventory ({}) does not match mterial from nuclide data ({}). Check to ensure the output file has not been altered in any way.'.format(int(line.split(' ')[5]), material))
+                time_step = int(line.split(' ')[11][:-1]) #-1 drops the comma after step #,
+            else:
+                try:
+                    zaid = int(line.split('  ')[2])
+                    mass = float(line.split('  ')[3])
+                    if mass > 0.0:
+                        zaid_dict[zaid] = {'mass': mass,
+                                           'activity': float(line.split('  ')[4]),
+                                           'specific activity': float(line.split('  ')[5]),
+                                           'atom density': float(line.split('  ')[6]),
+                                           'atom fraction': float(line.split('  ')[7]),
+                                           'mass fraction': float(line.split('  ')[8])}
+                except:
+                    pass
+        self.cycle_dict['step_{}'.format(time_step)]['assemblies'][material]['actinide inventory'] = zaid_dict
+                
         
     def convert_rx_params(self):
         """Convert reactor parameters from dictionary to pandas dataframe"""

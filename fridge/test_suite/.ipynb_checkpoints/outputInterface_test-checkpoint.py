@@ -136,3 +136,17 @@ def test_get_assembly_parameters():
                                                        'time': 300.0,
                                                        'power fraction': 1.027E-2,
                                                        'burnup': 2.961E+1}
+
+def test_scrap_assembly_nuclide_data():
+    interface = OI.OutputReader(r'fridge/test_suite/FC_FS65_H75_23Pu4U10Zr_BU.out')
+    interface.cycles = 7
+    for x in range(interface.cycles):
+        interface.cycle_dict['step_{}'.format(x)] = {}
+        interface.cycle_dict['step_{}'.format(x)]['assemblies'] = {122: {}}
+    interface.scrap_assembly_nuclide_data(interface.output[269933:269973])
+    assert interface.cycle_dict['step_0']['assemblies'][122]['actinide inventory'][92235] == {'mass': 1204, 
+                                                                                              'activity': 0.0,
+                                                                                              'specific activity': 0.0,
+                                                                                              'atom density': 1.429E-3,
+                                                                                              'atom fraction': 3.077E-2,
+                                                                                              'mass fraction': 3.526E-2}

@@ -1,4 +1,3 @@
-import re
 import numpy as np
 import pandas as pd
 from collections import OrderedDict
@@ -8,7 +7,7 @@ class OutputReader(object):
     This class reads in an mcnp output file and parses the appropriate data
     """
     
-    def __init__(self, f):
+    def __init__(self, f, burnup=False):
         """Initialize the OutputReader with the file name, and read in the file"""
         self.file_path = f
         try:
@@ -21,25 +20,9 @@ class OutputReader(object):
         self.output = file.readlines()
         file.close()
         
-        self.burnup = False
+        self.burnup = burnup
         self.cycles = 0
         self.cycle_dict = {}
-        self.assemblies_dict = OrderedDict()
-         
-    def get_global_parameters(self):
-        "Get the global parameters for a specific cycle"
-        current_cycle = 0
-        correct_area = True
-        for line_num, line in enumerate(self.output):
-            if 'Correcter' in line:
-                correct_area = True
-            elif 'Predictor' in line:
-                correct_area = False
-            if 'keff = ' in line and correct_area:
-                self.cycle_dict['step_{}'.format(current_cycle)] = {}
-                self.scrap_rx_params(self.output[line_num:line_num+83], current_cycle)
-                current_cycle += 1
-        self.convert_rx_params()
 
     def get_assembly_parameters(self):
         """Get the assembly specific parametsr (burnup, power fraction, actinide inventory)"""
@@ -57,9 +40,48 @@ class OutputReader(object):
                 break
             elif 'nuclide data are sorted by increasing zaid for material' in line:
                 material = int(self.output[line_num].split(' ')[10])
-                self.scrap_assembly_nuclide_data(self.output[line_num:line_num+self.cycles*60], material) #This is a bit sloppy as it will run into the nonactide inventory data, a better method could be implemented later.
+                self.scrap_assembly_nuclide_data(self.output[line_num:line_num+self.cycles*60], material) 
+                #This is a bit sloppy as it will run into the nonactide inventory data, a better method could be implemented later.
         self.convert_assembly_params()
-                    
+
+    def get_global_parameters(self):
+        "Get the global parameters for a specific cycle"
+        current_step = 0
+        correct_area = True
+        for line_num, line in enumerate(self.output):
+            if 'Correcter' in line:
+                correct_area = True
+            elif 'Predictor' in line:
+                correct_area = False
+            if 'keff = ' in line and correct_area:
+                self.cycle_dict['step_{}'.format(current_step)] = {}
+                self.scrap_rx_params(self.output[line_num:line_num+83], current_step)
+                current_step += 1
+        self.convert_rx_params()
+                        
+    def convert_rx_params(self):
+        """Convert reactor parameters from dictionary to pandas dataframe"""
+        
+        for cycle, rx_params in self.cycle_dict.items():
+            params = rx_params['rx_parameters'] 
+            temp_db = pd.DataFrame.from_dict(params, orient='index')
+            temp_db.T
+            self.cycle_dict[cycle]['rx_parameters'] = temp_db.T
+
+    def convert_assembly_params(self):
+        """Convert assembly parameters from a dictionary to a pandas dataframe"""
+        df = pd.DataFrame
+        for cycle in self.cycle_dict.keys():
+            for material in self.cycle_dict[cycle]['assemblies']:
+                temp_db = pd.DataFrame(self.cycle_dict[cycle]['assemblies'][material]['actinide inventory'])
+                self.cycle_dict[cycle]['assemblies'][material]['actinide inventory'] = temp_db.T       
+
+    def read_input_file(self):
+        """Read in a full input file"""
+        self.get_global_parameters()
+        if self.burnup:
+            self.get_assembly_parameters()
+        
     def scrap_assembly_power(self, line_list):
         temp_dict = {}
         material = int(line_list[0].split(' ')[3])
@@ -94,26 +116,7 @@ class OutputReader(object):
             if 'totals' in line:
                 self.cycle_dict['step_{}'.format(time_step)]['assemblies'][material]['actinide inventory'] = zaid_dict
             elif 'nonactinide' in line:
-                break
-
-    
-    def convert_rx_params(self):
-        """Convert reactor parameters from dictionary to pandas dataframe"""
-        
-        for cycle, rx_params in self.cycle_dict.items():
-            params = rx_params['rx_parameters'] 
-            temp_db = pd.DataFrame.from_dict(params, orient='index')
-            temp_db.T
-            self.cycle_dict[cycle]['rx_parameters'] = temp_db.T
-
-    def convert_assembly_params(self):
-        """Convert assembly parameters from a dictionary to a pandas dataframe"""
-        df = pd.DataFrame
-        for cycle in self.cycle_dict.keys():
-            for material in self.cycle_dict[cycle]['assemblies']:
-                temp_db = pd.DataFrame(self.cycle_dict[cycle]['assemblies'][material]['actinide inventory'])
-                self.cycle_dict[cycle]['assemblies'][material]['actinide inventory'] = temp_db.T       
-        
+                break        
         
     def scrap_rx_params(self, line_list, time_step):
         "Grab all of the global reactor parameters assocaited with an specific time step"
@@ -181,7 +184,6 @@ class OutputReader(object):
         beta = (float(line_list[70].split('   ')[7]),
                 float(line_list[70].split('   ')[9]))
         time_dict['beta'] = beta
-        
         
         precursor = {}
         for num, line in enumerate(line_list[77:83]):

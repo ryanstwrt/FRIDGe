@@ -133,6 +133,7 @@ def test_get_assembly_parameters():
     assert interface.cycle_dict['step_6']['assemblies'][1902]['burnup'] == 2.961E+1
     assert interface.cycle_dict['step_6']['assemblies'][1902]['actinide inventory']['mass'][92235] == 1.059E3
     assert interface.cycle_dict['step_6']['assemblies'][1902]['actinide inventory']['mass fraction'][96244] == 7.470E-10
+    
 def test_scrap_assembly_nuclide_data():
     interface = OI.OutputReader(r'fridge/test_suite/FC_FS65_H75_23Pu4U10Zr_BU.out')
     interface.cycles = 7
@@ -172,4 +173,23 @@ def test_convert_assembly_params():
     interface.convert_assembly_params()
     assert interface.cycle_dict['step_0']['assemblies'][122]['actinide inventory']['mass'][92235] == 1204
     assert interface.cycle_dict['step_6']['assemblies'][122]['actinide inventory']['mass fraction'][92235] == 2.917E-02
-    print(interface.cycle_dict)
+
+def test_read_inputfile():
+    interface = OI.OutputReader(r'fridge/test_suite/FC_FS65_H75_23Pu4U10Zr_BU.out', burnup=True)
+    interface.read_input_file()
+    assert interface.cycle_dict['step_0']['rx_parameters']['keff'][0] == 1.20837
+    assert interface.cycle_dict['step_6']['rx_parameters']['keff'][0] == 1.13466
+    assert interface.cycle_dict['step_0']['rx_parameters']['keff_unc'][0] == 0.00016    
+    assert interface.cycle_dict['step_6']['rx_parameters']['keff_unc'][0] == 0.00014  
+    print(interface.cycle_dict['step_0'].keys())
+    assem_0 = interface.cycle_dict['step_0']['assemblies'][142]
+    assert assem_0['power fraction'] == 1.763E-2
+    assert assem_0['actinide inventory']['mass'][92235] == 1204
+    assert assem_0['actinide inventory']['mass fraction'][92235] == 3.526E-2
+
+    assem_1 = interface.cycle_dict['step_6']['assemblies'][1882]
+    assert assem_1['burnup'] == 3.164E1
+    assert assem_1['actinide inventory']['mass'][92235] == 1.047E3
+    assert assem_1['actinide inventory']['mass fraction'][92235] == 3.116E-2
+    
+    

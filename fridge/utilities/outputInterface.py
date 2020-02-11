@@ -62,12 +62,66 @@ class OutputReader(object):
     def convert_rx_params(self):
         """Convert reactor parameters from dictionary to pandas dataframe"""
         
-        for cycle, rx_params in self.cycle_dict.items():
-            params = rx_params['rx_parameters'] 
-            temp_db = pd.DataFrame.from_dict(params, orient='index')
-            temp_db.T
-            self.cycle_dict[cycle]['rx_parameters'] = temp_db.T
+        for step in self.cycle_dict.keys():
+            df = pd.DataFrame(index=[step])
+            rx = self.cycle_dict[step]['rx_parameters']
+            df['keff'] = rx['keff']
+            df['keff unc'] =  rx['keff_unc']
+            
+            if 'seconds' in rx['prompt_removal_lifetime'][2]:
+                df['prompt removal lifetime'] = rx['prompt_removal_lifetime'][0]
+                df['prompt removal lifetime unc'] = rx['prompt_removal_lifetime'][1]
+            else:
+                print('Warning: Units for prompt removal lifetime not recognized. Create an elif statment to convert units.')
+            if 'mev' in rx['avg_n_lethargy_fission'][1]:
+                df['avg n lethargy fission'] = rx['avg_n_lethargy_fission'][0]
+            else:
+                print('Warning: Units for avg n lethargy fission not recognized. Create an elif statment to convert units.')
+            if 'mev' in rx['avg_n_energy_fission'][1]:
+                df['avg n energy fission'] = rx['avg_n_energy_fission'][0]
+            else:
+                print('Warning: Units for avg n energy fission not recognized. Create an elif statment to convert units.')
+            
+            df['thermal fission frac'] = rx['thermal_fission_frac'] / 100
+            df['epithermal fission frac'] = rx['epithermal_fission_frac'] / 100
+            df['fast fission frac'] = rx['fast_fission_frac'] / 100
+            df['avg n gen per abs fission'] = rx['avg_n_gen_per_abs_fission']
+            df['avg n gen per abs all'] = rx['avg_n_gen_per_abs_all']
+            df['avg n gen per fission'] = rx['avg_n_gen_per_fission']
+            df['lifetime escape'] = rx['lifespan_esc']
+            df['lifetime capture'] = rx['lifespan_capt']
+            df['lifetime fission'] = rx['lifespan_fission']
+            df['lifetime removal'] = rx['lifespan_rem']
+            df['frac escape'] = rx['frac_esc']
+            df['frac capture'] = rx['frac_capt']
+            df['frac fission'] = rx['frac_fission']
+            df['frac removal'] = rx['frac_rem']
 
+            if 'nsec' in rx['generation_time'][2]:
+                df['generation time'] = rx['generation_time'][0] * 10E-9
+                df['generation time unc'] = rx['generation_time'][1] * 10E-9
+            elif 'usec' in rx['generation_time'][2]:
+                df['generation time'] = rx['generation_time'][0] * 10E-6
+                df['generation time unc'] = rx['generation_time'][1] * 10E-6
+            else:
+                print('Warning: Units for generation time not recognized. Create an elif statment to convert units.')
+            
+            if 'nsec' in rx['rossi-alpha'][2]:
+                df['rossi-alpha'] = rx['rossi-alpha'][0] / 10E-9
+                df['rossi-alpha unc'] = rx['rossi-alpha'][1] / 10E-9
+            elif 'usec' in rx['rossi-alpha'][2]:
+                df['rossi-alpha'] = rx['rossi-alpha'][0] / 10E-6
+                df['rossi-alpha unc'] = rx['rossi-alpha'][1] / 10E-6
+            else:
+                print('Warning: Units for rossi-alpha not recognized. Create an elif statment to convert units.')
+            
+            df['beta'] = rx['beta'][0]
+            df['beta unc'] = rx['beta'][1]
+            for k,v in rx['precursors'].items():
+                df['precursor {}'.format(k)] = [v] 
+                
+            self.cycle_dict[step]['rx_parameters'] = df
+                
     def convert_assembly_params(self):
         """Convert assembly parameters from a dictionary to a pandas dataframe"""
         df = pd.DataFrame
@@ -119,33 +173,25 @@ class OutputReader(object):
                 break        
         
     def scrap_rx_params(self, line_list, time_step):
-        "Grab all of the global reactor parameters assocaited with an specific time step"
+        "Grab all of the raw global reactor parameters assocaited with an specific time step"
         temp_dict = {}
         temp_dict[time_step] = {}
         time_dict = temp_dict[time_step]
-        keff = (float(line_list[0].split(' ')[9]), 
-                float(line_list[0].split(' ')[-4]))
-        time_dict['keff'] = keff[0]
-        time_dict['keff_unc'] = keff[1]
+        time_dict['keff'] = float(line_list[0].split(' ')[9])
+        time_dict['keff_unc'] = float(line_list[0].split(' ')[-4])
 
-        prompt_rmvl = (float(line_list[4].split(' ')[10]),
-                       float(line_list[4].split(' ')[-2]), 
-                       line_list[4].split(' ')[11])
-        time_dict['prompt_removal_lifetime'] = prompt_rmvl
+        time_dict['prompt_removal_lifetime'] = (float(line_list[4].split(' ')[10]),
+                                                float(line_list[4].split(' ')[-2]), 
+                                                line_list[4].split(' ')[11])
         
-        avg_n_lethargy_energy_fission = (float(line_list[6].split(' ')[9]), 
-                                         line_list[6].split(' ')[10], 
-                                         float(line_list[7].split(' ')[13]), 
-                                         line_list[7].split(' ')[14])
-        time_dict['avg_n_lethargy_fission'] = (avg_n_lethargy_energy_fission[0], avg_n_lethargy_energy_fission[1])
-        time_dict['avg_n_energy_fission'] = (avg_n_lethargy_energy_fission[2], avg_n_lethargy_energy_fission[3])
+        time_dict['avg_n_lethargy_fission'] = (float(line_list[6].split(' ')[9]), 
+                                               line_list[6].split(' ')[10])
+        time_dict['avg_n_energy_fission'] = (float(line_list[7].split(' ')[13]), 
+                                             line_list[7].split(' ')[14])
         
-        fission_energy_fractions = (float(line_list[10].split('%')[0][-5:]),
-                                    float(line_list[10].split('%')[1][-5:]),
-                                    float(line_list[10].split('%')[2][-5:]))
-        time_dict['thermal_fission_frac'] = fission_energy_fractions[0]
-        time_dict['epithermal_fission_frac'] = fission_energy_fractions[1]
-        time_dict['fast_fission_frac'] = fission_energy_fractions[2]
+        time_dict['thermal_fission_frac'] = float(line_list[10].split('%')[0][-5:])
+        time_dict['epithermal_fission_frac'] = float(line_list[10].split('%')[1][-5:])
+        time_dict['fast_fission_frac'] = float(line_list[10].split('%')[2][-5:])
         
         avg_n_per_absorption_fission = (float(line_list[12].split('=')[1][:13]),
                                         float(line_list[13].split('=')[1][:13]),
@@ -153,41 +199,30 @@ class OutputReader(object):
         time_dict['avg_n_gen_per_abs_fission'] = avg_n_per_absorption_fission[0]
         time_dict['avg_n_gen_per_abs_all'] = avg_n_per_absorption_fission[1]
         time_dict['avg_n_gen_per_fission'] = avg_n_per_absorption_fission[2]
+
+        time_dict['lifespan_esc'] = float(line_list[59].split('   ')[5])
+        time_dict['lifespan_capt'] = float(line_list[59].split('   ')[6])
+        time_dict['lifespan_fission'] = float(line_list[59].split('   ')[7])
+        time_dict['lifespan_rem'] = float(line_list[59].split('   ')[8])
+        time_dict['frac_esc'] = float(line_list[60].split('   ')[5])
+        time_dict['frac_capt'] = float(line_list[60].split('   ')[6])
+        time_dict['frac_fission'] = float(line_list[60].split('   ')[7])
+        time_dict['frac_rem'] = float(line_list[60].split('   ')[8])
+
+        time_dict['generation_time'] = (float(line_list[68].split('   ')[5]),
+                                        float(line_list[68].split('   ')[7]),
+                                        line_list[68].split('   ')[8])
+
+        time_dict['rossi-alpha'] = (float(line_list[69].split('   ')[4]),
+                                    float(line_list[69].split('   ')[5]),
+                                    line_list[69].split('   ')[6])
         
-        prompt_lifespan_fraction = (float(line_list[59].split('   ')[5]),
-                                      float(line_list[59].split('   ')[6]),
-                                      float(line_list[59].split('   ')[7]),
-                                      float(line_list[59].split('   ')[8]),
-                                     float(line_list[60].split('   ')[5]),
-                                      float(line_list[60].split('   ')[6]),
-                                      float(line_list[60].split('   ')[7]),
-                                      float(line_list[60].split('   ')[8]))
-        time_dict['lifespan_esc'] = prompt_lifespan_fraction[0]
-        time_dict['lifespan_capt'] = prompt_lifespan_fraction[1]
-        time_dict['lifespan_fission'] = prompt_lifespan_fraction[2]
-        time_dict['lifespan_rem'] = prompt_lifespan_fraction[3]
-        time_dict['frac_esc'] = prompt_lifespan_fraction[4]
-        time_dict['frac_capt'] = prompt_lifespan_fraction[5]
-        time_dict['frac_fission'] = prompt_lifespan_fraction[6]
-        time_dict['frac_rem'] = prompt_lifespan_fraction[7]
-        
-        gen_time = (float(line_list[68].split('   ')[5]),
-                     float(line_list[68].split('   ')[7]),
-                     line_list[68].split('   ')[8])
-        time_dict['generation_time'] = gen_time
-        
-        rossi_alpha = (float(line_list[69].split('   ')[4]),
-                      float(line_list[69].split('   ')[5]),
-                      line_list[69].split('   ')[6])
-        time_dict['rossi-alpha'] = rossi_alpha
-        
-        beta = (float(line_list[70].split('   ')[7]),
-                float(line_list[70].split('   ')[9]))
-        time_dict['beta'] = beta
+        time_dict['beta'] = (float(line_list[70].split('   ')[7]),
+                             float(line_list[70].split('   ')[9]))
         
         precursor = {}
         for num, line in enumerate(line_list[77:83]):
-            precursor[num+1] = ({'beta-eff': float(line.split('     ')[3]),
+            precursor[num+1] = {'beta-eff': float(line.split('     ')[3]),
                                  'beta-eff_unc': float(line.split('     ')[4]),
                                  'energy': float(line.split('     ')[5]),
                                  'energy_unc': float(line.split('     ')[6]),
@@ -196,7 +231,7 @@ class OutputReader(object):
                                  'lambda-i_unc': float(line.split('     ')[8]),
                                  'lambda-i_units': '(/sec)',
                                  'half-life': float(line.split('     ')[9]),
-                                 'half-life_units': '(sec)'})
+                                 'half-life_units': '(sec)'}
         time_dict['precursors'] = precursor
 
         self.cycle_dict['step_{}'.format(time_step)]['rx_parameters'] = time_dict

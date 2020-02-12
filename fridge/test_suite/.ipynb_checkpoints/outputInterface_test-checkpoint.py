@@ -45,12 +45,12 @@ def test_convert_rx_params():
     assert step_0['rossi-alpha unc'][0] == 3.76984E-07/10E-9
     assert step_0['beta'][0] == 0.00355
     assert step_0['beta unc'][0] == 0.00015
-    assert step_0['precursor 1'][0] == {'beta-eff': 0.00011, 'beta-eff_unc': 0.00002, 'energy': 0.41927, 'energy_unc': 0.00198, 'energy_units': 'MeV', 'lambda-i': 0.01334, 'lambda-i_unc': 0.00000, 'lambda-i_units': '(/sec)', 'half-life': 51.95717, 'half-life_units': '(sec)'}
-    assert step_0['precursor 2'][0] == {'beta-eff': 0.00065, 'beta-eff_unc': 0.00006, 'energy': 0.51754, 'energy_unc': 0.00079, 'energy_units': 'MeV', 'lambda-i': 0.03129, 'lambda-i_unc': 0.00000, 'lambda-i_units': '(/sec)', 'half-life': 22.14974, 'half-life_units': '(sec)'}
-    assert step_0['precursor 3'][0] == {'beta-eff': 0.00064, 'beta-eff_unc': 0.00007, 'energy': 0.42396, 'energy_unc': 0.00081, 'energy_units': 'MeV', 'lambda-i': 0.11741, 'lambda-i_unc': 0.00001,  'lambda-i_units': '(/sec)', 'half-life': 5.90386, 'half-life_units': '(sec)'}
-    assert step_0['precursor 4'][0] == {'beta-eff': 0.00134, 'beta-eff_unc': 0.00010, 'energy': 0.53274, 'energy_unc': 0.00073, 'energy_units': 'MeV', 'lambda-i': 0.30523, 'lambda-i_unc': 0.00002,  'lambda-i_units': '(/sec)', 'half-life': 2.27088, 'half-life_units': '(sec)'}
-    assert step_0['precursor 5'][0] == {'beta-eff': 0.00060, 'beta-eff_unc': 0.00006, 'energy': 0.49371, 'energy_unc': 0.00101, 'energy_units': 'MeV', 'lambda-i': 0.87600, 'lambda-i_unc': 0.00006,  'lambda-i_units': '(/sec)', 'half-life': 0.79126, 'half-life_units': '(sec)'}
-    assert step_0['precursor 6'][0] == {'beta-eff': 0.00020, 'beta-eff_unc': 0.00004, 'energy': 0.53827, 'energy_unc': 0.00194, 'energy_units': 'MeV', 'lambda-i': 2.90154, 'lambda-i_unc': 0.00056,  'lambda-i_units': '(/sec)', 'half-life': 0.23889, 'half-life_units': '(sec)'}
+    assert step_0['precursor 1'][0] == {'beta-eff': 0.00011, 'beta-eff unc': 0.00002, 'energy': 0.41927, 'energy unc': 0.00198, 'energy_units': 'MeV', 'lambda-i': 0.01334, 'lambda-i unc': 0.00000, 'lambda-i_units': '(/sec)', 'half-life': 51.95717, 'half-life_units': '(sec)'}
+    assert step_0['precursor 2'][0] == {'beta-eff': 0.00065, 'beta-eff unc': 0.00006, 'energy': 0.51754, 'energy unc': 0.00079, 'energy_units': 'MeV', 'lambda-i': 0.03129, 'lambda-i unc': 0.00000, 'lambda-i_units': '(/sec)', 'half-life': 22.14974, 'half-life_units': '(sec)'}
+    assert step_0['precursor 3'][0] == {'beta-eff': 0.00064, 'beta-eff unc': 0.00007, 'energy': 0.42396, 'energy unc': 0.00081, 'energy_units': 'MeV', 'lambda-i': 0.11741, 'lambda-i unc': 0.00001,  'lambda-i_units': '(/sec)', 'half-life': 5.90386, 'half-life_units': '(sec)'}
+    assert step_0['precursor 4'][0] == {'beta-eff': 0.00134, 'beta-eff unc': 0.00010, 'energy': 0.53274, 'energy unc': 0.00073, 'energy_units': 'MeV', 'lambda-i': 0.30523, 'lambda-i unc': 0.00002,  'lambda-i_units': '(/sec)', 'half-life': 2.27088, 'half-life_units': '(sec)'}
+    assert step_0['precursor 5'][0] == {'beta-eff': 0.00060, 'beta-eff unc': 0.00006, 'energy': 0.49371, 'energy unc': 0.00101, 'energy_units': 'MeV', 'lambda-i': 0.87600, 'lambda-i unc': 0.00006,  'lambda-i_units': '(/sec)', 'half-life': 0.79126, 'half-life_units': '(sec)'}
+    assert step_0['precursor 6'][0] == {'beta-eff': 0.00020, 'beta-eff unc': 0.00004, 'energy': 0.53827, 'energy unc': 0.00194, 'energy_units': 'MeV', 'lambda-i': 2.90154, 'lambda-i unc': 0.00056,  'lambda-i_units': '(/sec)', 'half-life': 0.23889, 'half-life_units': '(sec)'}
 
     
 def test_scrap_rx_params():
@@ -83,12 +83,12 @@ def test_scrap_rx_params():
     assert step_0['generation_time'] == (421.27908, 5.11714, ' (nsec)\n')
     assert step_0['rossi-alpha'] == (-8.41612E-06, 3.76984E-07, ' (/nsec)\n')
     assert step_0['beta'] == (0.00355, 0.00015)
-    assert step_0['precursors'] == {1: {'beta-eff': 0.00011, 'beta-eff_unc': 0.00002, 'energy': 0.41927, 'energy_unc': 0.00198, 'energy_units': 'MeV', 'lambda-i': 0.01334, 'lambda-i_unc': 0.00000, 'lambda-i_units': '(/sec)', 'half-life': 51.95717, 'half-life_units': '(sec)'},
-                                    2: {'beta-eff': 0.00065, 'beta-eff_unc': 0.00006, 'energy': 0.51754, 'energy_unc': 0.00079, 'energy_units': 'MeV', 'lambda-i': 0.03129, 'lambda-i_unc': 0.00000, 'lambda-i_units': '(/sec)', 'half-life': 22.14974, 'half-life_units': '(sec)'},
-                                    3: {'beta-eff': 0.00064, 'beta-eff_unc': 0.00007, 'energy': 0.42396, 'energy_unc': 0.00081, 'energy_units': 'MeV', 'lambda-i': 0.11741, 'lambda-i_unc': 0.00001,  'lambda-i_units': '(/sec)', 'half-life': 5.90386, 'half-life_units': '(sec)'},
-                                    4: {'beta-eff': 0.00134, 'beta-eff_unc': 0.00010, 'energy': 0.53274, 'energy_unc': 0.00073, 'energy_units': 'MeV', 'lambda-i': 0.30523, 'lambda-i_unc': 0.00002,  'lambda-i_units': '(/sec)', 'half-life': 2.27088, 'half-life_units': '(sec)'},
-                                    5: {'beta-eff': 0.00060, 'beta-eff_unc': 0.00006, 'energy': 0.49371, 'energy_unc': 0.00101, 'energy_units': 'MeV', 'lambda-i': 0.87600, 'lambda-i_unc': 0.00006,  'lambda-i_units': '(/sec)', 'half-life': 0.79126, 'half-life_units': '(sec)'},
-                                    6: {'beta-eff': 0.00020, 'beta-eff_unc': 0.00004, 'energy': 0.53827, 'energy_unc': 0.00194, 'energy_units': 'MeV', 'lambda-i': 2.90154, 'lambda-i_unc': 0.00056,  'lambda-i_units': '(/sec)', 'half-life': 0.23889, 'half-life_units': '(sec)'}}
+    assert step_0['precursors'] == {1: {'beta-eff': 0.00011, 'beta-eff unc': 0.00002, 'energy': 0.41927, 'energy unc': 0.00198, 'energy_units': 'MeV', 'lambda-i': 0.01334, 'lambda-i unc': 0.00000, 'lambda-i_units': '(/sec)', 'half-life': 51.95717, 'half-life_units': '(sec)'},
+                                    2: {'beta-eff': 0.00065, 'beta-eff unc': 0.00006, 'energy': 0.51754, 'energy unc': 0.00079, 'energy_units': 'MeV', 'lambda-i': 0.03129, 'lambda-i unc': 0.00000, 'lambda-i_units': '(/sec)', 'half-life': 22.14974, 'half-life_units': '(sec)'},
+                                    3: {'beta-eff': 0.00064, 'beta-eff unc': 0.00007, 'energy': 0.42396, 'energy unc': 0.00081, 'energy_units': 'MeV', 'lambda-i': 0.11741, 'lambda-i unc': 0.00001,  'lambda-i_units': '(/sec)', 'half-life': 5.90386, 'half-life_units': '(sec)'},
+                                    4: {'beta-eff': 0.00134, 'beta-eff unc': 0.00010, 'energy': 0.53274, 'energy unc': 0.00073, 'energy_units': 'MeV', 'lambda-i': 0.30523, 'lambda-i unc': 0.00002,  'lambda-i_units': '(/sec)', 'half-life': 2.27088, 'half-life_units': '(sec)'},
+                                    5: {'beta-eff': 0.00060, 'beta-eff unc': 0.00006, 'energy': 0.49371, 'energy unc': 0.00101, 'energy_units': 'MeV', 'lambda-i': 0.87600, 'lambda-i unc': 0.00006,  'lambda-i_units': '(/sec)', 'half-life': 0.79126, 'half-life_units': '(sec)'},
+                                    6: {'beta-eff': 0.00020, 'beta-eff unc': 0.00004, 'energy': 0.53827, 'energy unc': 0.00194, 'energy_units': 'MeV', 'lambda-i': 2.90154, 'lambda-i unc': 0.00056,  'lambda-i_units': '(/sec)', 'half-life': 0.23889, 'half-life_units': '(sec)'}}
 
 def test_get_global_parameters():
     interface = OI.OutputReader(r'fridge/test_suite/FC_FS65_H75_23Pu4U10Zr_BU.out')
@@ -101,7 +101,6 @@ def test_get_global_parameters():
     assert interface.cycle_dict['step_4']['rx_parameters']['keff'][0] == 1.15918
     assert interface.cycle_dict['step_5']['rx_parameters']['keff'][0] == 1.14671
     assert interface.cycle_dict['step_6']['rx_parameters']['keff'][0] == 1.13466
-    
     
 def test_scrap_assembly_power():
     interface = OI.OutputReader(r'fridge/test_suite/FC_FS65_H75_23Pu4U10Zr_BU.out')

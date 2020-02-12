@@ -223,19 +223,15 @@ class OutputReader(object):
         precursor = {}
         for num, line in enumerate(line_list[77:83]):
             precursor[num+1] = {'beta-eff': float(line.split('     ')[3]),
-                                 'beta-eff_unc': float(line.split('     ')[4]),
+                                 'beta-eff unc': float(line.split('     ')[4]),
                                  'energy': float(line.split('     ')[5]),
-                                 'energy_unc': float(line.split('     ')[6]),
+                                 'energy unc': float(line.split('     ')[6]),
                                  'energy_units': 'MeV',
                                  'lambda-i': float(line.split('     ')[7]),
-                                 'lambda-i_unc': float(line.split('     ')[8]),
+                                 'lambda-i unc': float(line.split('     ')[8]),
                                  'lambda-i_units': '(/sec)',
                                  'half-life': float(line.split('     ')[9]),
                                  'half-life_units': '(sec)'}
         time_dict['precursors'] = precursor
 
         self.cycle_dict['step_{}'.format(time_step)]['rx_parameters'] = time_dict
-                
-        
-
-        

@@ -1,50 +1,81 @@
 import h5py
 import numpy as np
 import fridge.utilities.outputInterface as OI
-import os
 
 class h5Interface(object):
     
-    def __init__(self, output_name='test'):
+    def __init__(self, output_name='SFR_DB'):
         self.mcnp_file_name = None
         self.core_name = None
         self.params = None
         self.h5File = None
         self.outputInterface = None
         self.assembly_ind_vars = None
+        self.output_name = output_name
         self.dt_str = h5py.string_dtype(encoding='utf-8')
-    
-    def create_h5(self, file_name, path=None):
-        """Create an H5 datafile from an outputInterface class"""
+
+    def add_reactor(self, file_name, path=''):
+        """Add a reactor to the database"""
+        self.path = path
         self.mcnp_file_name = file_name
-        self.params = file_name.split('_')[1:]
-        self.core_name = '_'.join(self.params)
-        self.h5file = h5py.File(self.core_name + '.h5', 'w')
+        self.params = file_name.split('_')[1:]        
+        self.get_core_name()
         self.get_reactor_ind_vars()
-        
+
         bu = True if self.assembly_ind_vars['condition'] == b'BU' else False
-        self.outputInterface = OI.OutputReader('{}{}.out'.format(path,self.mcnp_file_name), burnup=bu)
-        self.outputInterface.read_input_file()
+        self.get_outputInterface(bu=bu)
         
-        self.h5file.create_group(self.core_name)
-        self.h5file[self.core_name].create_group('independent variables')
-        for k,v in self.assembly_ind_vars.items():
-            self.h5file[self.core_name]['independent variables'][k] = [v]
+        if self.base_core not in self.h5file.keys():
+            self.initialize_reactor_entry()
+        else:
+            self.h5file[self.base_core].create_group(self.core_name)
             
+        self.fill_reactor_entry()
+
+    def get_core_name(self):
+        if len(self.params) == 4:
+            self.base_core = '_'.join(self.params[:-1])
+        else:
+            self.base_core = '_'.join(self.params)
+        self.core_name = '_'.join(self.params)
+    
+    def create_h5(self):
+        """Create an H5 database"""
+        self.h5file = h5py.File(self.output_name + '.h5', 'w')
+
+            
+    def get_outputInterface(self, bu=False):
+        self.outputInterface = OI.OutputReader('{}{}.out'.format(self.path,self.mcnp_file_name), burnup=bu)
+        self.outputInterface.read_input_file()        
+        
+
+    def initialize_reactor_entry(self):
+        """If the reactor is new, create an entry for it in the database"""
+        self.h5file.create_group(self.base_core)
+        self.h5file[self.base_core].create_group(self.core_name)
+        self.h5file[self.base_core].create_group('independent variables')
+        for k,v in self.assembly_ind_vars.items():
+            self.h5file[self.base_core]['independent variables'][k] = [v]
+
+    def fill_reactor_entry(self):
+        """Given the information from the outputInterface, fill the database entry"""
+        
         for step, params in  self.outputInterface.cycle_dict.items():
-            self.h5file[self.core_name].create_group(step)
-            self.h5file[self.core_name][step].create_group('rx_parameters')
-            self.h5file[self.core_name][step].create_group('assemblies')
+            self.h5file[self.base_core][self.core_name].create_group(step)
+            self.h5file[self.base_core][self.core_name][step].create_group('rx_parameters')
+            self.h5file[self.base_core][self.core_name][step].create_group('assemblies')
             for k, v in params.items():
                 if k == 'rx_parameters':
                     self.convert_rx_parameters(v, step)
                 elif k == 'assemblies':
                     self.convert_assembly_parameters(v, step)
-
+        
+        
+                    
     def convert_assembly_parameters(self, params, step):
         """Write the assembly paramaters for each time step in a burnup
         TODO: Find a way to incorporate attributes"""
-        core_group = self.h5file[self.core_name][step]['assemblies']
+        core_group = self.h5file[self.base_core][self.core_name][step]['assemblies']
         for k,v in params.items():
             str_a = str(k)
             core_group.create_group(str_a)
@@ -58,7 +89,7 @@ class h5Interface(object):
                     
     def convert_rx_parameters(self, params, step):
         """Write the reactor parameters for each step."""
-        core_group = self.h5file[self.core_name][step]['rx_parameters']
+        core_group = self.h5file[self.base_core][self.core_name][step]['rx_parameters']
         for k,v in params.items():
             if 'precursor' in k:
                 core_group.create_group(k)
@@ -77,6 +108,7 @@ class h5Interface(object):
     
     def get_reactor_ind_vars(self):
         """Baed on the file name, glean information on the core design"""
+        condition = ''
         for params in self.params:
             if 'FS' in params:
                 smear = float(params[2:])

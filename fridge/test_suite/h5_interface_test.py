@@ -13,25 +13,44 @@ def test_init():
     assert I.assembly_ind_vars == None
     assert I.dt_str == h5py.string_dtype(encoding='utf-8')
 
+def test_get_core_name():
+    I = h5I.h5Interface()
+    I.params = ['FS65','H75','23Pu4U10Zr','BU']
+    I.get_core_name()
+    assert I.base_core == 'FS65_H75_23Pu4U10Zr'
+    assert I.core_name == 'FS65_H75_23Pu4U10Zr_BU'
+
 def test_create_h5():
     I = h5I.h5Interface()
-    I.create_h5(r'FC_FS65_H75_23Pu4U10Zr_BU',path=r'fridge/test_suite/')    
+    I.create_h5()
+    assert os.path.exists('SFR_DB.h5') == True
+
+def test_get_outputInterface():
+    I = h5I.h5Interface()
+    I.path = r'fridge/test_suite/'
+    I.mcnp_file_name = 'FC_FS65_H75_23Pu4U10Zr_BU'
+    I.get_outputInterface()
+    assert 1 ==1 
+    
+def test_add_reactor():
+    I = h5I.h5Interface()
+    I.create_h5()
+    I.add_reactor(r'FC_FS65_H75_23Pu4U10Zr_BU',path=r'fridge/test_suite/')    
     assert I.mcnp_file_name == 'FC_FS65_H75_23Pu4U10Zr_BU'
     assert I.core_name == 'FS65_H75_23Pu4U10Zr_BU'
-    for k in I.h5file.keys():
-        assert  k == 'FS65_H75_23Pu4U10Zr_BU'
+    assert 'FS65_H75_23Pu4U10Zr_BU' in I.h5file['FS65_H75_23Pu4U10Zr'].keys()
+    assert 'independent variables' in I.h5file['FS65_H75_23Pu4U10Zr'].keys()
     for i in [1,2,3,4,5,6]:
-        assert 'step_{}'.format(i) in I.h5file['FS65_H75_23Pu4U10Zr_BU'].keys()
+        assert 'step_{}'.format(i) in I.h5file['FS65_H75_23Pu4U10Zr']['FS65_H75_23Pu4U10Zr_BU'].keys()
  
-    assert 'independent variables' in I.h5file['FS65_H75_23Pu4U10Zr_BU'].keys()
-    ind_var =  I.h5file['FS65_H75_23Pu4U10Zr_BU']['independent variables']
+    ind_var =  I.h5file['FS65_H75_23Pu4U10Zr']['independent variables']
     assert ind_var['smear'][0] == 65
     assert ind_var['height'][0] == 75
     assert ind_var['pu_content'][0] == 23
     assert ind_var['u_content'][0] == 4
     assert ind_var['condition'][0] == b'BU'
 
-    step_0 = I.h5file['FS65_H75_23Pu4U10Zr_BU']['step_6']['rx_parameters']
+    step_0 = I.h5file['FS65_H75_23Pu4U10Zr']['FS65_H75_23Pu4U10Zr_BU']['step_6']['rx_parameters']
     assert step_0['keff'][0] == 1.13466
     assert step_0['keff unc'][0] == 0.00014
     assert step_0['prompt removal lifetime'][0] == 4.1290E-06
@@ -67,13 +86,13 @@ def test_create_h5():
     assert step_0['precursor 1']['lambda-i unc'][0] == 0.00000
     assert step_0['precursor 1']['half-life'][0] == 51.95717
 
-    assem_0 = I.h5file['FS65_H75_23Pu4U10Zr_BU']['step_6']['assemblies']['142']
+    assem_0 = I.h5file['FS65_H75_23Pu4U10Zr']['FS65_H75_23Pu4U10Zr_BU']['step_6']['assemblies']['142']
     assert assem_0['power fraction'][0] == 1.682E-2
     assert assem_0['burnup'][0] == 5.066E+1
     assert assem_0['actinide inventory']['92235'][0] == 9.714E2
     assert assem_0['actinide inventory']['92235'][-1] == 2.917E-2
 
-    assem_1 = I.h5file['FS65_H75_23Pu4U10Zr_BU']['step_6']['assemblies']['1882']
+    assem_1 = I.h5file['FS65_H75_23Pu4U10Zr']['FS65_H75_23Pu4U10Zr_BU']['step_6']['assemblies']['1882']
     assert assem_1['power fraction'][0] == 1.094E-2
     assert assem_1['burnup'][0] == 3.164E1
     assert assem_1['actinide inventory']['92235'][0] == 1.047E3
@@ -94,18 +113,21 @@ def test_convert_rx_parameters():
     I.mcnp_file_name = 'FC_FS65_H75_23Pu4U10Zr_BU'
     I.params = I.mcnp_file_name.split('_')[1:]
     I.core_name = '_'.join(I.params)
+    I.base_core = '_'.join(I.params)
     I.h5file = h5py.File(I.core_name + '.h5', 'w')
     I.outputInterface = OI.OutputReader('fridge/test_suite/{}.out'.format(I.mcnp_file_name), burnup=True)
     I.outputInterface.read_input_file()
     I.h5file.create_group(I.core_name)
-    I.h5file[I.core_name].create_group('step_6')
-    I.h5file[I.core_name]['step_6'].create_group('rx_parameters')
-    I.h5file[I.core_name]['step_6'].create_group('assemblies')
+    I.h5file[I.core_name].create_group(I.core_name)
+    I.h5file[I.core_name][I.core_name].create_group('step_6')
+    I.h5file[I.core_name][I.core_name]['step_6'].create_group('rx_parameters')
+    I.h5file[I.core_name][I.core_name]['step_6'].create_group('assemblies')
+
     params = I.outputInterface.cycle_dict['step_6']
     for k,v in params.items():
         if k == 'rx_parameters':
             I.convert_rx_parameters(v, 'step_6')
-    step_0 = I.h5file['FS65_H75_23Pu4U10Zr_BU']['step_6']['rx_parameters']
+    step_0 = I.h5file['FS65_H75_23Pu4U10Zr_BU']['FS65_H75_23Pu4U10Zr_BU']['step_6']['rx_parameters']
     assert step_0['keff'][0] == 1.13466
     assert step_0['keff unc'][0] == 0.00014
     assert step_0['prompt removal lifetime'][0] == 4.1290E-06
@@ -146,24 +168,26 @@ def test_convert_assembly_parameters():
     I.mcnp_file_name = 'FC_FS65_H75_23Pu4U10Zr_BU'
     I.params = I.mcnp_file_name.split('_')[1:]
     I.core_name = '_'.join(I.params)
+    I.base_core = '_'.join(I.params)
     I.h5file = h5py.File(I.core_name + '.h5', 'w')
     I.outputInterface = OI.OutputReader('fridge/test_suite/{}.out'.format(I.mcnp_file_name), burnup=True)
     I.outputInterface.read_input_file()
     I.h5file.create_group(I.core_name)
-    I.h5file[I.core_name].create_group('step_6')
-    I.h5file[I.core_name]['step_6'].create_group('rx_parameters')
-    I.h5file[I.core_name]['step_6'].create_group('assemblies')
+    I.h5file[I.core_name].create_group(I.core_name)
+    I.h5file[I.core_name][I.core_name].create_group('step_6')
+    I.h5file[I.core_name][I.core_name]['step_6'].create_group('rx_parameters')
+    I.h5file[I.core_name][I.core_name]['step_6'].create_group('assemblies')
     params = I.outputInterface.cycle_dict['step_6']
     for k,v in params.items():
         if k == 'assemblies':
             I.convert_assembly_parameters(v, 'step_6')
-    assem_0 = I.h5file['FS65_H75_23Pu4U10Zr_BU']['step_6']['assemblies']['142']
+    assem_0 = I.h5file['FS65_H75_23Pu4U10Zr_BU']['FS65_H75_23Pu4U10Zr_BU']['step_6']['assemblies']['142']
     assert assem_0['power fraction'][0] == 1.682E-2
     assert assem_0['burnup'][0] == 5.066E+1
     assert assem_0['actinide inventory']['92235'][0] == 9.714E2
     assert assem_0['actinide inventory']['92235'][-1] == 2.917E-2
 
-    assem_1 = I.h5file['FS65_H75_23Pu4U10Zr_BU']['step_6']['assemblies']['1882']
+    assem_1 = I.h5file['FS65_H75_23Pu4U10Zr_BU']['FS65_H75_23Pu4U10Zr_BU']['step_6']['assemblies']['1882']
     assert assem_1['power fraction'][0] == 1.094E-2
     assert assem_1['burnup'][0] == 3.164E1
     assert assem_1['actinide inventory']['92235'][0] == 1.047E3

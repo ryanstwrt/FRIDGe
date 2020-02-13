@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-from collections import OrderedDict
 
 class OutputReader(object):
     """
@@ -13,8 +12,7 @@ class OutputReader(object):
         try:
             file = open(f, 'r')
         except FileNotFoundError:
-            print("Error: File {} does not exist. Enter a valid path name".format(f))
-            exit()
+            raise NameError("File {} does not exist. Enter a valid path name".format(f))
         split_f = f.split('/')[-1]
         self.core_name = split_f.split('.')[0]
         self.output = file.readlines()

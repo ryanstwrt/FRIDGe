@@ -27,16 +27,16 @@ def test_create_h5():
 
 def test_get_outputInterface():
     I = h5I.h5Interface()
-    I.path = r'fridge/test_suite/'
-    I.mcnp_file_name = 'FC_FS65_H75_23Pu4U10Zr_BU'
+    I.path = r'fridge/test_suite'
+    I.mcnp_file_name = 'FC_FS65_H75_23Pu4U10Zr_BU.out'
     I.get_outputInterface()
     assert 1 ==1 
     
 def test_add_reactor():
     I = h5I.h5Interface()
     I.create_h5()
-    I.add_reactor(r'FC_FS65_H75_23Pu4U10Zr_BU',path=r'fridge/test_suite/')    
-    assert I.mcnp_file_name == 'FC_FS65_H75_23Pu4U10Zr_BU'
+    I.add_reactor(r'FC_FS65_H75_23Pu4U10Zr_BU.out',path=r'fridge/test_suite')    
+    assert I.mcnp_file_name == 'FC_FS65_H75_23Pu4U10Zr_BU.out'
     assert I.core_name == 'FS65_H75_23Pu4U10Zr_BU'
     assert 'FS65_H75_23Pu4U10Zr_BU' in I.h5file['FS65_H75_23Pu4U10Zr'].keys()
     assert 'independent variables' in I.h5file['FS65_H75_23Pu4U10Zr'].keys()
@@ -46,8 +46,8 @@ def test_add_reactor():
     ind_var =  I.h5file['FS65_H75_23Pu4U10Zr']['independent variables']
     assert ind_var['smear'][0] == 65
     assert ind_var['height'][0] == 75
-    assert ind_var['pu_content'][0] == 23
-    assert ind_var['u_content'][0] == 4
+    assert ind_var['pu_content'][0] == 0.875
+    assert ind_var['u_content'][0] == (1-0.875)
     assert ind_var['condition'][0] == b'BU'
 
     step_0 = I.h5file['FS65_H75_23Pu4U10Zr']['FS65_H75_23Pu4U10Zr_BU']['step_6']['rx_parameters']
@@ -104,8 +104,8 @@ def test_get_reactor_ind_vars():
     I.get_reactor_ind_vars()
     assert I.assembly_ind_vars == {'smear': 65,
                                  'height': 75,
-                                 'pu_content': 23,
-                                 'u_content': 4,
+                                 'pu_content': 0.874,
+                                 'u_content': (1-0.875),
                                  'condition': b'BU'}
 
 def test_convert_rx_parameters():
@@ -192,4 +192,17 @@ def test_convert_assembly_parameters():
     assert assem_1['burnup'][0] == 3.164E1
     assert assem_1['actinide inventory']['92235'][0] == 1.047E3
     assert assem_1['actinide inventory']['92235'][-1] == 3.116E-2
+    
+def test_create_database():
+    h5_interface = h5I.h5Interface(output_name='test')
+    h5_interface.create_h5()
+    for root, dirs, files in os.walk('fridge/test_suite'):
+        for file in files:
+            if '.out' in file and 'checkpoint' not in file:
+                try:
+                    h5_interface.add_reactor(file, path=root)  
+                except ValueError:
+                    pass
+    assem_1 = h5_interface.h5file['FS65_H75_23Pu4U10Zr']['FS65_H75_23Pu4U10Zr_BU']['step_6']['assemblies']['1882']
+    assert assem_1['power fraction'][0] == 1.094E-2
     

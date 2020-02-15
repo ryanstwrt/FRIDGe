@@ -207,9 +207,15 @@ class OutputReader(object):
         time_dict['frac_fission'] = float(line_list[60].split('   ')[7])
         time_dict['frac_rem'] = float(line_list[60].split('   ')[8])
 
-        time_dict['generation_time'] = (float(line_list[68].split('   ')[5]),
-                                        float(line_list[68].split('   ')[7]),
-                                        line_list[68].split('   ')[8])
+        try:
+            time_dict['generation_time'] = (float(line_list[68].split('   ')[5]),
+                                            float(line_list[68].split('   ')[7]),
+                                            line_list[68].split('   ')[8])
+        except ValueError:
+            time_dict['generation_time'] = (float(line_list[68].split('   ')[6]),
+                                            float(line_list[68].split('   ')[8]),
+                                            line_list[68].split('   ')[9])
+            
 
         time_dict['rossi-alpha'] = (float(line_list[69].split('   ')[4]),
                                     float(line_list[69].split('   ')[5]),

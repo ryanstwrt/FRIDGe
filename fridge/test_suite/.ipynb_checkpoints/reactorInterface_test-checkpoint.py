@@ -47,3 +47,7 @@ def test_get_peak_to_avg():
     assert (peak_power[0], round(peak_power[1],4)) == ('122', round((0.01684/0.012987),4))
     peak_bu = rx.get_peak_to_average('step_6', 'burnup')
     assert (peak_bu[0], round(peak_bu[1],4)) == ('222', round((50.70/38.055),4))
+
+def test_get_Reactivity_swing():
+    rx_swing = rx.get_reactivity_swing('step_0', 'step_6')
+    assert round(rx_swing,2) == 5376.02

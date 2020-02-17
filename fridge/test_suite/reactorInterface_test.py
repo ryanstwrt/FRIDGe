@@ -19,7 +19,10 @@ def test_init():
     assert rx.rx_name == 'FS65_H75_23Pu4U10Zr'
     for step, assem_step in zip(['step_0','step_1','step_2','step_3','step_4','step_5','step_6'], rx.assemblies.keys()):
         assert step == assem_step
-
+    assert rx.rx_base == h5_interface.h5file['FS65_H75_23Pu4U10Zr']['FS65_H75_23Pu4U10Zr']['step_0']['rx_parameters']
+    assert rx.rx_void == h5_interface.h5file['FS65_H75_23Pu4U10Zr']['FS65_H75_23Pu4U10Zr_Void']['step_0']['rx_parameters']
+    assert rx.rx_temp == h5_interface.h5file['FS65_H75_23Pu4U10Zr']['FS65_H75_23Pu4U10Zr_600K']['step_0']['rx_parameters']
+        
 def test_get_assem_avg():
     avg_pow = rx.get_assembly_average('step_6', 'power fraction')
     assert round(avg_pow, 6) == 0.012987
@@ -48,6 +51,16 @@ def test_get_peak_to_avg():
     peak_bu = rx.get_peak_to_average('step_6', 'burnup')
     assert (peak_bu[0], round(peak_bu[1],4)) == ('222', round((50.70/38.055),4))
 
-def test_get_Reactivity_swing():
+def test_get_reactivity_swing():
     rx_swing = rx.get_reactivity_swing('step_0', 'step_6')
     assert round(rx_swing, 2) == 5376.02
+
+def test_get_doppler_coefficient():
+    dopp = rx.get_doppler_coefficient()
+    print(rx.rx_base['keff'][0], rx.rx_temp['keff'][0])
+    assert round(dopp,4) == round(-0.45121,4)
+
+def test_get_void_coefficient():
+    void = rx.get_void_coefficient()
+    print(rx.rx_base['keff'][0], rx.rx_void['keff'][0])
+    assert round(void,2) == -60.34

@@ -24,13 +24,15 @@ def test_create_h5():
     I = h5I.h5Interface()
     I.create_h5()
     assert os.path.exists('SFR_DB.h5') == True
+    os.remove('SFR_DB.h5')
 
 def test_get_outputInterface():
+    """TODO: Add test here"""
     I = h5I.h5Interface()
     I.path = r'fridge/test_suite'
     I.mcnp_file_name = 'FC_FS65_H75_23Pu4U10Zr_BU.out'
     I.get_outputInterface()
-    assert 1 ==1 
+    assert 1 == 1
     
 def test_add_reactor():
     I = h5I.h5Interface()
@@ -97,14 +99,15 @@ def test_add_reactor():
     assert assem_1['burnup'][0] == 3.164E1
     assert assem_1['actinide inventory']['92235'][0] == 1.047E3
     assert assem_1['actinide inventory']['92235'][-1] == 3.116E-2
-    
+    os.remove('SFR_DB.h5')
+
 def test_get_reactor_ind_vars():
     I = h5I.h5Interface()
     I.params = ['FS65','H75','23Pu4U10Zr','BU']
     I.get_reactor_ind_vars()
     assert I.assembly_ind_vars == {'smear': 65,
                                  'height': 75,
-                                 'pu_content': 0.874,
+                                 'pu_content': 0.875,
                                  'u_content': (1-0.875),
                                  'condition': b'BU'}
 
@@ -194,7 +197,7 @@ def test_convert_assembly_parameters():
     assert assem_1['actinide inventory']['92235'][-1] == 3.116E-2
     
 def test_create_database():
-    h5_interface = h5I.h5Interface(output_name='test')
+    h5_interface = h5I.h5Interface(output_name='db_test')
     h5_interface.create_h5()
     for root, dirs, files in os.walk('fridge/test_suite'):
         for file in files:
@@ -205,4 +208,5 @@ def test_create_database():
                     pass
     assem_1 = h5_interface.h5file['FS65_H75_23Pu4U10Zr']['FS65_H75_23Pu4U10Zr_BU']['step_6']['assemblies']['1882']
     assert assem_1['power fraction'][0] == 1.094E-2
+    os.remove('db_test.h5')
     

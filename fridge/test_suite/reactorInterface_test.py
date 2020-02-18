@@ -2,7 +2,7 @@ import fridge.utilities.h5Interface as h5I
 import fridge.utilities.reactorInterface as rI
 import os
 
-h5_interface = h5I.h5Interface(output_name='test')
+h5_interface = h5I.h5Interface(output_name='reactor_interface')
 h5_interface.create_h5()
 for root, dirs, files in os.walk('fridge/test_suite'):
     for file in files:
@@ -64,3 +64,5 @@ def test_get_void_coefficient():
     void = rx.get_void_coefficient()
     print(rx.rx_base['keff'][0], rx.rx_void['keff'][0])
     assert round(void,2) == -60.34
+
+os.remove('reactor_interface.h5')

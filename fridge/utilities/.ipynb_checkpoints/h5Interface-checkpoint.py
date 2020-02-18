@@ -87,13 +87,25 @@ class h5Interface(object):
             elif 'H' in params:
                 height = float(params[1:])
             elif 'Zr' in params:
-                try:
-                    if 'Pu' in params:
-                        pu_content = float(params[:2]) / 27.0
-                    else:
-                        pu_content = 0
-                except ValueError:
-                    pu_content = float(params[:1]) / 27.0
+                if '27U10Zr' in params:
+                    pu_content = 0
+                elif '3Pu24U10Zr' in params:
+                    pu_content = 0.10
+                elif '7Pu20U10Zr' in params:
+                    pu_content = 0.25
+                elif '11Pu16U10Zr' in params:
+                    pu_content = 0.40
+                elif '15Pu12U10Zr' in params:
+                    pu_content = 0.555555                      
+                elif '20Pu7U10Zr' in params:
+                    pu_content = 0.75
+                elif '23Pu4U10Zr' in params:
+                    pu_content = 0.875
+                elif '27Pu0U10Zr' in params:
+                    pu_content = 1.0
+                else:
+                    print('Warning: Plutonium content unknown for material {}. Please add an elif statment.'.format(params))
+                    pu_content = 0.0
                 u_content = 1.0 - pu_content
             else:
                 condition = params
@@ -101,7 +113,7 @@ class h5Interface(object):
                                 'height': height,
                                 'pu_content': pu_content,
                                 'u_content': u_content,
-                                'condition': np.string_(condition)}
+                                'condition': np.string_(condition)}    
         
     def fill_reactor_entry(self):
         """Given the information from the outputInterface, fill the database entry"""    

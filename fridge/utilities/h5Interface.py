@@ -135,6 +135,7 @@ class h5Interface(object):
         for k,v in self.assembly_ind_vars.items():
             self.h5file[self.base_core]['independent variables'][k] = [v]
 
-    def read_h5(self):
-        """Read an H5 file and create an outputInterface class"""
-        pass
+    def read_h5(self, path):
+        """Read an H5 file and create an h5 interface"""
+        self.h5file = h5py.File(path, 'r+')
+        

@@ -1,13 +1,14 @@
 # Assemblies
 
-There are two types of assemblies that can be built in FRIDGe; smear and fuel assemblies.
+There are two types of assemblies that can be built in FRIDGe: smear and fuel assemblies.
 Both types of assemblies are created using YAML files and can be found in `fridge/data/assembly`.
 
 ## Smear Assemblies
 
-Smear assemblies are used to create an single-region homogenous assembly.
+Smear assemblies are used to create an assembly with axially variable homogenous regions.
 This type of assembly is ideal for creating pure coolant assemblies, reflectors, or neutron shields.
-The variables for creating a smear assembly can be seen in Table 1.
+The variables for creating a smear assembly can be seen in Table 1. Figure 1 shows the layout of the smear assembly.
+
 
 Table 1. Variables for Smear Assembly YAML file.
 
@@ -16,31 +17,36 @@ Table 1. Variables for Smear Assembly YAML file.
 |Assembly Type  | string | -- | Smear|
 |Assembly Pitch | float  | cm | 12.0|
 |Duct Thickness | float | cm | 0.3|
+|Assembly Gap   | float | cm | 0.15|
 |Duct Inside Flat to Flat | float | cm | 11.1|
 |Assembly Height | float | cm | 240|
 |Coolant<sup>*</sup> | string | -- | LiquidNa|
 |Assembly Material | string | -- | HT9|
-|Blank Height | float | cm | 220|
-|Blank Smear | Dictionary | str: wt % | {LiquidNa: 0.9, HT9: 0.1}|
 |Z Position | float | cm | -60|
+|Axial Regions| list of ints | [1,2,3]
+|Axial Region (int) | dictionary | -- | Smear Materials, Smear Height, Smear Name|
+|Smear Name | dictionary | material:weight fraction | {LiquidNa: 0.9, HT9: 0.1}
+|Smear Height| float | cm | 200 |
+|Smear Name  | str   | -- | Test_Region |
 
 <sup>*</sup> Optional if building full core model.
 
 `Assembly Type` is a string used to denote the types of assembly (Smear or Fuel).
 `Assembly Pitch` is a float to denote the distance from the center of one assembly to an adjacent assembly.
 **Note:** All assemblies in a core should have the same assembly pitch; if they don't errors in geometry may arise.
+`Assemmbly Gap` is a float used to denote the amount of coolant between the edge of the duct and the edge of the assembly. I.e. duct flat to flat + 2 * duct thickness + 2 * assembly gap = assembly pitch.
 `Duct Thickness` is a float to denote the thickness of the assembly duct.
 `Duct Inside Flat to Flat` is a float to denote the distance from one flat edge of the inner hexagon to the other.
 `Assembly Height` is a float used to denote the total height of the assembly.
 `Coolant` is a string used to create a material for the coolant.
 `Assembly Material` is a string used to create a material for the assembly.
-`Blank Height` is a float used to denote the height of the smear portion of the assembly.
-**Note:** If the `Blank Height` is less than the `Assembly Height`, the excess height will be used to create two coolant regions above and below the smear region.
-**Note:** If `Blank Height` of the assembly exceeds the `Assembly Height`, the `Assembly Height` will truncate the `Blank Height`; this may lead to geometry errors.
-`Blank Smear` is a dictionary of strings and weight percents.
-This will create a smeared material where each string (key) in the dictionary will create a material, whose weight fraction is the corresponding float (value).
 `Z Position` is a float which allows the user to manually adjust where they want the bottom of the smear assembly to be.
-Figure 1 shows the layout of the blank assembly.
+`Axial Regions` list of the axial positions that FRIDGe expects to see below. Positions are listed in terms of integers, where the lowest integer will be place on the bottom.
+`Axial Region #` is the axial region for integer found in Axial Regions list. This is a dictionary which contains the following aspects: `Smear Materials`, `Smear Height`, `Smear Name`.
+`Smear Materials` is a dictionary of material names and weight percents.
+This will create a smeared material where each string (key) in the dictionary will create a material, whose weight fraction is the corresponding float (value).
+`Smear Height` is a float used to denote the height of this axial region.
+`Smear Name` name given to to the axial region.
 
 Figure 1. FRIDGe created smear assembly.
 
@@ -48,8 +54,8 @@ Figure 1. FRIDGe created smear assembly.
 
 ## Fuel Assembly
 
-Fuel assemblies are used to create assemblies with a heterogeneous fuel region.
-This is idea for creating driver,and blanket assemblies
+Fuel assemblies are used to create assemblies with a heterogeneous region.
+While the name suggests that only fuel is allowed, the heterogenous region could contain fuel, blanket fuel, or control pins.
 The variables for creating a fuel assembly can be seen in Table 2.
 
 Table 2. Variables for Fuel Assembly YAML file.
@@ -58,6 +64,7 @@ Table 2. Variables for Fuel Assembly YAML file.
 |----------------|---------------|------|--------|
 |Assembly Type  | string | -- | Fuel|
 |Assembly Pitch | float  | cm | 12.0|
+|Assembly Gap   | float | cm | 0.15|
 |Duct Thickness | float | cm | 0.3|
 |Duct Inside Flat to Flat | float | cm | 11.1|
 |Assembly Height | float | cm | 240|
@@ -77,10 +84,13 @@ Table 2. Variables for Fuel Assembly YAML file.
 |Clad Material| str | -- | HT9|
 |Bond Material| str | -- | LiquidNa|
 |Bond Above Fuel<sup>*</sup> | float | cm | 0.6|
-|Plenum Height | float | cm | 60|
-|Plenum Smear | dictionary | str: wt % | {LiquidNa: 0.5, HT9: 0.25, Void: 0.25}|
-|Reflector Height | float | cm | 50|
-|Reflector Smear | dictionary | str: wt % | {LiquidNa: 0.5, HT9: 0.25, Void: 0.25}|
+|Axial Regions| list of ints | [1,2,3]
+|Axial Region (int) | dictionary | -- | Smear Materials, Smear Height, Smear Name|
+|Smear Name | dictionary | material:weight fraction | {LiquidNa: 0.9, HT9: 0.1}
+|Smear Height| float | cm | 200 |
+|Smear Name  | str   | -- | Test_Region |
+|Fuel Height | float   | cm | 60 |
+|Fuel Name | str   | -- | Fuel |
 
 <sup>*</sup> Optional if building full core model.
 
@@ -99,7 +109,7 @@ Table 2. Variables for Fuel Assembly YAML file.
 `Z Position` is a float which allows the user to manually adjust where they want the bottom of the fuel section in the assembly to be.
 **Note:** If no `Z Position` is selected the default value of 0 will be used.
 
-Table 3. Variables for Smear Assembly YAML file.
+Table 3. Number of pins allowed in an assembly based on the number of rings.
 
 |Number of Rings | Number of Pins/Assemblies|
 |----------------|--------------------------|
@@ -133,14 +143,17 @@ FRIDGe will allow this because it homogenizes the wire wrap and coolant, but it 
 `Clad Material` is a string to denote the cladding material.
 `Bond Material` is a float to denote the fuel bond material.
 `Bond above Fuel` is a float to denote the height of the bond above the fuel.
-`Plenum Height` is a float used to denote the height of the plenum portion of the assembly.
-`Plenum Smear` is a dictionary of strings and weight percents.
-This will create a smeared material where each string in the dictionary will create a material, whose weight fraction is the corresponding float.
-`Reflector Height` is a float used to denote the height of the reflector portions of the assembly.
-`Reflector Smear` is a dictionary of strings and weight percents.
-This will create a smeared material where each string in the dictionary will create a material, whose weight fraction is the corresponding float.
-**Note:** If the sum of the fuel height, plenum height and two times the reflector height is greater than the assembly height, the assembly will be truncated; this may lead to geometry errors.
-**Note:** If the sum of the fuel height, plenum height and two times the reflector height is less than the assembly height, the excess height will be used to create two coolant regions above and below the assembly.
+`Axial Regions` list of the axial positions that FRIDGe expects to see below. Positions are listed in terms of integers, where the lowest integer will be place on the bottom.
+`Axial Region #` is the axial region for integer found in Axial Regions list. This is a dictionary which contains the following aspects: `Smear Materials`, `Smear Height`, `Smear Name`.
+`Smear Materials` is a dictionary of material names and weight percents.
+This will create a smeared material where each string (key) in the dictionary will create a material, whose weight fraction is the corresponding float (value).
+`Smear Height` is a float used to denote the height of this axial region.
+`Smear Name` name given to to the axial region.
+`Smear Height` is a float used to denote the height of the fueled/heterogenous axial region.
+`Smear Name` name given to the fueled/heterogeneous axial region<sup>*</sup>.
+<sup>*</sup> Note: for the heterogeneous region, no material name is given, as it will automatically fill this region with pin data described earlier.
+
+
 Figure 2 shows an example fuel assembly with each axial section defined.
 Figure 3 shows the fuel region and all components which make up the region.
 

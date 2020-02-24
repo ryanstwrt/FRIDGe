@@ -17,6 +17,10 @@ Table 1. Variables for FRIDGe Input YAML file.
 |Number of Particle Per Generations<sup>*</sup> | int | -- | 1e8 | 1e6|
 |Run Kinetics<sup>*</sup> | Boolean | -- | True | False|
 |Void Percent<sup>*</sup> | float | % | 0.1 | 1.0|
+|Burnup<sup>*</sup><sup>&dagger</sup>| Boolean| -- | True | False |
+|Burnup Lengths<sup>*</sup> | list of ints | days | [50, 50, 50] | [] |
+|Reactor Power<sup>*</sup>  | float | MW | 300 | 0 |
+|Power Fractions<sup>*</sup> | list of floats | [1.0, 1.0, 0.9]| [] |
 |ksens<sup>*,**</sup> | Boolean | -- | True | False|
 |Temperature Adjusted Density<sup>*,**</sup> | Boolean | -- | True | False|
 |Temperature Adjusted Volume<sup>*,**</sup> | Boolean| -- | True | False|
@@ -26,6 +30,8 @@ Table 1. Variables for FRIDGe Input YAML file.
 <sup>*</sup>Optional
 
 <sup>**</sup>Currently not built into FRIDGe.
+
+<sup>&dagger</sup> Note: If Burnup is True, the variables burnup lengths, reactor power, and power fractions are all required, and no default is set for them. 
 
 The only variables required for building a FRIDGe input file are the `Name` and `Input Type`, all other variables have default setting.
 The `Name` is assembly or core file in `fridge/data/assembly` or `fridge/data/core` which will be used to create an input file.
@@ -43,3 +49,7 @@ The `Input Type` is the the type of file to be create, two options are available
 For example, a value of 0.01 indicates that the density of the coolant will be reduced by 99%.
 The remaining settings are currently not used in FRIDGe, but are intended for addition.
 A description of each will be added as each variable is added.
+`Burnup` will create a burnup input file for the given core. This will burn all fuel material contained within heterogeneous assemblies.
+`Burnup lengths` is a list of burnup days desired for each burnup step. Note that if 300 burnup days is desired, with three total burnup steps the list [100, 100, 100] will provide this. If the list [100, 200, 300] is given, a total burnup of 600 days will be applied.
+`Reactor Power` total power of the reactor given in mega-watts. This provides accurate burnup calculations for the core.
+`Power Fraction` is a list with a length equal to the burnup lengths. This provides the fraction of `Reactor Power` desired for each burnup step.

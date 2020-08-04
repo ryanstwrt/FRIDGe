@@ -211,7 +211,6 @@ def test_create_database():
 
 def test_read_db():
     h5_interface = h5I.h5Interface()
-    print(os.getcwd())
     h5_interface.read_h5('db_test.h5')
     assem_1 = h5_interface.h5file['FS65_H75_23Pu4U10Zr']['FS65_H75_23Pu4U10Zr_BU']['step_6']['assemblies']['1882']
     assert assem_1['power fraction'][0] == 1.094E-2

@@ -56,7 +56,7 @@ class h5Interface(object):
                     if type(val) == str: #skip the units, this will be removed from output
                         pass
                     else:
-                        core_group[k][pre] = [val]                                                 
+                        core_group[k][pre] = [val]
             else: 
                 core_group[k] = [v[0]]
         

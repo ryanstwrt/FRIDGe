@@ -157,7 +157,7 @@ def test_material_UO2():
     assert np.allclose(m.atomDensity, 0.07335, 1e-3)
     atomPercentKnown = {92234: 0.000090, 92235: 0.010124, 92236: 0.000046, 92238: 0.323072, 8016: 0.666667}
     for k, v in atomPercentKnown.items():
-        assert np.allclose(m.atomPercent[k], v, 1e-1)
+        assert np.allclose(m.atomPercent[k], v, atol=1e-4)
 
 
 def test_material_UO2_Atom_Density():
@@ -216,7 +216,7 @@ def test_material_HT9():
                         42098: 1.40194e-3, 42100: 5.64454e-4,
                         74180: 1.8e-6, 74182: 3.975e-4, 74183: 2.1465e-4, 74184: 4.596e-4, 74186: 4.2645e-4}
     for k, v in atomPercentKnown.items():
-        assert np.allclose(m.atomPercent[k], v, 1e-1)
+        assert np.allclose(m.atomPercent[k], v, atol=1e-2)
 
 
 def test_material_SS316():
@@ -245,7 +245,7 @@ def test_material_SS316():
                         42092: 2.018e-3, 42094: 1.298e-3, 42095: 2.272e-3, 42096: 2.416e-3, 42097: 1.406e-3,
                         42098: 3.609e-3, 42100: 1.483e-3}
     for k, v in atomPercentKnown.items():
-        assert np.allclose(m.atomPercent[k], v, 1e-1)
+        assert np.allclose(m.atomPercent[k], v, atol=1e-2)
 
 
 def test_material_SS316_AtomPercent():
@@ -264,7 +264,6 @@ def test_material_SS316_AtomPercent():
     assert m.enrichmentIsotopes == []
     assert m.enrichmentVector == []
     assert m.atomDensity == 8.6553e-2
-    assert np.allclose(m.atomDensity, 8.6553e-2)
     atomPercentKnown = {6000: 1.900e-3,
                         14028: 9.231e-3, 14029: 4.857e-4, 14030: 3.316e-4,
                         15031: 4.133e-4,
@@ -276,7 +275,7 @@ def test_material_SS316_AtomPercent():
                         42092: 2.018e-3, 42094: 1.298e-3, 42095: 2.272e-3, 42096: 2.416e-3, 42097: 1.406e-3,
                         42098: 3.609e-3, 42100: 1.483e-3}
     for k, v in atomPercentKnown.items():
-        assert np.allclose(m.atomPercent[k], v, 1e-1)
+        assert np.allclose(m.atomPercent[k], v, atol=1e-2)
 
 def test_material_FFTF_IF():
     """
@@ -297,14 +296,13 @@ def test_material_FFTF_IF():
     assert m.enrichmentIsotopes == []
     assert m.enrichmentVector == []
     assert m.atomDensity == 6.4584E-2
-    assert np.allclose(m.atomDensity, 6.4584E-2, 5)
     atomPercentKnown = {92234: 9.9319E-7, 92235: 1.1417E-4, 92238: 1.5764E-2,
                         93237: 1.6063E-5,
                         94238: 3.1181E-6, 94239: 5.1198E-3, 94240: 7.0298E-4, 94241: 6.9284E-5, 94242: 1.2825E-5,
                         95241: 1.1744E-5,
                         8016: 4.2690E-2}
     for k, v in atomPercentKnown.items():
-        assert np.allclose(m.atomDensities[k], v, 5)
+        assert np.allclose(m.atomDensities[k], v, atol=1E-4)
 
 def test_material_FFTF_Inconel600():
     """
@@ -323,7 +321,6 @@ def test_material_FFTF_Inconel600():
     assert m.enrichmentIsotopes == []
     assert m.enrichmentVector == []
     assert m.atomDensity == 8.9615E-2
-    assert np.allclose(m.atomDensity, 6.4584E-2, 5)
     atomPercentKnown = {6000: 2.0908E-3,
                         14028: 4.1230E-4, 14029: 2.0945E-5, 14030: 1.3823E-5,
                         16032: 1.1158E-5, 16033: 8.8810E-8, 16034: 4.9925E-7, 16036: 1.1747E-9,

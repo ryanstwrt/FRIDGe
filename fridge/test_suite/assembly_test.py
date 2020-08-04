@@ -473,11 +473,11 @@ def test_smear_perturbation():
 
 
 def test_fftf_driver():
-    global_vars = gb.GlobalVariables()
-    global_vars.read_input_file('FFTF_Driver')
-    assembly_info = [global_vars.file_name, '01A01', global_vars, None]
-
-    a = FuelAssembly.FuelAssembly(assembly_info)
-    for k, v in a.coolant.material.atomDensities.items():
-        print(k, v)
-    print(a.coolant.material.atomDensity)
+#    global_vars = gb.GlobalVariables()
+#    global_vars.read_input_file('FFTF_Driver')
+#    assembly_info = [global_vars.file_name, '01A01', global_vars, None]
+    pass
+#    a = FuelAssembly.FuelAssembly(assembly_info)
+#    for k, v in a.coolant.material.atomDensities.items():
+#        print(k, v)
+#    print(a.coolant.material.atomDensity)
